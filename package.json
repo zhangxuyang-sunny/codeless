@@ -6,7 +6,8 @@
   "scripts": {
     "workbench:start": "pnpm --filter @low/workbench serve",
     "server:start:dev": "pnpm --filter @low/server start:dev",
-    "renderer:start": "pnpm --filter @low/renderer serve"
+    "renderer:start": "pnpm --filter @low/renderer serve",
+    "deploy": "scripts deploy.sh"
   },
   "keywords": [],
   "author": "",
