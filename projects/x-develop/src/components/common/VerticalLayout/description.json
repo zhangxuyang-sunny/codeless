@@ -1,0 +1,19 @@
+{
+  "id": "b",
+  "data": {
+    "props": [],
+    "slots": [
+      {
+        "name": "default",
+        "title": "元素内容",
+        "description": ""
+      }
+    ]
+  },
+  "meta": {
+    "name": "VerticalLayout",
+    "title": "垂直布局",
+    "description": "垂直布局容器",
+    "category": "布局容器"
+  }
+}
