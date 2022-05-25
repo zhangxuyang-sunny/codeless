@@ -10,9 +10,9 @@ const config = merge(common, development);
 const compiler = webpack(config);
 const server = new WebpackDevServer(devServer, compiler);
 
-const runServer = async () => {
+const bootstrap = async () => {
   console.log('Starting server...');
   await server.start();
 };
 
-runServer();
+bootstrap();
