@@ -1,14 +1,14 @@
-import type { ComputedRef, VNodeProps } from 'vue';
-import { v4 as uuid } from 'uuid';
-import { NodeTypes } from '../enums';
-import { AbstractNode } from '../AbstractNode';
-import { ArrayNode, ArraySchema } from './ArrayNode';
-import { ObjectNode, ObjectSchema } from './ObjectNode';
-import { StringNode, StringSchema } from './StringNode';
+import type { ComputedRef, VNodeProps } from "vue";
+import { v4 as uuid } from "uuid";
+import { NodeTypes } from "../enums";
+import { AbstractNode } from "../AbstractNode";
+import { ArrayNode, ArraySchema } from "./ArrayNode";
+import { ObjectNode, ObjectSchema } from "./ObjectNode";
+import { StringNode, StringSchema } from "./StringNode";
 import {
   ReactiveByPiniaNode,
-  ReactiveByPiniaSchema,
-} from './ReactiveByPiniaNode';
+  ReactiveByPiniaSchema
+} from "./ReactiveByPiniaNode";
 
 declare global {
   interface NodeSchema {
@@ -80,8 +80,8 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
   }
   private readonly id = new StringNode().setValue(uuid());
   private readonly key = new StringNode().setValue(uuid());
-  private readonly title = new StringNode().setValue('未命名组件');
-  private readonly version = new StringNode().setValue('0.0.0');
+  private readonly title = new StringNode().setValue("未命名组件");
+  private readonly version = new StringNode().setValue("0.0.0");
   private readonly src = new StringNode();
   private style: ObjectNode | ReactiveByPiniaNode = new ObjectNode();
   private props: ObjectNode | ReactiveByPiniaNode = new ObjectNode();
@@ -125,7 +125,7 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
     }
     if (schema.commonProps.type === NodeTypes.ReactiveByPinia) {
       this.commonProps = new ReactiveByPiniaNode().setSchema(
-        schema.commonProps,
+        schema.commonProps
       );
     } else if (schema.commonProps.type === NodeTypes.Object) {
       this.commonProps = new ObjectNode().setSchema(schema.commonProps);
@@ -149,7 +149,7 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
       commonProps: this.props.getSchema(),
       emits: this.emits.getSchema(),
       listeners: this.listeners.getSchema(),
-      slots: this.slots.getSchema(),
+      slots: this.slots.getSchema()
     };
   }
 
@@ -160,12 +160,12 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
       title: this.title.getValue(),
       version: this.version.getValue(),
       src: this.src.getValue(),
-      style: <MaterialValue['style']>this.style.getValue(),
-      props: <MaterialValue['props']>this.props.getValue(),
-      commonProps: <MaterialValue['commonProps']>this.commonProps.getValue(),
-      emits: <MaterialValue['emits']>this.emits.getValue(),
-      listeners: <MaterialValue['listeners']>this.listeners.getValue(),
-      slots: <MaterialValue['slots']>this.slots.getValue(),
+      style: <MaterialValue["style"]>this.style.getValue(),
+      props: <MaterialValue["props"]>this.props.getValue(),
+      commonProps: <MaterialValue["commonProps"]>this.commonProps.getValue(),
+      emits: <MaterialValue["emits"]>this.emits.getValue(),
+      listeners: <MaterialValue["listeners"]>this.listeners.getValue(),
+      slots: <MaterialValue["slots"]>this.slots.getValue()
     };
   }
 }

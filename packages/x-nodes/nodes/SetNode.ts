@@ -41,7 +41,7 @@ export class SetNode extends AbstractNode<NodeTypes.Set> {
 
   getValue() {
     const set = new Set();
-    this.elements.forEach(element => {
+    this.elements.forEach((element) => {
       set.add(AbstractNode.parseValue(element));
     });
     return set;

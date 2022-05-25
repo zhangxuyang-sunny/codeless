@@ -8,7 +8,7 @@ export default defineConfig({
     config.devServer.headers({ "Access-Control-Allow-Origin": "*" });
   },
   configureWebpack: config => {
-    config.resolve.alias.packages = path.resolve("../");
+    config.resolve.alias.packages = path.resolve("../../packages");
     config.experiments = {
       topLevelAwait: true
     };

@@ -41,7 +41,9 @@ export class ProjectNode extends AbstractNode<NodeTypes.Project> {
   }
 
   addPinia(piniaSchema: PiniaSchema) {
-    const index = this.piniaList.findIndex(item => item.key === piniaSchema.key);
+    const index = this.piniaList.findIndex(
+      (item) => item.key === piniaSchema.key
+    );
     if (index >= 0) {
       this.piniaList[index] = piniaSchema;
     } else {
@@ -50,7 +52,7 @@ export class ProjectNode extends AbstractNode<NodeTypes.Project> {
   }
 
   addPage(pageSchema: PageSchema) {
-    const index = this.pageList.findIndex(item => item.id === pageSchema.id);
+    const index = this.pageList.findIndex((item) => item.id === pageSchema.id);
     if (index >= 0) {
       this.pageList[index] = pageSchema;
     } else {
@@ -60,10 +62,10 @@ export class ProjectNode extends AbstractNode<NodeTypes.Project> {
 
   setSchema(schema: ProjectSchema) {
     this.router.setSchema(schema.router);
-    schema.piniaList.forEach(item => {
+    schema.piniaList.forEach((item) => {
       this.addPinia(item);
     });
-    schema.pageList.forEach(item => {
+    schema.pageList.forEach((item) => {
       this.addPage(item);
     });
     return this;
@@ -83,11 +85,15 @@ export class ProjectNode extends AbstractNode<NodeTypes.Project> {
   }
 
   getPiniaList() {
-    return this.piniaList.map(item => new PiniaNode().setSchema(item).getValue());
+    return this.piniaList.map((item) =>
+      new PiniaNode().setSchema(item).getValue()
+    );
   }
 
   getPageList() {
-    return this.pageList.map(item => new PageNode().setSchema(item).getValue());
+    return this.pageList.map((item) =>
+      new PageNode().setSchema(item).getValue()
+    );
   }
 
   getValue(): ProjectValue {

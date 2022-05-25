@@ -63,6 +63,42 @@ importers:
       vue: 3.2.36
       vue-router: 4.0.15_vue@3.2.36
 
+  projects/typescript-base:
+    specifiers:
+      '@typescript-eslint/eslint-plugin': ^5.0.0
+      '@typescript-eslint/parser': ^5.0.0
+      eslint: ^8.0.1
+      eslint-config-prettier: ^8.3.0
+      eslint-plugin-prettier: ^4.0.0
+      prettier: ^2.3.2
+      typescript: ^4.3.5
+    devDependencies:
+      '@typescript-eslint/eslint-plugin': 5.26.0_gu4clceiw6ditaem5r577qrdpi
+      '@typescript-eslint/parser': 5.26.0_utdtartgf6fqqgkivzeynh76la
+      eslint: 8.16.0
+      eslint-config-prettier: 8.5.0_eslint@8.16.0
+      eslint-plugin-prettier: 4.0.0_j7rsahgqtkecno6yauhsgsglf4
+      prettier: 2.6.2
+      typescript: 4.6.4
+
+  projects/x-compiler:
+    specifiers:
+      '@typescript-eslint/eslint-plugin': ^5.0.0
+      '@typescript-eslint/parser': ^5.0.0
+      eslint: ^8.0.1
+      eslint-config-prettier: ^8.3.0
+      eslint-plugin-prettier: ^4.0.0
+      prettier: ^2.3.2
+      typescript: ^4.3.5
+    devDependencies:
+      '@typescript-eslint/eslint-plugin': 5.26.0_gu4clceiw6ditaem5r577qrdpi
+      '@typescript-eslint/parser': 5.26.0_utdtartgf6fqqgkivzeynh76la
+      eslint: 8.16.0
+      eslint-config-prettier: 8.5.0_eslint@8.16.0
+      eslint-plugin-prettier: 4.0.0_j7rsahgqtkecno6yauhsgsglf4
+      prettier: 2.6.2
+      typescript: 4.6.4
+
   projects/x-develop:
     specifiers:
       '@arco-design/web-vue': 2.27.1
@@ -73,6 +109,7 @@ importers:
       '@babel/preset-env': 7.17.10
       '@babel/preset-react': 7.16.7
       '@babel/preset-typescript': 7.16.7
+      '@babel/runtime': ^7.17.9
       '@types/node': 17.0.31
       '@types/systemjs': 6.1.1
       '@types/uuid': 8.3.4
@@ -131,6 +168,7 @@ importers:
       '@babel/preset-env': 7.17.10_@babel+core@7.17.10
       '@babel/preset-react': 7.16.7_@babel+core@7.17.10
       '@babel/preset-typescript': 7.16.7_@babel+core@7.17.10
+      '@babel/runtime': 7.18.0
       '@types/node': 17.0.31
       '@types/systemjs': 6.1.1
       '@types/uuid': 8.3.4

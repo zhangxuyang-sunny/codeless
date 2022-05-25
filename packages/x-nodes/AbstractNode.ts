@@ -24,9 +24,16 @@ declare global {
 // pinia store
 type TypePiniaStore<
   T extends Record<string, unknown> = Record<string, unknown> //
-> = Store<string, T, Record<string, FunctionConstructor>, Record<string, FunctionConstructor>>;
+> = Store<
+  string,
+  T,
+  Record<string, FunctionConstructor>,
+  Record<string, FunctionConstructor>
+>;
 
-type TypePlatformThis<T extends Record<string, unknown> = Record<string, unknown>> = {
+type TypePlatformThis<
+  T extends Record<string, unknown> = Record<string, unknown>
+> = {
   piniaRecord: Record<string, TypePiniaStore<T>>;
 };
 
@@ -50,7 +57,8 @@ export abstract class AbstractNode<
   abstract getValue(): V;
 
   // 节点解析器集合
-  protected static parsers: Map<NodeTypes, { new (): AbstractNode }> = new Map();
+  protected static parsers: Map<NodeTypes, { new (): AbstractNode }> =
+    new Map();
   static setParser(Parser: { new (): AbstractNode }) {
     const parser = new Parser();
     if (!AbstractNode.parsers.has(parser.type)) {
@@ -78,7 +86,9 @@ export abstract class AbstractNode<
   // 获取 pinia 的响应式计算数据
   static getPiniaReactiveByPath<T>(path: string) {
     return <ComputedRef<T>>(
-      this.packages.vue?.computed(() => lodashGet(this.context.piniaRecord, path))
+      this.packages.vue?.computed(() =>
+        lodashGet(this.context.piniaRecord, path)
+      )
     );
   }
   // 设置包数据

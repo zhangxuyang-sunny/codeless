@@ -1,5 +1,5 @@
-import { NodeTypes } from '../enums';
-import { AbstractNode } from '../AbstractNode';
+import { NodeTypes } from "../enums";
+import { AbstractNode } from "../AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -23,7 +23,7 @@ export class MapNode<T extends string = string> //
   constructor() {
     super(NodeTypes.Map);
   }
-  private readonly iterable: MapSchema<T>['iterable'] = [];
+  private readonly iterable: MapSchema<T>["iterable"] = [];
 
   addIterable(iterable: [T, NodeSchemas]) {
     this.iterable.push(iterable);
@@ -37,7 +37,7 @@ export class MapNode<T extends string = string> //
   getSchema() {
     return {
       type: this.type,
-      iterable: this.iterable,
+      iterable: this.iterable
     };
   }
 

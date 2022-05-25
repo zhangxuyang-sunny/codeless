@@ -1,5 +1,5 @@
-import { NodeTypes } from '../enums';
-import { AbstractNode } from '../AbstractNode';
+import { NodeTypes } from "../enums";
+import { AbstractNode } from "../AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -30,7 +30,7 @@ export class NullNode extends AbstractNode<NodeTypes.Null> {
   getSchema() {
     return {
       type: this.type,
-      value: this.value,
+      value: this.value
     };
   }
 

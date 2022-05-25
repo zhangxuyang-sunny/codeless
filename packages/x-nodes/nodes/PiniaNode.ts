@@ -23,15 +23,18 @@ export interface PiniaSchema {
   hydrate?: FunctionSchema;
 }
 
-export type PiniaValue<T extends Record<string, unknown> = Record<string, unknown>> =
-  DefineStoreOptions<
-    string,
-    T,
-    Record<string, TypePlatformFunction>,
-    Record<string, TypePlatformFunction>
-  >;
+export type PiniaValue<
+  T extends Record<string, unknown> = Record<string, unknown>
+> = DefineStoreOptions<
+  string,
+  T,
+  Record<string, TypePlatformFunction>,
+  Record<string, TypePlatformFunction>
+>;
 
-export class PiniaNode<T extends Record<string, unknown> = Record<string, unknown>> //
+export class PiniaNode<
+    T extends Record<string, unknown> = Record<string, unknown>
+  > //
   extends AbstractNode<NodeTypes.Pinia, PiniaSchema, PiniaValue<T>>
 {
   constructor() {
@@ -80,7 +83,9 @@ export class PiniaNode<T extends Record<string, unknown> = Record<string, unknow
       state: () => <T>state,
       getters: mapFunc(this.getters),
       actions: mapFunc(this.actions),
-      hydrate: this.hydrate ? new FunctionNode().setSchema(this.hydrate).getValue() : undefined
+      hydrate: this.hydrate
+        ? new FunctionNode().setSchema(this.hydrate).getValue()
+        : undefined
     };
   }
 }

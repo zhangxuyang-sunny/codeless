@@ -19,7 +19,11 @@ export interface ReactiveByPiniaSchema {
 export type ReactiveByPiniaValue<T = unknown> = ComputedRef<T>;
 
 export class ReactiveByPiniaNode<T = unknown> //
-  extends AbstractNode<NodeTypes.ReactiveByPinia, ReactiveByPiniaSchema, ReactiveByPiniaValue<T>>
+  extends AbstractNode<
+    NodeTypes.ReactiveByPinia,
+    ReactiveByPiniaSchema,
+    ReactiveByPiniaValue<T>
+  >
 {
   constructor() {
     super(NodeTypes.ReactiveByPinia);

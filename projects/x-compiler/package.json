@@ -1,22 +1,15 @@
 {
-  "name": "@low/nodes",
-  "version": "0.1.0",
+  "name": "@low/compiler",
+  "version": "1.0.0",
   "description": "",
+  "main": "index.js",
   "scripts": {
-    "lint": "eslint \"./**/*.ts\" --fix"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "lodash": "^4.17.21",
-    "pinia": "^2.0.14",
-    "uuid": "^8.3.2",
-    "vue": "^3.2.36"
-  },
   "devDependencies": {
-    "@types/lodash": "^4.14.182",
-    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",

@@ -6,7 +6,7 @@
         "./*"
       ],
       "packages/*":[
-        "../*"
+        "../../packages/*"
       ],
       "projects/*":[
         "../../projects/*"

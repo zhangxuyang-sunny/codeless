@@ -1,5 +1,5 @@
-import { NodeTypes } from '../enums';
-import { AbstractNode } from '../AbstractNode';
+import { NodeTypes } from "../enums";
+import { AbstractNode } from "../AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -39,7 +39,7 @@ export class BigIntNode<T extends BigIntDesc = BigIntDesc> //
   getSchema() {
     return {
       type: this.type,
-      value: this.value,
+      value: this.value
     };
   }
 
