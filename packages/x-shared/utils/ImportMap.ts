@@ -1,3 +1,5 @@
+import "systemjs";
+
 // https://github.com/systemjs/systemjs/blob/main/docs/import-maps.md
 type TypeImportMap = {
   imports: Record<string, string>;

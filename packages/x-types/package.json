@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "description": "x-platform types",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "types": "./index.ts",
+  "types": "",
   "keywords": [],
   "author": "",
   "license": "ISC",
