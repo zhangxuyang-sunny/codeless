@@ -1,0 +1,12 @@
+{
+  "name": "@low/code-generator",
+  "version": "0.1.0",
+  "description": "x-platform code generator",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "types": "./index.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
