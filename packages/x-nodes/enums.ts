@@ -22,5 +22,9 @@ export const enum NodeTypes {
   Material = "MATERIAL",
   // PageLink = "PAGE_LINK",
   ReactiveByPinia = "REACTIVE_BY_PINIA",
-  Project = "PROJECT"
+  Project = "PROJECT",
+  // CustomModule = "CUSTOM_MODULE",
+  CustomVueComponent = "CUSTOM_VUE_COMPONENT"
+  // CustomReactComponent = "CUSTOM_REACT_COMPONENT",
+  // CustomAngularComponent = "CUSTOM_ANGULAR_COMPONENT"
 }

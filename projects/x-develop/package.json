@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "ts-node scripts/build.ts",
-    "serve": "ts-node scripts/serve.ts",
+    "clean": "rm -rf dist",
+    "build": "pnpm run clean && ts-node scripts/build.ts",
+    "serve": "pnpm run clean && ts-node scripts/serve.ts",
     "webpack:dll": "webpack --config=webpack/dll.ts"
   },
   "keywords": [],

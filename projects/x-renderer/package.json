@@ -9,6 +9,7 @@
     "debug": "node --inspect-brk=9229 ./node_modules/@vue/cli-service/bin/vue-cli-service.js serve"
   },
   "dependencies": {
+    "@arco-design/web-vue": "^2.29.0",
     "@low/nodes": "workspace:^0.1.0",
     "@types/webpack-env": "^1.17.0",
     "core-js": "^3.22.7",

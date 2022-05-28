@@ -41,6 +41,7 @@ export type TypeMaterialMeta = {
 export type TypeMaterialSchema = {
   $schema?: string;
   url: string;
+  code?: string;
   meta: TypeMaterialMeta;
   options: TypeMaterialOptions;
   /**

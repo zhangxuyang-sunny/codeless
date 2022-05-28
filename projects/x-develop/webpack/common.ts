@@ -1,6 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import { Configuration, ProgressPlugin, DllReferencePlugin } from 'webpack';
+import {
+  Configuration,
+  // ProgressPlugin,
+  DllReferencePlugin,
+  // container
+} from 'webpack';
 import { VueLoaderPlugin } from 'vue-loader';
 // import CopyWebpackPlugin from 'copy-webpack-plugin';
 // import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
@@ -14,8 +19,8 @@ import {
   vueLoader,
   babelLoader,
   pugPlainLoader,
-  rawLoader,
-  threadLoader
+  rawLoader
+  // threadLoader
 } from './loaders';
 import { PORT } from './devServer';
 
@@ -41,15 +46,18 @@ const config: Configuration = {
   entry: {
     'packages/vue/3.2.31/index': './node_modules/vue/dist/vue.cjs.js',
     'packages/pinia/2.0.14/index': './node_modules/pinia/index.js',
-    'packages/vue-router/4.0.13/index': './node_modules/vue-router/dist/vue-router.cjs.js',
-    'components/common/RendererEntry': './src/components/common/RendererEntry/Index.vue',
+    'packages/vue-router/4.0.13/index':
+      './node_modules/vue-router/dist/vue-router.cjs.js',
+    'components/common/RendererEntry':
+      './src/components/common/RendererEntry/Index.vue',
     'components/arco/Button': './src/components/arco/Button.vue',
     // 'ui/antd/ant-design-vue': './node_modules/ant-design-vue/lib/index.js',
     'packages/@arco-design/web-vue/2.27.1/index':
       './node_modules/@arco-design/web-vue/lib/index.js',
     'packages/@arco-design/web-vue/icon/2.27.1/index':
       './node_modules/@arco-design/web-vue/lib/icon/index.js',
-    'components/common/VerticalLayout': './src/components/common/VerticalLayout/Index.vue',
+    'components/common/VerticalLayout':
+      './src/components/common/VerticalLayout/Index.vue',
     ...getEntryByDir('components/antd'),
     ...getEntryByDir('components/arco'),
     ...getEntryByDir('components/common'),
@@ -64,7 +72,7 @@ const config: Configuration = {
     path: path.resolve('./dist'),
     filename: '[name].js',
     publicPath: `http://localhost:${PORT}/`,
-    libraryTarget: 'system', // 关键🏆
+    libraryTarget: 'umd', // 关键🏆
     umdNamedDefine: true,
     chunkFilename: '[name].chunk.js'
     // hotUpdateChunkFilename: 'hmr/[id].hot-update.js',
@@ -97,7 +105,8 @@ const config: Configuration = {
   },
   // https://webpack.js.org/configuration/experiments/#experimentsoutputmodule
   experiments: {
-    topLevelAwait: true
+    topLevelAwait: true,
+    // outputModule: true
   },
   module: {
     noParse: /^(vue|vue-router|vuex|vuex-router-sync)$/,

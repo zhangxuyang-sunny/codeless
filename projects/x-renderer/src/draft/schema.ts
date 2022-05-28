@@ -129,6 +129,7 @@ const pageList: PageSchema[] = [
     src: {
       type: NodeTypes.String,
       value: `http://${host}/static/components/arco/Button.js`
+      // value: `http://${host}/static/components/common/EmptyContainer.js`
     },
     // style: {
     //   type: 'Function',

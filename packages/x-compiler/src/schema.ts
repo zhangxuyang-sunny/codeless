@@ -53,7 +53,7 @@ const piniaList: PiniaSchema[] = [
           },
           width: {
             type: NodeTypes.Function,
-            code: `(function () { return "auto" })()`
+            code: "(function () { return \"auto\" })()"
           }
         }
       },
@@ -98,7 +98,7 @@ const piniaList: PiniaSchema[] = [
     },
     hydrate: {
       type: NodeTypes.Function,
-      code: `function(s,i) { console.log({s,i}) }`
+      code: "function(s,i) { console.log({s,i}) }"
     }
   }
 ];
