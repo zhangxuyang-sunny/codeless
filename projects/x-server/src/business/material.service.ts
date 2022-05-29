@@ -1,7 +1,9 @@
-import { ConfigurationService } from "src/configuration.service";
 import path from "node:path";
 import fse from "fs-extra";
 import { Injectable } from "@nestjs/common";
+import { FileService } from "src/modules/file.service";
+import { ConfigurationService } from "src/configuration.service";
+// import { build } from "packages/x-compiler/src/index";
 
 interface IGetListParams {
   ids: string[];
@@ -17,7 +19,10 @@ interface IGetDetailParams {
 
 @Injectable()
 export class MaterialService {
-  constructor(private readonly configService: ConfigurationService) {}
+  constructor(
+    private readonly configService: ConfigurationService,
+    private readonly fileService: FileService
+  ) {}
   private get host() {
     return this.configService.getHost();
   }
@@ -54,5 +59,12 @@ export class MaterialService {
       sourceCode: sourceCode ? fse.readFileSync(path.resolve(dir, "index.vue"), "utf-8") : null,
       runtimeCode: runtimeCode ? fse.readFileSync(path.resolve(dir, "index.js"), "utf-8") : null
     };
+  }
+
+  // 上传物料
+  async uploadMaterial(file: Express.Multer.File) {
+    const result = await this.fileService.uploadFile(file);
+    // console.log(build);
+    return result;
   }
 }

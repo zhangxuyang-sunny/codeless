@@ -1,0 +1,13 @@
+{
+  "id": "248f418a-cbec-4196-a75c-adc9efcb0304",
+  "name": "Button",
+  "description": "arco-design's Button",
+  "author": "Sunny",
+  "version": "0.0.1",
+  "type": "vue",
+  "files": {
+    "source": "source.vue",
+    "systemjs": "systemjs.js",
+    "module": "module.js"
+  }
+}
