@@ -1,38 +1,22 @@
 {
   "compilerOptions": {
-    "allowJs": true, //允许编译 js
-    "checkJs": false, // 允许检查 js,配合使用
-    "target": "es5",
-    // "module": "commonjs",
-    "lib": ["es2015", "dom"],
-    // 模块解析策略: https://www.tslang.cn/docs/handbook/module-resolution.html
-    // "moduleResolution": "Node",
-    "declaration": true, // 生成 .d.ts
-    "declarationDir": "./typings",
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "outDir": "dist",
+    "baseUrl": "./",
+    "jsx": "preserve",
+    "sourceMap": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "sourceMap": false,
-    "removeComments": true, // 删除所有注释
-    "strict": false,
-    "traceResolution": false, // 生成模块解析日志信息
-    "diagnostics": false, // 诊断信息
-    "extendedDiagnostics": false, // 详细诊断信息
-    "forceConsistentCasingInFileNames": true, // 禁止对同一个文件的不一致的引用。
-    "importHelpers": false,
-    "inlineSourceMap": false, // 生成单个sourcemaps文件，而不是将每sourcemaps生成不同的文件
-    "listFiles": false, //编译过程中打印文件名
-    "noErrorTruncation": false,
-    "noImplicitAny": false, // 在表达式和声明上有隐含的 any类型时报错。
-    "noImplicitThis": true, // 当 this表达式的值为 any类型的时候，生成一个错误
-    "noUnusedParameters": true, // 若有未使用的参数则抛错
-    "noUnusedLocals": true, // 若有未使用的局部变量则抛错
-    "preserveSymlinks": false, // 不把符号链接解析为其真实路径；将符号链接文件视为真正的文件
-    "pretty": true, // 给错误和消息设置样式，使用颜色和上下文
-    "typeRoots": ["./node_modules/@types"],
-    "outDir": "./dist",
-    "paths": {
-      "packages/*": ["../../packages/*"]
-    }
+    "skipDefaultLibCheck": false,
+    "skipLibCheck": true,
+    "importHelpers": true,
+    "lib": ["esnext"]
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./node_modules"]
+  "exclude": ["node_modules/**/*"],
+  "include": ["src/**/*", "start.ts"]
 }

@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Query, UploadedFiles } from "@nestjs/common";
+import { Controller, Get, Post, Query, UploadedFiles, UseInterceptors } from "@nestjs/common";
+import { FilesInterceptor } from "@nestjs/platform-express";
 import { MaterialService } from "./material.service";
 
 interface IGetListQuery {
@@ -34,6 +35,7 @@ export class MaterialController {
 
   // 上传物料
   @Post("upload")
+  @UseInterceptors(FilesInterceptor("files"))
   uploadMaterial(@UploadedFiles() files: Express.Multer.File[]) {
     return this.service.uploadMaterial(files[0]);
   }

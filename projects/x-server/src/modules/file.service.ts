@@ -11,7 +11,7 @@ export class FileService {
   // 上传文件
   async uploadFile(file: Express.Multer.File) {
     const staticFileDir = this.configurationService.getStaticFilesDir();
-    const filepath = path.join(staticFileDir, md5(file.buffer));
+    const filepath = path.join(staticFileDir, md5(file.buffer) + path.extname(file.originalname));
     const result = {
       path: filepath,
       name: file.originalname, // TODO 中文编码问题如何解决

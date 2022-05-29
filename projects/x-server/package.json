@@ -16,7 +16,7 @@
     "deploy": "pnpm build && pnpm start:pm2",
     "redeploy": "pnpm build && pm2 restart x-server",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -32,11 +32,13 @@
     "@nestjs/serve-static": "^2.2.2",
     "@types/multer": "^1.4.7",
     "@types/uuid": "^8.3.4",
+    "babel-loader": "8.2.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "fs-extra": "^10.1.0",
     "md5": "^2.3.0",
     "nedb-promises": "^6.0.3",
+    "node-loader": "^2.0.0",
     "pm2": "^5.2.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -76,7 +78,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -84,7 +86,14 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@app/compiler(|/.*)$": "<rootDir>/libs/compiler/src/$1"
+    }
   }
 }

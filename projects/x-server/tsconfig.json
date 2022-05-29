@@ -19,7 +19,15 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "paths": {
-      "packages/*": ["../../packages/*"]
+      "packages/*": [
+        "../../packages/*"
+      ],
+      "@app/compiler": [
+        "libs/compiler/src"
+      ],
+      "@app/compiler/*": [
+        "libs/compiler/src/*"
+      ]
     }
   }
 }

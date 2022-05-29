@@ -3,7 +3,8 @@ import fse from "fs-extra";
 import { Injectable } from "@nestjs/common";
 import { FileService } from "src/modules/file.service";
 import { ConfigurationService } from "src/configuration.service";
-// import { build } from "packages/x-compiler/src/index";
+import { CompilerService } from "@app/compiler";
+import { bootstrap } from "packages/x-compiler/src/start";
 
 interface IGetListParams {
   ids: string[];
@@ -21,10 +22,17 @@ interface IGetDetailParams {
 export class MaterialService {
   constructor(
     private readonly configService: ConfigurationService,
-    private readonly fileService: FileService
+    private readonly fileService: FileService,
+    private readonly compilerService: CompilerService
   ) {}
   private get host() {
     return this.configService.getHost();
+  }
+  private get staticResource() {
+    return this.configService.getStaticResourceDir();
+  }
+  private get staticFile() {
+    return this.configService.getStaticFilesDir();
   }
   // 获取物料列表
   getList(params: IGetListParams) {
@@ -64,7 +72,8 @@ export class MaterialService {
   // 上传物料
   async uploadMaterial(file: Express.Multer.File) {
     const result = await this.fileService.uploadFile(file);
-    // console.log(build);
+    console.log(result);
+    await bootstrap(this.staticFile);
     return result;
   }
 }
