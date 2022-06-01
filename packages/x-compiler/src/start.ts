@@ -8,6 +8,8 @@ import babel from "@rollup/plugin-babel";
 import json from "@rollup/plugin-json";
 import { terser } from "rollup-plugin-terser";
 
+const extensions = [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"];
+
 const inputOptions: InputOptions = {
   input: "",
   // input: "src/index.ts",
@@ -17,18 +19,21 @@ const inputOptions: InputOptions = {
     json(),
     vue({ preprocessStyles: true }),
     nodeResolve({
-      extensions: [".js", ".json", ".jsx", ".ts", ".tsx"],
+      extensions,
       preferBuiltins: true
       // modulesOnly: true
     }),
     commonjs(),
     // typescript2(),
     babel({
-      presets: [require("@babel/preset-typescript"), require("@vue/babel-preset-jsx")],
+      presets: [
+        require("@babel/preset-typescript"),
+        require("@vue/babel-preset-jsx")
+      ],
       plugins: [require("@vue/babel-plugin-jsx")],
       babelHelpers: "bundled",
       exclude: "node_modules/**",
-      extensions: [".js", ".jsx", ".mjs", ".ts", ".tsx", ".vue"]
+      extensions
     })
     // terser()
   ],
@@ -44,23 +49,25 @@ const outputOptions: OutputOptions[] = [
   {
     dir: "lib",
     entryFileNames: "index.system.js",
-    format: "systemjs"
+    format: "systemjs",
+    sourcemap: true
   },
   {
     dir: "lib",
     entryFileNames: "index.esm.js",
-    format: "es"
+    format: "es",
+    sourcemap: true
   }
 ];
 
-export async function bootstrap(root: string) {
+export async function bootstrap(entry: string) {
   console.time("take times");
   const builder = await rollup({
     ...inputOptions,
-    input: path.resolve(root, "014507f416c7c3e9aed915a91cd44266.vue")
+    input: entry
   });
   const queue = outputOptions.map((output) => {
-    const dir = path.resolve(root, "lib");
+    const dir = path.dirname(entry);
     return builder.write({ ...output, dir });
   });
   await Promise.all(queue);

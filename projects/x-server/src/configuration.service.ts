@@ -1,3 +1,4 @@
+import path from "path";
 import fse from "fs-extra";
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
@@ -20,16 +21,23 @@ export class ConfigurationService {
     return this.configService.get<string>("PROJECT_DB_FILE");
   }
 
+  // 获取静态资源路径
+  getStaticDir() {
+    const staticDir = this.configService.get<string>("STATIC_DIR");
+    fse.ensureDirSync(staticDir);
+    return staticDir;
+  }
+
   // 获取静态文件目录
   getStaticFilesDir() {
-    const staticFilesDir = this.configService.get<string>("STATIC_FILES_DIR");
+    const staticFilesDir = path.resolve(this.getStaticDir(), "files");
     fse.ensureDirSync(staticFilesDir);
     return staticFilesDir;
   }
 
   // 获取资源文件目录，这里包含所有的物料资源
   getStaticResourceDir() {
-    const staticFilesDir = this.configService.get<string>("STATIC_RESOURCE_DIR");
+    const staticFilesDir = path.resolve(this.getStaticDir(), "resource");
     fse.ensureDirSync(staticFilesDir);
     return staticFilesDir;
   }

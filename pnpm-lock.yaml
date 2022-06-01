@@ -27,6 +27,7 @@ importers:
       eslint: ^8.16.0
       eslint-config-prettier: ^8.5.0
       eslint-plugin-prettier: ^4.0.0
+      fsevents: ^2.3.2
       lodash: ^4.17.21
       prettier: ^2.6.2
       rollup: ^2.75.3
@@ -56,6 +57,7 @@ importers:
       eslint: 8.16.0
       eslint-config-prettier: 8.5.0_eslint@8.16.0
       eslint-plugin-prettier: 4.0.0_j7rsahgqtkecno6yauhsgsglf4
+      fsevents: 2.3.2
       lodash: 4.17.21
       prettier: 2.6.2
       rollup: 2.75.4
@@ -8888,7 +8890,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
-    optional: true
 
   /ftp/0.3.10:
     resolution: {integrity: sha1-kZfYYa2BQvPmPVqDv+TFn3MwiF0=}

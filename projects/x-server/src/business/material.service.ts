@@ -1,4 +1,5 @@
 import path from "node:path";
+import md5 from "md5";
 import fse from "fs-extra";
 import { Injectable } from "@nestjs/common";
 import { FileService } from "src/modules/file.service";
@@ -27,12 +28,6 @@ export class MaterialService {
   ) {}
   private get host() {
     return this.configService.getHost();
-  }
-  private get staticResource() {
-    return this.configService.getStaticResourceDir();
-  }
-  private get staticFile() {
-    return this.configService.getStaticFilesDir();
   }
   // 获取物料列表
   getList(params: IGetListParams) {
@@ -69,11 +64,17 @@ export class MaterialService {
     };
   }
 
-  // 上传物料
+  /**
+   * 上传物料
+   * @param file
+   * @param options version: 版本号
+   * @returns
+   */
   async uploadMaterial(file: Express.Multer.File) {
-    const result = await this.fileService.uploadFile(file);
+    const pathname = path.join(`materials`, md5(file.buffer), `index.source.vue`);
+    const result = await this.fileService.uploadFile(file, { pathname });
     console.log(result);
-    await bootstrap(this.staticFile);
+    await bootstrap(path.resolve(this.configService.getStaticDir(), pathname));
     return result;
   }
 }
