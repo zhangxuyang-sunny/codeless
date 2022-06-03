@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { ProjectStatus, ProjectVO } from "src/business/project.service";
-import { DatabaseService } from "src/database.service";
+import { DatabaseService } from "src/services/database.service";
 
 @Injectable()
 export class TasksService {

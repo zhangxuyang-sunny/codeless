@@ -3,9 +3,8 @@ import md5 from "md5";
 import fse from "fs-extra";
 import { Injectable } from "@nestjs/common";
 import { FileService } from "src/modules/file.service";
-import { ConfigurationService } from "src/configuration.service";
-import { CompilerService } from "@app/compiler";
-import { bootstrap } from "packages/x-compiler/src/start";
+import { CompilerService } from "src/services/compiler.service";
+import { ConfigurationService } from "src/services/configuration.service";
 
 interface IGetListParams {
   ids: string[];
@@ -73,8 +72,8 @@ export class MaterialService {
   async uploadMaterial(file: Express.Multer.File) {
     const pathname = path.join(`materials`, md5(file.buffer), `index.source.vue`);
     const result = await this.fileService.uploadFile(file, { pathname });
-    console.log(result);
-    await bootstrap(path.resolve(this.configService.getStaticDir(), pathname));
+    const entryResolved = path.resolve(this.configService.getStaticDir(), pathname);
+    await this.compilerService.buildVueComponent(entryResolved);
     return result;
   }
 }

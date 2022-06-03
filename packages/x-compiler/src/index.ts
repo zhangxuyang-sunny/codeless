@@ -5,8 +5,6 @@ const compilerDir = path.resolve(__dirname, "../../../packages/x-compiler");
 const TS_NODE = path.resolve(__dirname, "../node_modules/ts-node/dist/bin.js");
 const script = path.resolve(compilerDir, "scripts/build.ts");
 
-console.log({ build: script });
-
 export function buildVueComponent(
   entry: string,
   output: string,

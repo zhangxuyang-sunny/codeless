@@ -2,9 +2,11 @@ import path from "path";
 import md5 from "md5";
 import fse from "fs-extra";
 import { createWriteStream } from "fs";
-import { Body, Injectable } from "@nestjs/common";
-import { ConfigurationService } from "src/configuration.service";
+import { Injectable } from "@nestjs/common";
+import { ConfigurationService } from "src/services/configuration.service";
 
+// 文件服务，所有文件都基于 static 为根路径向下展开的
+// 不要使用 "../" 向前推进
 @Injectable()
 export class FileService {
   constructor(private configurationService: ConfigurationService) {}
@@ -14,6 +16,9 @@ export class FileService {
    * @param options pathname: 相对于 static 的路径
    */
   async uploadFile(file: Express.Multer.File, options: { pathname: string }) {
+    if (options.pathname.startsWith("..")) {
+      throw new Error(`can not use relative path "${options.pathname}" to save file`);
+    }
     const filepath = path.resolve(this.configurationService.getStaticDir(), options.pathname);
     const result = {
       path: options.pathname,
@@ -35,6 +40,10 @@ export class FileService {
         resolve(result);
       });
     });
+  }
+  // 向指定目录添加文件
+  async uploadFileTo(file: Express.Multer.File, pathname: string) {
+    return this.uploadFile(file, { pathname });
   }
   // 批量上传文件
   async uploadFiles(files: Array<Express.Multer.File>) {

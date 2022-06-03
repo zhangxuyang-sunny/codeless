@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from "uuid";
 import { Injectable } from "@nestjs/common";
 import { ProjectSchema } from "packages/x-nodes";
-import { DatabaseService } from "src/database.service";
+import { DatabaseService } from "src/services/database.service";
 
 export type ProjectVO = ProjectSchema & {
   uuid: string;

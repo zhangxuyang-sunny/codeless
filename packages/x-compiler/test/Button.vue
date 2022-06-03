@@ -1,5 +1,6 @@
 <script lang="tsx">
 import { defineComponent } from "vue";
+import { Button } from "@arco-design/web-vue";
 
 export default defineComponent({
   props: {
@@ -9,7 +10,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    return () => <div>{props.name}</div>;
+    return () => <Button>{props.name}</Button>;
   },
 });
 </script>

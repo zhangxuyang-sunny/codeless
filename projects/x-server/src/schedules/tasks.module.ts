@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { ConfigurationService } from "src/configuration.service";
-import { DatabaseService } from "src/database.service";
+import { ConfigurationService } from "src/services/configuration.service";
+import { DatabaseService } from "src/services/database.service";
 import { TasksService } from "./tasks.service";
 
 @Module({
