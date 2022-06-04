@@ -1,6 +1,8 @@
 import path from "node:path";
 import md5 from "md5";
 import fse from "fs-extra";
+import ChildProcess from "node:child_process";
+import { v4 as uuid } from "uuid";
 import { Injectable } from "@nestjs/common";
 import { FileService } from "src/modules/file.service";
 import { CompilerService } from "src/services/compiler.service";
@@ -16,6 +18,10 @@ interface IGetDetailParams {
   id: string;
   runtimeCode: boolean;
   sourceCode: boolean;
+}
+
+export interface IUploadMaterialParams {
+  type: "vue" | "react" | "module";
 }
 
 @Injectable()
@@ -69,11 +75,23 @@ export class MaterialService {
    * @param options version: 版本号
    * @returns
    */
-  async uploadMaterial(file: Express.Multer.File) {
-    const pathname = path.join(`materials`, md5(file.buffer), `index.source.vue`);
-    const result = await this.fileService.uploadFile(file, { pathname });
-    const entryResolved = path.resolve(this.configService.getStaticDir(), pathname);
-    await this.compilerService.buildVueComponent(entryResolved);
+  async uploadMaterial(file: Express.Multer.File, options: IUploadMaterialParams) {
+    const version = md5(file.buffer);
+    const id = uuid();
+    const result = await this.fileService.uploadFile(file, {
+      pathname: `${this.configService.MATERIALS_DIRNAME}/${id}/versions/${version}/index.source.vue`
+    });
+    // 当前物料路径
+    const root = path.join(this.configService.getStaticMaterialsDir(), id);
+    // 复制构建脚本
+    fse.copySync(path.resolve("builders/vue"), root);
+    // 后台加载依赖
+    ChildProcess.exec("pnpm i", async () => {
+      console.log("初始化完成");
+      // 执行构建
+      await this.compilerService.buildVueComponent({ root, version });
+      console.log("构建完成");
+    });
     return result;
   }
 }

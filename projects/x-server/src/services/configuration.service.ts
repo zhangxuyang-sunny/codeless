@@ -9,7 +9,8 @@ import { ConfigService } from "@nestjs/config";
 @Injectable()
 export class ConfigurationService {
   constructor(private readonly configService: ConfigService) {}
-
+  MATERIALS_DIRNAME = "materials";
+  FILES_DIRNAME = "files";
   // 获取主机名
   getHost() {
     return this.configService.get<string>("HOST");
@@ -30,14 +31,14 @@ export class ConfigurationService {
 
   // 获取静态文件目录
   getStaticFilesDir() {
-    const staticFilesDir = path.resolve(this.getStaticDir(), "files");
+    const staticFilesDir = path.resolve(this.getStaticDir(), this.FILES_DIRNAME);
     fse.ensureDirSync(staticFilesDir);
     return staticFilesDir;
   }
 
   // 获取资源文件目录，这里包含所有的物料资源
-  getStaticResourceDir() {
-    const staticFilesDir = path.resolve(this.getStaticDir(), "resource");
+  getStaticMaterialsDir() {
+    const staticFilesDir = path.resolve(this.getStaticDir(), this.MATERIALS_DIRNAME);
     fse.ensureDirSync(staticFilesDir);
     return staticFilesDir;
   }

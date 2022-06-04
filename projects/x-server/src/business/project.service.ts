@@ -31,15 +31,17 @@ export class ProjectService {
     }
     return uuid;
   }
+  private async findProjectByStatus(status: ProjectStatus) {
+    return this.databaseService.project.find<ProjectVO>({ status });
+  }
   // 获取正常状态的工程列表
   async getNormalList() {
-    return this.databaseService.project.find({ status: ProjectStatus.normal });
+    return this.findProjectByStatus(ProjectStatus.normal);
   }
   // 创建工程，生成 uuid
   async create(project: ProjectSchema) {
-    const uuid = await this.generateUuid();
     const result = await this.databaseService.project.insert<ProjectVO>({
-      uuid,
+      uuid: await this.generateUuid(),
       ...project,
       status: ProjectStatus.normal
     });
@@ -57,15 +59,11 @@ export class ProjectService {
   }
   // 查找 unlink 的工程，可用于回收站查询
   async findUnlink() {
-    return this.databaseService.project.find<ProjectVO>({
-      status: ProjectStatus.unlink
-    });
+    return this.findProjectByStatus(ProjectStatus.unlink);
   }
   // 查找 delete 的工程，用于后门查询
   async findDelete() {
-    return this.databaseService.project.find<ProjectVO>({
-      status: ProjectStatus.delete
-    });
+    return this.findProjectByStatus(ProjectStatus.delete);
   }
   // 软删除
   // 仅仅将状态 status 改为 unlink

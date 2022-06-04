@@ -1,9 +1,19 @@
 import { Injectable } from "@nestjs/common";
-import { bootstrap } from "packages/x-compiler/src/start";
+import { build } from "packages/x-compiler/src/build";
+import { ConfigurationService } from "./configuration.service";
+
+interface CompilerOptions {
+  root: string;
+  version: string;
+}
 
 @Injectable()
 export class CompilerService {
-  async buildVueComponent(entry: string) {
-    return bootstrap(entry);
+  constructor(private readonly configService: ConfigurationService) {}
+  async buildVueComponent(options: CompilerOptions) {
+    return build({
+      cwd: options.root,
+      version: options.version
+    });
   }
 }
