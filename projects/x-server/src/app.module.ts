@@ -11,6 +11,7 @@ import { DatabaseService } from "./services/database.service";
 import { TasksModule } from "./schedules/tasks.module";
 import { FileModule } from "./modules/file.module";
 import { FileService } from "./modules/file.service";
+import { UserModule } from "./business/user.module";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -40,6 +41,7 @@ declare global {
     TasksModule,
     MaterialModule,
     ProjectModule,
+    UserModule,
     TestModule
   ],
   controllers: [],

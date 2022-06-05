@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { CompilerService } from "src/services/compiler.service";
 import { FileModule } from "src/modules/file.module";
-import { FileService } from "src/modules/file.service";
 import { MaterialController } from "./material.controller";
 import { MaterialService } from "./material.service";
 

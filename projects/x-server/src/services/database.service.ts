@@ -1,30 +1,42 @@
 import type Datastore from "nedb-promises";
-import path from "path";
 import Nedb from "nedb-promises";
 import { Injectable } from "@nestjs/common";
 import { ConfigurationService } from "./configuration.service";
+import { UserPO } from "src/data-modal/po/UserPO";
+import { ProjectPO } from "src/data-modal/po/ProjectPO";
 
-let project: Datastore<{
-  _id: string;
-  createdAt: Date;
-  updatedAt: Date;
-}> | null;
+type DatastoreWithTimestamp<T = unknown> = Datastore<
+  { _id: string; createdAt: Date; updatedAt: Date } & T
+> | null;
+
+let project: DatastoreWithTimestamp<ProjectPO> | null;
+
+let user: DatastoreWithTimestamp<UserPO> | null;
 
 @Injectable()
 export class DatabaseService {
-  constructor(configurationService: ConfigurationService) {
-    const projectDBFile = configurationService.getProjectDBFile();
-    // 保持 project 为单例
+  private createDb(filename: string) {
+    return Nedb.create({
+      filename,
+      autoload: true,
+      timestampData: true
+    });
+  }
+  // 初始化数据库
+  // 保持数据库为单例
+  constructor(configService: ConfigurationService) {
     if (!project) {
-      project = Nedb.create({
-        filename: path.resolve(projectDBFile),
-        autoload: true,
-        timestampData: true
-      });
+      project = this.createDb(configService.getProjectDBFile());
+    }
+    if (!user) {
+      user = this.createDb(configService.getUserDBFile());
     }
   }
 
   get project() {
     return project;
+  }
+  get user() {
+    return user;
   }
 }

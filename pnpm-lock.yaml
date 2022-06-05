@@ -341,7 +341,7 @@ importers:
       eslint: ^8.16.0
       eslint-config-prettier: ^8.5.0
       eslint-plugin-prettier: ^4.0.0
-      eslint-plugin-vue: ^9.0.1
+      eslint-plugin-vue: ^8.0.1
       less: ^4.1.2
       less-loader: ^11.0.0
       lint-staged: ^12.4.2
@@ -374,11 +374,11 @@ importers:
       '@vue/cli-plugin-typescript': 5.0.4_peedtjztlzak5ucc3dxd674b34
       '@vue/cli-plugin-vuex': 5.0.4_@vue+cli-service@5.0.4
       '@vue/cli-service': 5.0.4_54xq56zsv2yz3x7wu3nfevxehi
-      '@vue/eslint-config-typescript': 10.0.0_6kucxugv6hzssqliwuiwngjjky
+      '@vue/eslint-config-typescript': 10.0.0_7eximbxnouzkbjbmoryntxf2zu
       eslint: 8.16.0
       eslint-config-prettier: 8.5.0_eslint@8.16.0
       eslint-plugin-prettier: 4.0.0_j7rsahgqtkecno6yauhsgsglf4
-      eslint-plugin-vue: 9.0.1_eslint@8.16.0
+      eslint-plugin-vue: 8.7.1_eslint@8.16.0
       less: 4.1.2
       less-loader: 11.0.0_less@4.1.2
       lint-staged: 12.4.2
@@ -406,7 +406,6 @@ importers:
       '@types/uuid': ^8.3.4
       '@typescript-eslint/eslint-plugin': ^5.26.0
       '@typescript-eslint/parser': ^5.26.0
-      babel-loader: 8.2.5
       class-transformer: ^0.5.1
       class-validator: ^0.13.2
       eslint: ^8.16.0
@@ -416,7 +415,6 @@ importers:
       jest: 28.1.0
       md5: ^2.3.0
       nedb-promises: ^6.0.3
-      node-loader: ^2.0.0
       pm2: ^5.2.0
       prettier: ^2.6.2
       reflect-metadata: ^0.1.13
@@ -441,13 +439,11 @@ importers:
       '@nestjs/serve-static': 2.2.2_ydewkhgqdrhc2o62hf5fyq4ami
       '@types/multer': 1.4.7
       '@types/uuid': 8.3.4
-      babel-loader: 8.2.5
       class-transformer: 0.5.1
       class-validator: 0.13.2
       fs-extra: 10.1.0
       md5: 2.3.0
       nedb-promises: 6.0.3
-      node-loader: 2.0.0
       pm2: 5.2.0
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
@@ -479,136 +475,6 @@ importers:
       tsconfig-paths: 4.0.0
       tslib: 2.4.0
       typescript: 4.6.4
-
-  projects/x-server/static/materials/85001334-1210-4bc8-91c7-060e5d836634:
-    specifiers:
-      '@babel/core': ^7.18.2
-      '@babel/plugin-syntax-jsx': 7.16.7
-      '@babel/plugin-transform-runtime': ^7.18.2
-      '@babel/preset-env': ^7.18.2
-      '@babel/preset-typescript': ^7.17.12
-      '@babel/runtime': ^7.17.9
-      '@rollup/plugin-babel': ^5.3.1
-      '@rollup/plugin-commonjs': ^22.0.0
-      '@rollup/plugin-json': ^4.1.0
-      '@rollup/plugin-node-resolve': ^13.3.0
-      '@vue/babel-plugin-jsx': ^1.1.1
-      '@vue/babel-preset-jsx': ^1.2.4
-      '@vue/compiler-sfc': ^3.2.36
-      rollup: ^2.75.4
-      rollup-plugin-terser: ^7.0.2
-      rollup-plugin-typescript2: ^0.31.2
-      rollup-plugin-vue: ^6.0.0
-      typescript: ^4.7.2
-      vue: 3.2.36
-    dependencies:
-      '@babel/core': 7.18.2
-      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.2
-      '@babel/plugin-transform-runtime': 7.18.2_@babel+core@7.18.2
-      '@babel/preset-env': 7.18.2_@babel+core@7.18.2
-      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.2
-      '@babel/runtime': 7.18.3
-      '@rollup/plugin-babel': 5.3.1_htuoz4qbte7ljizhfebtr3zcpy
-      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.4
-      '@rollup/plugin-json': 4.1.0_rollup@2.75.4
-      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.4
-      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.2
-      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.2
-      '@vue/compiler-sfc': 3.2.36
-      rollup: 2.75.4
-      rollup-plugin-terser: 7.0.2_rollup@2.75.4
-      rollup-plugin-typescript2: 0.31.2_flgbp2mwh7cyq7tyxrigr47lze
-      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.36
-      typescript: 4.7.2
-      vue: 3.2.36
-
-  projects/x-server/static/materials/92c9cf69-d75e-4ae8-bdbc-a1d97deb17fe:
-    specifiers:
-      '@arco-design/web-vue': ^2.29.1
-      '@babel/core': ^7.18.2
-      '@babel/plugin-syntax-jsx': 7.16.7
-      '@babel/plugin-transform-runtime': ^7.18.2
-      '@babel/preset-env': ^7.18.2
-      '@babel/preset-typescript': ^7.17.12
-      '@babel/runtime': ^7.17.9
-      '@rollup/plugin-babel': ^5.3.1
-      '@rollup/plugin-commonjs': ^22.0.0
-      '@rollup/plugin-json': ^4.1.0
-      '@rollup/plugin-node-resolve': ^13.3.0
-      '@vue/babel-plugin-jsx': ^1.1.1
-      '@vue/babel-preset-jsx': ^1.2.4
-      '@vue/compiler-sfc': ^3.2.36
-      rollup: ^2.75.4
-      rollup-plugin-terser: ^7.0.2
-      rollup-plugin-typescript2: ^0.31.2
-      rollup-plugin-vue: ^6.0.0
-      typescript: ^4.7.2
-      vue: 3.2.36
-    dependencies:
-      '@arco-design/web-vue': 2.29.1_vue@3.2.36
-      '@babel/core': 7.18.2
-      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.2
-      '@babel/plugin-transform-runtime': 7.18.2_@babel+core@7.18.2
-      '@babel/preset-env': 7.18.2_@babel+core@7.18.2
-      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.2
-      '@babel/runtime': 7.18.3
-      '@rollup/plugin-babel': 5.3.1_htuoz4qbte7ljizhfebtr3zcpy
-      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.4
-      '@rollup/plugin-json': 4.1.0_rollup@2.75.4
-      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.4
-      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.2
-      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.2
-      '@vue/compiler-sfc': 3.2.36
-      rollup: 2.75.4
-      rollup-plugin-terser: 7.0.2_rollup@2.75.4
-      rollup-plugin-typescript2: 0.31.2_flgbp2mwh7cyq7tyxrigr47lze
-      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.36
-      typescript: 4.7.2
-      vue: 3.2.36
-
-  projects/x-server/static/materials/9cce60c8-80b1-487c-b221-8767092267e1:
-    specifiers:
-      '@arco-design/web-vue': ^2.29.1
-      '@babel/core': ^7.18.2
-      '@babel/plugin-syntax-jsx': 7.16.7
-      '@babel/plugin-transform-runtime': ^7.18.2
-      '@babel/preset-env': ^7.18.2
-      '@babel/preset-typescript': ^7.17.12
-      '@babel/runtime': ^7.17.9
-      '@rollup/plugin-babel': ^5.3.1
-      '@rollup/plugin-commonjs': ^22.0.0
-      '@rollup/plugin-json': ^4.1.0
-      '@rollup/plugin-node-resolve': ^13.3.0
-      '@vue/babel-plugin-jsx': ^1.1.1
-      '@vue/babel-preset-jsx': ^1.2.4
-      '@vue/compiler-sfc': ^3.2.36
-      rollup: ^2.75.4
-      rollup-plugin-terser: ^7.0.2
-      rollup-plugin-typescript2: ^0.31.2
-      rollup-plugin-vue: ^6.0.0
-      typescript: ^4.7.2
-      vue: 3.2.36
-    dependencies:
-      '@arco-design/web-vue': 2.29.1_vue@3.2.36
-      '@babel/core': 7.18.2
-      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.2
-      '@babel/plugin-transform-runtime': 7.18.2_@babel+core@7.18.2
-      '@babel/preset-env': 7.18.2_@babel+core@7.18.2
-      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.2
-      '@babel/runtime': 7.18.3
-      '@rollup/plugin-babel': 5.3.1_htuoz4qbte7ljizhfebtr3zcpy
-      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.4
-      '@rollup/plugin-json': 4.1.0_rollup@2.75.4
-      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.4
-      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.2
-      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.2
-      '@vue/compiler-sfc': 3.2.36
-      rollup: 2.75.4
-      rollup-plugin-terser: 7.0.2_rollup@2.75.4
-      rollup-plugin-typescript2: 0.31.2_flgbp2mwh7cyq7tyxrigr47lze
-      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.36
-      typescript: 4.7.2
-      vue: 3.2.36
 
   projects/x-workbench:
     specifiers:
@@ -5718,7 +5584,7 @@ packages:
     resolution: {integrity: sha512-IiA0SvDrJEgXvVxjNkHPFfDx6SXw0b/TUkqMcDZWNg9fnCAHbTpoo59YfJ9QLFkwa3raau5vSlRVzMSLDnfdtQ==}
     dev: false
 
-  /@vue/eslint-config-typescript/10.0.0_6kucxugv6hzssqliwuiwngjjky:
+  /@vue/eslint-config-typescript/10.0.0_7eximbxnouzkbjbmoryntxf2zu:
     resolution: {integrity: sha512-F94cL8ug3FaYXlCfU5/wiGjk1qeadmoBpRGAOBq+qre3Smdupa59dd6ZJrsfRODpsMPyTG7330juMDsUvpZ3Rw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -5732,7 +5598,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 5.26.0_gu4clceiw6ditaem5r577qrdpi
       '@typescript-eslint/parser': 5.26.0_utdtartgf6fqqgkivzeynh76la
       eslint: 8.16.0
-      eslint-plugin-vue: 9.0.1_eslint@8.16.0
+      eslint-plugin-vue: 8.7.1_eslint@8.16.0
       typescript: 4.6.4
       vue-eslint-parser: 8.3.0_eslint@8.16.0
     transitivePeerDependencies:
@@ -6101,6 +5967,7 @@ packages:
       ajv: ^6.9.1
     dependencies:
       ajv: 6.12.6
+    dev: true
 
   /ajv-keywords/5.1.0_ajv@8.11.0:
     resolution: {integrity: sha512-YCS/JNFAUyr5vAuhk1DWm1CBxRHW9LbJ2ozWeemrIqpbsqKjHVxYPyi5GC0rjZIT5JxJ3virVTS8wk4i/Z+krw==}
@@ -6459,19 +6326,6 @@ packages:
       - supports-color
     dev: true
 
-  /babel-loader/8.2.5:
-    resolution: {integrity: sha512-OSiFfH89LrEMiWd4pLNqGz4CwJDtbs2ZVc+iGu2HrkRfPxId9F2anQj38IxWpmRfsUY0aBZYi1EFcd3mhtRMLQ==}
-    engines: {node: '>= 8.9'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-      webpack: '>=2'
-    dependencies:
-      find-cache-dir: 3.3.2
-      loader-utils: 2.0.2
-      make-dir: 3.1.0
-      schema-utils: 2.7.1
-    dev: false
-
   /babel-loader/8.2.5_w2i5cy6pptznn7rmavsgpnxasa:
     resolution: {integrity: sha512-OSiFfH89LrEMiWd4pLNqGz4CwJDtbs2ZVc+iGu2HrkRfPxId9F2anQj38IxWpmRfsUY0aBZYi1EFcd3mhtRMLQ==}
     engines: {node: '>= 8.9'}
@@ -6649,6 +6503,7 @@ packages:
 
   /big.js/5.2.2:
     resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
+    dev: true
 
   /binary-extensions/2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -8149,6 +8004,7 @@ packages:
   /emojis-list/3.0.0:
     resolution: {integrity: sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==}
     engines: {node: '>= 4'}
+    dev: true
 
   /encodeurl/1.0.2:
     resolution: {integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=}
@@ -8401,6 +8257,23 @@ packages:
       eslint-config-prettier: 8.5.0_eslint@8.14.0
       prettier: 2.6.2
       prettier-linter-helpers: 1.0.0
+    dev: true
+
+  /eslint-plugin-vue/8.7.1_eslint@8.16.0:
+    resolution: {integrity: sha512-28sbtm4l4cOzoO1LtzQPxfxhQABararUb1JtqusQqObJpWX2e/gmVyeYVfepizPFne0Q5cILkYGiBoV36L12Wg==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      eslint: ^6.2.0 || ^7.0.0 || ^8.0.0
+    dependencies:
+      eslint: 8.16.0
+      eslint-utils: 3.0.0_eslint@8.16.0
+      natural-compare: 1.4.0
+      nth-check: 2.1.1
+      postcss-selector-parser: 6.0.10
+      semver: 7.3.7
+      vue-eslint-parser: 8.3.0_eslint@8.16.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /eslint-plugin-vue/9.0.1_eslint@8.16.0:
@@ -10793,6 +10666,7 @@ packages:
       big.js: 5.2.2
       emojis-list: 3.0.0
       json5: 2.2.1
+    dev: true
 
   /localforage/1.10.0:
     resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
@@ -11243,15 +11117,6 @@ packages:
   /node-int64/0.4.0:
     resolution: {integrity: sha1-h6kGXNs1XTGC2PlM4RGIuCXGijs=}
     dev: true
-
-  /node-loader/2.0.0:
-    resolution: {integrity: sha512-I5VN34NO4/5UYJaUBtkrODPWxbobrE4hgDqPrjB25yPkonFhCmZ146vTH+Zg417E9Iwoh1l/MbRs1apc5J295Q==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      webpack: ^5.0.0
-    dependencies:
-      loader-utils: 2.0.2
-    dev: false
 
   /node-releases/2.0.5:
     resolution: {integrity: sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==}
@@ -12915,6 +12780,7 @@ packages:
       '@types/json-schema': 7.0.11
       ajv: 6.12.6
       ajv-keywords: 3.5.2_ajv@6.12.6
+    dev: true
 
   /schema-utils/3.1.1:
     resolution: {integrity: sha512-Y5PQxS4ITlC+EahLuXaY86TXfR7Dc5lw294alXOq86JAHCihAIZfqv8nNCWvaEJvaC51uN9hbLGeV0cFBdH+Fw==}
