@@ -6,7 +6,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import vue from "rollup-plugin-vue";
 import babel from "@rollup/plugin-babel";
 import json from "@rollup/plugin-json";
-import { terser } from "rollup-plugin-terser";
+// import { terser } from "rollup-plugin-terser";
 
 const extensions = [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"];
 

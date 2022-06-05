@@ -72,7 +72,7 @@ export class MaterialService {
   /**
    * 上传物料
    * @param file
-   * @param options version: 版本号
+   * @param options type: vue | react | module
    * @returns
    */
   async uploadMaterial(file: Express.Multer.File, options: IUploadMaterialParams) {
@@ -91,6 +91,7 @@ export class MaterialService {
       // 执行构建
       await this.compilerService.buildVueComponent({ root, version });
       console.log("构建完成");
+      // TODO 同步物料状态到数据
     });
     return result;
   }

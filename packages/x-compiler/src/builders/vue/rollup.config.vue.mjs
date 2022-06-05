@@ -9,6 +9,7 @@ import { terser } from "rollup-plugin-terser";
 const extensions = [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"];
 
 const version = process.env.VERSION;
+const isTerser = process.env.TERSER !== "false";
 const dir = `versions/${version}`;
 
 /**
@@ -48,9 +49,9 @@ const config = {
       babelHelpers: "bundled",
       exclude: "node_modules/**",
       extensions
-    })
-    // terser()
-  ],
+    }),
+    isTerser && terser()
+  ].filter(Boolean),
   onwarn: function (msg, warn) {
     // if (msg.code === "THIS_IS_UNDEFINED") {
     //   return;

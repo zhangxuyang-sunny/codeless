@@ -76,6 +76,50 @@ importers:
     devDependencies:
       execa: 6.1.0
 
+  packages/x-compiler/src/builders/vue:
+    specifiers:
+      '@arco-design/web-vue': ^2.29.1
+      '@babel/core': ^7.18.2
+      '@babel/plugin-syntax-jsx': 7.16.7
+      '@babel/plugin-transform-runtime': ^7.18.2
+      '@babel/preset-env': ^7.18.2
+      '@babel/preset-typescript': ^7.17.12
+      '@babel/runtime': ^7.17.9
+      '@rollup/plugin-babel': ^5.3.1
+      '@rollup/plugin-commonjs': ^22.0.0
+      '@rollup/plugin-json': ^4.1.0
+      '@rollup/plugin-node-resolve': ^13.3.0
+      '@vue/babel-plugin-jsx': ^1.1.1
+      '@vue/babel-preset-jsx': ^1.2.4
+      '@vue/compiler-sfc': ^3.2.36
+      rollup: ^2.75.4
+      rollup-plugin-terser: ^7.0.2
+      rollup-plugin-typescript2: ^0.31.2
+      rollup-plugin-vue: ^6.0.0
+      typescript: ^4.7.2
+      vue: 3.2.36
+    dependencies:
+      '@arco-design/web-vue': 2.29.1_vue@3.2.36
+      '@babel/core': 7.18.2
+      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.2
+      '@babel/plugin-transform-runtime': 7.18.2_@babel+core@7.18.2
+      '@babel/preset-env': 7.18.2_@babel+core@7.18.2
+      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.2
+      '@babel/runtime': 7.18.3
+      '@rollup/plugin-babel': 5.3.1_htuoz4qbte7ljizhfebtr3zcpy
+      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.4
+      '@rollup/plugin-json': 4.1.0_rollup@2.75.4
+      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.4
+      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.2
+      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.2
+      '@vue/compiler-sfc': 3.2.36
+      rollup: 2.75.4
+      rollup-plugin-terser: 7.0.2_rollup@2.75.4
+      rollup-plugin-typescript2: 0.31.2_flgbp2mwh7cyq7tyxrigr47lze
+      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.36
+      typescript: 4.7.2
+      vue: 3.2.36
+
   packages/x-nodes:
     specifiers:
       '@types/lodash': ^4.14.182
@@ -436,7 +480,7 @@ importers:
       tslib: 2.4.0
       typescript: 4.6.4
 
-  projects/x-server/builders/vue:
+  projects/x-server/static/materials/85001334-1210-4bc8-91c7-060e5d836634:
     specifiers:
       '@babel/core': ^7.18.2
       '@babel/plugin-syntax-jsx': 7.16.7
@@ -478,8 +522,9 @@ importers:
       typescript: 4.7.2
       vue: 3.2.36
 
-  projects/x-server/static/materials/85001334-1210-4bc8-91c7-060e5d836634:
+  projects/x-server/static/materials/92c9cf69-d75e-4ae8-bdbc-a1d97deb17fe:
     specifiers:
+      '@arco-design/web-vue': ^2.29.1
       '@babel/core': ^7.18.2
       '@babel/plugin-syntax-jsx': 7.16.7
       '@babel/plugin-transform-runtime': ^7.18.2
@@ -500,6 +545,51 @@ importers:
       typescript: ^4.7.2
       vue: 3.2.36
     dependencies:
+      '@arco-design/web-vue': 2.29.1_vue@3.2.36
+      '@babel/core': 7.18.2
+      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.2
+      '@babel/plugin-transform-runtime': 7.18.2_@babel+core@7.18.2
+      '@babel/preset-env': 7.18.2_@babel+core@7.18.2
+      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.2
+      '@babel/runtime': 7.18.3
+      '@rollup/plugin-babel': 5.3.1_htuoz4qbte7ljizhfebtr3zcpy
+      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.4
+      '@rollup/plugin-json': 4.1.0_rollup@2.75.4
+      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.4
+      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.2
+      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.2
+      '@vue/compiler-sfc': 3.2.36
+      rollup: 2.75.4
+      rollup-plugin-terser: 7.0.2_rollup@2.75.4
+      rollup-plugin-typescript2: 0.31.2_flgbp2mwh7cyq7tyxrigr47lze
+      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.36
+      typescript: 4.7.2
+      vue: 3.2.36
+
+  projects/x-server/static/materials/9cce60c8-80b1-487c-b221-8767092267e1:
+    specifiers:
+      '@arco-design/web-vue': ^2.29.1
+      '@babel/core': ^7.18.2
+      '@babel/plugin-syntax-jsx': 7.16.7
+      '@babel/plugin-transform-runtime': ^7.18.2
+      '@babel/preset-env': ^7.18.2
+      '@babel/preset-typescript': ^7.17.12
+      '@babel/runtime': ^7.17.9
+      '@rollup/plugin-babel': ^5.3.1
+      '@rollup/plugin-commonjs': ^22.0.0
+      '@rollup/plugin-json': ^4.1.0
+      '@rollup/plugin-node-resolve': ^13.3.0
+      '@vue/babel-plugin-jsx': ^1.1.1
+      '@vue/babel-preset-jsx': ^1.2.4
+      '@vue/compiler-sfc': ^3.2.36
+      rollup: ^2.75.4
+      rollup-plugin-terser: ^7.0.2
+      rollup-plugin-typescript2: ^0.31.2
+      rollup-plugin-vue: ^6.0.0
+      typescript: ^4.7.2
+      vue: 3.2.36
+    dependencies:
+      '@arco-design/web-vue': 2.29.1_vue@3.2.36
       '@babel/core': 7.18.2
       '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.2
       '@babel/plugin-transform-runtime': 7.18.2_@babel+core@7.18.2

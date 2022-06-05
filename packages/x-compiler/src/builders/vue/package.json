@@ -2,12 +2,13 @@
   "name": "@low/builder-vue",
   "version": "1.0.0",
   "scripts": {
-    "build": "rollup -c rollup.config.vue.mjs"
+    "build": "rollup -c rollup.config.vue.mjs --environment TERSER:false,VERSION:button"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@arco-design/web-vue": "^2.29.1",
     "@babel/core": "^7.18.2",
     "@babel/plugin-syntax-jsx": "7.16.7",
     "@babel/plugin-transform-runtime": "^7.18.2",

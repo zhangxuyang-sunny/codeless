@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Post,
-  Query,
-  UploadedFiles,
-  UseInterceptors
-} from "@nestjs/common";
+import { Controller, Get, Post, Query, UploadedFiles, UseInterceptors } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { IUploadMaterialParams, MaterialService } from "./material.service";
 
