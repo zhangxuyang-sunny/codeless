@@ -1,8 +1,9 @@
 import { v4 as uuidV4 } from "uuid";
-import { Injectable } from "@nestjs/common";
-import { ProjectSchema } from "packages/x-nodes";
+import { Injectable, Logger } from "@nestjs/common";
 import { DatabaseService } from "src/services/database.service";
 import { ProjectVO } from "src/data-modal/vo/ProjectVO";
+import { CreateProjectDTO } from "src/data-modal/dto/ProjectDTO";
+import { ProjectPO } from "src/data-modal/po/ProjectPO";
 
 export const enum ProjectStatus {
   normal = 1, // 正常状态
@@ -12,6 +13,7 @@ export const enum ProjectStatus {
 
 @Injectable()
 export class ProjectService {
+  private readonly logger = new Logger();
   constructor(private readonly dbService: DatabaseService) {}
 
   // 保证 uuid 不重复
@@ -29,12 +31,16 @@ export class ProjectService {
   }
 
   // 创建工程，生成 uuid
-  async createProject(project: ProjectSchema) {
-    const result = await this.dbService.project.insert({
-      uuid: await this.generateUuid(),
-      ...project,
+  async createProject(createProjectDTO: CreateProjectDTO) {
+    const uuid = await this.generateUuid();
+    const projectPO: ProjectPO = {
+      ...createProjectDTO,
+      uuid,
       status: ProjectStatus.normal
-    });
+    };
+    this.dbService.user.update({ userId: createProjectDTO.userId }, { $push: { projects: uuid } });
+    const result = await this.dbService.project.insert(projectPO);
+    this.logger.log(JSON.stringify(result), "创建工程");
     return result;
   }
 
@@ -77,6 +83,7 @@ export class ProjectService {
       { $set: { status: ProjectStatus.unlink } },
       { multi: true }
     );
+    this.logger.log(uuid, "软删除工程");
     return result;
   }
 
@@ -88,6 +95,7 @@ export class ProjectService {
       { $set: { status: ProjectStatus.delete } },
       { multi: true }
     );
+    this.logger.log(uuid, "删除工程");
     return result;
   }
 
@@ -98,6 +106,7 @@ export class ProjectService {
       { $set: { status: ProjectStatus.normal } },
       { multi: true }
     );
+    this.logger.log(uuid, "恢复工程");
     return result;
   }
 }

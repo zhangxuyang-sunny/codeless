@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   HttpException,
   HttpStatus,
   Logger,
@@ -12,6 +13,7 @@ import {
 import { ProjectService } from "./project.service";
 import { ProjectSchema } from "packages/x-nodes";
 import { ProjectVO } from "src/data-modal/vo/ProjectVO";
+import { CreateProjectDTO } from "src/data-modal/dto/ProjectDTO";
 
 @Controller("project")
 export class ProjectController {
@@ -32,8 +34,9 @@ export class ProjectController {
 
   // 创建工程
   @Put("create")
-  createProject(@Body() project: ProjectSchema) {
-    return this.service.createProject(project);
+  createProject(@Body() project: ProjectSchema, @Headers("userId") userId: string) {
+    const createProjectDTO: CreateProjectDTO = { ...project, userId };
+    return this.service.createProject(createProjectDTO);
   }
 
   // 获取软删除的工程
