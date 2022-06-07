@@ -1,8 +1,8 @@
+import type { ProjectVO } from "src/data-modal/vo/ProjectVO";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { ProjectStatus } from "src/business/project.service";
 import { DatabaseService } from "src/services/database.service";
-import { ProjectVO } from "src/data-modal/vo/ProjectVO";
 
 @Injectable()
 export class TasksService {
@@ -22,13 +22,13 @@ export class TasksService {
     const queue = willDeleteProjects.flatMap(item => {
       if (new Date().getTime() - item.updatedAt.getTime() > TIMEOUT) {
         logList.push(item);
-        return [this.databaseService.project.remove({ uuid: item.uuid }, { multi: true })];
+        return [this.databaseService.project.remove({ uuid: item.pid }, { multi: true })];
       }
       return [];
     });
     await Promise.all(queue);
     this.logger.verbose(
-      `执行清除大于 ${TIMEOUT}s 被标记为 delete 的工程：${logList.map(_ => _.uuid).join("\n")} (${
+      `执行清除大于 ${TIMEOUT}s 被标记为 delete 的工程：${logList.map(_ => _.pid).join("\n")} (${
         logList.length
       }个)`
     );

@@ -4,6 +4,7 @@ import { DatabaseService } from "src/services/database.service";
 import { ProjectVO } from "src/data-modal/vo/ProjectVO";
 import { CreateProjectDTO } from "src/data-modal/dto/ProjectDTO";
 import { ProjectPO } from "src/data-modal/po/ProjectPO";
+import { UsersService } from "./users.service";
 
 export const enum ProjectStatus {
   normal = 1, // 正常状态
@@ -14,10 +15,13 @@ export const enum ProjectStatus {
 @Injectable()
 export class ProjectService {
   private readonly logger = new Logger();
-  constructor(private readonly dbService: DatabaseService) {}
+  constructor(
+    private readonly dbService: DatabaseService,
+    private readonly usersService: UsersService
+  ) {}
 
-  // 保证 uuid 不重复
-  private async generateUuid() {
+  // 保证 pid 不重复
+  private async generatePid() {
     let isValid = false;
     let uuid = uuidV4();
     while (!isValid) {
@@ -30,15 +34,24 @@ export class ProjectService {
     return uuid;
   }
 
-  // 创建工程，生成 uuid
-  async createProject(createProjectDTO: CreateProjectDTO) {
-    const uuid = await this.generateUuid();
+  // 创建工程，随机生成 pid
+  async createProject(project: CreateProjectDTO, uid: string) {
+    const pid = await this.generatePid();
+    const user = await this.usersService.getUserByUid(uid);
+    if (!user) {
+      this.logger.warn(`查询用户异常`, uid);
+    }
     const projectPO: ProjectPO = {
-      ...createProjectDTO,
-      uuid,
-      status: ProjectStatus.normal
+      ...project,
+      pid,
+      status: ProjectStatus.normal,
+      createUser: user.nickname,
+      updateUser: user.nickname
     };
-    this.dbService.user.update({ userId: createProjectDTO.userId }, { $push: { projects: uuid } });
+    this.dbService.user.update(
+      { username: user.username }, //
+      { $push: { projects: pid } }
+    );
     const result = await this.dbService.project.insert(projectPO);
     this.logger.log(JSON.stringify(result), "创建工程");
     return result;

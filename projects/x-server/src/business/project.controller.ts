@@ -11,7 +11,6 @@ import {
   Query
 } from "@nestjs/common";
 import { ProjectService } from "./project.service";
-import { ProjectSchema } from "packages/x-nodes";
 import { ProjectVO } from "src/data-modal/vo/ProjectVO";
 import { CreateProjectDTO } from "src/data-modal/dto/ProjectDTO";
 
@@ -34,9 +33,8 @@ export class ProjectController {
 
   // 创建工程
   @Put("create")
-  createProject(@Body() project: ProjectSchema, @Headers("userId") userId: string) {
-    const createProjectDTO: CreateProjectDTO = { ...project, userId };
-    return this.service.createProject(createProjectDTO);
+  createProject(@Body() project: CreateProjectDTO, @Headers("uid") uid: string) {
+    return this.service.createProject(project, uid);
   }
 
   // 获取软删除的工程

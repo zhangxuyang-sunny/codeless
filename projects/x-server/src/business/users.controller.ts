@@ -1,14 +1,14 @@
 import { Body, Controller, Get, Headers, Post } from "@nestjs/common";
 import { CreateUserVO } from "src/data-modal/vo/UserVO";
-import { UserService } from "./user.service";
+import { UsersService } from "./users.service";
 
 @Controller("user")
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+export class UsersController {
+  constructor(private readonly userService: UsersService) {}
   // 获取用户信息
   @Get("/")
   getUser(@Headers("userId") userId: string) {
-    return this.userService.getUserInfo(userId);
+    return this.userService.getUserByUsernameLike(userId);
   }
 
   //

@@ -11,7 +11,8 @@ import { DatabaseService } from "./services/database.service";
 import { TasksModule } from "./schedules/tasks.module";
 import { FileModule } from "./modules/file.module";
 import { FileService } from "./modules/file.service";
-import { UserModule } from "./business/user.module";
+import { UsersModule } from "./business/users.module";
+import { AuthModule } from "./auth/auth.module";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -37,12 +38,14 @@ declare global {
       // 排除 main.ts 中的 static
       exclude: ["static"]
     }),
+    UsersModule,
+    AuthModule,
     FileModule,
     TasksModule,
     MaterialModule,
     ProjectModule,
-    UserModule,
-    TestModule
+    TestModule,
+    AuthModule
   ],
   controllers: [],
   providers: [ConfigService, ConfigurationService, FileService, DatabaseService],

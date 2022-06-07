@@ -1,7 +1,3 @@
-import { ProjectSchema } from "packages/x-nodes";
-import { ProjectStatus } from "src/business/project.service";
+import { ProjectPO } from "../po/ProjectPO";
 
-export type ProjectVO = ProjectSchema & {
-  uuid: string;
-  status: ProjectStatus;
-};
+export type ProjectVO = ProjectPO;

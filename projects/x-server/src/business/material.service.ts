@@ -32,7 +32,7 @@ export class MaterialService {
     private readonly compilerService: CompilerService
   ) {}
   private get host() {
-    return this.configService.getHost();
+    return this.configService.host;
   }
   // 获取物料列表
   getList(params: IGetListParams) {
@@ -82,7 +82,7 @@ export class MaterialService {
       pathname: `${this.configService.MATERIALS_DIRNAME}/${id}/versions/${version}/index.source.vue`
     });
     // 当前物料路径
-    const root = path.join(this.configService.getStaticMaterialsDir(), id);
+    const root = path.join(this.configService.staticMaterialsDir, id);
     // 复制构建脚本
     fse.copySync(path.resolve("builders/vue"), root);
     // 后台加载依赖

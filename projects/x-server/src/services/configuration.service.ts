@@ -13,37 +13,42 @@ export class ConfigurationService {
   MATERIALS_DIRNAME = "materials";
   FILES_DIRNAME = "files";
   // 获取主机名
-  getHost() {
+  get host() {
     return this.configService.get<string>("HOST");
   }
 
   // 获取工程db文件路径
-  getProjectDBFile() {
+  get projectDBFile() {
     return this.configService.get<string>("PROJECT_DB_FILE");
   }
 
   // 获取用户db文件路径
-  getUserDBFile() {
-    return this.configService.get<string>("USER_DB_FILE");
+  get userDBFile() {
+    return this.configService.get<string>("USERS_DB_FILE");
+  }
+
+  // 获取授权数据库
+  get authDBFile() {
+    return this.configService.get<string>("AUTH_DB_FILE");
   }
 
   // 获取静态资源路径
-  getStaticDir() {
+  get staticDir() {
     const staticDir = this.configService.get<string>("STATIC_DIR");
     fse.ensureDirSync(staticDir);
     return staticDir;
   }
 
   // 获取静态文件目录
-  getStaticFilesDir() {
-    const staticFilesDir = path.resolve(this.getStaticDir(), this.FILES_DIRNAME);
+  get staticFilesDir() {
+    const staticFilesDir = path.resolve(this.staticDir, this.FILES_DIRNAME);
     fse.ensureDirSync(staticFilesDir);
     return staticFilesDir;
   }
 
   // 获取资源文件目录，这里包含所有的物料资源
-  getStaticMaterialsDir() {
-    const staticFilesDir = path.resolve(this.getStaticDir(), this.MATERIALS_DIRNAME);
+  get staticMaterialsDir() {
+    const staticFilesDir = path.resolve(this.staticDir, this.MATERIALS_DIRNAME);
     fse.ensureDirSync(staticFilesDir);
     return staticFilesDir;
   }

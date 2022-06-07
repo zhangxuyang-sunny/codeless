@@ -19,7 +19,7 @@ export class FileService {
     if (options.pathname.startsWith("..")) {
       throw new Error(`can not use relative path "${options.pathname}" to save file`);
     }
-    const filepath = path.resolve(this.configurationService.getStaticDir(), options.pathname);
+    const filepath = path.resolve(this.configurationService.staticDir, options.pathname);
     const result = {
       path: options.pathname,
       name: file.originalname, // TODO 中文编码问题如何解决
