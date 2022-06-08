@@ -1,6 +1,7 @@
-import type { CreateUserVO, UserInfoVO } from "src/data-modal/vo/UserVO";
+import type { UserInfoVO } from "src/data-modal/vo/UserVO";
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "src/services/database.service";
+import { CreateUserDTO } from "src/data-modal/dto/userDTO";
 
 @Injectable()
 export class UsersService {
@@ -44,8 +45,7 @@ export class UsersService {
   }
 
   // 创建用户
-  async createUser(userData: CreateUserVO) {
-    console.log(userData);
+  async createUser(userData: CreateUserDTO) {
     return this.dbService.user.insert(userData);
   }
 

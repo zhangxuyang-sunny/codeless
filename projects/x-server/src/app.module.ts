@@ -38,17 +38,16 @@ declare global {
       // 排除 main.ts 中的 static
       exclude: ["static"]
     }),
-    UsersModule,
     AuthModule,
+    UsersModule,
     FileModule,
     TasksModule,
     MaterialModule,
     ProjectModule,
-    TestModule,
-    AuthModule
+    TestModule
   ],
   controllers: [],
-  providers: [ConfigService, ConfigurationService, FileService, DatabaseService],
-  exports: [ConfigService, ConfigurationService, FileService, DatabaseService]
+  providers: [ConfigService, ConfigurationService, DatabaseService],
+  exports: [ConfigService, ConfigurationService, DatabaseService]
 })
 export class AppModule {}

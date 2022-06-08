@@ -16,6 +16,6 @@ export class AuthController {
   // 注册
   @Post("register")
   async register(@Body("username") username: string, @Body("password") password: string) {
-    //
+    return this.authService.register({ username, password });
   }
 }

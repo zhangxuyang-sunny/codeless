@@ -1,5 +1,8 @@
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
+import shortUUID from "short-uuid";
+import { UserAuthPO } from "src/data-modal/po/UserPO";
+import { DatabaseService } from "src/services/database.service";
 import { UsersService } from "../business/users.service";
 
 @Injectable()
@@ -7,7 +10,8 @@ export class AuthService {
   private readonly logger = new Logger();
   constructor(
     private readonly usersService: UsersService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly dbService: DatabaseService
   ) {}
 
   // 校验用户密码
@@ -35,8 +39,10 @@ export class AuthService {
       this.logger.log(msg);
       throw new HttpException(msg, HttpStatus.OK);
     }
-    // TODO 注写库
-    // await this.aut
-    return;
+    await this.dbService.auth.insert<UserAuthPO>({ username, password });
+    return this.usersService.createUser({
+      uid: shortUUID().new(),
+      username
+    });
   }
 }

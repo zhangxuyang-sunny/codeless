@@ -4,7 +4,3 @@ import { ProjectVO } from "./ProjectVO";
 export type UserInfoVO = Omit<UserPO, "projects"> & {
   projects: ProjectVO[];
 };
-
-export type CreateUserVO = {
-  userName: string;
-};
