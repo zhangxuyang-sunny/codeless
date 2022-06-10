@@ -75,7 +75,7 @@ export class UsersService {
   }
 
   // 获取用户令牌
-  async getUserAuthToken(username: string) {
-    return this.dbService.user_auth.findOne({ username });
+  async getUserAuthToken(uid: string) {
+    return this.dbService.user_auth.findOne({ uid });
   }
 }

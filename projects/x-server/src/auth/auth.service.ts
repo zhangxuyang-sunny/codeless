@@ -6,6 +6,7 @@ import { UserAuthPO, UserInfoPO } from "src/data-modal/po/UserPO";
 import { DatabaseService } from "src/services/database.service";
 import { UsersService } from "../business/users.service";
 
+// 用户校验服务
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger();
@@ -35,7 +36,8 @@ export class AuthService {
 
   // 校验用户密码
   async validatePassword(username: string, password: string): Promise<any> {
-    const user = await this.usersService.getUserAuthToken(username);
+    const userInfoPO = await this.usersService.getUserByUsername(username);
+    const user = await this.usersService.getUserAuthToken(userInfoPO.uid);
     if (user && user.password === password) {
       return true;
     }
