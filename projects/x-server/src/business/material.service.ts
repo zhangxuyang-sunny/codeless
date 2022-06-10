@@ -82,7 +82,7 @@ export class MaterialService {
       pathname: `${this.configService.MATERIALS_DIRNAME}/${id}/versions/${version}/index.source.vue`
     });
     // 当前物料路径
-    const root = path.join(this.configService.staticMaterialsDir, id);
+    const root = path.join(this.configService.static_materials_dir, id);
     // 复制构建脚本
     fse.copySync(path.resolve("builders/vue"), root);
     // 后台加载依赖

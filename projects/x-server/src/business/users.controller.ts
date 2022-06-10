@@ -7,8 +7,8 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
   // 获取用户信息
   @Get("/")
-  getUser(@Headers("userId") userId: string) {
-    return this.userService.getUserByUsernameLike(userId);
+  getUser(@Headers("id") id: string) {
+    return this.userService.getUserInfoByUsernameLike(id);
   }
 
   //

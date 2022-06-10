@@ -1,14 +1,19 @@
-export interface UserPO {
-  uid: string; // 永远不变的平台用户id
-  username: string; // 唯一的用户的登录名
+// 用户信息，不包含业务
+export class UserInfoPO {
+  uid: string; // 平台生成不可变 user id，简称 uid
+  username: string; // 用户登录名称
   nickname: string; // 用户昵称
-  telephone: string;
-  email: `${string | number}@${string}.${string}`;
-  projects: string[];
+  email: `${string | number}@${string}.${string}` | null; // 用户绑定的
+  telephone: string | null; // 用户绑定的电话号码
 }
 
 // 用户校验信息
-export interface UserAuthPO {
-  username: string; // 唯一用户的登录名
+export class UserAuthPO {
+  uid: string; // 唯一用户 id
   password: string; // 加密后的密码
+}
+
+// 平台用户持久化数据
+export class UserPlatformPO extends UserInfoPO {
+  projects: string[];
 }

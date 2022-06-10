@@ -48,7 +48,7 @@ export class ProjectService {
       createUser: user.nickname,
       updateUser: user.nickname
     };
-    this.dbService.user.update(
+    this.dbService.user_info.update(
       { username: user.username }, //
       { $push: { projects: pid } }
     );

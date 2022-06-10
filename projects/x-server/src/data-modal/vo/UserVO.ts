@@ -1,6 +1,8 @@
-import { UserPO } from "../po/UserPO";
+import { UserInfoPO } from "../po/UserPO";
 import { ProjectVO } from "./ProjectVO";
 
-export type UserInfoVO = Omit<UserPO, "projects"> & {
+// 平台用户数据
+// 包含工程数据信息
+export class UserPlatformVO extends UserInfoPO {
   projects: ProjectVO[];
-};
+}

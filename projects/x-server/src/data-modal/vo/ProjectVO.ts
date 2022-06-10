@@ -1,3 +1,3 @@
 import { ProjectPO } from "../po/ProjectPO";
 
-export type ProjectVO = ProjectPO;
+export class ProjectVO extends ProjectPO {}
