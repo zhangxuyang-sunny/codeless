@@ -1,8 +1,13 @@
+import shortUUID from "short-uuid";
+import { Model } from "mongoose";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import shortUUID from "short-uuid";
-import { RegisterUserDTO } from "src/data-modal/dto/userDTO";
-import { UserAuthPO, UserInfoPO } from "src/data-modal/po/UserPO";
+import { InjectModel } from "@nestjs/mongoose";
+import { CreateUserAuthDTO } from "src/database/dto/create-user-auth.dto";
+import { RegisterUserDTO } from "src/database/dto/register-user.dto";
+import { UserAuthPO } from "src/database/po/user-auth.po";
+import { UserInfoPO } from "src/database/po/user-info.po";
+import { UserAuth, UserAuthDocument } from "src/database/schemas/user_auth.schema";
 import { DatabaseService } from "src/services/database.service";
 import { UsersService } from "../business/users.service";
 
@@ -11,6 +16,7 @@ import { UsersService } from "../business/users.service";
 export class AuthService {
   private readonly logger = new Logger();
   constructor(
+    @InjectModel(UserAuth.name, "user") private readonly userAuthModel: Model<UserAuthDocument>,
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly dbService: DatabaseService
@@ -37,6 +43,9 @@ export class AuthService {
   // 校验用户密码
   async validatePassword(username: string, password: string): Promise<any> {
     const userInfoPO = await this.usersService.getUserByUsername(username);
+    if (!userInfoPO?.uid) {
+      return false;
+    }
     const user = await this.usersService.getUserAuthToken(userInfoPO.uid);
     if (user && user.password === password) {
       return true;
@@ -81,5 +90,9 @@ export class AuthService {
       this.usersService.deleteUser(uid);
       throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  async test(user: CreateUserAuthDTO) {
+    return this.userAuthModel.insertMany(user);
   }
 }

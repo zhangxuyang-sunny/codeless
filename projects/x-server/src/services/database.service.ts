@@ -2,8 +2,10 @@ import type Datastore from "nedb-promises";
 import Nedb from "nedb-promises";
 import { Injectable } from "@nestjs/common";
 import { ConfigurationService } from "./configuration.service";
-import { UserAuthPO, UserInfoPO, UserPlatformPO } from "src/data-modal/po/UserPO";
-import { ProjectPO } from "src/data-modal/po/ProjectPO";
+import { ProjectPO } from "src/database/po/project.po";
+import { UserAuthPO } from "src/database/po/user-auth.po";
+import { UserInfoPO } from "src/database/po/user-info.po";
+import { UserPlatformPO } from "src/database/po/user-platform.po";
 
 type DatastoreWithTimestamp<T = unknown> = Datastore<
   { _id: string; createdAt: Date; updatedAt: Date } & T

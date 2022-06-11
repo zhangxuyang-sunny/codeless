@@ -1,9 +1,9 @@
 import { v4 as uuidV4 } from "uuid";
 import { Injectable, Logger } from "@nestjs/common";
 import { DatabaseService } from "src/services/database.service";
-import { ProjectVO } from "src/data-modal/vo/ProjectVO";
-import { CreateProjectDTO } from "src/data-modal/dto/ProjectDTO";
-import { ProjectPO } from "src/data-modal/po/ProjectPO";
+import { CreateProjectDTO } from "src/database/dto/create-project.dto";
+import { ProjectVO } from "src/database/vo/project.vo";
+import { ProjectPO } from "src/database/po/project.po";
 import { UsersService } from "./users.service";
 
 export const enum ProjectStatus {
@@ -40,6 +40,7 @@ export class ProjectService {
     const user = await this.usersService.getUserByUid(uid);
     if (!user) {
       this.logger.warn(`查询用户异常`, uid);
+      return null;
     }
     const projectPO: ProjectPO = {
       ...project,

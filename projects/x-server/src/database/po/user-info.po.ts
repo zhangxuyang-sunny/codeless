@@ -6,14 +6,3 @@ export class UserInfoPO {
   email: `${string | number}@${string}.${string}` | null; // 用户绑定的
   telephone: string | null; // 用户绑定的电话号码
 }
-
-// 用户校验信息
-export class UserAuthPO {
-  uid: string; // 唯一用户 id
-  password: string; // 加密后的密码
-}
-
-// 平台用户持久化数据
-export class UserPlatformPO extends UserInfoPO {
-  projects: string[];
-}

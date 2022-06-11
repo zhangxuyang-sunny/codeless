@@ -1,4 +1,4 @@
-import { UserInfoPO } from "../po/UserPO";
+import { UserInfoPO } from "../po/user-info.po";
 
 // 用户业务数据
 export class UserBO extends UserInfoPO {

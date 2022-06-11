@@ -10,9 +10,9 @@ import {
   Put,
   Query
 } from "@nestjs/common";
+import { CreateProjectDTO } from "src/database/dto/create-project.dto";
+import { ProjectVO } from "src/database/vo/project.vo";
 import { ProjectService } from "./project.service";
-import { ProjectVO } from "src/data-modal/vo/ProjectVO";
-import { CreateProjectDTO } from "src/data-modal/dto/ProjectDTO";
 
 @Controller("project")
 export class ProjectController {

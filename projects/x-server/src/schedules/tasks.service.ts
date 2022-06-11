@@ -1,7 +1,7 @@
-import type { ProjectVO } from "src/data-modal/vo/ProjectVO";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { ProjectStatus } from "src/business/project.service";
+import { ProjectVO } from "src/database/vo/project.vo";
 import { DatabaseService } from "src/services/database.service";
 
 @Injectable()

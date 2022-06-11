@@ -1,7 +1,9 @@
-import type { UserPlatformVO } from "src/data-modal/vo/UserVO";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { DatabaseService } from "src/services/database.service";
-import { UserInfoPO, UserPlatformPO } from "src/data-modal/po/UserPO";
+import { UserPlatformVO } from "src/database/vo/user-platform.vo";
+import { UserPlatformPO } from "src/database/po/user-platform.po";
+import { UserInfoPO } from "src/database/po/user-info.po";
+import { ProjectPO } from "src/database/po/project.po";
 
 @Injectable()
 export class UsersService {
@@ -14,7 +16,7 @@ export class UsersService {
   }
 
   // 使用内部 uid 获取用户数据
-  async getUserByUid(uid: string): Promise<UserPlatformVO> {
+  async getUserByUid(uid: string): Promise<UserPlatformVO | null> {
     return this.dbService.user_info.findOne({ uid });
   }
 
@@ -35,12 +37,13 @@ export class UsersService {
       return null;
     }
     // 批量获取工程数据
-    const getProjectQueue = userPlatformBO.projects.map(pid => {
-      return this.dbService.project.findOne({ pid });
+    const getProjectQueue = userPlatformBO.projects.flatMap(pid => {
+      const result = this.dbService.project.findOne<ProjectPO>({ pid });
+      return result ? [result] : [];
     });
     const userPlatformData: UserPlatformVO = {
       ...userPlatformBO,
-      projects: await Promise.all(getProjectQueue)
+      projects: (await Promise.all(getProjectQueue)) || []
     };
     return userPlatformData;
   }
