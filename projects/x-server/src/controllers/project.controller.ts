@@ -10,9 +10,8 @@ import {
   Put,
   Query
 } from "@nestjs/common";
-import { CreateProjectDTO } from "src/database/dto/create-project.dto";
-import { ProjectVO } from "src/database/vo/project.vo";
-import { ProjectService } from "./project.service";
+import { CreateProjectDTO, ProjectVO } from "src/database/modal/project";
+import { ProjectService } from "src/services/project.service";
 
 @Controller("project")
 export class ProjectController {
@@ -33,8 +32,9 @@ export class ProjectController {
 
   // 创建工程
   @Put("create")
-  createProject(@Body() project: CreateProjectDTO, @Headers("uid") uid: string) {
-    return this.service.createProject(project, uid);
+  createProject(@Body() project: CreateProjectDTO, @Headers("id") id: string) {
+    console.log(project);
+    return this.service.createProject(project, id);
   }
 
   // 获取软删除的工程

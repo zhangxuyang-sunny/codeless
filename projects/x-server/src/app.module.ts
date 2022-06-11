@@ -1,19 +1,19 @@
 import path from "node:path";
-import { Global, Module } from "@nestjs/common";
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { MongooseModule } from "@nestjs/mongoose";
-import { MaterialModule } from "./business/material.module";
-import { ProjectModule } from "./business/project.module";
-import { TestModule } from "./business/test.module";
-import { ConfigurationService } from "./services/configuration.service";
 import { DatabaseService } from "./services/database.service";
 import { TasksModule } from "./schedules/tasks.module";
 import { FileModule } from "./modules/file.module";
-import { UsersModule } from "./business/users.module";
-import { AuthModule } from "./auth/auth.module";
-import configuration from "../config/index";
+import { configuration } from "../config/index";
+import { AuthModule } from "./modules/auth.module";
+import { UserModule } from "./modules/user.module";
+import { MaterialModule } from "./modules/material.module";
+import { ProjectModule } from "./modules/project.module";
+import { TestModule } from "./modules/test.module";
+import { ConfigurationModule } from "./modules/configuration.module";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -26,7 +26,7 @@ declare global {
 
 const { database } = configuration();
 
-@Global()
+// @Global()
 @Module({
   imports: [
     // 加载不同环境的配置文件
@@ -37,7 +37,6 @@ const { database } = configuration();
       ],
       load: [configuration]
     }),
-
     // 注册定时任务
     ScheduleModule.forRoot(),
     // 静态资源
@@ -55,8 +54,9 @@ const { database } = configuration();
     MongooseModule.forRoot(`${database.host}:${database.port}/${database.db_material}`, {
       connectionName: database.db_material
     }),
+    ConfigurationModule,
     AuthModule,
-    UsersModule,
+    UserModule,
     FileModule,
     TasksModule,
     MaterialModule,
@@ -64,7 +64,6 @@ const { database } = configuration();
     TestModule
   ],
   controllers: [],
-  providers: [ConfigService, ConfigurationService, DatabaseService],
-  exports: [ConfigService, ConfigurationService, DatabaseService]
+  providers: [DatabaseService]
 })
 export class AppModule {}

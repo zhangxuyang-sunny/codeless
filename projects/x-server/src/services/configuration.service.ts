@@ -22,7 +22,7 @@ export class ConfigurationService {
   }
   // 获取主机名
   get host() {
-    return this.getFileByKey("HOST");
+    return this.getFileByKey("host");
   }
 
   // 用户授权 db

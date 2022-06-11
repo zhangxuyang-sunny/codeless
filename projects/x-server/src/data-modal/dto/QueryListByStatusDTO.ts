@@ -1,5 +1,5 @@
 import { IsIn } from "class-validator";
-import { ProjectStatus } from "src/business/project.service";
+import { ProjectStatus } from "src/database/schemas/project.schema";
 
 const statusString = [ProjectStatus.delete, ProjectStatus.normal, ProjectStatus.unlink].map(item =>
   String(item)

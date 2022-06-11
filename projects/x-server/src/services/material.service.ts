@@ -4,9 +4,9 @@ import fse from "fs-extra";
 import ChildProcess from "node:child_process";
 import { v4 as uuid } from "uuid";
 import { Injectable } from "@nestjs/common";
-import { FileService } from "src/modules/file.service";
 import { CompilerService } from "src/services/compiler.service";
-import { ConfigurationService } from "src/services/configuration.service";
+import { ConfigurationService } from "./configuration.service";
+import { FileService } from "./file.service";
 
 interface IGetListParams {
   ids: string[];

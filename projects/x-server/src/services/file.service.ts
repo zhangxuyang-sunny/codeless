@@ -3,7 +3,7 @@ import md5 from "md5";
 import fse from "fs-extra";
 import { createWriteStream } from "fs";
 import { Injectable } from "@nestjs/common";
-import { ConfigurationService } from "src/services/configuration.service";
+import { ConfigurationService } from "./configuration.service";
 
 // 文件服务，所有文件都基于 static 为根路径向下展开的
 // 不要使用 "../" 向前推进

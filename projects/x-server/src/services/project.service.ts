@@ -1,59 +1,55 @@
 import { v4 as uuidV4 } from "uuid";
-import { Injectable, Logger } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { DatabaseService } from "src/services/database.service";
-import { CreateProjectDTO } from "src/database/dto/create-project.dto";
-import { ProjectVO } from "src/database/vo/project.vo";
-import { ProjectPO } from "src/database/po/project.po";
-import { UsersService } from "./users.service";
-
-export const enum ProjectStatus {
-  normal = 1, // 正常状态
-  unlink = -1, // 软删除
-  delete = -2 // 自状态变为 -2 一定时间后，将会彻底从数据库移除
-}
+import { DbProjectService } from "src/database/db.project.service";
+import { ProjectStatus } from "src/database/schemas/project.schema";
+import { UserService } from "./user.service";
+import { DbUserService } from "src/database/db.user.service";
+import { CreateProjectDTO, ProjectVO } from "src/database/modal/project";
 
 @Injectable()
 export class ProjectService {
   private readonly logger = new Logger();
   constructor(
     private readonly dbService: DatabaseService,
-    private readonly usersService: UsersService
+    private readonly dbProjectService: DbProjectService,
+    private readonly dbUserService: DbUserService,
+    private readonly userService: UserService
   ) {}
 
-  // 保证 pid 不重复
+  // 生成 pid，并保证不重复
   private async generatePid() {
-    let isValid = false;
-    let uuid = uuidV4();
-    while (!isValid) {
-      if ((await this.dbService.project.count({ uuid })) === 0) {
-        isValid = true;
-        break;
-      }
-      uuid = uuidV4();
+    let pid = uuidV4();
+    while (await this.dbProjectService.isPidExists(pid)) {
+      pid = uuidV4();
     }
-    return uuid;
+    return pid;
   }
 
   // 创建工程，随机生成 pid
   async createProject(project: CreateProjectDTO, uid: string) {
     const pid = await this.generatePid();
-    const user = await this.usersService.getUserByUid(uid);
-    if (!user) {
+    const userInfo = await this.dbUserService.findUserInfoBy({ uid });
+    const userPlatform = await this.dbUserService.findUserPlatformBy({ uid });
+    if (!userInfo) {
       this.logger.warn(`查询用户异常`, uid);
-      return null;
+      throw new HttpException(`创建工程失败，用户异常`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    const projectPO: ProjectPO = {
-      ...project,
+    // 写入工程数据库
+    const result = await this.dbProjectService.createProject({
       pid,
       status: ProjectStatus.normal,
-      createUser: user.nickname,
-      updateUser: user.nickname
-    };
-    this.dbService.user_info.update(
-      { username: user.username }, //
-      { $push: { projects: pid } }
-    );
-    const result = await this.dbService.project.insert(projectPO);
+      createUser: userInfo.nickname,
+      updateUser: userInfo.nickname,
+      schema: project
+    });
+    // 更新用户数据库
+    this.dbUserService.updateUserPlatform({
+      uid,
+      projects: [...(userPlatform?.projects || []), pid],
+      materials: [],
+      teams: []
+    });
     this.logger.log(JSON.stringify(result), "创建工程");
     return result;
   }
@@ -66,7 +62,7 @@ export class ProjectService {
   // 条件查找工程
   async findProjectsBy(project: Partial<ProjectVO>) {
     // Get query 中 number 转换
-    project.status = Number(project.status);
+    // project.status = Number(project.status);
     return this.dbService.project.find(project);
   }
   // 通过状态获取项目列表
