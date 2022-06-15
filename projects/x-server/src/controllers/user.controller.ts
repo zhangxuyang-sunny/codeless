@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Headers, Post, UseGuards } from "@nestjs/common";
+import type { Response } from "express";
+import { Body, Controller, Get, Headers, Post, Res, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { RegisterUserDTO } from "src/database/modal/user";
 import { UserService } from "src/services/user.service";
@@ -13,8 +14,14 @@ export class UserController {
   // 登录
   @UseGuards(AuthGuard("local"))
   @Post("login")
-  async login(@Body("username") username: string, @Body("password") password: string) {
-    return this.authService.login({ username, password });
+  async login(
+    @Body("username") username: string,
+    @Body("password") password: string,
+    @Res() response: Response
+  ) {
+    const { access_token } = await this.authService.login({ username, password });
+    response.cookie("access_token", access_token);
+    response.send({ data: 0, message: "登录成功" });
   }
 
   // 登出
@@ -32,6 +39,6 @@ export class UserController {
   // 获取用户信息
   @Get("/")
   async getUser(@Headers("id") id: string) {
-    return this.userService.getUserPlatformByUsernameLike(id);
+    return this.userService.getUserPlatformVOByUsernameLike(id);
   }
 }

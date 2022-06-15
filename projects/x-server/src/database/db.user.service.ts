@@ -5,7 +5,6 @@ import { database } from "config/database";
 import { UserInfoDO, UserInfoDocument } from "./schemas/user_info.schema";
 import { UserAuthDO, UserAuthDocument } from "./schemas/user_auth.schema";
 import { UserPlatformDO, UserPlatformDocument } from "./schemas/user_platform.schema";
-import { UserPlatformPO } from "./modal/user";
 
 @Injectable()
 export class DbUserService {
@@ -83,7 +82,7 @@ export class DbUserService {
     const deleted = await this.userPlatformModel.deleteMany({ uid });
     return deleted.deletedCount;
   }
-  async findUserPlatformBy(query: Partial<UserPlatformDO>) {
-    return this.userPlatformModel.findOne(query).exec();
+  async findUserPlatformByUid(uid: string) {
+    return this.userPlatformModel.findOne({ uid }).exec();
   }
 }

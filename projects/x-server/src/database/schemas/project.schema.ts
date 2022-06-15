@@ -22,6 +22,10 @@ export class ProjectDO implements ProjectPO {
   updateUser: string;
   @Prop({ type: Number, required: true })
   status: ProjectStatus;
+  @Prop({ type: String, required: true })
+  title: string;
+  @Prop({ type: String, required: true })
+  version: string;
   // schema
   @Prop({ type: Object, required: true })
   schema: ProjectSchema;

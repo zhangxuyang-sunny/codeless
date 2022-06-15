@@ -10,7 +10,7 @@ import {
   Put,
   Query
 } from "@nestjs/common";
-import { CreateProjectDTO, ProjectVO } from "src/database/modal/project";
+import { CreateProjectDTO, QueryProjectDTO } from "src/database/modal/project";
 import { ProjectService } from "src/services/project.service";
 
 @Controller("project")
@@ -20,20 +20,23 @@ export class ProjectController {
 
   // 获取工程列表
   @Get("list")
-  getList() {
-    return this.service.findNormalProjects();
+  async getList(@Query() query: Partial<QueryProjectDTO>, @Headers("id") id: string) {
+    return this.service.getProjectList(query, id);
   }
 
-  // 使用查询条件获取 query
-  @Get("list/query")
-  queryList(@Query() project: Partial<ProjectVO>) {
-    return this.service.findProjectsBy(project);
-  }
+  // // 使用查询条件获取 query
+  // @Get("list/query")
+  // queryList(@Query() query: Partial<QueryProjectDTO>, @Headers("id") id: string) {
+  //   const userPlatform = this.userService.getUserPlatformVOByUsernameLike(id);
+  //   if (!userPlatform) {
+  //     return;
+  //   }
+  //   return this.service.findProjectsBy(query);
+  // }
 
   // 创建工程
   @Put("create")
   createProject(@Body() project: CreateProjectDTO, @Headers("id") id: string) {
-    console.log(project);
     return this.service.createProject(project, id);
   }
 
@@ -51,26 +54,26 @@ export class ProjectController {
 
   // 软删除工程
   @Patch("unlink")
-  async unlinkProject(@Query("uuid") uuid: string) {
-    const count = await this.service.handleUnlink(uuid);
-    if (count === 0) {
-      const msg = `uuid: '${uuid}' 不存在`;
+  async unlinkProject(@Query("pid") pid: string) {
+    const result = await this.service.handleUnlink(pid);
+    if (!result) {
+      const msg = `pid: '${pid}' 不存在`;
       this.logger.log(msg);
       throw new HttpException(msg, HttpStatus.OK);
     } else {
-      return null;
+      return "成功";
     }
   }
   // 硬删除工程
   @Patch("delete")
   async deleteProject(@Query("uuid") uuid: string) {
-    const count = await this.service.handleDelete(uuid);
-    if (count === 0) {
+    const result = await this.service.handleDelete(uuid);
+    if (!result) {
       const msg = `uuid: '${uuid}' 不存在`;
       this.logger.log(msg);
       throw new HttpException(msg, HttpStatus.OK);
     } else {
-      return null;
+      return "成功";
     }
   }
 

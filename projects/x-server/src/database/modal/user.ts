@@ -1,6 +1,8 @@
 import { IsArray, IsNotEmpty } from "class-validator";
 import { ProjectVO } from "./project";
 
+export class QueryUserDTO {}
+
 // 用户校验信息
 export class UserAuthPO {
   readonly uid: string; // 唯一用户 id
