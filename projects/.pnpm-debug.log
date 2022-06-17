@@ -1,0 +1,15 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "workspacePrefix": "/Users/zhangxuyang/mine/javascript/awesome-lowcode/x-lowcode"
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_MISSING_ARGS",
+    "err": {
+      "name": "pnpm",
+      "message": "Missing the template package name.\nThe correct usage is `pnpm create <name>` with <name> substituted for a package name.",
+      "code": "ERR_PNPM_MISSING_ARGS",
+      "stack": "pnpm: Missing the template package name.\nThe correct usage is `pnpm create <name>` with <name> substituted for a package name.\n    at Object.handler [as create] (/Users/zhangxuyang/.nvm/versions/node/v16.9.1/lib/node_modules/pnpm/dist/pnpm.cjs:177791:15)\n    at /Users/zhangxuyang/.nvm/versions/node/v16.9.1/lib/node_modules/pnpm/dist/pnpm.cjs:182699:51\n    at async run (/Users/zhangxuyang/.nvm/versions/node/v16.9.1/lib/node_modules/pnpm/dist/pnpm.cjs:182675:34)\n    at async runPnpm (/Users/zhangxuyang/.nvm/versions/node/v16.9.1/lib/node_modules/pnpm/dist/pnpm.cjs:182893:5)\n    at async /Users/zhangxuyang/.nvm/versions/node/v16.9.1/lib/node_modules/pnpm/dist/pnpm.cjs:182885:7"
+    }
+  }
+}
