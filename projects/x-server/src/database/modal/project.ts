@@ -1,5 +1,5 @@
-import { IsArray, IsDefined, IsIn, IsNotEmpty, IsObject, IsString } from "class-validator";
-import { NodeTypes, PageSchema, PiniaSchema, ProjectSchema, RouterSchema } from "packages/x-nodes";
+import { IsIn } from "class-validator";
+import { ProjectSchema } from "packages/x-nodes";
 import { ProjectStatus } from "src/database/schemas/project.schema";
 
 // 工程持久化对象

@@ -3,14 +3,14 @@ import {
   Controller,
   Get,
   Headers,
-  HttpException,
+  HttpCode,
   HttpStatus,
   Logger,
   Patch,
   Put,
   Query
 } from "@nestjs/common";
-import { CreateProjectDTO, QueryProjectDTO } from "src/database/modal/project";
+import { CreateProjectDTO, ProjectVO, QueryProjectDTO } from "src/database/modal/project";
 import { ProjectService } from "src/services/project.service";
 
 @Controller("project")
@@ -20,66 +20,43 @@ export class ProjectController {
 
   // 获取工程列表
   @Get("list")
-  async getList(@Query() query: Partial<QueryProjectDTO>, @Headers("id") id: string) {
-    return this.service.getProjectList(query, id);
+  async getList(@Headers("uid") uid: string, @Query() query: Partial<QueryProjectDTO>) {
+    return this.service.getProjectList(query, uid);
   }
-
-  // // 使用查询条件获取 query
-  // @Get("list/query")
-  // queryList(@Query() query: Partial<QueryProjectDTO>, @Headers("id") id: string) {
-  //   const userPlatform = this.userService.getUserPlatformVOByUsernameLike(id);
-  //   if (!userPlatform) {
-  //     return;
-  //   }
-  //   return this.service.findProjectsBy(query);
-  // }
 
   // 创建工程
   @Put("create")
-  createProject(@Body() project: CreateProjectDTO, @Headers("id") id: string) {
-    return this.service.createProject(project, id);
+  @HttpCode(HttpStatus.OK)
+  createProject(@Headers("uid") uid: string, @Body() project: CreateProjectDTO) {
+    return this.service.createProject(project, uid);
   }
 
   // 获取软删除的工程
   @Get("list/unlink")
-  getProjectsUnlink() {
+  getProjectsUnlink(@Headers("uid") uid: string): Promise<ProjectVO[]> {
     return this.service.findUnlinkProjects();
   }
 
   // 获取等待被彻底移除的工程
   @Get("list/delete")
-  getProjectsOnDelete() {
+  getProjectsOnDelete(@Headers("uid") uid: string): Promise<ProjectVO[]> {
     return this.service.findDeleteProjects();
   }
 
   // 软删除工程
   @Patch("unlink")
   async unlinkProject(@Query("pid") pid: string) {
-    const result = await this.service.handleUnlink(pid);
-    if (!result) {
-      const msg = `pid: '${pid}' 不存在`;
-      this.logger.log(msg);
-      throw new HttpException(msg, HttpStatus.OK);
-    } else {
-      return "成功";
-    }
+    return this.service.handleUnlink(pid);
   }
   // 硬删除工程
   @Patch("delete")
-  async deleteProject(@Query("uuid") uuid: string) {
-    const result = await this.service.handleDelete(uuid);
-    if (!result) {
-      const msg = `uuid: '${uuid}' 不存在`;
-      this.logger.log(msg);
-      throw new HttpException(msg, HttpStatus.OK);
-    } else {
-      return "成功";
-    }
+  async deleteProject(@Query("pid") pid: string) {
+    return this.service.handleDelete(pid);
   }
 
   // 恢复工程状态
   @Patch("revert")
-  revertProject(@Query("uuid") uuid: string) {
-    return this.service.handleRevert(uuid);
+  revertProject(@Query("pid") pid: string) {
+    return this.service.handleRevert(pid);
   }
 }

@@ -5,6 +5,7 @@ import { ProjectStatus } from "src/database/schemas/project.schema";
 import { UserService } from "./user.service";
 import { DbUserService } from "src/database/db.user.service";
 import { CreateProjectDTO, ProjectVO, QueryProjectDTO } from "src/database/modal/project";
+import { IsProjectExists } from "src/decorates/project.decorate";
 
 @Injectable()
 export class ProjectService {
@@ -33,7 +34,7 @@ export class ProjectService {
       throw new HttpException(`创建工程失败，用户异常`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     // 写入工程数据库
-    const result = await this.dbProjectService.createProject({
+    const result = await this.dbProjectService.insertProject({
       pid,
       status: ProjectStatus.normal,
       createUser: userInfo.nickname,
@@ -43,19 +44,14 @@ export class ProjectService {
       schema: project.schema
     });
     // 更新用户数据库
-    const userPlatform = await this.dbUserService.findUserPlatformByUid(uid);
-    this.dbUserService.updateUserPlatform({
-      uid,
-      projects: [...(userPlatform?.projects || []), pid],
-      materials: [],
-      teams: []
-    });
+    // 给当前用户 projects 添加一个 pid
+    this.dbUserService.addProjectId(uid, pid);
     this.logger.log(JSON.stringify(result), "创建工程");
     return result;
   }
 
   // 条件查找工程
-  async findProjectsBy(query: Partial<QueryProjectDTO>): Promise<ProjectVO[] | null> {
+  async findProjectsBy(query: Partial<QueryProjectDTO>): Promise<ProjectVO[]> {
     return this.dbProjectService.findProjectsBy(query);
   }
 
@@ -74,7 +70,7 @@ export class ProjectService {
 
   // 通过状态获取项目列表
   private async findProjectsByStatus(status: ProjectStatus) {
-    return this.dbProjectService.findProjectBy({ status });
+    return this.dbProjectService.findProjectsBy({ status });
   }
 
   // 获取正常状态的工程列表
@@ -92,8 +88,14 @@ export class ProjectService {
     return this.findProjectsByStatus(ProjectStatus.delete);
   }
 
+  // 配合 IsProjectExists 装饰器使用
+  async checkProjectExists(pid: string) {
+    return this.dbProjectService.isPidExists(pid);
+  }
+
   // 软删除
   // 仅仅将状态 status 改为 unlink
+  @IsProjectExists()
   async handleUnlink(pid: string) {
     this.logger.log(pid, "软删除工程");
     return this.dbProjectService.unlinkProjectByPid(pid);
@@ -101,12 +103,14 @@ export class ProjectService {
 
   // 硬删除
   // 将状态 status 改为 delete，暂定保留一周后定时任务清除
+  @IsProjectExists()
   async handleDelete(pid: string) {
     this.logger.log(pid, "删除工程");
     return this.dbProjectService.unlinkProjectByPid(pid);
   }
 
   // 恢复工程
+  @IsProjectExists()
   async handleRevert(pid: string) {
     this.logger.log(pid, "恢复工程");
     return this.dbProjectService.revertProjectByPid(pid);

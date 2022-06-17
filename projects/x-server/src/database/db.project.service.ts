@@ -15,11 +15,12 @@ export class DbProjectService {
   async isPidExists(pid: string) {
     return this.projectModel.exists({ pid });
   }
+
   /**
    * 项目表
    */
   // 创建工程
-  async createProject(project: ProjectDO) {
+  async insertProject(project: ProjectDO) {
     return this.projectModel.insertMany(project);
   }
 
@@ -30,6 +31,7 @@ export class DbProjectService {
 
   // 软删除工程，将 status 标记为 ProjectStatus.unlink 状态
   async unlinkProjectByPid(pid: string) {
+    debugger;
     return this.projectModel.findOneAndUpdate({ pid }, { status: ProjectStatus.unlink });
   }
 
@@ -38,8 +40,8 @@ export class DbProjectService {
     return this.projectModel.findOneAndUpdate({ pid }, { status: ProjectStatus.delete });
   }
 
-  async findProjectsBy(query: Partial<QueryProjectDTO>): Promise<ProjectVO[] | null> {
-    return this.projectModel.find(query);
+  async findProjectsBy(query: Partial<QueryProjectDTO>): Promise<ProjectVO[]> {
+    return this.projectModel.find(query).exec() || [];
   }
 
   async findProjectBy(query: Partial<QueryProjectDTO>): Promise<ProjectVO | null> {

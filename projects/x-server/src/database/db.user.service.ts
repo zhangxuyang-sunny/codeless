@@ -78,6 +78,9 @@ export class DbUserService {
     const { uid, ...data } = userPlatform;
     return this.userPlatformModel.findOneAndUpdate({ uid }, data);
   }
+  async addProjectId(uid: string, pid: string) {
+    return this.userPlatformModel.findOneAndUpdate({ uid }, { $push: { projects: pid } });
+  }
   async deleteUserPlatformByUid(uid: string) {
     const deleted = await this.userPlatformModel.deleteMany({ uid });
     return deleted.deletedCount;

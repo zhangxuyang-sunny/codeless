@@ -2,7 +2,6 @@ import path from "path";
 import { NestFactory } from "@nestjs/core";
 import { VersioningType, ValidationPipe } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
-import cookieParser from "cookie-parser";
 import { AppModule } from "./app.module";
 import { AllExceptionsFilter } from "./exception-filters/AllExceptionsFilter";
 import { TransformResponse } from "./interceptor/TransformResponse";
@@ -13,7 +12,6 @@ async function bootstrap() {
   });
   // 允许跨域
   app.enableCors();
-  app.use(cookieParser("ttt"));
   // 静态资源
   // process.cwd() 为命令启动路径，应在 x-server 下
   app.useStaticAssets(path.resolve(process.cwd(), "../../static"), { prefix: "/static" });
