@@ -7,7 +7,7 @@
           <Sidebar />
         </div>
         <div class="widget-edit-container">
-          <Simulator />
+          <!-- <Simulator /> -->
         </div>
         <div class="right">
           <PropsVue />
@@ -20,13 +20,13 @@
 import { v4 as uuid } from "uuid";
 import { ref } from "vue";
 import { Spin } from "@arco-design/web-vue";
-import { PageNode, PageSchema } from "packages/x-nodes/index";
+import { PageNode, PageSchema } from "packages/x-nodes";
 import { usePageConfig, useRouterConfig } from "./store";
 import Sidebar from "./components/Sidebar/Index.vue";
 import HeaderVue from "./components/Header/Index.vue";
 import PropsVue from "./components/Props/Index.vue";
 // import Emulator from "./components/Emulator.vue";
-import Simulator from "projects/x-workbench/src/views/simulator/Index.vue";
+// import Simulator from "projects/x-workbench/src/views/simulator/Index.vue";
 const loading = ref(true);
 const { initRouterConfig } = useRouterConfig();
 const { initPageConfig } = usePageConfig();

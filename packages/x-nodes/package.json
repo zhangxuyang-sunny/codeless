@@ -9,10 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/react": "18.0.14",
     "lodash": "^4.17.21",
     "pinia": "^2.0.14",
+    "recoil": "^0.7.3",
     "uuid": "^8.3.2",
-    "vue": "^3.2.36"
+    "vue": "^3.2.37"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",

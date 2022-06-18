@@ -3,8 +3,8 @@ import type { TypeGlobalProperties } from "packages/x-types/index";
 
 import mitt from "mitt";
 import { shallowRef, onUnmounted } from "vue";
-import { AbstractNode } from "packages/x-nodes/AbstractNode";
-import { ProjectNode, ProjectSchema } from "packages/x-nodes/nodes/ProjectNode";
+import { AbstractNode } from "packages/x-nodes/common/AbstractNode";
+import { VueProjectNode, VueProjectSchema } from "packages/x-nodes/nodes-vue";
 import loadRemoteComponent from "packages/x-shared/utils/loadRemoteComponent";
 
 const remotePkg = {
@@ -64,9 +64,9 @@ export default function useCreateRenderApp() {
   };
 
   // 创建工程页面
-  const createProjectApp = async (schema: ProjectSchema) => {
+  const createProjectApp = async (schema: VueProjectSchema) => {
     const { vue, vueRouter, pinia } = await loadPkg();
-    const project = new ProjectNode() //
+    const project = new VueProjectNode() //
       .setPackages({ vue, vueRouter, pinia })
       .setSchema(schema);
 

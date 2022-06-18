@@ -1,5 +1,5 @@
-import { NodeTypes } from "../enums";
-import { AbstractNode, TypePlatformFunction } from "../AbstractNode";
+import { NodeTypes } from "../common/enums";
+import { AbstractNode, TypePlatformFunction } from "../common/AbstractNode";
 
 declare global {
   interface NodeSchema {

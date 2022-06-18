@@ -9,9 +9,3 @@ export type TypeGlobalProperties = {
     getInstance: () => ComponentInternalInstance | null;
   };
 };
-
-export type TypePackages = {
-  vue: typeof import('vue');
-  pinia: typeof import('pinia');
-  vueRouter: typeof import('vue-router');
-};

@@ -1,12 +1,7 @@
 import { host } from "packages/x-shared/utils/ImportMap";
-import {
-  PageSchema,
-  PiniaSchema,
-  RouterSchema,
-  ProjectSchema,
-  NodeTypes,
-  BooleanNode
-} from "packages/x-nodes/index";
+import { NodeTypes } from "packages/x-nodes/common/enums";
+import { PageSchema, RouterSchema, BooleanNode } from "packages/x-nodes";
+import { PiniaSchema, VueProjectSchema } from "packages/x-nodes/nodes-vue";
 
 // 路由配置
 const router: RouterSchema = {
@@ -203,8 +198,8 @@ const pageList: PageSchema[] = [
   }
 ];
 
-const project: ProjectSchema = {
-  type: NodeTypes.Project,
+const project: VueProjectSchema = {
+  type: NodeTypes.VueProject,
   router,
   piniaList,
   pageList

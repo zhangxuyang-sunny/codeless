@@ -6,7 +6,7 @@ import {
   ProjectSchema,
   NodeTypes,
   BooleanNode
-} from "packages/x-nodes/index";
+} from "packages/x-nodes";
 
 // 路由配置
 const router: RouterSchema = {

@@ -1,5 +1,5 @@
 import { IsIn } from "class-validator";
-import { ProjectSchema } from "packages/x-nodes";
+import { TypeProjectSchema } from "packages/x-types/project";
 import { ProjectStatus } from "src/database/schemas/project.schema";
 
 // 工程持久化对象
@@ -10,7 +10,7 @@ export class ProjectPO {
   status: ProjectStatus;
   version: string;
   title: string;
-  schema: ProjectSchema;
+  schema: TypeProjectSchema;
 }
 
 export class ProjectVO extends ProjectPO {}
@@ -28,7 +28,7 @@ export class QueryProjectDTO {
 export class CreateProjectDTO {
   version: string;
   title: string;
-  schema: ProjectSchema;
+  schema: TypeProjectSchema;
 
   // @IsString({ groups: [NodeTypes.Project] })
   // type: NodeTypes.Project;

@@ -1,12 +1,13 @@
 import type { ComputedRef } from "vue";
-import { NodeTypes } from "../enums";
-import { AbstractNode } from "../AbstractNode";
+import { NodeTypes } from "../common/enums";
+import { AbstractNode } from "../common/AbstractNode";
+import { get as lodashGet } from "lodash";
 
 declare global {
   interface NodeSchema {
     [NodeTypes.ReactiveByPinia]: {
       schema: ReactiveByPiniaSchema;
-      value: ReactiveByPiniaValue;
+      value: unknown;
     };
   }
 }
@@ -16,19 +17,26 @@ export interface ReactiveByPiniaSchema {
   path: string;
 }
 
-export type ReactiveByPiniaValue<T = unknown> = ComputedRef<T>;
-
 export class ReactiveByPiniaNode<T = unknown> //
   extends AbstractNode<
     NodeTypes.ReactiveByPinia,
     ReactiveByPiniaSchema,
-    ReactiveByPiniaValue<T>
+    ComputedRef<T>
   >
 {
   constructor() {
     super(NodeTypes.ReactiveByPinia);
   }
   private path = "";
+
+  // 获取 pinia 的响应式计算数据
+  private getPiniaReactiveByPath(path: string) {
+    return <ComputedRef<T>>(
+      AbstractNode.getPackage<typeof import("vue")>("vue").computed(() =>
+        lodashGet(AbstractNode.getContext(), path)
+      )
+    );
+  }
 
   setPath(path: string) {
     this.path = path;
@@ -47,7 +55,7 @@ export class ReactiveByPiniaNode<T = unknown> //
   }
 
   getValue() {
-    return AbstractNode.getPiniaReactiveByPath<T>(this.path);
+    return this.getPiniaReactiveByPath(this.path);
   }
 }
 

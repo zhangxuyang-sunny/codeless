@@ -1,14 +1,9 @@
-import type { ComputedRef, VNodeProps } from "vue";
 import { v4 as uuid } from "uuid";
-import { NodeTypes } from "../enums";
-import { AbstractNode } from "../AbstractNode";
+import { NodeTypes } from "../common/enums";
+import { AbstractNode } from "../common/AbstractNode";
 import { ArrayNode, ArraySchema } from "./ArrayNode";
 import { ObjectNode, ObjectSchema } from "./ObjectNode";
 import { StringNode, StringSchema } from "./StringNode";
-import {
-  ReactiveByPiniaNode,
-  ReactiveByPiniaSchema
-} from "./ReactiveByPiniaNode";
 
 declare global {
   interface NodeSchema {
@@ -26,9 +21,9 @@ export interface MaterialSchema {
   title: StringSchema;
   version: StringSchema;
   src: StringSchema;
-  style: ObjectSchema | ReactiveByPiniaSchema;
-  commonProps: ObjectSchema | ReactiveByPiniaSchema;
-  props: ObjectSchema | ReactiveByPiniaSchema;
+  style: ObjectSchema;
+  commonProps: ObjectSchema;
+  props: ObjectSchema;
   emits: ArraySchema;
   listeners: ArraySchema;
   slots: ObjectSchema;
@@ -36,7 +31,7 @@ export interface MaterialSchema {
 
 export type MaterialEvent = `${string}:${string}` | string;
 export type MaterialStyle = Partial<CSSStyleDeclaration>;
-export type MaterialProps = VNodeProps & { [x: string]: unknown };
+export type MaterialProps = { [x: string]: unknown };
 export type MaterialCommonProps = {
   if?: unknown;
   show?: unknown;
@@ -62,9 +57,9 @@ export interface MaterialValue {
   title: string;
   version: string;
   src: string;
-  style: ComputedRef<MaterialStyle> | MaterialStyle;
-  props: ComputedRef<MaterialProps> | MaterialProps;
-  commonProps: ComputedRef<MaterialCommonProps> | MaterialCommonProps;
+  style: MaterialStyle;
+  props: MaterialProps;
+  commonProps: MaterialCommonProps;
   emits: MaterialEmit[];
   listeners: MaterialListener[];
   slots: Partial<{
@@ -83,9 +78,9 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
   private readonly title = new StringNode().setValue("未命名组件");
   private readonly version = new StringNode().setValue("0.0.0");
   private readonly src = new StringNode();
-  private style: ObjectNode | ReactiveByPiniaNode = new ObjectNode();
-  private props: ObjectNode | ReactiveByPiniaNode = new ObjectNode();
-  private commonProps: ObjectNode | ReactiveByPiniaNode = new ObjectNode();
+  private readonly style = new ObjectNode();
+  private readonly props = new ObjectNode();
+  private readonly commonProps = new ObjectNode();
   private readonly emits = new ArrayNode();
   private readonly listeners = new ArrayNode();
   private readonly slots = new ObjectNode();
@@ -113,22 +108,14 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
     this.key.setSchema(schema.key);
     this.version.setSchema(schema.version);
     this.src.setSchema(schema.src);
-    if (schema.style.type === NodeTypes.ReactiveByPinia) {
-      this.style = new ReactiveByPiniaNode().setSchema(schema.style);
-    } else if (schema.style.type === NodeTypes.Object) {
-      this.style = new ObjectNode().setSchema(schema.style);
+    if (schema.style.type === NodeTypes.Object) {
+      this.style.setSchema(schema.style);
     }
-    if (schema.props.type === NodeTypes.ReactiveByPinia) {
-      this.props = new ReactiveByPiniaNode().setSchema(schema.props);
-    } else if (schema.props.type === NodeTypes.Object) {
-      this.props = new ObjectNode().setSchema(schema.props);
+    if (schema.props.type === NodeTypes.Object) {
+      this.props.setSchema(schema.props);
     }
-    if (schema.commonProps.type === NodeTypes.ReactiveByPinia) {
-      this.commonProps = new ReactiveByPiniaNode().setSchema(
-        schema.commonProps
-      );
-    } else if (schema.commonProps.type === NodeTypes.Object) {
-      this.commonProps = new ObjectNode().setSchema(schema.commonProps);
+    if (schema.commonProps.type === NodeTypes.Object) {
+      this.commonProps.setSchema(schema.commonProps);
     }
     this.emits.setSchema(schema.emits);
     this.listeners.setSchema(schema.listeners);

@@ -1,9 +1,8 @@
-import { NodeTypes } from "../enums";
-import { AbstractNode } from "../AbstractNode";
-import { RouterNode, RouterSchema, RouterValue } from "./RouterNode";
-import { PiniaNode, PiniaSchema, PiniaValue } from "./PiniaNode";
+import { NodeTypes } from "../common/enums";
+import { AbstractNode } from "../common/AbstractNode";
 import { PageNode, PageSchema, PageValue } from "./PageNode";
-import { TypePackages } from "../../x-types";
+import { RouterNode, RouterSchema, RouterValue } from "./RouterNode";
+import { DatasetNode, DatasetSchema, DatasetValue } from "./DatasetNode";
 
 declare global {
   interface NodeSchema {
@@ -17,14 +16,14 @@ declare global {
 export interface ProjectSchema {
   type: NodeTypes.Project;
   router: RouterSchema;
-  piniaList: PiniaSchema[];
-  pageList: PageSchema[];
+  datasets: DatasetSchema[];
+  pages: PageSchema[];
 }
 
 export interface ProjectValue {
   router: RouterValue;
-  piniaList: PiniaValue[];
-  pageList: PageValue[];
+  datasets: DatasetValue[];
+  pages: PageValue[];
 }
 
 export class ProjectNode extends AbstractNode<NodeTypes.Project> {
@@ -32,41 +31,47 @@ export class ProjectNode extends AbstractNode<NodeTypes.Project> {
     super(NodeTypes.Project);
   }
   private readonly router = new RouterNode();
-  private readonly piniaList: PiniaSchema[] = [];
-  private readonly pageList: PageSchema[] = [];
+  private readonly datasetList: DatasetNode[] = [];
+  private readonly pageList: PageNode[] = [];
 
-  setPackages(packages: TypePackages) {
-    AbstractNode.setPackages(packages);
+  setPackages<T extends Record<string, unknown>>(packages: T) {
+    Object.entries(packages).forEach(([key, pkg]) => {
+      AbstractNode.setPackage(key, pkg);
+    });
     return this;
   }
 
-  addPinia(piniaSchema: PiniaSchema) {
-    const index = this.piniaList.findIndex(
-      (item) => item.key === piniaSchema.key
+  addDatasetBySchema(datasetSchema: DatasetSchema) {
+    const index = this.datasetList.findIndex(
+      (item) => item.getSchema().key === datasetSchema.key
     );
+    const datasetNode = new DatasetNode().setSchema(datasetSchema);
     if (index >= 0) {
-      this.piniaList[index] = piniaSchema;
+      this.datasetList[index] = datasetNode;
     } else {
-      this.piniaList.push(piniaSchema);
+      this.datasetList.push(datasetNode);
     }
   }
 
-  addPage(pageSchema: PageSchema) {
-    const index = this.pageList.findIndex((item) => item.id === pageSchema.id);
+  addPageBySchema(pageSchema: PageSchema) {
+    const index = this.pageList.findIndex(
+      (item) => item.getSchema().id === pageSchema.id
+    );
+    const pageNode = new PageNode().setSchema(pageSchema);
     if (index >= 0) {
-      this.pageList[index] = pageSchema;
+      this.pageList[index] = pageNode;
     } else {
-      this.pageList.push(pageSchema);
+      this.pageList.push(pageNode);
     }
   }
 
   setSchema(schema: ProjectSchema) {
     this.router.setSchema(schema.router);
-    schema.piniaList.forEach((item) => {
-      this.addPinia(item);
+    schema.datasets.forEach((item) => {
+      this.addDatasetBySchema(item);
     });
-    schema.pageList.forEach((item) => {
-      this.addPage(item);
+    schema.pages.forEach((item) => {
+      this.addPageBySchema(item);
     });
     return this;
   }
@@ -75,32 +80,28 @@ export class ProjectNode extends AbstractNode<NodeTypes.Project> {
     return {
       type: this.type,
       router: this.router.getSchema(),
-      piniaList: this.piniaList,
-      pageList: this.pageList
+      datasets: this.datasetList.map((item) => item.getSchema()),
+      pages: this.pageList.map((item) => item.getSchema())
     };
   }
 
-  getRouter() {
+  getRouter(): RouterValue {
     return this.router.getValue();
   }
 
-  getPiniaList() {
-    return this.piniaList.map((item) =>
-      new PiniaNode().setSchema(item).getValue()
-    );
+  getDatasetList(): DatasetValue[] {
+    return this.datasetList.map((item) => item.getValue());
   }
 
-  getPageList() {
-    return this.pageList.map((item) =>
-      new PageNode().setSchema(item).getValue()
-    );
+  getPageList(): PageValue[] {
+    return this.pageList.map((item) => item.getValue());
   }
 
   getValue(): ProjectValue {
     return {
       router: this.getRouter(),
-      piniaList: this.getPiniaList(),
-      pageList: this.getPageList()
+      datasets: this.getDatasetList(),
+      pages: this.getPageList()
     };
   }
 }

@@ -1,16 +1,16 @@
-import { NodeTypes } from "../enums";
-import { AbstractNode } from "../AbstractNode";
+import { NodeTypes } from "../common/enums";
+import { AbstractNode } from "../common/AbstractNode";
 
 declare global {
   interface NodeSchema {
     [NodeTypes.WeakMap]: {
-      schema: WeakSchema;
+      schema: WeakMapSchema;
       value: WeakValue<object>;
     };
   }
 }
 
-export interface WeakSchema {
+export interface WeakMapSchema {
   type: NodeTypes.WeakMap;
 }
 

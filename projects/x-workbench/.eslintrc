@@ -21,7 +21,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended", 
     "prettier", 
-    "plugin:jsx-a11y/recommended",
+    // "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
     "plugin:sonarjs/recommended",
     "plugin:security/recommended"
@@ -34,5 +34,7 @@
       "rootDir": "./"
     }
   },
-  "rules": {}
+  "rules": {
+    "prettier/prettier": "warn"
+  }
 }

@@ -1,7 +1,7 @@
 import type { TypeRouterPageState, TypeWorkbenchState } from "./types";
 import { defineStore } from "pinia";
 import { v4 as uuid } from "uuid";
-import { RouterSchema, RouterNode, PageNode } from "packages/x-nodes/index";
+import { RouterSchema, RouterNode, PageNode } from "packages/x-nodes";
 
 export const useEditorStore = defineStore({
   id: "workbench",

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strictNullChecks": true,
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "paths": {
       "packages/*":[
         "../*"
@@ -12,6 +12,6 @@
     "./**/*.ts",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules", "recycle-bin"
   ]
 }

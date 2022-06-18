@@ -1,5 +1,5 @@
-import { NodeTypes } from "../enums";
-import { AbstractNode } from "../AbstractNode";
+import { NodeTypes } from "../common/enums";
+import { AbstractNode } from "../common/AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -21,7 +21,7 @@ export class UndefinedNode extends AbstractNode<NodeTypes.Undefined> {
   constructor() {
     super(NodeTypes.Undefined);
   }
-  private readonly value: UndefinedValue = undefined;
+  private readonly value: UndefinedValue = void 0;
 
   setSchema() {
     return this;

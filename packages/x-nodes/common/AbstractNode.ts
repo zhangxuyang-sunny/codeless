@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import type { ComputedRef } from "vue";
-import type { Store } from "pinia";
-import type { TypePackages } from "../x-types/index";
-import { get as lodashGet } from "lodash";
+// import type { ComputedRef } from "vue";
+// import type { Store } from "pinia";
 import { NodeTypes } from "./enums";
 
 // type isEqual<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
@@ -20,21 +18,25 @@ declare global {
   type NodeValues<T extends NodeTypes = NodeTypes> = NodeSchema[T]["value"];
 }
 
-// type TypePiniaStore = ReturnType<ReturnType<typeof import("pinia")["defineStore"]>>;
-// pinia store
-type TypePiniaStore<
-  T extends Record<string, unknown> = Record<string, unknown> //
-> = Store<
-  string,
-  T,
-  Record<string, FunctionConstructor>,
-  Record<string, FunctionConstructor>
->;
+// // pinia store
+// type TypePiniaStore<
+//   T extends Record<string, unknown> = Record<string, unknown> //
+// > = Store<
+//   string,
+//   T,
+//   Record<string, FunctionConstructor>,
+//   Record<string, FunctionConstructor>
+// >;
+
+// store
+// type TypeStoreRecord<T = unknown> = Record<string, T>;
 
 type TypePlatformThis<
   T extends Record<string, unknown> = Record<string, unknown>
 > = {
-  piniaRecord: Record<string, TypePiniaStore<T>>;
+  // piniaRecord: Record<string, TypePiniaStore<T>>;
+  // piniaRecord: Record<string, T>;
+  record: T;
 };
 
 export type TypePlatformFunction = (this: TypePlatformThis) => unknown;
@@ -57,8 +59,10 @@ export abstract class AbstractNode<
   abstract getValue(): V;
 
   // 节点解析器集合
-  protected static parsers: Map<NodeTypes, { new (): AbstractNode }> =
-    new Map();
+  protected static parsers: Map<
+    NodeTypes, //
+    { new (): AbstractNode }
+  > = new Map();
   static setParser(Parser: { new (): AbstractNode }) {
     const parser = new Parser();
     if (!AbstractNode.parsers.has(parser.type)) {
@@ -67,10 +71,10 @@ export abstract class AbstractNode<
   }
   // 全局上下文挂载点
   private static context: TypePlatformThis = {
-    piniaRecord: {}
+    record: {}
   };
   // 内置包
-  private static packages: Partial<TypePackages> = {};
+  private static packages = new Map<string, unknown>();
   // 设置全局上下文
   static setContext(context: TypePlatformThis) {
     this.context = context;
@@ -79,21 +83,16 @@ export abstract class AbstractNode<
   static getContext() {
     return this.context;
   }
-  // 增加 piniaStore
-  static setPiniaStore(key: string, store: TypePiniaStore) {
-    this.context.piniaRecord[key] = store;
+  static getPackage<T>(key: string) {
+    return <T>this.packages.get(key);
   }
-  // 获取 pinia 的响应式计算数据
-  static getPiniaReactiveByPath<T>(path: string) {
-    return <ComputedRef<T>>(
-      this.packages.vue?.computed(() =>
-        lodashGet(this.context.piniaRecord, path)
-      )
-    );
-  }
+  // // 增加 piniaStore
+  // static setPiniaStore(key: string, store: TypePiniaStore) {
+  //   this.context.record[key] = store;
+  // }
   // 设置包数据
-  static setPackages(packages: Partial<TypePackages>) {
-    Object.assign(this.packages, packages);
+  static setPackage<T>(key: string, pkg: T) {
+    this.packages.set(key, pkg);
   }
   static parseValue(schema: NodeSchemas) {
     const Parser = this.parsers.get(schema.type);

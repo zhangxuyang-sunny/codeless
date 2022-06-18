@@ -1,5 +1,5 @@
-import { AbstractNode } from "../AbstractNode";
-import { NodeTypes } from "../enums";
+import { AbstractNode } from "../common/AbstractNode";
+import { NodeTypes } from "../common/enums";
 
 declare global {
   interface NodeSchema {

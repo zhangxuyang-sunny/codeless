@@ -1,6 +1,6 @@
 import type { DefineStoreOptions } from "pinia";
-import { NodeTypes } from "../enums";
-import { AbstractNode, TypePlatformFunction } from "../AbstractNode";
+import { NodeTypes } from "../common/enums";
+import { AbstractNode, TypePlatformFunction } from "../common/AbstractNode";
 import { StringNode, StringSchema } from "./StringNode";
 import { FunctionNode, FunctionSchema } from "./FunctionNode";
 
