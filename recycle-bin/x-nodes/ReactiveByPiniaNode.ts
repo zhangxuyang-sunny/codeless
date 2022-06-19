@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
 import type { ComputedRef } from "vue";
 import { NodeTypes } from "../common/enums";
 import { AbstractNode } from "../common/AbstractNode";

@@ -7,6 +7,13 @@ import { DbUserService } from "src/database/db.user.service";
 import { CreateProjectDTO, ProjectVO, QueryProjectDTO } from "src/database/modal/project";
 import { IsProjectExists } from "src/decorates/project.decorate";
 
+function IsPidExists() {
+  return function (...args) {
+    debugger;
+    console.log(args);
+  };
+}
+
 @Injectable()
 export class ProjectService {
   private readonly logger = new Logger();

@@ -1,10 +1,11 @@
+import { NextPage } from "next";
 import styled from "styled-components";
-import WorkbenchHeader from "./components/WorkbenchHeader";
+import WorkbenchHeader from "src/components/WorkbenchHeader";
 
-const Workbench: React.FC = () => {
+const Workbench: NextPage = () => {
   return (
     <StyleWorkbench>
-      <WorkbenchHeader />
+      <WorkbenchHeader></WorkbenchHeader>
     </StyleWorkbench>
   );
 };

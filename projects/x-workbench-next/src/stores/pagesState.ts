@@ -1,4 +1,4 @@
-import type { PageSchema } from "packages/x-nodes";
+import type { PageSchema } from "packages/x-nodes/nodes/PageNode";
 import { atom } from "recoil";
 
 export const pagesState = atom<PageSchema[]>({

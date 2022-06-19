@@ -1,3 +1,4 @@
+// @ts-ignore
 import type { DefineStoreOptions } from "pinia";
 import { NodeTypes } from "../common/enums";
 import { AbstractNode, TypePlatformFunction } from "../common/AbstractNode";

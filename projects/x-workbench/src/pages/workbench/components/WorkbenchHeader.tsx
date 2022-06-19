@@ -2,26 +2,26 @@ import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { Button, Divider, Select, Space } from "@arco-design/web-react";
 import { IconEye, IconHistory, IconLeft, IconSave, IconSend } from "@arco-design/web-react/icon";
-import { routerState } from "@/stores/routerSchema";
-import { pageSchemasState } from "@/stores/pageSchemaList";
+import { routerState } from "src/stores/routerState";
+import { pagesState } from "src/stores/pagesState";
 import RouterSetter from "./RouterSetter";
 
 // 工作区顶栏
 const WorkbenchHeader: React.FC = () => {
   const routerSchema = useRecoilValue(routerState);
-  const pageSchemaList = useRecoilValue(pageSchemasState);
+  const pageSchemaList = useRecoilValue(pagesState);
   return (
     <StyleWorkbench>
       <div className="left">
         <Button className="back-button" icon={<IconLeft />} type="text" shape="circle" />
         <Divider type="vertical" />
-        {/* <Select size="small">
+        <Select placeholder="选择页面">
           {pageSchemaList.map(pageSchema => (
             <Select.Option key={pageSchema.id.value} value={pageSchema.title.value}>
               {pageSchema.title.value}
             </Select.Option>
           ))}
-        </Select> */}
+        </Select>
         <RouterSetter />
       </div>
       <div className="right">
@@ -51,6 +51,7 @@ const StyleWorkbench = styled.div`
   background-color: var(--color-bg-1);
   border-bottom: 1px solid var(--color-border-2);
   padding: 0 10px;
+  box-sizing: border-box;
 
   display: flex;
   justify-content: space-between;

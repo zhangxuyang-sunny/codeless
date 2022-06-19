@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { Injectable } from "@nestjs/common";
+import { Injectable, Request } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { database } from "config/database";
 import { ProjectDO, ProjectDocument, ProjectStatus } from "./schemas/project.schema";
@@ -31,7 +31,6 @@ export class DbProjectService {
 
   // 软删除工程，将 status 标记为 ProjectStatus.unlink 状态
   async unlinkProjectByPid(pid: string) {
-    debugger;
     return this.projectModel.findOneAndUpdate({ pid }, { status: ProjectStatus.unlink });
   }
 

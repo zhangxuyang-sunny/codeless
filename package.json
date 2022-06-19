@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "workbench:start": "pnpm --filter @low/workbench dev",
+    "workbench:start": "pnpm --filter @low/workbench start",
     "server:start:dev": "pnpm --filter @low/server start:dev",
     "renderer:start": "pnpm --filter @low/renderer serve",
     "develop:start": "pnpm --filter @low/develop serve",
