@@ -214,7 +214,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .router-setter-container {
   height: 100%;
   padding: 10px;

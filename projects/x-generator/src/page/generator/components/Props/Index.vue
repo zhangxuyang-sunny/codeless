@@ -4,7 +4,6 @@ import { Radio, RadioGroup } from "@arco-design/web-vue";
 import EmitterEdit from "../EmitterEdit/Index.vue";
 import StyleEdit from "../StyleEdit/Index.vue";
 import PropertiesEdit from "../PropertiesEdit/Index.vue";
-
 type TypePropsTab = {
   title: string;
   type: "emitter" | "style" | "properties";
@@ -30,7 +29,7 @@ export default defineComponent({
           return () => <StyleEdit />;
         }
         default: {
-          return <div>暂无配置</div>;
+          return () => null;
         }
       }
     });

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <Tree :data="treeData" show-line @select="select">
     <template #switcher-icon>
       <IconDown />
@@ -16,7 +16,7 @@ import { computed } from "vue";
 import { IconDown } from "@arco-design/web-vue/es/icon";
 import { Tree, TreeNodeData } from "@arco-design/web-vue";
 import { usePageStore } from "../../store";
-import XElement from "../../classes/XElement";
+import XElement from "@/classes/XElement";
 
 const pageStore = usePageStore();
 
@@ -53,4 +53,4 @@ const select = (
 <style lang="less" scoped>
 .tree-item {
 }
-</style>
+</style> -->

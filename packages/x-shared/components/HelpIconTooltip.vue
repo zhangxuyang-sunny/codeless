@@ -26,7 +26,7 @@ defineProps({
   </Tooltip>
 </template>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .help-icon {
   cursor: pointer;
   display: flex;

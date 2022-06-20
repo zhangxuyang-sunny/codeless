@@ -6,6 +6,7 @@ import {
   defineAsyncComponent,
   reactive,
   unref,
+  nextTick,
 } from "vue";
 import { useGlobalProperties, loadRemoteComponent } from "@/common/utils/index";
 
@@ -40,7 +41,9 @@ export default defineComponent({
       default: null,
     },
   },
-  setup(props) {
+
+  emits: ["asyncComponentMounted"],
+  setup(props, ctx) {
     const globalProperties = useGlobalProperties();
     // 递归节点生成元素树
     const traverseToComponent = (
@@ -100,12 +103,10 @@ export default defineComponent({
           <RemoteComponent
             onVnodeMounted={(ref) => {
               if (ref.el instanceof HTMLElement) {
-                ref.el.setAttribute("draggable", "true");
-                ref.el.addEventListener("dragenter", (evt) => {
-                  console.log(evt);
-                });
+                ctx.emit("asyncComponentMounted", ref.el)
               }
             }}
+            data-remote-id={node.id}
             data-remote
             {...props}
             {...emits}
@@ -115,16 +116,20 @@ export default defineComponent({
         );
       };
     };
-    const App = defineAsyncComponent(async () => {
-      const config = props.url ? await fetchConfig(props.url) : props.data;
-      console.log("config:", config);
-      // TODO 空状态
-      if (!config || Object.keys(config).length === 0) {
-        return () => null;
-      }
-      return traverseToComponent(config);
-    });
-    return () => <App />;
+
+    return () => {
+      const App = defineAsyncComponent(async () => {
+        const config = props.url ? await fetchConfig(props.url) : props.data;
+        console.log("config:", config);
+        // TODO 空状态
+        if (!config || Object.keys(config).length === 0) {
+          return () => null;
+        }
+        return traverseToComponent(config);
+      });
+
+      return <App />;
+    };
   },
 });
 </script>

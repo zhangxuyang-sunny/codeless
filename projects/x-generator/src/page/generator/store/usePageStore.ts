@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import XElement from "../classes/XElement";
+import XElement from "@/classes/XElement";
 import { MaterialSchema, NodeTypes, PageSchema } from "packages/x-nodes";
-
+import { ThreeTriangles } from "@icon-park/vue-next";
 function traverseSchema<T extends MaterialSchema | PageSchema>(
   schema: T,
   parent: XElement | null = null,
@@ -25,9 +25,9 @@ function traverseSchema<T extends MaterialSchema | PageSchema>(
 export default defineStore("pageConfig", {
   state() {
     return {
-      xElementMap: {} as Record<string, XElement>,
+      xElementMap: new Map<string, XElement>(),
 
-      xElement: {} as XElement,
+      xElement: ({} as XElement) || {},
 
       selectedId: "",
 
@@ -35,14 +35,20 @@ export default defineStore("pageConfig", {
     };
   },
   getters: {
-    selectedXElement(): XElement {
-      return this.xElementMap[this.selectedId];
+    selectedXElement(): XElement | undefined {
+      return this.xElementMap.get(this.selectedId);
+    },
+    getSchema(): PageSchema | undefined {
+      const schema = this.xElement.getSchema?.();
+      if (schema && schema.type === NodeTypes.Page) {
+        return schema;
+      }
     }
   },
   actions: {
-    initPageStore(pageSchema: PageSchema) {
+    init(pageSchema: PageSchema) {
       this.xElement = traverseSchema(pageSchema, null, xElem => {
-        this.xElementMap[xElem.id] = xElem;
+        this.xElementMap.set(xElem.id, xElem);
       });
     },
     setSelectId(id: string) {

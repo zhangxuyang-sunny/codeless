@@ -15,7 +15,6 @@ import {
   babelLoader,
   pugPlainLoader,
   rawLoader,
-  threadLoader
 } from './loaders';
 import { PORT } from './devServer';
 
