@@ -305,13 +305,37 @@ importers:
 
   projects/x-generator:
     specifiers:
-      '@arco-design/web-vue': 2.28.0
-      '@babel/runtime': ^7.17.9
-      '@low/nodes': workspace:^0.1.0
-      '@low/types': workspace:^0.1.0
-      lodash: ^4.17.21
+      '@arco-design/web-vue': ^2.28.0
+      '@babel/core': ^7.18.0
+      '@icon-park/vue-next': ^1.4.0
+      '@types/node': ^17.0.35
+      '@types/systemjs': ^6.1.1
+      '@types/uuid': ^8.3.4
+      '@typescript-eslint/eslint-plugin': ^5.26.0
+      '@typescript-eslint/parser': ^5.26.0
+      '@vue/cli-plugin-babel': ~5.0.4
+      '@vue/cli-plugin-eslint': ~5.0.4
+      '@vue/cli-plugin-pwa': ~5.0.4
+      '@vue/cli-plugin-router': ~5.0.4
+      '@vue/cli-plugin-typescript': ~5.0.4
+      '@vue/cli-service': ~5.0.4
+      '@vue/eslint-config-typescript': ^10.0.0
+      core-js: ^3.22.7
+      eslint: ^8.16.0
+      eslint-config-prettier: ^8.5.0
+      eslint-plugin-prettier: ^4.0.0
+      eslint-plugin-vue: ^9.0.1
+      less: ^4.1.2
+      less-loader: ^11.0.0
+      lint-staged: ^12.4.2
       pinia: ^2.0.14
+      prettier: ^2.6.2
+      rxjs: ^7.5.5
+      systemjs: ^6.12.1
+      typescript: ~4.6.4
+      uuid: ^8.3.2
       vue: ^3.2.36
+      vue-router: ^4.0.15
     dependencies:
       '@arco-design/web-vue': 2.28.0_vue@3.2.37
       '@low/nodes': link:../../packages/x-nodes
@@ -691,8 +715,8 @@ importers:
     dependencies:
       '@arco-design/web-vue': 2.28.0_vue@3.2.36
       '@icon-park/vue-next': 1.4.0_vue@3.2.36
-      '@low/generator': link:../x-generator
-      '@low/renderer': link:../x-renderer
+      '@low/generator': link:../x-renderer
+      '@low/renderer': link:../x-generator
       '@low/shared': link:../../packages/x-shared
       '@low/types': link:../../packages/x-types
       '@micro-zoe/micro-app': 0.8.5
@@ -1114,6 +1138,15 @@ packages:
       '@jridgewell/gen-mapping': 0.3.1
       jsesc: 2.5.2
 
+  /@babel/generator/7.18.2:
+    resolution: {integrity: sha512-W1lG5vUwFvfMd8HVXqdfbuG7RuaSrTCCD8cl8fP8wOivdbtbIg2Db3IWUcgvfxKbbn6ZBGYRW/Zk1MIwK49mgw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/types': 7.18.2
+      '@jridgewell/gen-mapping': 0.3.1
+      jsesc: 2.5.2
+    dev: true
+
   /@babel/helper-annotate-as-pure/7.16.7:
     resolution: {integrity: sha512-s6t2w/IPQVTAET1HitoowRGXooX8mCgtuP5195wD/QJPV6wYjpujCGF7JuMODVX2ZAJOf1GT6DT9MHEZvLOFSw==}
     engines: {node: '>=6.9.0'}
@@ -1260,6 +1293,11 @@ packages:
     resolution: {integrity: sha512-14GQKWkX9oJzPiQQ7/J36FTXcD4kSp8egKjO9nINlSKiHITRA9q/R74qu8S9xlc/b/yjsJItQUeeh3xnGN0voQ==}
     engines: {node: '>=6.9.0'}
 
+  /@babel/helper-environment-visitor/7.18.2:
+    resolution: {integrity: sha512-14GQKWkX9oJzPiQQ7/J36FTXcD4kSp8egKjO9nINlSKiHITRA9q/R74qu8S9xlc/b/yjsJItQUeeh3xnGN0voQ==}
+    engines: {node: '>=6.9.0'}
+    dev: true
+
   /@babel/helper-explode-assignable-expression/7.16.7:
     resolution: {integrity: sha512-KyUenhWMC8VrxzkGP0Jizjo4/Zx+1nNZhgocs+gLzyZyB8SHidhoq9KK/8Ato4anhwsivfkBLftky7gvzbZMtQ==}
     engines: {node: '>=6.9.0'}
@@ -1384,6 +1422,17 @@ packages:
       '@babel/types': 7.18.4
     transitivePeerDependencies:
       - supports-color
+
+  /@babel/helpers/7.18.2:
+    resolution: {integrity: sha512-j+d+u5xT5utcQSzrh9p+PaJX94h++KN+ng9b9WEJq7pkUPAd61FGqhjuUEdfknb3E/uDBb7ruwEeKkIxNJPIrg==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/template': 7.16.7
+      '@babel/traverse': 7.18.2
+      '@babel/types': 7.18.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /@babel/highlight/7.17.12:
     resolution: {integrity: sha512-7yykMVF3hfZY2jsHZEEgLc+3x4o1O+fYyULu11GynEUQNwB6lua+IIQn1FiJxNucd5UlyJryrwsOh8PL9Sn8Qg==}
@@ -3337,6 +3386,14 @@ packages:
       '@babel/helper-validator-identifier': 7.16.7
       to-fast-properties: 2.0.0
 
+  /@babel/types/7.18.2:
+    resolution: {integrity: sha512-0On6B8A4/+mFUto5WERt3EEuG1NznDirvwca1O8UwXQHVY8g3R7OzYgxXdOfMwLO08UrpUD/2+3Bclyq+/C94Q==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/helper-validator-identifier': 7.16.7
+      to-fast-properties: 2.0.0
+    dev: true
+
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
@@ -5272,7 +5329,6 @@ packages:
 
   /@types/systemjs/6.1.1:
     resolution: {integrity: sha512-d1M6eDKBGWx7RbYy295VEFoOF9YDJkPI959QYnmzcmeaV+SP4D0xV7dEh3sN5XF3GvO3PhGzm+17Z598nvHQuQ==}
-    dev: true
 
   /@types/trusted-types/2.0.2:
     resolution: {integrity: sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==}

@@ -19,8 +19,7 @@ import {
   vueLoader,
   babelLoader,
   pugPlainLoader,
-  rawLoader
-  // threadLoader
+  rawLoader,
 } from './loaders';
 import { PORT } from './devServer';
 
