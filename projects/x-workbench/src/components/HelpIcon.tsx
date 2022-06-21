@@ -8,11 +8,15 @@ const HelpIcon: React.FC<{
   iconStyle?: React.CSSProperties;
 }> = props => {
   return (
-    <div>
-      <Tooltip {...(props.tooltipProps || {})}>
-        <IconQuestionCircle style={{ cursor: "pointer", ...(props.iconStyle || {}) }} />
-      </Tooltip>
-    </div>
+    <Tooltip {...(props.tooltipProps || {})}>
+      <IconQuestionCircle
+        style={{
+          cursor: "pointer",
+          marginLeft: "4px",
+          ...(props.iconStyle || {})
+        }}
+      />
+    </Tooltip>
   );
 };
 

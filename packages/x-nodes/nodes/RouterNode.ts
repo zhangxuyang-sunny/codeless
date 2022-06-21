@@ -11,15 +11,23 @@ declare global {
   }
 }
 
+export interface PageConfig {
+  id: string;
+  title: string;
+  path: string;
+}
+
 export interface RouterSchema {
   type: NodeTypes.Router;
   mode: RouterValue["mode"];
   base: StringSchema;
+  pages: Array<PageConfig>;
 }
 
 export type RouterValue = {
   mode: "hash" | "history" | "memory";
   base: string;
+  pages: RouterSchema["pages"];
 };
 
 export class RouterNode extends AbstractNode<NodeTypes.Router> {
@@ -28,6 +36,12 @@ export class RouterNode extends AbstractNode<NodeTypes.Router> {
   }
   private mode: RouterSchema["mode"] = "hash";
   private base = new StringNode().setValue("/");
+  private pages: RouterSchema["pages"] = [];
+
+  addPage(page: PageConfig) {
+    this.pages.push(page);
+    return this;
+  }
 
   setMode(mode: RouterValue["mode"]) {
     this.mode = mode;
@@ -41,6 +55,7 @@ export class RouterNode extends AbstractNode<NodeTypes.Router> {
   setSchema(schema: RouterSchema): this {
     this.mode = schema.mode;
     this.base.setValue(schema.base.value);
+    this.pages = [...schema.pages];
     return this;
   }
 
@@ -48,14 +63,16 @@ export class RouterNode extends AbstractNode<NodeTypes.Router> {
     return {
       type: this.type,
       mode: this.mode,
-      base: this.base.getSchema()
+      base: this.base.getSchema(),
+      pages: this.pages
     };
   }
 
   getValue() {
     return {
       mode: this.mode,
-      base: this.base.getValue()
+      base: this.base.getValue(),
+      pages: this.pages
     };
   }
 }
