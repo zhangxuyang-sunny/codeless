@@ -1,37 +1,20 @@
-import {
-  UndefinedSchema,
-  UndefinedNode,
-  NullSchema,
-  NullNode,
-  StringSchema,
-  StringNode,
-  NumberSchema,
-  NumberNode,
-  BooleanSchema,
-  BooleanNode,
-  ObjectSchema,
-  ObjectNode,
-  ArraySchema,
-  ArrayNode,
-  FunctionSchema,
-  FunctionNode,
-  RegExpSchema,
-  RegExpNode,
-  SymbolSchema,
-  SymbolNode,
-  BigIntSchema,
-  BigIntNode,
-  MapSchema,
-  MapNode,
-  SetSchema,
-  SetNode,
-  WeakMapSchema,
-  WeakMapNode,
-  WeakSetSchema,
-  WeakSetNode
-} from "../index";
 import { NodeTypes } from "../common/enums";
 import { AbstractNode } from "../common/AbstractNode";
+import { UndefinedSchema, UndefinedNode } from "../nodes/UndefinedNode";
+import { NullSchema, NullNode } from "../nodes/NullNode";
+import { StringSchema, StringNode } from "../nodes/StringNode";
+import { NumberSchema, NumberNode } from "../nodes/NumberNode";
+import { BooleanSchema, BooleanNode } from "../nodes/BooleanNode";
+import { ObjectSchema, ObjectNode } from "../nodes/ObjectNode";
+import { ArraySchema, ArrayNode } from "../nodes/ArrayNode";
+import { FunctionSchema, FunctionNode } from "../nodes/FunctionNode";
+import { RegExpSchema, RegExpNode } from "../nodes/RegExpNode";
+import { SymbolSchema, SymbolNode } from "../nodes/SymbolNode";
+import { BigIntSchema, BigIntNode } from "../nodes/BigIntNode";
+import { MapSchema, MapNode } from "../nodes/MapNode";
+import { SetSchema, SetNode } from "../nodes/SetNode";
+import { WeakMapSchema, WeakMapNode } from "../nodes/WeakMapNode";
+import { WeakSetSchema, WeakSetNode } from "../nodes/WeakSetNode";
 
 /**
  * JS 表达式节点类型集合
@@ -145,7 +128,7 @@ export type JSValue =
   | WeakSet<object>;
 
 export class JSValueNode extends AbstractNode<NodeTypes.JSValue> {
-  private jsValueNode: JSValueNodes;
+  private jsValueNode: JSValueNodes = new NullNode();
   setSchema(schema: JSValueSchema): this {
     const Parser = getJSValueParser(schema.schema.type);
     if (!Parser) return this;

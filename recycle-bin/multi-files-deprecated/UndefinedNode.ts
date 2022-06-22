@@ -27,6 +27,6 @@ export default class UndefinedNode extends AbstractNode {
   }
 
   getValue() {
-    return undefined;
+    return void 0;
   }
 }

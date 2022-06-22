@@ -60,7 +60,7 @@ const config: Configuration = {
     ...getEntryByDir('components/antd'),
     ...getEntryByDir('components/arco'),
     ...getEntryByDir('components/common'),
-    ...getEntryByDir('configs'),
+    // ...getEntryByDir('configs'),
     ...getEntryByDir('material')
     // 'lib/utils': './src/common/utils/index.ts',
     // 'ui/arco/message': './node_modules/@arco-design/web-vue/es/message/index.js'

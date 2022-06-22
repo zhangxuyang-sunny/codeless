@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./pages/home/index";
-import Workbench from "./pages/designer";
+import Designer from "./pages/designer";
 import { RecoilRoot, useRecoilSnapshot } from "recoil";
 
 function DebugObserver() {
@@ -26,7 +26,7 @@ root.render(
       <DebugObserver />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/designer" element={<Workbench />} />
+        <Route path="/designer" element={<Designer />} />
       </Routes>
     </RecoilRoot>
   </BrowserRouter>

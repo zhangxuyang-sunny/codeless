@@ -30,6 +30,7 @@ export class ProjectNode extends AbstractNode<NodeTypes.Project> {
   constructor() {
     super(NodeTypes.Project);
   }
+  static readonly type = NodeTypes.Project;
   private readonly router = new RouterNode();
   private readonly datasetList: DatasetNode[] = [];
   private readonly pageList: PageNode[] = [];

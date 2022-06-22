@@ -47,10 +47,8 @@ export abstract class AbstractNode<
   S extends NodeSchemas = NodeSchemas<T>,
   V extends NodeValues = NodeValues<T>
 > {
-  constructor(type: T) {
-    this.type = type;
-  }
-  protected readonly type: T;
+  constructor(protected readonly type: T) {}
+
   // 赋值 schema
   abstract setSchema(schema: S): this;
   // 获取 schema
@@ -103,7 +101,8 @@ export abstract class AbstractNode<
     const parser = new Parser();
     return parser.setSchema(schema).getValue();
   }
-  getType() {
+
+  public getType() {
     return this.type;
   }
 }
