@@ -17,8 +17,8 @@ const WorkbenchHeader: React.FC = () => {
         <Divider type="vertical" />
         <Select placeholder="选择页面">
           {pageSchemaList.map(pageSchema => (
-            <Select.Option key={pageSchema.id.value} value={pageSchema.title.value}>
-              {pageSchema.title.value}
+            <Select.Option key={pageSchema.vid} value={pageSchema.title}>
+              {pageSchema.title}
             </Select.Option>
           ))}
         </Select>

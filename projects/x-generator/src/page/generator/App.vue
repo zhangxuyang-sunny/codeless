@@ -22,14 +22,9 @@ export default defineComponent({
       return new Promise(resolve => {
         setTimeout(() => {
           const pages = [
-            new PageNode()
-              .setTitle("首页")
-              .setUrlPath("/")
-              .setId(uuid().substring(0, 8))
-              .getSchema(),
+            new PageNode().setTitle("首页").setId(uuid().substring(0, 8)).getSchema(),
             new PageNode()
               .setTitle("详情页")
-              .setUrlPath("/detail")
               .setId(uuid().substring(0, 8))
               .setSchema(testSchema1)
               .getSchema()

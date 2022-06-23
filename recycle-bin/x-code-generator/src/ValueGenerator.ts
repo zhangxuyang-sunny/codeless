@@ -201,7 +201,7 @@ abstract class Value<T extends TypeValueSchema, R> {
       //   break;
       // }
       // case "Pinia": {
-      //   // 资料库解析
+      //   // 数据集解析
       //   const piniaConfig = this.parseValue(schema.schema);
 
       //   if (!piniaConfig) {

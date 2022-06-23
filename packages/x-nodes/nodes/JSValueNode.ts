@@ -148,3 +148,5 @@ export class JSValueNode extends AbstractNode<NodeTypes.JSValue> {
     super(NodeTypes.JSValue);
   }
 }
+
+AbstractNode.setParser(JSValueNode);

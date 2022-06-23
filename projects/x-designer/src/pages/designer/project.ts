@@ -13,11 +13,6 @@ const router: RouterSchema = {
       title: "page1",
       vid: "page_1",
       path: "/"
-    },
-    {
-      title: "page2",
-      vid: "page_2",
-      path: "/page2"
     }
   ]
 };
@@ -109,7 +104,7 @@ const router: RouterSchema = {
 
 // const pageList: PageSchema[] = [];
 
-export const project1: ProjectSchema = {
+const project: ProjectSchema = {
   type: NodeTypes.Project,
   router,
   datasets: [
@@ -129,3 +124,5 @@ export const project1: ProjectSchema = {
     }
   ]
 };
+
+export default project;

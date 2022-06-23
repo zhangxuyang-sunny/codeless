@@ -5,6 +5,8 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "declaration": true,
+    "isolatedModules": true,
+    "removeComments": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "paths": {
       "packages/*":[

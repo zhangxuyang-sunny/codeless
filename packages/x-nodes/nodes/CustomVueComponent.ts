@@ -35,6 +35,7 @@ export class CustomVueComponent extends AbstractNode<NodeTypes.CustomVueComponen
     };
   }
   getValue(): CustomVueComponentValue {
-    throw new Error("Method not implemented.");
+    // throw new Error("Method not implemented.");
+    return "";
   }
 }

@@ -3,7 +3,6 @@ import { NodeTypes } from "../common/enums";
 import { AbstractNode } from "../common/AbstractNode";
 import { ArrayNode, ArraySchema } from "./ArrayNode";
 import { ObjectNode, ObjectSchema } from "./ObjectNode";
-import { StringNode, StringSchema } from "./StringNode";
 
 declare global {
   interface NodeSchema {
@@ -16,11 +15,11 @@ declare global {
 
 export interface MaterialSchema {
   type: NodeTypes.Material;
-  id: StringSchema;
-  key: StringSchema;
-  title: StringSchema;
-  version: StringSchema;
-  src: StringSchema;
+  id: string;
+  key: string;
+  title: string;
+  version: string;
+  src: string;
   style: ObjectSchema;
   commonProps: ObjectSchema;
   props: ObjectSchema;
@@ -73,11 +72,11 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
   constructor() {
     super(NodeTypes.Material);
   }
-  private readonly id = new StringNode().setValue(uuid());
-  private readonly key = new StringNode().setValue(uuid());
-  private readonly title = new StringNode().setValue("未命名组件");
-  private readonly version = new StringNode().setValue("0.0.0");
-  private readonly src = new StringNode();
+  private id = uuid();
+  private key = uuid();
+  private title = "未命名组件";
+  private version = "0.0.0";
+  private src = "";
   private readonly style = new ObjectNode();
   private readonly props = new ObjectNode();
   private readonly commonProps = new ObjectNode();
@@ -86,28 +85,28 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
   private readonly slots = new ObjectNode();
 
   setId(id: string) {
-    this.id.setValue(id);
+    this.id = id;
     return this;
   }
 
   setKey(key: string) {
-    this.key.setValue(key);
+    this.key = key;
   }
 
   setTitle(title: string) {
-    this.title.setValue(title);
+    this.title = title;
     return this;
   }
   setVersion(version: string) {
-    this.version.setValue(version);
+    this.version = version;
     return this;
   }
 
   setSchema(schema: MaterialSchema): this {
-    this.id.setSchema(schema.id);
-    this.key.setSchema(schema.key);
-    this.version.setSchema(schema.version);
-    this.src.setSchema(schema.src);
+    this.id = schema.id;
+    this.key = schema.key;
+    this.version = schema.version;
+    this.src = schema.src;
     if (schema.style.type === NodeTypes.Object) {
       this.style.setSchema(schema.style);
     }
@@ -123,14 +122,30 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
     return this;
   }
 
+  getId(): string {
+    return this.id;
+  }
+
+  getKey(): string {
+    return this.key;
+  }
+
+  getTitle(): string {
+    return this.title;
+  }
+
+  getVersion(): string {
+    return this.version;
+  }
+
   getSchema(): MaterialSchema {
     return {
       type: this.type,
-      id: this.id.getSchema(),
-      key: this.key.getSchema(),
-      title: this.title.getSchema(),
-      version: this.version.getSchema(),
-      src: this.src.getSchema(),
+      id: this.id,
+      key: this.key,
+      title: this.title,
+      version: this.version,
+      src: this.src,
       style: this.style.getSchema(),
       props: this.props.getSchema(),
       commonProps: this.props.getSchema(),
@@ -142,11 +157,11 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
 
   getValue(): MaterialValue {
     return {
-      id: this.id.getValue(),
-      key: this.key.getValue(),
-      title: this.title.getValue(),
-      version: this.version.getValue(),
-      src: this.src.getValue(),
+      id: this.id,
+      key: this.key,
+      title: this.title,
+      version: this.version,
+      src: this.src,
       style: <MaterialValue["style"]>this.style.getValue(),
       props: <MaterialValue["props"]>this.props.getValue(),
       commonProps: <MaterialValue["commonProps"]>this.commonProps.getValue(),

@@ -7,6 +7,7 @@
     "server:start:dev": "pnpm --filter @low/server start:dev",
     "renderer/vue:start": "pnpm --filter @low/renderer-vue serve",
     "develop:start": "pnpm --filter @low/develop serve",
+    "build:nodes": "pnpm --filter @low/nodes build",
     "deploy": "sh scripts/deploy-server.sh",
     "redeploy": "sh scripts/redeploy-server.sh"
   },

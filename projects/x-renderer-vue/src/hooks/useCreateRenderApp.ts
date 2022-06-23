@@ -3,9 +3,10 @@ import type { TypeGlobalProperties } from "packages/x-types/index";
 
 import mitt from "mitt";
 import { shallowRef, onUnmounted } from "vue";
-import { ProjectNode, ProjectSchema } from "packages/x-nodes/nodes/ProjectNode";
+import { ProjectNode, ProjectSchema } from "packages/x-nodes/dist";
 import loadRemoteComponent from "packages/x-shared/utils/loadRemoteComponent";
 import { loadRemotePackages } from "@/utils/common";
+import { RouteRecordRaw } from "vue-router";
 
 export default function useCreateRenderApp() {
   const projectApp = shallowRef<App<Element> | null>(null);
@@ -79,18 +80,20 @@ export default function useCreateRenderApp() {
     // });
     // 解析 schema
     const router = project.getRouter();
-    const pageList = project.getPageList();
+    const pageList = project.getDatasetList();
     const routerInstance = vueRouter.createRouter({
       history: {
         history: vueRouter.createWebHistory(router.base),
         hash: vueRouter.createWebHashHistory(router.base),
         memory: vueRouter.createMemoryHistory(router.base)
       }[router.mode],
-      routes: pageList.map(page => ({
-        name: page.id,
-        path: page.urlPath,
-        component: vue.h(loadRemoteComponent("RendererEntry"), { data: page })
-      }))
+      routes: pageList.map<RouteRecordRaw>(page => {
+        return {
+          name: " page.id",
+          path: "page.urlPath",
+          component: vue.h(loadRemoteComponent("RendererEntry"), { data: page })
+        };
+      })
     });
     // 注册路由
     app.use(routerInstance);

@@ -18,25 +18,10 @@ declare global {
   type NodeValues<T extends NodeTypes = NodeTypes> = NodeSchema[T]["value"];
 }
 
-// // pinia store
-// type TypePiniaStore<
-//   T extends Record<string, unknown> = Record<string, unknown> //
-// > = Store<
-//   string,
-//   T,
-//   Record<string, FunctionConstructor>,
-//   Record<string, FunctionConstructor>
-// >;
-
-// store
-// type TypeStoreRecord<T = unknown> = Record<string, T>;
-
 type TypePlatformThis<
   T extends Record<string, unknown> = Record<string, unknown>
 > = {
-  // piniaRecord: Record<string, TypePiniaStore<T>>;
-  // piniaRecord: Record<string, T>;
-  record: T;
+  datasets: T;
 };
 
 export type TypePlatformFunction = (this: TypePlatformThis) => unknown;
@@ -48,6 +33,9 @@ export abstract class AbstractNode<
   V extends NodeValues = NodeValues<T>
 > {
   constructor(protected readonly type: T) {}
+  public getType() {
+    return this.type;
+  }
 
   // 赋值 schema
   abstract setSchema(schema: S): this;
@@ -67,13 +55,11 @@ export abstract class AbstractNode<
       AbstractNode.parsers.set(parser.type, Parser);
     }
   }
-  // 全局上下文挂载点
+  // 平台上下文挂载点
   private static context: TypePlatformThis = {
-    record: {}
+    datasets: {}
   };
-  // 内置包
-  private static packages = new Map<string, unknown>();
-  // 设置全局上下文
+  // 设置平台上下文
   static setContext(context: TypePlatformThis) {
     this.context = context;
   }
@@ -81,17 +67,25 @@ export abstract class AbstractNode<
   static getContext() {
     return this.context;
   }
+  // 内置包
+  private static packages = new Map<string, unknown>();
   static getPackage<T>(key: string) {
     return <T>this.packages.get(key);
   }
-  // // 增加 piniaStore
-  // static setPiniaStore(key: string, store: TypePiniaStore) {
-  //   this.context.record[key] = store;
-  // }
   // 设置包数据
   static setPackage<T>(key: string, pkg: T) {
     this.packages.set(key, pkg);
   }
+
+  /**
+   * 解析所有支持的 schema 数据
+   * ```js
+   * // 每个 node 节点需要使用`AbstractNode.setParser(nodes)`方法注册
+   * AbstractNode.setParser(XxxxxNode);
+   * ```
+   * @param schema
+   * @returns
+   */
   static parseValue(schema: NodeSchemas) {
     const Parser = this.parsers.get(schema.type);
     if (!Parser) {
@@ -100,10 +94,6 @@ export abstract class AbstractNode<
     }
     const parser = new Parser();
     return parser.setSchema(schema).getValue();
-  }
-
-  public getType() {
-    return this.type;
   }
 }
 

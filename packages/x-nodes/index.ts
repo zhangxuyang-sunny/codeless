@@ -1,4 +1,5 @@
 export * from "./common/enums";
+export * from "./common/AbstractNode";
 export * from "./nodes/ArrayNode";
 export * from "./nodes/BigIntNode";
 export * from "./nodes/BooleanNode";

@@ -186,7 +186,7 @@ export default class ValueParser {
       //   break;
       // }
       case "Pinia": {
-        // 资料库解析
+        // 数据集解析
         const piniaConfig = this.parseValue(schema.schema);
 
         if (!piniaConfig) {
@@ -243,9 +243,9 @@ export default class ValueParser {
     return schema.$$;
   }
 
-  // 解析 pinia 资料库
+  // 解析 pinia 数据集
   // private parsePiniaList(piniaSchemaList: TypePinia[]) {
-  //   // 资料库解析
+  //   // 数据集解析
   //   piniaSchemaList.forEach(schema => {
   //     const piniaConfig = this.parseValue(schema);
 

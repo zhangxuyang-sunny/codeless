@@ -49,11 +49,10 @@ export class FunctionNode extends AbstractNode<NodeTypes.Function> {
   }
 
   getValue(): FunctionValue<TypePlatformFunction> {
-    const strictPrefix = this.useStrict ? '"use strict";\n' : "";
     // eslint-disable-next-line no-new-func
     return Function(
       "context",
-      `${strictPrefix}return ${this.code}`
+      `${this.useStrict ? '"use strict";\n' : ""}return ${this.code}`
     )(AbstractNode.getContext());
   }
 }

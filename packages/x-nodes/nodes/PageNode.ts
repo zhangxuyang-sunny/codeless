@@ -1,6 +1,5 @@
 import { NodeTypes } from "../common/enums";
 import { AbstractNode } from "../common/AbstractNode";
-import { StringNode, StringSchema } from "./StringNode";
 import { MaterialNode, MaterialSchema, MaterialValue } from "./MaterialNode";
 
 declare global {
@@ -12,14 +11,21 @@ declare global {
   }
 }
 
-// 页面协议继承于物料协议，增加了 urlPath 作为路由 url 路径
-export type PageSchema = Omit<MaterialSchema, "type"> & {
+// 页面协议继承于物料协议
+// vid 字段用于项目和路由绑定
+export type PageSchema = {
   type: NodeTypes.Page;
-  urlPath: StringSchema;
+  vid: string;
+  title: string;
+  version: string;
+  material: MaterialSchema;
 };
 
-export type PageValue = MaterialValue & {
-  urlPath: string;
+export type PageValue = {
+  vid: string;
+  title: string;
+  version: string;
+  material: MaterialValue;
 };
 
 // 页面节点
@@ -27,55 +33,61 @@ export class PageNode extends AbstractNode<NodeTypes.Page> {
   constructor() {
     super(NodeTypes.Page);
   }
-  private urlPath = new StringNode().setValue("/");
-  private material = new MaterialNode(); // 页面也是一种物料
+  private vid = "";
+  private title = "";
+  private version = "";
+  private readonly material = new MaterialNode(); // 页面也是一种物料
 
-  setId(id: string) {
-    this.material.setId(id);
-    return this;
-  }
-
-  setKey(key: string) {
-    this.material.setKey(key);
+  setVid(vid: string) {
+    this.vid = vid;
     return this;
   }
 
   setTitle(title: string) {
-    this.material.setTitle(title);
-    return this;
-  }
-  setVersion(version: string) {
-    this.material.setVersion(version);
+    this.title = title;
     return this;
   }
 
-  setUrlPath(urlPath: string) {
-    this.urlPath.setValue(urlPath);
+  setVersion(version: string) {
+    this.version = version;
     return this;
   }
 
   setSchema(schema: PageSchema) {
-    const { urlPath, ...materialSchema } = schema;
-    this.urlPath.setSchema(urlPath);
-    this.material.setSchema({
-      ...materialSchema,
-      type: NodeTypes.Material // 覆盖 NodeTypes.Page
-    });
+    const { vid, material } = schema;
+    this.vid = vid;
+    this.material.setSchema(material);
     return this;
+  }
+
+  getTitle() {
+    return this.title;
+  }
+
+  getVid() {
+    return this.vid;
+  }
+
+  getVersion() {
+    return this.version;
   }
 
   getSchema(): PageSchema {
     return {
-      ...this.material.getSchema(),
       type: this.type,
-      urlPath: this.urlPath.getSchema()
+      vid: this.vid,
+      title: this.title,
+      version: this.version,
+      material: this.material.getSchema()
     };
   }
 
   getValue(): PageValue {
     return {
-      ...this.material.getValue(),
-      urlPath: this.urlPath.getValue()
+      vid: this.vid,
+      title: this.title,
+      version: this.version,
+      material: this.material.getValue()
     };
   }
 }

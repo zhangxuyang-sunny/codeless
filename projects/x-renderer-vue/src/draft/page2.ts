@@ -1,15 +1,15 @@
 import { NodeTypes, PageSchema } from "packages/x-nodes/dist";
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 
-export const page1: PageSchema = {
+export const page2: PageSchema = {
   type: NodeTypes.Page,
-  vid: "page_1",
+  vid: "page_2",
   title: "按钮",
   version: "0.0.1",
   material: {
     type: NodeTypes.Material,
     id: "m_1",
-    key: "m_key",
+    key: "mkey",
     title: "按钮",
     version: "0.0.1",
     src: `http://${host}/static/components/arco/Button.js`,
@@ -48,7 +48,7 @@ export const page1: PageSchema = {
       properties: {
         type: {
           type: NodeTypes.String,
-          value: "primary"
+          value: "secondary"
         },
         // loading: {
         //   type: NodeTypes.ReactiveByPinia,

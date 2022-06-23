@@ -3,7 +3,7 @@
 import { Button, Divider, Form, Input, Radio } from "@arco-design/web-react";
 import styled from "styled-components";
 import HelpIcon from "src/components/HelpIcon";
-import { PageConfig, RouterValue } from "packages/x-nodes/dist";
+import { ViewOption, RouterValue } from "packages/x-nodes/dist";
 import { useEffect, useRef, useState } from "react";
 
 const urls = Object.freeze({
@@ -20,7 +20,7 @@ const RouterSettings: React.FC<{
   defaultMode?: RouterMode;
   readonly?: boolean; // 只读模式
   mode?: RouterMode; // 受控
-  pages: PageConfig[];
+  views: ViewOption[];
   onUpdateMode?: (mode: RouterMode) => void;
   onAddRoute?: () => void;
   onDeleteRoute?: (id: string) => void;
@@ -31,8 +31,8 @@ const RouterSettings: React.FC<{
 
   // routes 改变，二次确认标识重置
   useEffect(() => {
-    setConfirmFlags(new Array(props.pages.length).fill(false));
-  }, [props.pages]);
+    setConfirmFlags(new Array(props.views.length).fill(false));
+  }, [props.views]);
 
   const addRoute = () => {
     props.onAddRoute?.();
@@ -121,12 +121,12 @@ const RouterSettings: React.FC<{
           }
         >
           <div ref={pageListRef} className="page-list">
-            {props.pages.map((page, index) => (
-              <div className="page-item" key={page.id}>
+            {props.views.map((page, index) => (
+              <div className="page-item" key={page.vid}>
                 <Form.Item field={`pages.${index}.id`}>
                   <div className="form-item">
                     <p className="title">页面ID</p>
-                    <Input value={page.id} placeholder="未填写页面ID" size="small" />
+                    <Input value={page.vid} placeholder="未填写页面ID" size="small" />
                   </div>
                 </Form.Item>
                 <span className="label"></span>
@@ -148,9 +148,9 @@ const RouterSettings: React.FC<{
                   size="mini"
                   type="text"
                   status="danger"
-                  disabled={props.pages.length <= 1}
+                  disabled={props.views.length <= 1}
                   onClick={() => {
-                    delRoute(page.id, index);
+                    delRoute(page.vid, index);
                   }}
                 >
                   {confirmFlags[index] ? "确认" : "删除"}

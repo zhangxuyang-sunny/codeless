@@ -16,7 +16,7 @@ import type { TypeMaterialConfig } from "./material";
 //   TypeRouterConfig
 // >;
 
-// // 资料库描述
+// // 数据集描述
 // export type TypePiniaSchema = IObject<
 //   {
 //     state: IObject;

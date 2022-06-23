@@ -11,8 +11,8 @@ const RouterSetter: React.FC = () => {
   const {
     routerSchema, //
     setRouterMode,
-    deleteRouterPage,
-    createRouterPage
+    deleteRouterView,
+    createRouterView
   } = useRouterSchema();
   return (
     <StyleRouterSetter>
@@ -34,15 +34,15 @@ const RouterSetter: React.FC = () => {
       >
         <RouterSettings
           defaultMode="hash"
-          pages={routerSchema.pages}
+          views={routerSchema.views}
           onUpdateMode={mode => {
             setRouterMode(mode);
           }}
           onAddRoute={() => {
-            createRouterPage();
+            createRouterView();
           }}
           onDeleteRoute={id => {
-            deleteRouterPage(id);
+            deleteRouterView(id);
           }}
         />
       </Drawer>

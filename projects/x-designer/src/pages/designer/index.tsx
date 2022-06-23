@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Header from "./components/Header";
 import { page1 } from "./page1";
+import { page2 } from "./page2";
+import project from "./project";
 
 const Designer: React.FC = () => {
   return (
@@ -10,17 +12,23 @@ const Designer: React.FC = () => {
         <div className="left"></div>
         <div className="center">
           <iframe
+            title="renderer"
             className="iframe"
+            src="/renderer/vue"
             ref={ref => {
-              console.log({ ref });
               if (!ref) return;
               ref.onload = () => {
                 const rendererApi = (ref?.contentWindow as any)?.__X_RENDERER_API__;
-                rendererApi.updateSchema(page1);
+
+                rendererApi.updateProjectSchema(project);
+                rendererApi.updatePageSchemaList([page1]);
+                // let f = false;
+                // setInterval(() => {
+                //   rendererApi.updatePageSchemaList(f ? [page1] : [page2]);
+                //   f = !f;
+                // }, 1000);
               };
             }}
-            src="/renderer/index.html"
-            title="preview"
           />
         </div>
         <div className="right"></div>

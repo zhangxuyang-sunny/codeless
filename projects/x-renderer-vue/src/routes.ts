@@ -1,17 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 export default createRouter({
-  history: createWebHistory("/renderer"),
+  history: createWebHistory(),
   routes: [
-    // 单页面渲染器
+    // 渲染器
     {
-      path: "/page",
-      name: "page",
-      component: () => import("./views/Page.vue")
-    },
-    // 项目渲染器
-    {
-      path: "/project",
+      path: "/",
       name: "project",
       component: () => import("./views/Project.vue")
     },

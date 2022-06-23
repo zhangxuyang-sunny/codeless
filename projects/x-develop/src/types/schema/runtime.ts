@@ -7,7 +7,7 @@ export type TypeRouterDescriptor = {
   routes: TypeArray;
 };
 
-// 资料库描述
+// 数据集描述
 export type TypeDatasetDescriptor = Record<string, TypeObject>;
 
 // 应用描述，一个应用

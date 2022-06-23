@@ -12,7 +12,6 @@ const SCRIPT_TYPE = "systemjs-importmap";
 
 // 获取所有 importMap script 标签
 function getImportMapScripts() {
-  console.log(document);
   return Array.from(document.head.getElementsByTagName("script")).filter(el => {
     return el instanceof HTMLScriptElement && el.type === SCRIPT_TYPE;
   });

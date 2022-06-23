@@ -6,7 +6,7 @@ export { default as loadRemoteComponent } from './loadRemoteComponent';
 export { default as createElement } from './createElement';
 export { default as useFetch } from './useFetch';
 
-// 创建资料库
+// 创建数据集
 export const createDataset: typeof reactive = (target) => {
   return reactive(target);
 };
@@ -26,8 +26,8 @@ export const connectExp: <T>(arg: T) => ReturnType<typeof computed> = (
 // alias of connect above
 export const bind = connect;
 
-const methods: Record<string, Function> = {};
-export const defineMethod = (data: { name: string; value: Function }) => {
+const methods: Record<string, FunctionConstructor> = {};
+export const defineMethod = (data: { name: string; value: FunctionConstructor }) => {
   methods[data.name] = data.value;
   return methods;
 };

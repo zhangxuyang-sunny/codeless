@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { atom, useRecoilState } from "recoil";
-import { PageConfig, RouterNode, RouterSchema } from "packages/x-nodes/dist/nodes/RouterNode";
+import { ViewOption, RouterNode, RouterSchema } from "packages/x-nodes/dist/nodes/RouterNode";
 
 export const routerSchemaState = atom<RouterSchema>({
   key: "router-schema",
@@ -20,32 +20,32 @@ export function useRouterSchema() {
   };
 
   // 添加一个路由页面
-  const addRouterPage = (page: PageConfig) => {
+  const addRouterView = (view: ViewOption) => {
     setRouterState({
       ...routerSchema,
-      pages: [...routerSchema.pages, page]
+      views: [...routerSchema.views, view]
     });
   };
 
   // 创建一个新页面并追加到页面列表
-  const createRouterPage = () => {
-    const id = uuid().split("-")[0];
-    addRouterPage({ id, title: "未命名页面", path: `/${id}` });
+  const createRouterView = () => {
+    const vid = uuid().split("-")[0];
+    addRouterView({ vid, title: "未命名页面", path: `/${vid}` });
   };
 
   // 删除一个路由页面
-  const deleteRouterPage = (id: string) => {
+  const deleteRouterView = (vid: string) => {
     setRouterState({
       ...routerSchema,
-      pages: routerSchema.pages.filter(page => page.id !== id)
+      views: routerSchema.views.filter(view => view.vid !== vid)
     });
   };
 
   return {
     routerSchema,
     setRouterMode,
-    addRouterPage,
-    createRouterPage,
-    deleteRouterPage
+    addRouterView,
+    createRouterView,
+    deleteRouterView
   };
 }
