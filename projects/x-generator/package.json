@@ -11,8 +11,10 @@
   "dependencies": {
     "@arco-design/web-vue": "^2.28.0",
     "@icon-park/vue-next": "^1.4.0",
+    "@types/lodash": "^4.14.182",
     "@types/systemjs": "^6.1.1",
     "core-js": "^3.22.7",
+    "lodash": "^4.17.21",
     "pinia": "^2.0.14",
     "rxjs": "^7.5.5",
     "systemjs": "^6.12.1",

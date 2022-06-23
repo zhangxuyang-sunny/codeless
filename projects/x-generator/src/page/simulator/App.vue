@@ -28,6 +28,7 @@ export default defineComponent({
       const app = createApp({
         setup() {
           const simulator = new Simulator();
+
           const schema = ref(pageNode.getValue());
 
           IframeTools.update.subscribe(s => {
@@ -36,6 +37,7 @@ export default defineComponent({
           });
 
           simulator.click.subscribe(console.log);
+
           return () => {
             const AppNode = h(RemoteEntryComponent, {
               data: schema.value,
