@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import Header from "./components/Header";
+import Sidebar from "./components/Sidebar/Index";
 import { page1 } from "./page1";
 import { page2 } from "./page2";
 import project from "./project";
-
 const Designer: React.FC = () => {
   return (
     <StyleDesigner>
       <Header />
       <div className="main">
-        <div className="left"></div>
+        <div className="left">
+          <Sidebar />
+        </div>
         <div className="center">
           <iframe
             title="renderer"
@@ -50,9 +52,9 @@ const StyleDesigner = styled.div`
     flex-grow: 1;
     overflow: hidden;
     .left {
-      width: 300px;
-      background-color: var(--color-bg-1);
-      border-right: 1px solid var(--color-border-2);
+      display: flex;
+      overflow: hidden;
+      grid-column-gap: 6px;
     }
     .center {
       flex-grow: 1;
