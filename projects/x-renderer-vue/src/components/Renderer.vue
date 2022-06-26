@@ -22,8 +22,12 @@ const RENDERER_ID = "__renderer_vue__";
 const RENDERER_ENTRY = defineAsyncComponent(() => System.import("RendererEntry"));
 
 export default defineComponent({
-  name: "RendererVue",
+  name: "Renderer",
   props: {
+    baseUrl: {
+      type: String,
+      default: ""
+    },
     // 受控的当前路由
     routeName: String,
     // 受控的工程配置
@@ -58,10 +62,10 @@ export default defineComponent({
 
     // routeName 控制当前页面
     watch(routeName, () => {
-      // const router = vueRouter.useRouter();
-      // router.replace({
-      //   name: routeName.value
-      // });
+      const router = vueRouter.useRouter();
+      router.replace({
+        name: routeName.value
+      });
     });
 
     // 重建路由，重载页面
@@ -172,7 +176,7 @@ export default defineComponent({
           })
         };
       });
-      const b = `/renderer/vue${base}`;
+      const b = `${props.baseUrl}${base}`;
       return vueRouter.createRouter({
         history: {
           history: vueRouter.createWebHistory(b),

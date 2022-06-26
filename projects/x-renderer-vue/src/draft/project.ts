@@ -1,27 +1,5 @@
 import { NodeTypes, ProjectSchema, RouterSchema } from "packages/x-nodes/dist";
 
-// 路由配置
-const router: RouterSchema = {
-  type: NodeTypes.Router,
-  base: {
-    type: NodeTypes.String,
-    value: "/"
-  },
-  mode: "history",
-  views: [
-    {
-      title: "page1",
-      vid: "page_1",
-      path: "/"
-    },
-    {
-      title: "page2",
-      vid: "page_2",
-      path: "/page2"
-    }
-  ]
-};
-
 // 数据配置
 // const piniaList: [] = [
 // {
@@ -109,6 +87,27 @@ const router: RouterSchema = {
 
 // const pageList: PageSchema[] = [];
 
+// 路由配置
+const router: RouterSchema = {
+  type: NodeTypes.Router,
+  base: {
+    type: NodeTypes.String,
+    value: ""
+  },
+  mode: "history",
+  views: [
+    {
+      title: "page1",
+      vid: "page_1",
+      path: "/"
+    },
+    {
+      title: "page2",
+      vid: "page_2",
+      path: "/page2"
+    }
+  ]
+};
 export const project1: ProjectSchema = {
   type: NodeTypes.Project,
   router,

@@ -14,7 +14,7 @@ const Designer: React.FC = () => {
           <iframe
             title="renderer"
             className="iframe"
-            src="/renderer/vue"
+            src="/renderer/vue/simulator.html"
             ref={ref => {
               if (!ref) return;
               ref.onload = () => {

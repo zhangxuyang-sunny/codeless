@@ -1,11 +1,11 @@
 import "@arco-design/web-react/dist/css/arco.css";
-import { useEffect } from "react";
 import ReactDOM from "react-dom/client";
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RecoilRoot, useRecoilSnapshot } from "recoil";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./pages/home/index";
 import Designer from "./pages/designer";
-import { RecoilRoot, useRecoilSnapshot } from "recoil";
 
 function DebugObserver() {
   const snapshot = useRecoilSnapshot();

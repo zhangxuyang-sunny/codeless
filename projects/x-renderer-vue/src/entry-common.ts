@@ -4,10 +4,21 @@ import "systemjs/dist/extras/use-default.min.js";
 import "systemjs/dist/extras/named-register.min.js";
 import "systemjs/dist/extras/dynamic-import-maps.min.js";
 
-import { createApp } from "vue";
-import App from "./App.vue";
 import { importMap, addToImportMapImports } from "packages/x-shared/utils/ImportMap";
-import type { PageSchema, ProjectSchema } from "packages/x-nodes/dist";
+import { PageSchema, ProjectSchema } from "packages/x-nodes/dist";
+
+window.__X_RENDERER_API__ = {
+  document,
+  updateCurrentRoute() {
+    console.warn("render is not initialized");
+  },
+  updateProjectSchema() {
+    console.warn("render is not initialized");
+  },
+  updatePageSchemaList() {
+    console.warn("render is not initialized");
+  }
+};
 
 declare global {
   interface Window {
@@ -26,18 +37,3 @@ declare global {
 }
 
 addToImportMapImports(importMap);
-
-window.__X_RENDERER_API__ = {
-  document,
-  updateCurrentRoute() {
-    console.warn("render is not initialized");
-  },
-  updateProjectSchema() {
-    console.warn("render is not initialized");
-  },
-  updatePageSchemaList() {
-    console.warn("render is not initialized");
-  }
-};
-
-createApp(App).mount("#app");

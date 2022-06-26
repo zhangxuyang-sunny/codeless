@@ -5,6 +5,18 @@ export default defineConfig({
   transpileDependencies: true,
   publicPath: "/renderer/vue",
   outputDir: "../x-designer/public/renderer/vue",
+  pages: {
+    index: {
+      entry: "src/entry-previewer.ts",
+      filename: "index.html",
+      title: "预览器"
+    },
+    simulator: {
+      entry: "src/entry-simulator.ts",
+      filename: "simulator.html",
+      title: "模拟器"
+    }
+  },
   chainWebpack: config => {
     config.devServer.port(4000);
     config.devServer.headers({ "Access-Control-Allow-Origin": "*" });
