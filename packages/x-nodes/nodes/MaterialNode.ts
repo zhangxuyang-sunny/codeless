@@ -107,15 +107,9 @@ export class MaterialNode extends AbstractNode<NodeTypes.Material> {
     this.key = schema.key;
     this.version = schema.version;
     this.src = schema.src;
-    if (schema.style.type === NodeTypes.Object) {
-      this.style.setSchema(schema.style);
-    }
-    if (schema.props.type === NodeTypes.Object) {
-      this.props.setSchema(schema.props);
-    }
-    if (schema.commonProps.type === NodeTypes.Object) {
-      this.commonProps.setSchema(schema.commonProps);
-    }
+    this.style.setSchema(schema.style);
+    this.props.setSchema(schema.props);
+    this.commonProps.setSchema(schema.commonProps);
     this.emits.setSchema(schema.emits);
     this.listeners.setSchema(schema.listeners);
     this.slots.setSchema(schema.slots);

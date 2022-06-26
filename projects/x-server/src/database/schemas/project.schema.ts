@@ -1,7 +1,7 @@
-import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
+import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { database } from "config/database";
-import { ProjectSchema } from "packages/x-nodes";
+import { ProjectSchema } from "packages/x-nodes/index";
 import { ProjectPO } from "../modal/project";
 
 export type ProjectDocument = ProjectDO & Document;
@@ -14,7 +14,9 @@ export const enum ProjectStatus {
 
 @Schema()
 export class ProjectDO implements ProjectPO {
-  @Prop({ required: true })
+  @Prop({ select: false })
+  _id?: string;
+  @Prop({ required: true, immutable: true })
   pid: string;
   @Prop({ required: true })
   createUser: string;
@@ -29,6 +31,8 @@ export class ProjectDO implements ProjectPO {
   // schema
   @Prop({ type: Object, required: true })
   schema: ProjectSchema;
+  @Prop({ type: Array, required: true })
+  pages: string[];
 }
 
 export const ProjectDOSchema = SchemaFactory.createForClass(ProjectDO);

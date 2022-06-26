@@ -1,12 +1,12 @@
 import { Model } from "mongoose";
-import { Injectable, Request } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { database } from "config/database";
 import { ProjectDO, ProjectDocument, ProjectStatus } from "./schemas/project.schema";
 import { ProjectVO, QueryProjectDTO } from "./modal/project";
 
 @Injectable()
-export class DbProjectService {
+export class TableProjectService {
   constructor(
     @InjectModel(ProjectDO.name, database.db_project)
     private readonly projectModel: Model<ProjectDocument>
@@ -40,10 +40,10 @@ export class DbProjectService {
   }
 
   async findProjectsBy(query: Partial<QueryProjectDTO>): Promise<ProjectVO[]> {
-    return this.projectModel.find(query).exec() || [];
+    return this.projectModel.find(query);
   }
 
   async findProjectBy(query: Partial<QueryProjectDTO>): Promise<ProjectVO | null> {
-    return this.projectModel.findOne(query).exec();
+    return this.projectModel.findOne(query);
   }
 }

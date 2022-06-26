@@ -11,6 +11,7 @@ const database = Object.freeze({
 
   db_project: "project", // 项目库
   table_projects: "projects", // 项目表
+  table_pages: "pages", // 页面表
 
   db_material: "material", // 物料库
   table_materials: "materials" // 物料表

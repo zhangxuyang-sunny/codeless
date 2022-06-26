@@ -15,16 +15,12 @@ declare global {
 // vid 字段用于项目和路由绑定
 export type PageSchema = {
   type: NodeTypes.Page;
-  vid: string;
   title: string;
-  version: string;
   material: MaterialSchema;
 };
 
 export type PageValue = {
-  vid: string;
   title: string;
-  version: string;
   material: MaterialValue;
 };
 
@@ -33,30 +29,23 @@ export class PageNode extends AbstractNode<NodeTypes.Page> {
   constructor() {
     super(NodeTypes.Page);
   }
-  private vid = "";
   private title = "";
-  private version = "";
   private readonly material = new MaterialNode(); // 页面也是一种物料
-
-  setVid(vid: string) {
-    this.vid = vid;
-    return this;
-  }
 
   setTitle(title: string) {
     this.title = title;
     return this;
   }
 
-  setVersion(version: string) {
-    this.version = version;
+  setSchema(schema: PageSchema) {
+    const { title, material } = schema;
+    this.title = title;
+    this.material.setSchema(material);
     return this;
   }
 
-  setSchema(schema: PageSchema) {
-    const { vid, material } = schema;
-    this.vid = vid;
-    this.material.setSchema(material);
+  setMaterial(schema: MaterialSchema) {
+    this.material.setSchema(schema);
     return this;
   }
 
@@ -64,29 +53,17 @@ export class PageNode extends AbstractNode<NodeTypes.Page> {
     return this.title;
   }
 
-  getVid() {
-    return this.vid;
-  }
-
-  getVersion() {
-    return this.version;
-  }
-
   getSchema(): PageSchema {
     return {
       type: this.type,
-      vid: this.vid,
       title: this.title,
-      version: this.version,
       material: this.material.getSchema()
     };
   }
 
   getValue(): PageValue {
     return {
-      vid: this.vid,
       title: this.title,
-      version: this.version,
       material: this.material.getValue()
     };
   }

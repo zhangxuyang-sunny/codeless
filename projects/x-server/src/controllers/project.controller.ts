@@ -7,7 +7,7 @@ import {
   HttpStatus,
   Logger,
   Patch,
-  Put,
+  Post,
   Query
 } from "@nestjs/common";
 import { CreateProjectDTO, ProjectVO, QueryProjectDTO } from "src/database/modal/project";
@@ -25,10 +25,16 @@ export class ProjectController {
   }
 
   // 创建工程
-  @Put("create")
+  @Post("create")
   @HttpCode(HttpStatus.OK)
   createProject(@Headers("uid") uid: string, @Body() project: CreateProjectDTO) {
     return this.service.createProject(project, uid);
+  }
+
+  // 获取工程
+  @Get("/query")
+  getProject(@Query() query: Partial<QueryProjectDTO>) {
+    return this.service.findProjectBy(query);
   }
 
   // 获取软删除的工程

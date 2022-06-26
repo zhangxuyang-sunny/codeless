@@ -1,24 +1,17 @@
 import { v4 as uuidV4 } from "uuid";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
-import { DbProjectService } from "src/database/db.project.service";
-import { ProjectStatus } from "src/database/schemas/project.schema";
 import { UserService } from "./user.service";
+import { TableProjectService } from "src/database/table.project.service";
 import { DbUserService } from "src/database/db.user.service";
+import { ProjectStatus } from "src/database/schemas/project.schema";
 import { CreateProjectDTO, ProjectVO, QueryProjectDTO } from "src/database/modal/project";
 import { IsProjectExists } from "src/decorates/project.decorate";
-
-function IsPidExists() {
-  return function (...args) {
-    debugger;
-    console.log(args);
-  };
-}
 
 @Injectable()
 export class ProjectService {
   private readonly logger = new Logger();
   constructor(
-    private readonly dbProjectService: DbProjectService,
+    private readonly tbProjectService: TableProjectService,
     private readonly dbUserService: DbUserService,
     private readonly userService: UserService
   ) {}
@@ -26,7 +19,7 @@ export class ProjectService {
   // 生成 pid，并保证不重复
   private async generatePid() {
     let pid = uuidV4();
-    while (await this.dbProjectService.isPidExists(pid)) {
+    while (await this.tbProjectService.isPidExists(pid)) {
       pid = uuidV4();
     }
     return pid;
@@ -41,14 +34,15 @@ export class ProjectService {
       throw new HttpException(`创建工程失败，用户异常`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     // 写入工程数据库
-    const result = await this.dbProjectService.insertProject({
+    const result = await this.tbProjectService.insertProject({
       pid,
       status: ProjectStatus.normal,
       createUser: userInfo.nickname,
       updateUser: userInfo.nickname,
-      version: project.version,
+      version: "0",
       title: project.title,
-      schema: project.schema
+      schema: project.schema,
+      pages: []
     });
     // 更新用户数据库
     // 给当前用户 projects 添加一个 pid
@@ -59,11 +53,11 @@ export class ProjectService {
 
   // 条件查找工程
   async findProjectsBy(query: Partial<QueryProjectDTO>): Promise<ProjectVO[]> {
-    return this.dbProjectService.findProjectsBy(query);
+    return this.tbProjectService.findProjectsBy(query);
   }
 
   async findProjectBy(query: Partial<QueryProjectDTO>): Promise<ProjectVO | null> {
-    return this.dbProjectService.findProjectBy(query);
+    return this.tbProjectService.findProjectBy(query);
   }
 
   // 通过用户 uid 获取名下工程
@@ -77,7 +71,7 @@ export class ProjectService {
 
   // 通过状态获取项目列表
   private async findProjectsByStatus(status: ProjectStatus) {
-    return this.dbProjectService.findProjectsBy({ status });
+    return this.tbProjectService.findProjectsBy({ status });
   }
 
   // 获取正常状态的工程列表
@@ -97,7 +91,7 @@ export class ProjectService {
 
   // 配合 IsProjectExists 装饰器使用
   async checkProjectExists(pid: string) {
-    return this.dbProjectService.isPidExists(pid);
+    return this.tbProjectService.isPidExists(pid);
   }
 
   // 软删除
@@ -105,7 +99,7 @@ export class ProjectService {
   @IsProjectExists()
   async handleUnlink(pid: string) {
     this.logger.log(pid, "软删除工程");
-    return this.dbProjectService.unlinkProjectByPid(pid);
+    return this.tbProjectService.unlinkProjectByPid(pid);
   }
 
   // 硬删除
@@ -113,13 +107,13 @@ export class ProjectService {
   @IsProjectExists()
   async handleDelete(pid: string) {
     this.logger.log(pid, "删除工程");
-    return this.dbProjectService.unlinkProjectByPid(pid);
+    return this.tbProjectService.unlinkProjectByPid(pid);
   }
 
   // 恢复工程
   @IsProjectExists()
   async handleRevert(pid: string) {
     this.logger.log(pid, "恢复工程");
-    return this.dbProjectService.revertProjectByPid(pid);
+    return this.tbProjectService.revertProjectByPid(pid);
   }
 }

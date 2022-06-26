@@ -1,6 +1,21 @@
 import { IsIn } from "class-validator";
-import { TypeProjectSchema } from "packages/x-types/project";
+import { ProjectSchema } from "packages/x-nodes/index";
 import { ProjectStatus } from "src/database/schemas/project.schema";
+
+// 创建工程传输对象
+export class CreateProjectDTO {
+  title: string;
+  schema: ProjectSchema;
+
+  // @IsString({ groups: [NodeTypes.Project] })
+  // type: NodeTypes.Project;
+  // @IsObject()
+  // router: RouterSchema;
+  // @IsArray()
+  // piniaList: PiniaSchema[];
+  // @IsArray()
+  // pageList: PageSchema[];
+}
 
 // 工程持久化对象
 export class ProjectPO {
@@ -10,7 +25,8 @@ export class ProjectPO {
   status: ProjectStatus;
   version: string;
   title: string;
-  schema: TypeProjectSchema;
+  schema: ProjectSchema;
+  pages: string[];
 }
 
 export class ProjectVO extends ProjectPO {}
@@ -24,24 +40,10 @@ export class QueryProjectDTO {
   status: ProjectStatus;
 }
 
-// 创建工程传输对象
-export class CreateProjectDTO {
-  version: string;
-  title: string;
-  schema: TypeProjectSchema;
-
-  // @IsString({ groups: [NodeTypes.Project] })
-  // type: NodeTypes.Project;
-  // @IsObject()
-  // router: RouterSchema;
-  // @IsArray()
-  // piniaList: PiniaSchema[];
-  // @IsArray()
-  // pageList: PageSchema[];
-}
-
-// 工程业务数据
-export class CreateProjectBO extends ProjectPO {}
-
 // 更新工程
-export class UpdateProjectSchemaDTO extends CreateProjectDTO {}
+export class UpdateProjectSchemaDTO {
+  status?: ProjectStatus;
+  title?: string;
+  schema?: ProjectSchema;
+  pages?: string[];
+}
