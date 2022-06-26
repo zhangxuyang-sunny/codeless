@@ -6,7 +6,7 @@ import { PageNode, PageSchema } from "packages/x-nodes";
 import { usePageStore, useRouterConfig } from "./store";
 import Sidebar from "./components/Sidebar/Index.vue";
 import HeaderVue from "./components/Header/Index.vue";
-import PropsVue from "./components/Props/Index.vue";
+import SettersVue from "./components/Setters/Index.vue";
 import SimulatorIframe from "./components/SimulatorIframe/Index.vue";
 import { testSchema1 } from "./mock/testSchema";
 
@@ -51,7 +51,7 @@ export default defineComponent({
               <SimulatorIframe />
             </div>
             <div class="right">
-              <PropsVue />
+              <SettersVue />
             </div>
           </div>
         </div>
