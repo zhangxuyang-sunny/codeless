@@ -23,6 +23,7 @@ export default defineConfig({
   },
   configureWebpack: config => {
     config.resolve.alias.packages = path.resolve("../../packages");
+    config.resolve.alias.projects = path.resolve("../../projects");
     config.experiments = {
       topLevelAwait: true
     };

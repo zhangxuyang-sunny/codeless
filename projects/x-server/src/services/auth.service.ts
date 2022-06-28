@@ -1,13 +1,13 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { DbUserService } from "../database/db.user.service";
+import { TableUserService } from "../database/table.user.service";
 
 // 用户校验服务
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger();
   constructor(
-    private readonly dbUserService: DbUserService,
+    private readonly dbUserService: TableUserService,
     private readonly jwtService: JwtService
   ) {}
 

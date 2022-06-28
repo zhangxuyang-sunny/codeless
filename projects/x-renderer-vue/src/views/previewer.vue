@@ -15,10 +15,10 @@ export default defineComponent({
     const routeName = ref("");
     const project = shallowRef<ProjectValue>();
     const pages = shallowRef<PageValue[]>([]);
-    const { pid } = Object.fromEntries(new URLSearchParams(window.location.search));
+    const { projectId } = Object.fromEntries(new URLSearchParams(window.location.search));
 
     // TODO 接口还没写
-    window.fetch("http://" + pid).then(async response => {
+    window.fetch("http://" + projectId).then(async response => {
       const data = await response.json();
       project.value = data.project;
       pages.value = data.pages;

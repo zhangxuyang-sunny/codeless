@@ -3,36 +3,45 @@ import { Injectable } from "@nestjs/common";
 import { CreatePageDTO, QueryPageDTO } from "src/database/modal/page";
 import { TablePageService } from "src/database/table.page.service";
 import { PageNode } from "packages/x-nodes/index";
+import { TableProjectService } from "src/database/table.project.service";
 
 @Injectable()
 export class PageService {
-  constructor(private readonly tbPageService: TablePageService) {}
+  constructor(
+    private readonly tbPageService: TablePageService,
+    private readonly tbProjectService: TableProjectService
+  ) {}
 
   // 生成 pid，并保证不重复
   private async generateVid() {
-    let vid = uuidV4();
-    while (await this.tbPageService.isVidExists(vid)) {
-      vid = uuidV4();
+    let pageId = uuidV4();
+    while (await this.tbPageService.isVidExists(pageId)) {
+      pageId = uuidV4();
     }
-    return vid;
+    return pageId;
   }
 
-  async createPage(createPageDto: CreatePageDTO) {
-    this.tbPageService.insertPage({
-      vid: await this.generateVid(),
+  // 创建页面
+  // 传入 projectId 用于关联项目
+  async createPage({ projectId, title, material }: CreatePageDTO) {
+    const pageId = await this.generateVid();
+    await this.tbPageService.insertPage({
+      pageId,
       version: "0",
-      title: createPageDto.title,
       createUser: "",
       updateUser: "",
-      schema: new PageNode().setMaterial(createPageDto.material).getSchema()
+      schema: new PageNode().setTitle(title).setMaterial(material).getSchema()
     });
+    return this.tbProjectService.addPageIdToProject(projectId, pageId);
   }
 
+  // 条件查询页面列表
   async findPagesBy(query: Partial<QueryPageDTO>) {
     return this.tbPageService.findPagesBy(query);
   }
 
-  async findPagesByVIds(ids: string[]) {
-    return this.tbPageService.findPagesByVIds(ids);
+  // 查询多个 pageId 返回列表
+  async findPagesByPageIds(ids: string[]) {
+    return this.tbPageService.findPagesByPageIds(ids);
   }
 }

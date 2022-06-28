@@ -9,9 +9,7 @@ export type PageDocument = PageDO & Document;
 @Schema()
 export class PageDO implements PagePO {
   @Prop({ required: true })
-  vid: string;
-  @Prop({ required: true })
-  title: string;
+  pageId: string;
   @Prop({ required: true })
   version: string;
   @Prop()

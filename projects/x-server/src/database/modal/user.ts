@@ -24,7 +24,7 @@ export class UserInfoPO extends UserInfoVO {
 // 关联了用户在平台的数据
 export class UserPlatformPO {
   readonly uid: string;
-  readonly projects: string[]; // pid[]
+  readonly projects: string[]; // projectId[]
   readonly materials: string[]; // mid[]
   readonly teams: string[]; // tid[]
 }

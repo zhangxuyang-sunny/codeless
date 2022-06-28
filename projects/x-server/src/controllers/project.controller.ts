@@ -10,7 +10,12 @@ import {
   Post,
   Query
 } from "@nestjs/common";
-import { CreateProjectDTO, ProjectVO, QueryProjectDTO } from "src/database/modal/project";
+import {
+  CreateProjectDTO,
+  QueryProjectDTO,
+  UpdateViewsDTO,
+  ProjectVO
+} from "src/database/modal/project";
 import { ProjectService } from "src/services/project.service";
 
 @Controller("project")
@@ -27,12 +32,18 @@ export class ProjectController {
   // 创建工程
   @Post("create")
   @HttpCode(HttpStatus.OK)
-  createProject(@Headers("uid") uid: string, @Body() project: CreateProjectDTO) {
+  async createProject(@Headers("uid") uid: string, @Body() project: CreateProjectDTO) {
     return this.service.createProject(project, uid);
   }
 
+  // 更新路由页面配置
+  @Patch("update-views")
+  async updateViews(@Body() { projectId, viewOptions }: UpdateViewsDTO) {
+    return this.service.updateViewOptions(projectId, viewOptions);
+  }
+
   // 获取工程
-  @Get("/query")
+  @Get("query")
   getProject(@Query() query: Partial<QueryProjectDTO>) {
     return this.service.findProjectBy(query);
   }
@@ -51,18 +62,18 @@ export class ProjectController {
 
   // 软删除工程
   @Patch("unlink")
-  async unlinkProject(@Query("pid") pid: string) {
-    return this.service.handleUnlink(pid);
+  async unlinkProject(@Query("projectId") projectId: string) {
+    return this.service.handleUnlink(projectId);
   }
   // 硬删除工程
   @Patch("delete")
-  async deleteProject(@Query("pid") pid: string) {
-    return this.service.handleDelete(pid);
+  async deleteProject(@Query("projectId") projectId: string) {
+    return this.service.handleDelete(projectId);
   }
 
   // 恢复工程状态
   @Patch("revert")
-  revertProject(@Query("pid") pid: string) {
-    return this.service.handleRevert(pid);
+  revertProject(@Query("projectId") projectId: string) {
+    return this.service.handleRevert(projectId);
   }
 }

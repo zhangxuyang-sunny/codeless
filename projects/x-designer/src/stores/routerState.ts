@@ -29,15 +29,15 @@ export function useRouterSchema() {
 
   // 创建一个新页面并追加到页面列表
   const createRouterView = () => {
-    const vid = uuid().split("-")[0];
-    addRouterView({ vid, title: "未命名页面", path: `/${vid}` });
+    const pageId = uuid().split("-")[0];
+    addRouterView({ pageId, title: "未命名页面", path: `/${pageId}` });
   };
 
   // 删除一个路由页面
-  const deleteRouterView = (vid: string) => {
+  const deleteRouterView = (pageId: string) => {
     setRouterState({
       ...routerSchema,
-      views: routerSchema.views.filter(view => view.vid !== vid)
+      views: routerSchema.views.filter(view => view.pageId !== pageId)
     });
   };
 

@@ -1,7 +1,7 @@
 import shortUUID from "short-uuid";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { TableProjectService } from "../database/table.project.service";
-import { DbUserService } from "../database/db.user.service";
+import { TableUserService } from "../database/table.user.service";
 import { RegisterUserDTO, UserPlatformVO } from "src/database/modal/user";
 import { ProjectVO } from "../database/modal/project";
 
@@ -9,7 +9,7 @@ import { ProjectVO } from "../database/modal/project";
 export class UserService {
   constructor(
     private readonly tbProjectService: TableProjectService,
-    private readonly dbUserService: DbUserService
+    private readonly dbUserService: TableUserService
   ) {}
   private readonly logger = new Logger();
 
@@ -77,8 +77,8 @@ export class UserService {
     if (!userPlatform) {
       return null;
     }
-    const findProjectQueue = userPlatform.projects.map(pid =>
-      this.tbProjectService.findProjectBy({ pid })
+    const findProjectQueue = userPlatform.projects.map(projectId =>
+      this.tbProjectService.findProjectBy({ projectId })
     );
     const projects = await Promise.all(findProjectQueue);
     return {
