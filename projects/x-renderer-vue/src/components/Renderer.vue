@@ -46,7 +46,7 @@ export default defineComponent({
     const { routeName, project, pages } = toRefs(props);
     const pageMap = computed(() => {
       return pages.value.reduce(
-        (map, schema) => map.set(schema.vid, schema),
+        (map, schema) => map.set(schema.pageId, schema),
         new Map<string, PageValue>()
       );
     });
@@ -150,19 +150,19 @@ export default defineComponent({
       const { views, base, mode } = project.value.router;
       // 生成路由选项
       const routes = views.flatMap<RouteRecordRaw>(view => {
-        if (!pageMap.value.has(view.vid)) return [];
+        if (!pageMap.value.has(view.pageId)) return [];
         return {
-          name: view.vid,
+          name: view.pageId,
           path: view.path,
           component: defineComponent({
-            name: `View-${view.vid}`,
+            name: `View-${view.pageId}`,
             setup() {
               const pageReactive = vue.shallowRef<PageValue>();
               // 连接两个 vue 实例响应式的桥梁
               watch(
                 pageMap,
                 () => {
-                  const page = pageMap.value.get(view.vid);
+                  const page = pageMap.value.get(view.pageId);
                   if (!page) return;
                   pageReactive.value = page;
                 },

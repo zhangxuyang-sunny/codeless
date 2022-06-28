@@ -12,7 +12,7 @@ declare global {
 }
 
 export interface ViewOption {
-  vid: string;
+  pageId: string;
   title: string;
   path: string;
 }

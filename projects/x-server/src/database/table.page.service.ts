@@ -12,8 +12,8 @@ export class TablePageService {
     private readonly pageModel: Model<PageDocument>
   ) {}
 
-  async isVidExists(vid: string) {
-    return this.pageModel.exists({ vid });
+  async isVidExists(pageId: string) {
+    return this.pageModel.exists({ pageId });
   }
 
   async insertPage(page: PageDO) {
@@ -28,7 +28,7 @@ export class TablePageService {
     return this.pageModel.find(query);
   }
 
-  async findPagesByVIds(vIds: string[]): Promise<PageVO[]> {
-    return this.pageModel.find({ vid: { $in: vIds } });
+  async findPagesByPageIds(ids: string[]): Promise<PageVO[]> {
+    return this.pageModel.find({ pageId: { $in: ids } });
   }
 }

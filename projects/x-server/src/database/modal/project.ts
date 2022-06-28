@@ -1,4 +1,5 @@
 import { IsIn } from "class-validator";
+import { ViewOption } from "packages/x-nodes/dist";
 import { ProjectSchema } from "packages/x-nodes/index";
 import { ProjectStatus } from "src/database/schemas/project.schema";
 
@@ -17,23 +18,27 @@ export class CreateProjectDTO {
   // pageList: PageSchema[];
 }
 
+export class UpdateViewsDTO {
+  projectId: string;
+  viewOptions: ViewOption[];
+}
+
 // 工程持久化对象
 export class ProjectPO {
-  pid: string;
+  projectId: string;
   createUser: string;
   updateUser: string;
   status: ProjectStatus;
   version: string;
   title: string;
   schema: ProjectSchema;
-  pages: string[];
 }
 
 export class ProjectVO extends ProjectPO {}
 
 const statusString = [ProjectStatus.delete, ProjectStatus.normal, ProjectStatus.unlink];
 export class QueryProjectDTO {
-  pid: string;
+  projectId: string;
   createUser: string;
   updateUser: string;
   @IsIn(statusString, { message: `status 校验未通过 (${statusString})` })

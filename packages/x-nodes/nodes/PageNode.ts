@@ -12,7 +12,6 @@ declare global {
 }
 
 // 页面协议继承于物料协议
-// vid 字段用于项目和路由绑定
 export type PageSchema = {
   type: NodeTypes.Page;
   title: string;

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query } from "@nestjs/common";
 import { CreatePageDTO, QueryPageDTO } from "src/database/modal/page";
 import { PageService } from "src/services/page.service";
 
@@ -7,6 +7,7 @@ export class PageController {
   constructor(private readonly pageService: PageService) {}
 
   @Post("create")
+  @HttpCode(HttpStatus.OK)
   async createPage(@Body() createPageDto: CreatePageDTO) {
     return this.pageService.createPage(createPageDto);
   }
@@ -19,6 +20,6 @@ export class PageController {
   @Get("multi")
   async getListByVIds(@Query("ids") ids: string) {
     const vIds = ids.split(",");
-    return this.pageService.findPagesByVIds(vIds);
+    return this.pageService.findPagesByPageIds(vIds);
   }
 }

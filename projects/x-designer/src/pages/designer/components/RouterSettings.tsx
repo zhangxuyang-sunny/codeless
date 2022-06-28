@@ -122,11 +122,11 @@ const RouterSettings: React.FC<{
         >
           <div ref={pageListRef} className="page-list">
             {props.views.map((page, index) => (
-              <div className="page-item" key={page.vid}>
+              <div className="page-item" key={page.pageId}>
                 <Form.Item field={`pages.${index}.id`}>
                   <div className="form-item">
                     <p className="title">页面ID</p>
-                    <Input value={page.vid} placeholder="未填写页面ID" size="small" />
+                    <Input value={page.pageId} placeholder="未填写页面ID" size="small" />
                   </div>
                 </Form.Item>
                 <span className="label"></span>
@@ -150,7 +150,7 @@ const RouterSettings: React.FC<{
                   status="danger"
                   disabled={props.views.length <= 1}
                   onClick={() => {
-                    delRoute(page.vid, index);
+                    delRoute(page.pageId, index);
                   }}
                 >
                   {confirmFlags[index] ? "确认" : "删除"}

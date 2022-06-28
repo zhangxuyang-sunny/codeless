@@ -7,7 +7,7 @@ import { UserAuthDO, UserAuthDocument } from "./schemas/user_auth.schema";
 import { UserPlatformDO, UserPlatformDocument } from "./schemas/user_platform.schema";
 
 @Injectable()
-export class DbUserService {
+export class TableUserService {
   constructor(
     @InjectModel(UserAuthDO.name, database.db_user)
     private readonly userAuthModel: Model<UserAuthDocument>,
@@ -78,8 +78,8 @@ export class DbUserService {
     const { uid, ...data } = userPlatform;
     return this.userPlatformModel.findOneAndUpdate({ uid }, data);
   }
-  async addProjectId(uid: string, pid: string) {
-    return this.userPlatformModel.findOneAndUpdate({ uid }, { $push: { projects: pid } });
+  async addProjectId(uid: string, projectId: string) {
+    return this.userPlatformModel.findOneAndUpdate({ uid }, { $push: { projects: projectId } });
   }
   async deleteUserPlatformByUid(uid: string) {
     const deleted = await this.userPlatformModel.deleteMany({ uid });

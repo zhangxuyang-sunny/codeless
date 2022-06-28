@@ -26,7 +26,7 @@ declare global {
     __X_RENDERER_API__: {
       document: Document;
       // 渲染器可渲染单页面和整个工程页面
-      updateCurrentRoute: (vid: string) => void;
+      updateCurrentRoute: (pageId: string) => void;
       updateProjectSchema: (projectSchema: ProjectSchema) => void;
       updatePageSchemaList: (pageSchema: PageSchema[]) => void;
     };

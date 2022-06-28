@@ -22,15 +22,15 @@ export class TasksService {
     const queue = willDeleteProjects.flatMap(item => {
       if (new Date().getTime() - item.updatedAt.getTime() > TIMEOUT) {
         logList.push(item);
-        return [this.databaseService.project.remove({ uuid: item.pid }, { multi: true })];
+        return [this.databaseService.project.remove({ uuid: item.projectId }, { multi: true })];
       }
       return [];
     });
     await Promise.all(queue);
     this.logger.verbose(
-      `执行清除大于 ${TIMEOUT}s 被标记为 delete 的工程：${logList.map(_ => _.pid).join("\n")} (${
-        logList.length
-      }个)`
+      `执行清除大于 ${TIMEOUT}s 被标记为 delete 的工程：${logList
+        .map(_ => _.projectId)
+        .join("\n")} (${logList.length}个)`
     );
   }
 }

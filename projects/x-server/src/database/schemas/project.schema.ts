@@ -14,10 +14,8 @@ export const enum ProjectStatus {
 
 @Schema()
 export class ProjectDO implements ProjectPO {
-  @Prop({ select: false })
-  _id?: string;
   @Prop({ required: true, immutable: true })
-  pid: string;
+  projectId: string;
   @Prop({ required: true })
   createUser: string;
   @Prop({ required: true })
@@ -28,7 +26,6 @@ export class ProjectDO implements ProjectPO {
   title: string;
   @Prop({ type: String, required: true })
   version: string;
-  // schema
   @Prop({ type: Object, required: true })
   schema: ProjectSchema;
   @Prop({ type: Array, required: true })

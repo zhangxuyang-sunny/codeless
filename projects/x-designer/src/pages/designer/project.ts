@@ -11,7 +11,7 @@ const router: RouterSchema = {
   views: [
     {
       title: "page1",
-      vid: "page_1",
+      pageId: "page_1",
       path: "/"
     }
   ]

@@ -1,5 +1,6 @@
 import { NodeTypes } from "../common/enums";
 import { AbstractNode } from "../common/AbstractNode";
+import { JSValueSchemas } from "./JSValueNode";
 
 declare global {
   interface NodeSchema {
@@ -12,7 +13,7 @@ declare global {
 
 export interface ObjectSchema<T extends PropertyKey = string> {
   type: NodeTypes.Object;
-  properties: Record<T, NodeSchemas>;
+  properties: Record<T, JSValueSchemas>;
 }
 
 export type ObjectValue<T extends PropertyKey = string> = {
@@ -25,9 +26,9 @@ export class ObjectNode<T extends PropertyKey = string> //
   constructor() {
     super(NodeTypes.Object);
   }
-  private properties = new Map<T, NodeSchemas>();
+  private properties = new Map<T, JSValueSchemas>();
 
-  setProperty(key: T, property: NodeSchemas) {
+  setProperty(key: T, property: JSValueSchemas) {
     this.properties.set(key, property);
     return this;
   }

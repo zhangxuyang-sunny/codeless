@@ -20,8 +20,11 @@
       "@/*": [
         "src/*"
       ],
-      "packages/*":[
+      "packages/*": [
         "../../packages/*"
+      ],
+      "projects/*": [
+        "../../projects/*"
       ]
     },
     "lib": [

@@ -98,12 +98,12 @@ const router: RouterSchema = {
   views: [
     {
       title: "page1",
-      vid: "page_1",
+      pageId: "page_1",
       path: "/"
     },
     {
       title: "page2",
-      vid: "page_2",
+      pageId: "page_2",
       path: "/page2"
     }
   ]
