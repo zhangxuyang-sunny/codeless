@@ -16,8 +16,8 @@ const WorkbenchHeader: React.FC = () => {
         <Button className="back-button" icon={<IconLeft />} type="text" shape="circle" />
         <Divider type="vertical" />
         <Select placeholder="选择页面">
-          {pageSchemaList.map(pageSchema => (
-            <Select.Option key={pageSchema.pageId} value={pageSchema.title}>
+          {pageSchemaList.map((pageSchema, index) => (
+            <Select.Option key={index} value={pageSchema.title}>
               {pageSchema.title}
             </Select.Option>
           ))}
