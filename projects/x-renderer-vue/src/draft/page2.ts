@@ -3,7 +3,9 @@ export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "
 
 export const page2: PageSchema = {
   type: NodeTypes.Page,
+  vid: "xxx",
   title: "按钮",
+  version: "1.0.0",
   material: {
     type: NodeTypes.Material,
     id: "m_1",

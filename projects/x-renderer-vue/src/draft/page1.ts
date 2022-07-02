@@ -1,8 +1,8 @@
-import { PageVO } from "projects/x-server/src/database/modal/page";
-import { NodeTypes } from "packages/x-nodes/index";
+// import { PageVO } from "projects/x-server/src/database/modal/page";
+import { NodeTypes } from "packages/x-nodes";
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 
-export const page1: PageVO = {
+export const page1 = {
   pageId: "page_1",
   title: "按钮页",
   version: "0.0.1",

@@ -46,7 +46,7 @@ export default defineComponent({
     const { routeName, project, pages } = toRefs(props);
     const pageMap = computed(() => {
       return pages.value.reduce(
-        (map, schema) => map.set(schema.pageId, schema),
+        (map, schema) => map.set(schema.vid, schema),
         new Map<string, PageValue>()
       );
     });
