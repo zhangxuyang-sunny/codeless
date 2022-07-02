@@ -16,11 +16,15 @@ declare global {
 export type PageSchema = {
   type: NodeTypes.Page;
   title: string;
+  vid: string;
+  version: string;
   material: MaterialSchema;
 };
 
 export type PageValue = {
   title: string;
+  vid: string;
+  version: string;
   material: MaterialValue;
 };
 
@@ -57,14 +61,18 @@ export class PageNode extends AbstractNode<NodeTypes.Page> {
     return {
       type: this.type,
       title: this.title,
-      material: this.material.getSchema()
+      material: this.material.getSchema(),
+      vid: "",
+      version: ""
     };
   }
 
   getValue(): PageValue {
     return {
       title: this.title,
-      material: this.material.getValue()
+      material: this.material.getValue(),
+      vid: "",
+      version: ""
     };
   }
 }
