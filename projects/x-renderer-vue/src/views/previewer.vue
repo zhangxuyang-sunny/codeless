@@ -1,6 +1,7 @@
 <script lang="tsx">
+import type { IProjectSchema } from "packages/x-core/dist/types/project";
+import type { IViewSchema } from "packages/x-core/dist/types/view";
 import { defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
-import { PageNode, PageValue, ProjectNode, ProjectValue } from "packages/x-nodes/dist";
 import { loadRemotePackages } from "../utils/common";
 
 // 要异步加载 remote vue
@@ -13,8 +14,8 @@ export default defineComponent({
   setup() {
     const initialized = ref(false);
     const routeName = ref("");
-    const project = shallowRef<ProjectValue>();
-    const pages = shallowRef<PageValue[]>([]);
+    const project = shallowRef<IProjectSchema>();
+    const pages = shallowRef<IViewSchema[]>([]);
     const { projectId } = Object.fromEntries(new URLSearchParams(window.location.search));
 
     // TODO 接口还没写
@@ -43,7 +44,7 @@ export default defineComponent({
           baseUrl="/renderer/vue"
           routeName={routeName.value}
           project={project.value}
-          pages={pages.value}
+          views={pages.value}
         />
       );
     };

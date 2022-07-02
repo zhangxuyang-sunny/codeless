@@ -5,7 +5,9 @@ const {
   addWebpackAlias,
   addBabelPlugin,
   fixBabelImports,
-  removeModuleScopePlugin
+  removeModuleScopePlugin,
+  addLessLoader,
+  adjustStyleLoaders
 } = require("customize-cra");
 
 function resolve(dir) {
@@ -49,5 +51,15 @@ module.exports = override(
       meaninglessFileNames: ["index", "styles"],
       transpileTemplateLiterals: false
     }
-  ])
+  ]),
+  addLessLoader({
+    lessOptions: {
+      javascriptEnabled: true,
+      localIdentName: "[local]--[hash:base64:5]"
+    }
+  }),
+  adjustStyleLoaders(({ use: [, , postcss] }) => {
+    const postcssOptions = postcss.options;
+    postcss.options = { postcssOptions };
+  })
 );

@@ -12,7 +12,7 @@ export class TransformResponse<T> implements NestInterceptor<T, Response<T>> {
         return {
           data,
           code: 0,
-          message: "请求成功"
+          message: "success"
         };
       })
     );

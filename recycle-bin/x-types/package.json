@@ -1,0 +1,25 @@
+{
+  "name": "@low/types",
+  "version": "0.1.0",
+  "description": "x-platform types",
+  "scripts": {},
+  "types": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/react": "18.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.3.2",
+    "mitt": "^3.0.0",
+    "pinia": "^2.0.14",
+    "react": "18.2.0",
+    "recoil": "^0.7.3",
+    "vue": "^3.2.36",
+    "vue-router": "^4.0.15"
+  }
+}

@@ -6,7 +6,7 @@ import { MaterialService } from "src/services/material.service";
 import { MaterialController } from "src/controllers/material.controller";
 
 @Module({
-  imports: [FileModule, ConfigurationModule],
+  imports: [ConfigurationModule, FileModule],
   controllers: [MaterialController],
   providers: [MaterialService, CompilerService]
 })

@@ -1,54 +1,43 @@
 import { IsIn } from "class-validator";
-import { ViewOption } from "packages/x-nodes/dist";
-import { ProjectSchema } from "packages/x-nodes/index";
-import { ProjectStatus } from "src/database/schemas/project.schema";
+import {
+  IProjectSchema,
+  IProjectRouter,
+  IQueryProjectsParams,
+  ICreateProjectParams,
+  IProjectDataset
+} from "packages/x-core/src/types/project";
+import { ProjectStatus } from "packages/x-core/src/enums";
 
-// 创建工程传输对象
-export class CreateProjectDTO {
+export class CreateProjectDTO implements ICreateProjectParams {
   title: string;
-  schema: ProjectSchema;
-
-  // @IsString({ groups: [NodeTypes.Project] })
-  // type: NodeTypes.Project;
-  // @IsObject()
-  // router: RouterSchema;
-  // @IsArray()
-  // piniaList: PiniaSchema[];
-  // @IsArray()
-  // pageList: PageSchema[];
+  description: string;
 }
 
-export class UpdateViewsDTO {
-  projectId: string;
-  viewOptions: ViewOption[];
-}
-
-// 工程持久化对象
-export class ProjectPO {
-  projectId: string;
-  createUser: string;
-  updateUser: string;
-  status: ProjectStatus;
+// 持久化对象
+export class ProjectSchemaPO implements IProjectSchema {
+  id: string;
   version: string;
+  createdUser: string;
+  updatedUser: string;
+  createdAt: string;
+  updatedAt: string;
+  status: ProjectStatus;
   title: string;
-  schema: ProjectSchema;
+  description: string;
+  router: IProjectRouter;
+  datasets: IProjectDataset[];
 }
 
-export class ProjectVO extends ProjectPO {}
+export class ProjectSchemaVO extends ProjectSchemaPO {}
 
 const statusString = [ProjectStatus.delete, ProjectStatus.normal, ProjectStatus.unlink];
-export class QueryProjectDTO {
-  projectId: string;
-  createUser: string;
-  updateUser: string;
+export class QueryProjectDTO implements IQueryProjectsParams {
+  id: string;
+  title: string;
   @IsIn(statusString, { message: `status 校验未通过 (${statusString})` })
   status: ProjectStatus;
-}
-
-// 更新工程
-export class UpdateProjectSchemaDTO {
-  status?: ProjectStatus;
-  title?: string;
-  schema?: ProjectSchema;
-  pages?: string[];
+  createUser: string;
+  updateUser: string;
+  createTimeRange: [number, number];
+  updateTimeRange: [number, number];
 }

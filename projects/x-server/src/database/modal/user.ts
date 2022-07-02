@@ -1,5 +1,5 @@
 import { IsArray, IsNotEmpty } from "class-validator";
-import { ProjectVO } from "./project";
+import { ProjectSchemaVO } from "./project";
 
 export class QueryUserDTO {}
 
@@ -14,6 +14,7 @@ export class UserInfoVO {
   nickname: string; // 用户昵称
   email: string | null; // 用户绑定的
   telephone: string | null; // 用户绑定的电话号码
+  password: string; // 加密后的密码
 }
 
 export class UserInfoPO extends UserInfoVO {
@@ -24,15 +25,16 @@ export class UserInfoPO extends UserInfoVO {
 // 关联了用户在平台的数据
 export class UserPlatformPO {
   readonly uid: string;
-  readonly projects: string[]; // projectId[]
-  readonly materials: string[]; // mid[]
-  readonly teams: string[]; // tid[]
+  readonly projects: string[];
+  readonly views: string[];
+  readonly materials: string[];
+  readonly teams: string[];
 }
 
 // 平台用户所关联的业务实体信息
 export class UserPlatformVO {
   readonly uid: string;
-  readonly projects: ProjectVO[];
+  readonly projects: ProjectSchemaVO[];
   readonly materials: string[];
   readonly teams: string[];
 }
@@ -76,6 +78,8 @@ export class UpdateUserPlatformDTO implements CreateUserPlatformBO {
   uid: string;
   @IsArray()
   projects: string[];
+  @IsArray()
+  views: string[];
   @IsArray()
   materials: string[];
   @IsArray()

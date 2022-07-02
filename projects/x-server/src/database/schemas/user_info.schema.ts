@@ -7,10 +7,10 @@ export type UserInfoDocument = UserInfoDO & Document;
 
 @Schema()
 export class UserInfoDO implements UserInfoPO {
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true, unique: true, immutable: true })
   uid: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true, unique: true, immutable: true })
   username: string;
 
   @Prop({ required: true })
@@ -21,6 +21,9 @@ export class UserInfoDO implements UserInfoPO {
 
   @Prop({ type: String, default: null })
   telephone: string | null;
+
+  @Prop({ required: true, select: false })
+  password: string;
 }
 
 export const UserInfoSchema = SchemaFactory.createForClass(UserInfoDO);

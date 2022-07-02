@@ -284,7 +284,7 @@ const app: TypeMaterialSchema = {
                           .create(),
                         createElement(RemoteMap.FormItem)
                           .setProps({
-                            field: 'createTime',
+                            field: 'createdAt',
                             label: '创建时间'
                           })
                           .setSlots({
@@ -299,7 +299,7 @@ const app: TypeMaterialSchema = {
                           .create(),
                         createElement(RemoteMap.FormItem)
                           .setProps({
-                            field: 'createTime',
+                            field: 'createdAt',
                             label: '修改时间'
                           })
                           .setSlots({

@@ -4,7 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { database } from "config/database";
 import { UserInfoDO, UserInfoDocument } from "./schemas/user_info.schema";
 import { UserAuthDO, UserAuthDocument } from "./schemas/user_auth.schema";
-import { UserPlatformDO, UserPlatformDocument } from "./schemas/user_platform.schema";
+import { UserPlatformSchema, UserPlatformDocument } from "./schemas/user_platform.schema";
 
 @Injectable()
 export class TableUserService {
@@ -13,7 +13,7 @@ export class TableUserService {
     private readonly userAuthModel: Model<UserAuthDocument>,
     @InjectModel(UserInfoDO.name, database.db_user)
     private readonly userInfoModel: Model<UserInfoDocument>,
-    @InjectModel(UserPlatformDO.name, database.db_user)
+    @InjectModel(UserPlatformSchema.name, database.db_user)
     private readonly userPlatformModel: Model<UserPlatformDocument>
   ) {}
 
@@ -44,7 +44,7 @@ export class TableUserService {
     const userInfoModel = new this.userInfoModel(userInfo);
     return userInfoModel.save();
   }
-  async deleteUserInfoByUid(uid: string) {
+  async deleteUserInfoById(uid: string) {
     const userAuthModel = new this.userInfoModel({ uid });
     return userAuthModel.delete();
   }
@@ -59,7 +59,7 @@ export class TableUserService {
     const userAuthModel = new this.userAuthModel(userAuth);
     return userAuthModel.save();
   }
-  async deleteUserAuthByUid(uid: string) {
+  async deleteUserAuthById(uid: string) {
     const userAuthModel = new this.userAuthModel({ uid });
     userAuthModel.delete();
     return true;
@@ -71,21 +71,25 @@ export class TableUserService {
   /**
    * 平台用户数据表
    */
-  async insertUserPlatform(userPlatform: UserPlatformDO) {
+  async insertUserPlatform(userPlatform: UserPlatformSchema) {
     return this.userPlatformModel.insertMany(userPlatform);
   }
-  async updateUserPlatform(userPlatform: Partial<UserPlatformDO>) {
+  async updateUserPlatform(userPlatform: Partial<UserPlatformSchema>) {
     const { uid, ...data } = userPlatform;
     return this.userPlatformModel.findOneAndUpdate({ uid }, data);
   }
-  async addProjectId(uid: string, projectId: string) {
-    return this.userPlatformModel.findOneAndUpdate({ uid }, { $push: { projects: projectId } });
+  async addProjectId(uid: string, pid: string) {
+    return this.userPlatformModel.findOneAndUpdate({ uid }, { $push: { projects: pid } });
   }
   async deleteUserPlatformByUid(uid: string) {
     const deleted = await this.userPlatformModel.deleteMany({ uid });
     return deleted.deletedCount;
   }
-  async findUserPlatformByUid(uid: string) {
+  async findUserPlatformById(uid: string) {
     return this.userPlatformModel.findOne({ uid }).exec();
+  }
+
+  async findUserResources(uid: string) {
+    return this.userPlatformModel.find({ uid }).exec();
   }
 }

@@ -1,19 +1,22 @@
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 import configuration from "config/index";
 import { UserPlatformPO } from "../modal/user";
 
 const { database } = configuration();
 
-export type UserPlatformDocument = UserPlatformDO & Document;
+export type UserPlatformDocument = UserPlatformSchema & Document;
 
 @Schema()
-export class UserPlatformDO extends UserPlatformPO {
+export class UserPlatformSchema extends UserPlatformPO {
   @Prop({ required: true, unique: true })
   uid: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, ref: "projects", type: Types.Array })
   projects: string[];
+
+  @Prop({ required: true })
+  views: string[];
 
   @Prop({ required: true })
   materials: string[];
@@ -22,10 +25,10 @@ export class UserPlatformDO extends UserPlatformPO {
   teams: string[];
 }
 
-export const UserPlatformSchema = SchemaFactory.createForClass(UserPlatformDO);
+export const userPlatformSchema = SchemaFactory.createForClass(UserPlatformSchema);
 
-export const UserPlatformFeature: ModelDefinition = {
-  name: UserPlatformDO.name,
-  schema: UserPlatformSchema,
+export const UserPlatformModel: ModelDefinition = {
+  name: UserPlatformSchema.name,
+  schema: userPlatformSchema,
   collection: database.table_user_platform
 };

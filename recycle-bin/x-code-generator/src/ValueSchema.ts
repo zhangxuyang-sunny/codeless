@@ -1,5 +1,5 @@
-import { NSValueSchema, TypeValueSchema } from "../../x-types/schema/value";
-import { TypePageSchema, TypePiniaSchema, TypeRouterSchema } from "../../x-types/schema/config";
+import { NSValueSchema, TypeValueSchema } from "../../x-types/src/schema/value";
+import { TypePageSchema, TypePiniaSchema, TypeRouterSchema } from "../../x-types/src/schema/config";
 
 // class JSONString {
 //   type: "String";

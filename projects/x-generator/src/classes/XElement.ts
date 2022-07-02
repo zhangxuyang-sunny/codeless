@@ -1,4 +1,4 @@
-import { AbstractNode, MaterialSchema, NodeTypes, PageSchema } from "packages/x-nodes";
+import { AbstractNode, MaterialSchema, NodeTypes, PageSchema } from "packages/x-core";
 export default class XElement {
   constructor(private schema: MaterialSchema | PageSchema) {}
   /**

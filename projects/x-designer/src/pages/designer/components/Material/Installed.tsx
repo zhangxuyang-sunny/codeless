@@ -1,6 +1,6 @@
 import MaterialItem from "./MaterialItem";
 import { Spin } from "@arco-design/web-react";
-import { TypeMaterialSchema } from "packages/x-types/material";
+import { TypeMaterialSchema } from "packages/x-core/dist/types/material";
 import { useState } from "react";
 import getMaterialData from "../../../../mock/materialList";
 import styled from "styled-components";

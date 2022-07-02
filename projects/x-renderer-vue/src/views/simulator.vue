@@ -1,10 +1,8 @@
 <script lang="tsx">
+import { IProjectSchema } from "packages/x-core/dist/types/project";
+import { IViewSchema } from "packages/x-core/dist/types/view";
 import { defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
-import { PageNode, PageValue, ProjectNode, ProjectValue } from "packages/x-nodes/dist";
 import { loadRemotePackages } from "../utils/common";
-// import { page1 } from "../draft/page1";
-// import { page2 } from "../draft/page2";
-// import { project1 } from "../draft/project";
 
 // 要异步加载 remote vue
 const Renderer = defineAsyncComponent(() => import("../components/Renderer.vue"));
@@ -14,8 +12,8 @@ export default defineComponent({
   setup() {
     const initialized = ref(false);
     const routeName = ref("");
-    const project = shallowRef<ProjectValue>();
-    const pages = shallowRef<PageValue[]>([]);
+    const project = shallowRef<IProjectSchema>();
+    const views = shallowRef<IViewSchema[]>([]);
 
     loadRemotePackages().then(result => {
       window.vue = result.vue;
@@ -28,15 +26,13 @@ export default defineComponent({
     window.__X_RENDERER_API__.updateCurrentRoute = name => {
       routeName.value = name;
     };
-    window.__X_RENDERER_API__.updateProjectSchema = schema => {
-      project.value = new ProjectNode().setSchema(schema).getValue();
-      console.log("project schema", schema);
-      console.log("project schemaVal", project.value);
+    window.__X_RENDERER_API__.updateProject = schema => {
+      project.value = schema;
+      console.log("project", schema);
     };
-    window.__X_RENDERER_API__.updatePageSchemaList = schemas => {
-      pages.value = schemas.map(schema => new PageNode().setSchema(schema).getValue());
-      console.log("page schemas", schemas);
-      console.log("page schemasVal", pages.value);
+    window.__X_RENDERER_API__.updateViews = data => {
+      views.value = data;
+      console.log("views", data);
     };
 
     return () => {
@@ -51,7 +47,7 @@ export default defineComponent({
           baseUrl="/renderer/vue/simulator.html"
           routeName={routeName.value}
           project={project.value}
-          pages={pages.value}
+          views={views.value}
         />
       );
     };

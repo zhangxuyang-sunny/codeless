@@ -1,7 +1,7 @@
 <script lang="tsx">
 import { defineComponent, unref } from "vue";
 import IframeTools from "@/classes/IframeTools";
-import { NodeTypes, PageNode } from "packages/x-nodes";
+import { NodeTypes, PageNode } from "packages/x-core";
 
 import Simulator from "./classes/Simulator";
 export default defineComponent({

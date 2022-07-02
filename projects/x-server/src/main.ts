@@ -29,6 +29,6 @@ async function bootstrap() {
   // 统一的返回结构
   app.useGlobalInterceptors(new TransformResponse());
   await app.listen(3000);
-  console.log(`Application is running on: ${await app.getUrl()}`);
+  console.log(`Project is running on: ${await app.getUrl()}`);
 }
 bootstrap();

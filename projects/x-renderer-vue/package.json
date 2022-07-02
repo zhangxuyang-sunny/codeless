@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.29.0",
-    "@low/nodes": "workspace:^0.1.0",
+    "@low/core": "workspace:^0.1.0",
     "@types/webpack-env": "^1.17.0",
     "core-js": "^3.22.7",
     "mitt": "^3.0.0",

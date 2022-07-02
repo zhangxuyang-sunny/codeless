@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar/Index";
-import { page1 } from "./page1";
-import { page2 } from "./page2";
-import project from "./project";
+import { view1 } from "../../mock/view1";
+import { project } from "../../mock/project";
 const Designer: React.FC = () => {
   return (
     <StyleDesigner>
@@ -21,9 +20,10 @@ const Designer: React.FC = () => {
               if (!ref) return;
               ref.onload = () => {
                 const rendererApi = (ref?.contentWindow as any)?.__X_RENDERER_API__;
+                console.log(rendererApi);
 
-                rendererApi.updateProjectSchema(project);
-                rendererApi.updatePageSchemaList([page1]);
+                rendererApi.updateProject(project);
+                rendererApi.updateViews([view1]);
                 // let f = false;
                 // setInterval(() => {
                 //   rendererApi.updatePageSchemaList(f ? [page1] : [page2]);

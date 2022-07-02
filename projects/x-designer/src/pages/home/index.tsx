@@ -10,17 +10,17 @@ const Index: React.FC = () => {
         <Button
           type="primary"
           onClick={() => {
-            // router.push("/workbench");
+            // router.push("/designer");
           }}
         >
-          <Link to="/workbench">编辑器</Link>
+          <Link to="/designer">编辑器</Link>
         </Button>
         <Button
           onClick={() => {
-            // router.push("/workbench/preview");
+            // router.push("/designer/preview");
           }}
         >
-          <Link to="/workbench/preview">渲染器</Link>
+          <Link to="/designer/preview">渲染器</Link>
         </Button>
       </Space>
     </StyledIndex>

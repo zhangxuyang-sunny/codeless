@@ -14,8 +14,10 @@ import {
 } from "vue";
 import { Router, RouteRecordRaw } from "vue-router";
 import { Store } from "pinia";
-import { AbstractNode, JSValue, PageValue, ProjectValue } from "packages/x-nodes/dist";
-import { TypeGlobalProperties } from "packages/x-types";
+import { AbstractNode, JSValue } from "packages/x-core/dist/nodes";
+import { TypeGlobalProperties } from "packages/x-core/dist/types/index";
+import { IProjectSchema } from "packages/x-core/dist/types/project";
+import { IViewSchema } from "packages/x-core/dist/types/view";
 
 const { defineAsyncComponent } = await System.import("vue");
 const RENDERER_ID = "__renderer_vue__";
@@ -32,22 +34,22 @@ export default defineComponent({
     routeName: String,
     // 受控的工程配置
     project: {
-      type: Object as PropType<ProjectValue>,
+      type: Object as PropType<IProjectSchema>,
       required: true
     },
     // 受控的页面列表
-    pages: {
-      type: Array as PropType<PageValue[]>,
+    views: {
+      type: Array as PropType<IViewSchema[]>,
       required: true
     }
   },
   setup(props) {
     const { vue, vueRouter, pinia } = window;
-    const { routeName, project, pages } = toRefs(props);
-    const pageMap = computed(() => {
-      return pages.value.reduce(
-        (map, schema) => map.set(schema.pageId, schema),
-        new Map<string, PageValue>()
+    const { routeName, project, views } = toRefs(props);
+    const viewMap = computed(() => {
+      return views.value.reduce(
+        (map, view) => map.set(view.id, view),
+        new Map<string, IViewSchema>()
       );
     });
 
@@ -128,7 +130,7 @@ export default defineComponent({
                   state: () => ({
                     // pinia 必须返回一个对象
                     // 挂载在 data 字段上 (暂定)
-                    data: dataset.default
+                    data: {}
                   }),
                   // TODO
                   actions: {}
@@ -150,27 +152,27 @@ export default defineComponent({
       const { views, base, mode } = project.value.router;
       // 生成路由选项
       const routes = views.flatMap<RouteRecordRaw>(view => {
-        if (!pageMap.value.has(view.pageId)) return [];
+        if (!viewMap.value.has(view.viewId)) return [];
         return {
-          name: view.pageId,
-          path: view.path,
+          name: view.viewId,
+          path: view.urlPath,
           component: defineComponent({
-            name: `View-${view.pageId}`,
+            name: `IView-${view.viewId}`,
             setup() {
-              const pageReactive = vue.shallowRef<PageValue>();
+              const viewReactive = vue.shallowRef<IViewSchema>();
               // 连接两个 vue 实例响应式的桥梁
               watch(
-                pageMap,
+                viewMap,
                 () => {
-                  const page = pageMap.value.get(view.pageId);
-                  if (!page) return;
-                  pageReactive.value = page;
+                  const v = viewMap.value.get(view.viewId);
+                  if (!v) return;
+                  viewReactive.value = v;
                 },
                 { immediate: true }
               );
               return () =>
                 vue.h(RENDERER_ENTRY, {
-                  data: pageReactive.value?.material
+                  data: viewReactive.value?.schema
                 });
             }
           })

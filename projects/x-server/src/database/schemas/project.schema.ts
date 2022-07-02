@@ -1,42 +1,45 @@
 import { Document } from "mongoose";
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { database } from "config/database";
-import { ProjectSchema } from "packages/x-nodes/index";
-import { ProjectPO } from "../modal/project";
+import { IProjectSchema, IProjectRouter, IProjectDataset } from "packages/x-core/src/types/project";
+import { ProjectStatus } from "packages/x-core/src/enums";
 
-export type ProjectDocument = ProjectDO & Document;
-
-export const enum ProjectStatus {
-  normal = 1, // 正常状态
-  unlink = -1, // 软删除
-  delete = -2 // 自状态变为 -2 一定时间后，将会彻底从数据库移除
-}
-
-@Schema()
-export class ProjectDO implements ProjectPO {
+export type ProjectDocument = ProjectSchema & Document;
+@Schema({
+  _id: false,
+  id: false,
+  timestamps: true
+})
+export class ProjectSchema implements Omit<IProjectSchema, "createdAt" | "updatedAt"> {
+  @Prop({ select: false })
+  _id?: string;
+  @Prop({ select: false })
+  __v?: string;
   @Prop({ required: true, immutable: true })
-  projectId: string;
-  @Prop({ required: true })
-  createUser: string;
-  @Prop({ required: true })
-  updateUser: string;
-  @Prop({ type: Number, required: true })
-  status: ProjectStatus;
-  @Prop({ type: String, required: true })
-  title: string;
+  id: string;
   @Prop({ type: String, required: true })
   version: string;
+  @Prop({ type: String, required: true })
+  title: string;
+  @Prop({})
+  description: string;
+  @Prop({ required: true, immutable: true })
+  createdUser: string;
+  @Prop({ required: true })
+  updatedUser: string;
+  @Prop({ type: Number, required: true })
+  status: ProjectStatus;
   @Prop({ type: Object, required: true })
-  schema: ProjectSchema;
+  router: IProjectRouter;
   @Prop({ type: Array, required: true })
-  pages: string[];
+  datasets: IProjectDataset[];
 }
 
-export const ProjectDOSchema = SchemaFactory.createForClass(ProjectDO);
+export const projectSchema = SchemaFactory.createForClass(ProjectSchema);
 
 // 用于 module.imports 注入数据库特征
-export const ProjectFeature: ModelDefinition = {
-  name: ProjectDO.name,
-  schema: ProjectDOSchema,
+export const ProjectModel: ModelDefinition = {
+  name: ProjectSchema.name,
+  schema: projectSchema,
   collection: database.table_projects
 };
