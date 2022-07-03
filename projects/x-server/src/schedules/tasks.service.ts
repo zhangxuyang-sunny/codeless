@@ -1,8 +1,8 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { ProjectStatus } from "packages/x-core/src/enums";
-import { ProjectSchemaVO } from "src/database/modal/project";
-import { TableProjectService } from "src/database/table.project.service";
+import { ProjectSchemaVO } from "../modules/resource/project.modal";
+import { TableProjectService } from "../modules/resource/project.table.service";
 
 @Injectable()
 export class TasksService {

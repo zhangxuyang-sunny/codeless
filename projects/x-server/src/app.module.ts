@@ -5,14 +5,15 @@ import { ScheduleModule } from "@nestjs/schedule";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { MongooseModule } from "@nestjs/mongoose";
 import { TasksModule } from "./schedules/tasks.module";
-import { FileModule } from "./modules/file.module";
 import { configuration } from "../config/index";
-import { AuthModule } from "./modules/auth.module";
-import { UserModule } from "./modules/user.module";
-import { MaterialModule } from "./modules/material.module";
-import { ProjectModule } from "./modules/resource.module";
-import { TestModule } from "./modules/test.module";
-import { ConfigurationModule } from "./modules/configuration.module";
+import { ConfigurationModule } from "./modules/configuration/configuration.module";
+import { AuthModule } from "./modules/auth/auth.module";
+import { UserModule } from "./modules/user/user.module";
+import { FileModule } from "./modules/file/file.module";
+import { MaterialModule } from "./modules/material/material.module";
+import { ResourceModule } from "./modules/resource/resource.module";
+import { TestModule } from "./modules/test/test.module";
+import { ConfigurationService } from "./modules/configuration/configuration.service";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -53,13 +54,12 @@ const { database } = configuration();
     MongooseModule.forRoot(`${database.host}:${database.port}/${database.db_material}`, {
       connectionName: database.db_material
     }),
-    ConfigurationModule,
     AuthModule,
     UserModule,
     FileModule,
     TasksModule,
     MaterialModule,
-    ProjectModule,
+    ResourceModule,
     TestModule
   ],
   controllers: [],
