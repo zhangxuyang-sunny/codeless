@@ -1,4 +1,4 @@
-export type SimulatorEventName = {
+export type SimulatorEvents = {
   [P in
     | `node:${keyof GlobalEventHandlersEventMap}`
     | `simulator:${keyof GlobalEventHandlersEventMap}`]?: (...arg: any[]) => void;
@@ -7,5 +7,5 @@ export type SimulatorEventName = {
  * simulator
  */
 export interface Behavior {
-  getEvents(): SimulatorEventName;
+  getEvents(): SimulatorEvents;
 }

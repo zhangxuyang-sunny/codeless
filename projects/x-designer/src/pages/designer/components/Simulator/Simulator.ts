@@ -44,6 +44,14 @@ export class Simulator {
   get modes() {
     return this.options.modes || {};
   }
+
+  get key() {
+    return this.options.key;
+  }
+
+  get container() {
+    return this.options.container;
+  }
   /**
    * 选中node的节点
    */
@@ -125,5 +133,9 @@ export class Simulator {
    */
   getMode() {
     return this.mode;
+  }
+
+  destroy() {
+    this.unBindEvent();
   }
 }

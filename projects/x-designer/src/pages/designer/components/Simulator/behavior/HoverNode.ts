@@ -1,13 +1,18 @@
-import { Behavior, SimulatorEventName } from "../interface";
+import { Behavior, SimulatorEvents } from "../interface";
 
 export default class HoverNode implements Behavior {
-  getEvents(): SimulatorEventName {
+  getEvents(): SimulatorEvents {
     return {
-      "node:mousemove": this.mouseenter
+      "node:mouseover": this.mouseover
     };
   }
 
   mouseenter = (event: MouseEvent) => {
-    console.log("mousemove 事件");
+    console.log(1);
   };
+
+  mouseover(event: MouseEvent) {
+    event.stopPropagation();
+    console.log("over1");
+  }
 }

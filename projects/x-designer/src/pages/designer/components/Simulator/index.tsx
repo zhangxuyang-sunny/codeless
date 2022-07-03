@@ -3,19 +3,22 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import HoverNode from "./behavior/HoverNode";
+import SelectNode from "./behavior/SelectNode";
 import { Simulator } from "./Simulator";
 const SimulatorRender: React.FC = () => {
   const simulatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    new Simulator({
+    const simulator = new Simulator({
       key: "[data-remote-id]",
       container: simulatorRef.current as HTMLElement,
       modes: {
-        default: [],
-        hover: [HoverNode]
+        default: [SelectNode, HoverNode]
       }
     });
+    return () => {
+      simulator.destroy();
+    };
   }, []);
 
   return (
@@ -29,6 +32,7 @@ const SimulatorRender: React.FC = () => {
         </div>
         <div className="main" data-remote-id="5">
           main
+          <p>323</p>
         </div>
       </div>
     </SimulatorContainer>

@@ -1,9 +1,9 @@
-import { Behavior, SimulatorEventName } from "../interface";
+import { Behavior, SimulatorEvents } from "../interface";
 import { Simulator } from "../Simulator";
 
 export default class Shortcuts implements Behavior {
   constructor(private ctx: Simulator) {}
-  getEvents(): SimulatorEventName {
+  getEvents(): SimulatorEvents {
     return {
       "simulator:keydown": this.keydown,
       "simulator:keyup": this.keyup
@@ -11,7 +11,7 @@ export default class Shortcuts implements Behavior {
   }
 
   handleShift(isUp?: boolean) {
-    this.ctx.setMode(isUp ? "default" : "hover");
+    // this.ctx.setMode(isUp ? "default" : "hover");
   }
 
   keydown = () => {

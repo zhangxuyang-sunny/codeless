@@ -1,7 +1,7 @@
-import { Behavior, SimulatorEventName } from "../interface";
+import { Behavior, SimulatorEvents } from "../interface";
 
 export default class MultiSelectNode implements Behavior {
-  getEvents(): SimulatorEventName {
+  getEvents(): SimulatorEvents {
     throw new Error("Method not implemented.");
   }
 }
