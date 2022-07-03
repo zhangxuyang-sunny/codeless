@@ -1,9 +1,9 @@
 import shortUUID from "short-uuid";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
-import { TableProjectService } from "../resource/project.table.service";
+import { TableProjectService } from "../resource/project/project.table.service";
+import { ProjectVO } from "../resource/project/project.modal";
 import { TableUserService } from "./user.table.service";
 import { RegisterUserDTO, UserPlatformVO } from "./user.modal";
-import { ProjectSchemaVO } from "../resource/project.modal";
 
 @Injectable()
 export class UserService {
@@ -72,14 +72,12 @@ export class UserService {
     const userPlatform = await this.tbUserService.findUserPlatformById(id);
     if (!userPlatform) return null;
     const findProjectQueue = userPlatform.projects.map(id =>
-      this.tbProjectService.findProjectBy({ id })
+      this.tbProjectService.findProject({ id })
     );
     const projects = await Promise.all(findProjectQueue);
     return {
       uid: userPlatform.uid,
-      projects: projects.filter(
-        (value: ProjectSchemaVO | null): value is ProjectSchemaVO => value !== null
-      ),
+      projects: projects.filter((value: ProjectVO | null): value is ProjectVO => value !== null),
       materials: [],
       teams: []
     };
@@ -88,7 +86,7 @@ export class UserService {
   // 获取用户信息
   // 支持登录名、邮箱、手机号获取，这些都是不会重复的
   // 注意！平台 uid 为平台校验所需，不能对外使用 uid 可查询任何用户信息
-  async getUserPlatformVOByUsernameLike(id: string): Promise<UserPlatformVO | null> {
+  async getUserPlatformByUsernameLike(id: string): Promise<UserPlatformVO | null> {
     const userInfo =
       (await this.tbUserService.findUserInfoBy({ username: id })) ||
       (await this.tbUserService.findUserInfoBy({ email: id })) ||

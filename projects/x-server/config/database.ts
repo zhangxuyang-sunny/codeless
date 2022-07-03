@@ -5,8 +5,8 @@ const database = Object.freeze({
   port: mongoPort,
 
   db_user: "user", // 用户库
-  table_user_info: "user_info", // 用户信息表
   table_user_auth: "user_auth", // 用户权限表
+  table_user_info: "user_info", // 用户信息表
   table_user_platform: "user_platform", // 平台用户表，包含用户关联业务的数据
 
   db_resource: "resource", // 资源库

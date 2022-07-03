@@ -1,7 +1,7 @@
 import { IsArray, IsNotEmpty } from "class-validator";
-import { ProjectSchemaVO } from "../resource/project.modal";
+import { ProjectVO } from "../resource/project/project.modal";
 
-export class QueryUserDTO {}
+export class FindUserDTO {}
 
 // 用户校验信息
 export class UserAuthPO {
@@ -34,7 +34,7 @@ export class UserPlatformPO {
 // 平台用户所关联的业务实体信息
 export class UserPlatformVO {
   readonly uid: string;
-  readonly projects: ProjectSchemaVO[];
+  readonly projects: ProjectVO[];
   readonly materials: string[];
   readonly teams: string[];
 }

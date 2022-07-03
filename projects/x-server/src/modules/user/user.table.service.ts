@@ -2,27 +2,22 @@ import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { database } from "config/database";
-import { UserAuthDO, UserAuthDocument } from "./user_auth.schema";
 import { UserInfoDO, UserInfoDocument } from "./user_info.schema";
 import { UserPlatformDocument, UserPlatformSchema } from "./user_platform.schema";
 
 @Injectable()
 export class TableUserService {
   constructor(
-    @InjectModel(UserAuthDO.name, database.db_user)
-    private readonly userAuthModel: Model<UserAuthDocument>,
     @InjectModel(UserInfoDO.name, database.db_user)
     private readonly userInfoModel: Model<UserInfoDocument>,
     @InjectModel(UserPlatformSchema.name, database.db_user)
     private readonly userPlatformModel: Model<UserPlatformDocument>
   ) {}
 
-  // 检测 uid 是否存在
-  // 需要检测多张表，避免重复
+  // 检测用户id是否存在
   async isUidExists(uid: string) {
     const existsAll = await Promise.all([
       this.userInfoModel.exists({ uid }),
-      this.userAuthModel.exists({ uid }),
       this.userPlatformModel.exists({ uid })
     ]);
     return existsAll.every(Boolean);
@@ -50,22 +45,6 @@ export class TableUserService {
   }
   async findUserInfoBy(query: Partial<UserInfoDO>) {
     return this.userInfoModel.findOne(query);
-  }
-
-  /**
-   * 用户权限表
-   */
-  async insertUserAuth(userAuth: UserAuthDO) {
-    const userAuthModel = new this.userAuthModel(userAuth);
-    return userAuthModel.save();
-  }
-  async deleteUserAuthById(uid: string) {
-    const userAuthModel = new this.userAuthModel({ uid });
-    userAuthModel.delete();
-    return true;
-  }
-  async findUserAuthBy(query: Partial<UserAuthDO>) {
-    return this.userAuthModel.findOne(query);
   }
 
   /**

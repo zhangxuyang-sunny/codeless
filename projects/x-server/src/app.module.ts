@@ -4,16 +4,14 @@ import { ConfigModule } from "@nestjs/config";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { MongooseModule } from "@nestjs/mongoose";
-import { TasksModule } from "./schedules/tasks.module";
 import { configuration } from "../config/index";
-import { ConfigurationModule } from "./modules/configuration/configuration.module";
+import { TasksModule } from "./schedules/tasks.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { UserModule } from "./modules/user/user.module";
 import { FileModule } from "./modules/file/file.module";
 import { MaterialModule } from "./modules/material/material.module";
 import { ResourceModule } from "./modules/resource/resource.module";
 import { TestModule } from "./modules/test/test.module";
-import { ConfigurationService } from "./modules/configuration/configuration.service";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

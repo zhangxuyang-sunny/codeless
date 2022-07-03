@@ -8,37 +8,40 @@ import {
   Logger,
   Patch,
   Post,
-  Query
+  Query,
+  UseGuards
 } from "@nestjs/common";
-import { CreateProjectDTO, QueryProjectDTO } from "./project.modal";
+import { ProjectExistsGuard } from "./project.guard";
+import { CreateProjectDTO, FindProjectDTO, UpdateProjectDTO } from "./project.modal";
 import { ProjectService } from "./project.service";
-import { UpdateViewsDTO } from "./view.modal";
 
 @Controller("project")
 export class ProjectController {
   private readonly logger = new Logger(ProjectController.name);
   constructor(private readonly service: ProjectService) {}
 
-  // 查询应用列表
   @Get("list")
-  async getList(@Headers("uid") uid: string, @Query() query: Partial<QueryProjectDTO>) {
-    return this.service.getProjectList(query, uid);
+  async getList(@Query() query: FindProjectDTO) {
+    return this.service.findProjects(query);
   }
 
-  // 创建应用
   @Post("create")
   @HttpCode(HttpStatus.OK)
   async createProject(@Headers("uid") uid: string, @Body() project: CreateProjectDTO) {
     return this.service.createProject(project, uid);
   }
 
-  // 更新路由页面配置
-  @Patch("views/update")
-  async updateViews(@Body() { appId, viewOptions }: UpdateViewsDTO) {
-    return this.service.updateViewOptions(appId, viewOptions);
+  @Patch("update")
+  async updateProject(@Body() project: UpdateProjectDTO) {
+    return this.service.updateProject(project);
   }
 
-  // 恢复工程状态
+  @Patch("unlink")
+  @UseGuards(ProjectExistsGuard)
+  async unlinkProject(@Query("id") id: string) {
+    return this.service.handleUnlink(id);
+  }
+
   @Patch("revert")
   revertProject(@Query("id") id: string) {
     return this.service.handleRevert(id);

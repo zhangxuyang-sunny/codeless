@@ -1,8 +1,8 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { ProjectStatus } from "packages/x-core/src/enums";
-import { ProjectSchemaVO } from "../modules/resource/project.modal";
-import { TableProjectService } from "../modules/resource/project.table.service";
+import { ProjectVO } from "../modules/resource/project/project.modal";
+import { TableProjectService } from "../modules/resource/project/project.table.service";
 
 @Injectable()
 export class TasksService {
@@ -15,14 +15,14 @@ export class TasksService {
   })
   async clearDeletedProjects() {
     const willDeleteProjects = await this.tbProjectService //
-      .findProjectsBy({ status: ProjectStatus.delete });
-    const logList: ProjectSchemaVO[] = [];
+      .findProjects({ status: ProjectStatus.delete });
+    const logList: ProjectVO[] = [];
     // 构建清除队列，将大于给定时间被标记为 delete 的工程从数据库中删除
     const TIMEOUT = 1000 * 10;
     const queue = willDeleteProjects.flatMap(item => {
       if (new Date().getTime() - new Date(item.updatedAt).getTime() > TIMEOUT) {
         logList.push(item);
-        return [this.tbProjectService.deleteProjectById(item.id)];
+        return [this.tbProjectService.deleteProject(item.id)];
       }
       return [];
     });

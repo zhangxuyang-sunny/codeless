@@ -2,6 +2,7 @@ import path from "path";
 import { NestFactory } from "@nestjs/core";
 import { VersioningType, ValidationPipe } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
+import { serverPort } from "config/constant";
 import { AppModule } from "./app.module";
 import { AllExceptionsFilter } from "./exception-filters/AllExceptionsFilter";
 import { TransformResponse } from "./interceptor/TransformResponse";
@@ -28,7 +29,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
   // 统一的返回结构
   app.useGlobalInterceptors(new TransformResponse());
-  await app.listen(3000);
+  await app.listen(serverPort);
   console.log(`Project is running on: ${await app.getUrl()}`);
 }
 bootstrap();

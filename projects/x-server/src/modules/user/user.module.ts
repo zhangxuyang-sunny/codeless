@@ -6,16 +6,12 @@ import { ResourceModule } from "../resource/resource.module";
 import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
 import { TableUserService } from "./user.table.service";
-import { UserAuthFeature } from "./user_auth.schema";
 import { UserInfoFeature } from "./user_info.schema";
 import { UserPlatformModel } from "./user_platform.schema";
 
 @Module({
   imports: [
-    MongooseModule.forFeature(
-      [UserAuthFeature, UserInfoFeature, UserPlatformModel],
-      database.db_user
-    ),
+    MongooseModule.forFeature([UserInfoFeature, UserPlatformModel], database.db_user),
     AuthModule,
     forwardRef(() => ResourceModule)
   ],

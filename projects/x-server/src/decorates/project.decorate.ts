@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from "@nestjs/common";
-import { ProjectService } from "src/modules/resource/project.service";
+import { ProjectService } from "src/modules/resource/project/project.service";
 
 // 检测工程是否存在
 export function IsProjectExists() {

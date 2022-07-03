@@ -3,7 +3,7 @@ import md5 from "md5";
 import fse from "fs-extra";
 import ChildProcess from "node:child_process";
 import { v4 as uuid } from "uuid";
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { ConfigurationService } from "../configuration/configuration.service";
 import { FileService } from "../file/file.service";
 import { CompilerService } from "../compiler/compiler.service";
@@ -48,15 +48,18 @@ export class MaterialService {
     const { id, runtimeCode, sourceCode } = params;
     const dir = path.resolve("public/materials", id);
     if (!fse.existsSync(dir)) {
-      // throw new Error(`物料 "${id}" 不存在`);
-      console.warn(`物料 "${id}" 不存在`);
-      return null;
+      throw new HttpException(`物料 "${id}" 不存在`, HttpStatus.BAD_REQUEST);
+      // console.warn(`物料 "${id}" 不存在`);
+      // return null;
     }
     const description = path.resolve(dir, "description.json");
     if (!fse.existsSync(dir)) {
-      // throw new Error(`物料 "${id}" 不存在描述文件 description.json`);
-      console.warn(`物料 "${id}" 不存在描述文件 description.json`);
-      return null;
+      throw new HttpException(
+        `物料 "${id}" 不存在描述文件 description.json`,
+        HttpStatus.BAD_REQUEST
+      );
+      // console.warn(`物料 "${id}" 不存在描述文件 description.json`);
+      // return null;
     }
     return {
       id,

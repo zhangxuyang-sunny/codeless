@@ -68,8 +68,8 @@ export const view1: IViewSchema = {
   version: "0.0.1",
   title: "页面1",
   description: "我的第一个页面",
-  createUser: "sunny",
-  updateUser: "sunny",
+  createdUser: "sunny",
+  updatedUser: "sunny",
   createdAt: 0,
   updatedAt: 0,
   schema

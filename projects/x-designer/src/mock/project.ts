@@ -97,8 +97,8 @@ const project: IProjectSchema = {
   version: "0.0.1",
   status: 1,
   description: "我的第一个应用",
-  createUser: "sunny",
-  updateUser: "sunny",
+  createdUser: "sunny",
+  updatedUser: "sunny",
   createdAt: 0,
   updatedAt: 0
 };

@@ -6,8 +6,8 @@ export interface IViewSchema {
   version: string;
   title: string;
   description: string;
-  createUser: string;
-  updateUser: string;
+  createdUser: string;
+  updatedUser: string;
   createdAt: number;
   updatedAt: number;
   schema: IMaterialSchema;
@@ -33,10 +33,10 @@ export interface IQueryViewParams {
   id: string;
   title: string;
   description: string;
-  createUser: string;
-  updateUser: string;
-  createTimeRange: [number, number];
-  updateTimeRange: [number, number];
+  createdUser: string;
+  updatedUser: string;
+  createdTimeRange: [number, number];
+  updatedTimeRange: [number, number];
 }
 
 export interface IViewConsumer {
@@ -44,8 +44,8 @@ export interface IViewConsumer {
   version: string;
   title: string;
   description: string;
-  createUser: string;
-  updateUser: string;
+  createdUser: string;
+  updatedUser: string;
   createdAt: number;
   updatedAt: number;
   schema: IMaterialConsumer;

@@ -39,6 +39,6 @@ export class UserController {
   // 获取用户信息
   @Get("/")
   async getUser(@Headers("id") id: string) {
-    return this.userService.getUserPlatformVOByUsernameLike(id);
+    return this.userService.getUserPlatformByUsernameLike(id);
   }
 }

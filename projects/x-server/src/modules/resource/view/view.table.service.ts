@@ -2,33 +2,33 @@ import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { database } from "config/database";
-import { ViewDocument, ViewSchema } from "./view.schema";
-import { QueryViewDTO, ViewVO } from "./view.modal";
+import { ViewDocument, ViewPO } from "./view.schema";
+import { FindViewsDTO, ViewVO } from "./view.modal";
 
 @Injectable()
 export class TableViewService {
   constructor(
-    @InjectModel(ViewSchema.name, database.db_resource)
-    private readonly pageModel: Model<ViewDocument>
+    @InjectModel(ViewPO.name, database.db_resource)
+    readonly pageModel: Model<ViewDocument>
   ) {}
 
   async isVidExists(pageId: string) {
     return this.pageModel.exists({ pageId });
   }
 
-  async insertPage(page: ViewSchema) {
+  async addView(page: ViewPO) {
     return this.pageModel.insertMany(page);
   }
 
-  async findPageBy(query: Partial<QueryViewDTO>): Promise<ViewVO | null> {
+  async findView(query: Partial<FindViewsDTO>): Promise<ViewVO | null> {
     return this.pageModel.findOne(query);
   }
 
-  async findPagesBy(query: Partial<QueryViewDTO>): Promise<ViewVO[]> {
+  async findViews(query: Partial<FindViewsDTO>): Promise<ViewVO[]> {
     return this.pageModel.find(query);
   }
 
-  async findPagesByPageIds(ids: string[]): Promise<ViewVO[]> {
+  async findViewsByIds(ids: string[]): Promise<ViewVO[]> {
     return this.pageModel.find({ pageId: { $in: ids } });
   }
 }

@@ -28,8 +28,8 @@ export interface IProjectSchema {
   id: string;
   version: string;
   status: ProjectStatus;
-  createUser: string;
-  updateUser: string;
+  createdUser: string;
+  updatedUser: string;
   createdAt: number;
   updatedAt: number;
   title: string;
@@ -57,8 +57,8 @@ export interface IQueryProjectsParams {
   id: string;
   title: string;
   status: ProjectStatus;
-  createUser: string;
-  updateUser: string;
-  createTimeRange: [number, number];
-  updateTimeRange: [number, number];
+  createdUser: string;
+  updatedUser: string;
+  createdTimeRange: [number, number];
+  updatedTimeRange: [number, number];
 }

@@ -13,15 +13,8 @@ export class AuthService {
 
   // 校验用户密码
   async validatePassword(username: string, password: string): Promise<any> {
-    const userInfoPO = await this.dbUserService.findUserInfoBy({ username });
-    if (!userInfoPO?.uid) {
-      return false;
-    }
-    const user = await this.dbUserService.findUserAuthBy({ uid: userInfoPO.uid });
-    if (user && user.password === password) {
-      return true;
-    }
-    return false;
+    const userInfo = await this.dbUserService.findUserInfoBy({ username });
+    return userInfo && userInfo.password === password;
   }
 
   // 登录

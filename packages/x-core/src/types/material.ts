@@ -83,7 +83,7 @@ export interface IUpdateMaterialParams extends ICreateMaterialParams {
   id: string;
 }
 
-// 物料存储数据
+// 物料持久化数据
 export interface IMaterialSchema {
   src: string;
   props: ObjectSchema;

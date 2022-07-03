@@ -11,31 +11,41 @@ export type ViewDocument = IViewSchema & Document;
   id: false,
   timestamps: true
 })
-export class ViewSchema implements Omit<IViewSchema, "createdAt" | "updatedAt"> {
+export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt"> {
   @Prop({ select: false })
   _id?: string;
+
   @Prop({ select: false })
   __v?: string;
+
   @Prop({ required: true, unique: true })
   id: string;
+
   @Prop({ required: true })
   version: string;
+
   @Prop({ required: true })
   title: string;
+
   @Prop({ required: true })
   description: string;
-  @Prop({ required: true })
-  createUser: string;
-  @Prop({ required: true })
-  updateUser: string;
+
   @Prop({ required: true, type: Object })
   schema: IMaterialSchema;
+
+  @Prop({ required: true })
+  createdUser: string;
+
+  @Prop({ required: true })
+  updatedUser: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
 }
 
-export const viewSchema = SchemaFactory.createForClass(ViewSchema);
-
 export const ViewModel: ModelDefinition = {
-  name: ViewSchema.name,
-  schema: viewSchema,
+  name: ViewPO.name,
+  schema: SchemaFactory.createForClass(ViewPO),
   collection: database.table_views
 };
