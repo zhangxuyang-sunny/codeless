@@ -5,7 +5,8 @@ const {
   addWebpackAlias,
   addBabelPlugin,
   fixBabelImports,
-  removeModuleScopePlugin
+  removeModuleScopePlugin,
+  addWebpackModuleRule
 } = require("customize-cra");
 
 function resolve(dir) {
@@ -49,5 +50,9 @@ module.exports = override(
       meaninglessFileNames: ["index", "styles"],
       transpileTemplateLiterals: false
     }
-  ])
+  ]),
+  addWebpackModuleRule({
+    test: /\.less$/,
+    use: ["style-loader", "css-loader", "less-loader"]
+  })
 );
