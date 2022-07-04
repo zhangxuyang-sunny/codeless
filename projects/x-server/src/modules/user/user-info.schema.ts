@@ -1,14 +1,20 @@
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 import { database } from "config/database";
-import { UserInfoPO } from "./user.modal";
+import { UserInfo } from "packages/x-core/src/types/user";
 
-export type UserInfoDocument = UserInfoDO & Document;
+export type UserInfoDocument = UserInfoPO & Document;
 
 @Schema()
-export class UserInfoDO implements UserInfoPO {
+export class UserInfoPO implements UserInfo {
+  @Prop({ select: false })
+  _id?: string;
+
+  @Prop({ select: false })
+  __v?: string;
+
   @Prop({ required: true, unique: true, immutable: true })
-  uid: string;
+  id: string;
 
   @Prop({ required: true, unique: true, immutable: true })
   username: string;
@@ -22,15 +28,14 @@ export class UserInfoDO implements UserInfoPO {
   @Prop({ type: String, default: null })
   telephone: string | null;
 
+  // 不允许对外暴露
   @Prop({ required: true, select: false })
   password: string;
 }
 
-export const UserInfoSchema = SchemaFactory.createForClass(UserInfoDO);
-
 // 用于 module.imports 注入 UserAuth 数据库特征
-export const UserInfoFeature: ModelDefinition = {
-  name: UserInfoDO.name,
-  schema: UserInfoSchema,
+export const UserInfoModel: ModelDefinition = {
+  name: UserInfoPO.name,
+  schema: SchemaFactory.createForClass(UserInfoPO),
   collection: database.table_user_info
 };

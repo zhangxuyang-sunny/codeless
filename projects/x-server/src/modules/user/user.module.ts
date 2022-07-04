@@ -5,18 +5,17 @@ import { AuthModule } from "../auth/auth.module";
 import { ResourceModule } from "../resource/resource.module";
 import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
-import { TableUserService } from "./user.table.service";
-import { UserInfoFeature } from "./user_info.schema";
-import { UserPlatformModel } from "./user_platform.schema";
+import { UserInfoModel } from "./user-info.schema";
+import { UserPlatformModel } from "./user-platform.schema";
 
 @Module({
   imports: [
-    MongooseModule.forFeature([UserInfoFeature, UserPlatformModel], database.db_user),
-    AuthModule,
-    forwardRef(() => ResourceModule)
+    MongooseModule.forFeature([UserInfoModel, UserPlatformModel], database.db_user),
+    forwardRef(() => ResourceModule),
+    AuthModule
   ],
   controllers: [UserController],
-  providers: [UserService, TableUserService],
-  exports: [UserService, TableUserService]
+  providers: [UserService],
+  exports: [UserService]
 })
 export class UserModule {}

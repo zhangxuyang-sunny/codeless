@@ -6,11 +6,9 @@ import { UserModule } from "../user/user.module";
 import { ProjectController } from "./project/project.controller";
 import { ProjectModel } from "./project/project.schema";
 import { ProjectService } from "./project/project.service";
-import { TableProjectService } from "./project/project.table.service";
 import { ViewController } from "./view/view.controller";
 import { ViewModel } from "./view/view.schema";
 import { ViewService } from "./view/view.service";
-import { TableViewService } from "./view/view.table.service";
 import { DatasetsService } from "./datasets/datasets.service";
 
 @Module({
@@ -20,7 +18,7 @@ import { DatasetsService } from "./datasets/datasets.service";
     FileModule
   ],
   controllers: [ProjectController, ViewController],
-  providers: [ProjectService, TableProjectService, ViewService, TableViewService, DatasetsService],
-  exports: [TableProjectService, TableViewService]
+  providers: [ProjectService, ViewService, DatasetsService],
+  exports: [ProjectService]
 })
 export class ResourceModule {}

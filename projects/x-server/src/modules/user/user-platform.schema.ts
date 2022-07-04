@@ -1,16 +1,21 @@
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
-import configuration from "config/index";
-import { UserPlatformPO } from "./user.modal";
+import { database } from "config/database";
 
-const { database } = configuration();
+export type UserPlatformDocument = UserPlatformPO & Document;
 
-export type UserPlatformDocument = UserPlatformSchema & Document;
-
+// 平台用户信息
+// 关联了用户在平台的数据
 @Schema()
-export class UserPlatformSchema extends UserPlatformPO {
+export class UserPlatformPO {
+  @Prop({ select: false })
+  _id?: string;
+
+  @Prop({ select: false })
+  __v?: string;
+
   @Prop({ required: true, unique: true })
-  uid: string;
+  id: string;
 
   @Prop({ required: true, ref: "projects", type: Types.Array })
   projects: string[];
@@ -25,10 +30,8 @@ export class UserPlatformSchema extends UserPlatformPO {
   teams: string[];
 }
 
-export const userPlatformSchema = SchemaFactory.createForClass(UserPlatformSchema);
-
 export const UserPlatformModel: ModelDefinition = {
-  name: UserPlatformSchema.name,
-  schema: userPlatformSchema,
+  name: UserPlatformPO.name,
+  schema: SchemaFactory.createForClass(UserPlatformPO),
   collection: database.table_user_platform
 };
