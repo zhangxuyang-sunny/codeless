@@ -1,50 +1,46 @@
-import type { TypeMaterialPropOptions } from "./setters";
+import type { TypeMaterialPropOption } from "./setters";
 import { ObjectSchema } from "../nodes";
 
 // 物料相关定义数据描述协议
 // 物料定义包含不仅限于：物料元信息、物料配置选项
-export type TypeMaterialSlotSchema = {
+export interface IMaterialSlotOption {
   title: string;
-  name: string;
   description: string;
-};
+  name: string;
+}
 
-export type TypeMaterialEmitSchema = {
+export interface IMaterialEmitOption {
   title: string;
   description: string;
   name: string;
-};
+}
 
-export type TypeMaterialListenerSchema = {
+export interface IMaterialListenerOption {
   title: string;
   description: string;
   name: string;
-};
+}
 
 // 物料选项信息
-export type TypeMaterialOptions = {
-  props: TypeMaterialPropOptions[];
-  slots: TypeMaterialSlotSchema[];
-  emits: TypeMaterialEmitSchema[];
-  listeners: TypeMaterialListenerSchema[];
-};
+export interface IMaterialOption {
+  props: TypeMaterialPropOption[];
+  slots: IMaterialSlotOption[];
+  emits: IMaterialEmitOption[];
+  listeners: IMaterialListenerOption[];
+}
 
-// 物料元信息
-export type TypeMaterialMeta = {
+// 物料在商城中流通的描述
+export type TypeMaterial = {
+  id: string;
+  url: string;
+  code?: string;
   title: string;
   description: string;
   name: string;
   image: string;
   category?: string;
-};
-
-// 物料描述协议
-export type TypeMaterialSchema = {
-  $schema?: string;
-  url: string;
-  code?: string;
-  meta: TypeMaterialMeta;
-  options: TypeMaterialOptions;
+  // 可配置选项
+  options: IMaterialOption;
   /**
    * 1 内置组件
    * 2 自定义组件
@@ -56,21 +52,12 @@ export type TypeMaterialSchema = {
   collection: boolean;
 };
 
-// 原子物料：一个用原生开发并打包后的组件，可在物料商城中流通
-export interface IMaterialDefinition {
-  id: string;
-  title: string;
-  description: string;
-  src: string;
-  props: TypeMaterialPropOptions;
-}
-
 // 创建一个物料参数，需要上传源码，走服务器打包
 // 上传组件 props、emits、listeners、slots 等信息用于配置设置器
 export interface ICreateMaterialParams {
   title: string;
   description: string;
-  props: TypeMaterialPropOptions;
+  props: TypeMaterialPropOption;
   // TODO
   listeners: unknown[];
   emits: unknown[];
@@ -83,8 +70,9 @@ export interface IUpdateMaterialParams extends ICreateMaterialParams {
   id: string;
 }
 
-// 物料持久化数据
-export interface IMaterialSchema {
+// 物料参数描述数据
+export interface IMaterialParamsSchema {
+  id: string;
   src: string;
   props: ObjectSchema;
   style: ObjectSchema;
@@ -97,14 +85,15 @@ export interface IMaterialSchema {
     event: string;
     origin: string;
   }>;
-  slots: Record<string, IMaterialSchema[]>;
+  slots: Record<string, IMaterialParamsSchema[]>;
 }
 
-export type MaterialTarget = string[];
+// export type MaterialTarget = string[];
 // | [MaterialEvent, (...args: unknown[]) => unknown]
 
-// 物料消费数据
-export interface IMaterialConsumer {
+// 物料参数消费数据
+export interface IMaterialParamsConsumer {
+  id: string;
   src: string;
   style: Partial<CSSStyleDeclaration>;
   props: Partial<{
@@ -123,7 +112,7 @@ export interface IMaterialConsumer {
     origin: string;
   }>;
   slots: Partial<{
-    default: IMaterialConsumer[];
-    [x: string]: IMaterialConsumer[];
+    default: IMaterialParamsConsumer[];
+    [x: string]: IMaterialParamsConsumer[];
   }>;
 }

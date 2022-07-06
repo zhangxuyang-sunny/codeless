@@ -2,7 +2,7 @@ import qs from 'qs';
 import { computed } from 'vue';
 import { defineStore } from 'pinia';
 import { Message } from '@arco-design/web-vue';
-import { TypeMaterialSchema } from '@/types/schema/material';
+import { TypeMaterial } from '@/types/schema/material';
 import {
   createDataset,
   createElement,
@@ -107,7 +107,7 @@ defineMethod({
 const dataset = useDataset();
 const methods = useMethods();
 
-const app: TypeMaterialSchema = {
+const app: TypeMaterial = {
   id: 'Entry_0',
   name: '入口容器',
   version: '0.0.1',

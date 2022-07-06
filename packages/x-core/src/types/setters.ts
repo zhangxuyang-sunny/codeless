@@ -27,7 +27,7 @@ export type TypeUseInputNumber = {
 };
 
 export type TypeUseMulti = {
-  oneOf: TypeMaterialPropOptions[];
+  oneOf: TypeMaterialPropOption[];
 };
 
 export type TypeReadonly = {
@@ -55,7 +55,7 @@ export type TypePropMulti = TypeNormalizedAttrs & {
   type: "multi";
 } & TypeUseMulti;
 
-export type TypeMaterialPropOptions =
+export type TypeMaterialPropOption =
   | TypePropString
   | TypePropNumber
   | TypePropBoolean

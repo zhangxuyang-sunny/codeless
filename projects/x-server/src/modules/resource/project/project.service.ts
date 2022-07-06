@@ -4,21 +4,24 @@ import { InjectModel } from "@nestjs/mongoose";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import database from "config/database";
 import {
+  IApplication,
   ICreateProjectParams,
   IFindProjectsParams,
+  IProject,
   IUpdateProjectParams,
   IViewOption
 } from "packages/x-core/src/types/project";
 import { ProjectStatus } from "packages/x-core/src/enums";
-import { ProjectVO } from "./project.modal";
 import { ProjectDocument, ProjectPO } from "./project.schema";
+import { ViewService } from "../view/view.service";
 
 @Injectable()
 export class ProjectService {
   private readonly logger = new Logger();
   constructor(
     @InjectModel(ProjectPO.name, database.db_resource)
-    public readonly projectModel: Model<ProjectDocument>
+    public readonly projectModel: Model<ProjectDocument>,
+    private readonly viewService: ViewService
   ) {}
 
   async isIdExists(id: string) {
@@ -75,7 +78,7 @@ export class ProjectService {
     if (!result) {
       throw new HttpException("update fail", HttpStatus.BAD_REQUEST);
     }
-    return result;
+    return result.toJSON();
   }
 
   // 真删除
@@ -121,7 +124,7 @@ export class ProjectService {
   // 1. 区分用户查询
   // 2. 时间段查询
   // 3. description title 模糊查询
-  async findProjects(query: IFindProjectsParams): Promise<ProjectVO[]> {
+  async findProjects(query: IFindProjectsParams): Promise<IProject[]> {
     // return this.tbUserService.findUserResources(uid);
     // const userPlatform = await this.userService.findUserPlatformById(uid);
     // if (!userPlatform) return [];
@@ -132,12 +135,26 @@ export class ProjectService {
     return await this.projectModel.find(query);
   }
 
-  async findProject(query: IFindProjectsParams): Promise<ProjectVO | null> {
+  async findProject(query: IFindProjectsParams): Promise<IProject | null> {
     return this.projectModel.findOne(query);
   }
 
-  async findProjectsByIds(ids: string[]): Promise<ProjectVO[]> {
+  async findProjectsByIds(ids: string[]): Promise<IProject[]> {
     return this.projectModel.find({ id: { $in: ids } });
+  }
+
+  async findForApplication(id: string): Promise<IApplication> {
+    const project = await this.findProject({ id });
+    if (!project) {
+      throw new HttpException(`project "${id}" 不存在`, HttpStatus.BAD_REQUEST);
+    }
+    const viewIds = project.router.views.map(_ => _.viewId);
+    const views = await this.viewService.findViewsByIds(viewIds);
+    return {
+      project,
+      views,
+      datasets: []
+    };
   }
 
   // 通过状态获取项目列表

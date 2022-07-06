@@ -39,7 +39,7 @@ export type TypeMaterialMeta = {
 };
 
 // 物料描述协议
-export type TypeMaterialSchema = {
+export type TypeMaterial = {
   $schema?: string;
   url: string;
   code?: string;
@@ -84,7 +84,7 @@ export interface IUpdateMaterialParams extends ICreateMaterialParams {
 }
 
 // 物料存储数据
-export interface IMaterialSchema {
+export interface IMaterialOption {
   src: string;
   props: ObjectSchema;
   style: ObjectSchema;
@@ -97,7 +97,7 @@ export interface IMaterialSchema {
     event: string;
     origin: string;
   }>;
-  slots: Record<string, IMaterialSchema[]>;
+  slots: Record<string, IMaterialOption[]>;
 }
 
 export type MaterialTarget = string[];

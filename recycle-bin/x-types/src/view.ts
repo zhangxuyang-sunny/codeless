@@ -1,4 +1,4 @@
-import { IMaterialConsumer, IMaterialSchema } from "./material";
+import { IMaterialConsumer, IMaterialOption } from "./material";
 
 // 视图：使用原子物料组合而成的复合物料，可在个人/团队/命名空间下共享
 export interface IViewSchema {
@@ -10,7 +10,7 @@ export interface IViewSchema {
   updatedUser: string;
   createdAt: number;
   updatedAt: number;
-  schema: IMaterialSchema;
+  schema: IMaterialOption;
 }
 
 // 创建视图参数
@@ -25,7 +25,7 @@ export interface IUpdateViewParams {
   id: string;
   title: string;
   description: string;
-  schema: IMaterialSchema;
+  schema: IMaterialOption;
 }
 
 // 查询视图参数

@@ -14,10 +14,10 @@ import {
 } from "vue";
 import { Router, RouteRecordRaw } from "vue-router";
 import { Store } from "pinia";
-import { AbstractNode, JSValue } from "packages/x-core/dist/nodes";
-import { TypeGlobalProperties } from "packages/x-core/dist/types/index";
-import { IProjectSchema } from "packages/x-core/dist/types/project";
-import { IViewSchema } from "packages/x-core/dist/types/view";
+import { AbstractNode, JSValue } from "packages/x-core/src/nodes";
+import { TypeGlobalProperties } from "packages/x-core/src/types/index";
+import { IProjectSchema } from "packages/x-core/src/types/project";
+import { IViewConsumer } from "packages/x-core/src/types/view";
 
 const { defineAsyncComponent } = await System.import("vue");
 const RENDERER_ID = "__renderer_vue__";
@@ -39,7 +39,7 @@ export default defineComponent({
     },
     // 受控的页面列表
     views: {
-      type: Array as PropType<IViewSchema[]>,
+      type: Array as PropType<IViewConsumer[]>,
       required: true
     }
   },
@@ -49,7 +49,7 @@ export default defineComponent({
     const viewMap = computed(() => {
       return views.value.reduce(
         (map, view) => map.set(view.id, view),
-        new Map<string, IViewSchema>()
+        new Map<string, IViewConsumer>()
       );
     });
 
@@ -159,7 +159,7 @@ export default defineComponent({
           component: defineComponent({
             name: `IView-${view.viewId}`,
             setup() {
-              const viewReactive = vue.shallowRef<IViewSchema>();
+              const viewReactive = vue.shallowRef<IViewConsumer>();
               // 连接两个 vue 实例响应式的桥梁
               watch(
                 viewMap,

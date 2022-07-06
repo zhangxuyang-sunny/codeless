@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid';
-import type { TypeMaterialSchema, TypeMaterialEmit } from '@/types/schema/material';
+import type { TypeMaterial, TypeMaterialEmit } from '@/types/schema/material';
 
 class ConfigElement {
-  private config: TypeMaterialSchema = {
+  private config: TypeMaterial = {
     id: uuid(),
     name: '',
     version: '0.0.1',
@@ -14,60 +14,60 @@ class ConfigElement {
     emits: [],
     listeners: []
   };
-  constructor(src: TypeMaterialSchema['src']) {
+  constructor(src: TypeMaterial['src']) {
     this.setComponent(src);
   }
-  setId(id: TypeMaterialSchema['id']) {
+  setId(id: TypeMaterial['id']) {
     this.config.id = id;
     return this;
   }
-  setName(name: TypeMaterialSchema['name']) {
+  setName(name: TypeMaterial['name']) {
     this.config.name = name;
     return this;
   }
-  setVersion(version: TypeMaterialSchema['version']) {
+  setVersion(version: TypeMaterial['version']) {
     this.config.version = version;
     return this;
   }
-  setComponent(src: TypeMaterialSchema['src']) {
+  setComponent(src: TypeMaterial['src']) {
     this.config.src = src;
     return this;
   }
-  setProps(props: TypeMaterialSchema['props']) {
+  setProps(props: TypeMaterial['props']) {
     this.config.props = {
       ...this.config.props,
       ...props
     };
     return this;
   }
-  setCommonProps(props: TypeMaterialSchema['commonProps']) {
+  setCommonProps(props: TypeMaterial['commonProps']) {
     this.config.commonProps = {
       ...this.config.commonProps,
       ...props
     };
     return this;
   }
-  setSlot(name: string, slots: TypeMaterialSchema[]) {
+  setSlot(name: string, slots: TypeMaterial[]) {
     this.config.slots = {
       ...this.config.slots,
       [name]: slots
     };
   }
-  setSlots(slots: TypeMaterialSchema['slots']) {
+  setSlots(slots: TypeMaterial['slots']) {
     this.config.slots = {
       ...this.config.slots,
       ...slots
     };
     return this;
   }
-  setStyle(style: TypeMaterialSchema['style']) {
+  setStyle(style: TypeMaterial['style']) {
     this.config.style = {
       ...this.config.style,
       ...style
     };
     return this;
   }
-  setEmits(emits: TypeMaterialSchema['emits']) {
+  setEmits(emits: TypeMaterial['emits']) {
     this.config.emits = [...this.config.emits, ...emits];
     return this;
   }
@@ -80,6 +80,6 @@ class ConfigElement {
   }
 }
 
-export default function createElement(src: TypeMaterialSchema['src']) {
+export default function createElement(src: TypeMaterial['src']) {
   return new ConfigElement(src);
 }

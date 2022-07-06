@@ -1,7 +1,8 @@
 <script lang="tsx">
-import { IProjectSchema } from "packages/x-core/dist/types/project";
-import { IViewSchema } from "packages/x-core/dist/types/view";
-import { defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
+import { MaterialTransformer } from "packages/x-core/src/transformer/MaterialTransformer";
+import { IProjectSchema } from "packages/x-core/src/types/project";
+import { IViewSchema } from "packages/x-core/src/types/view";
+import { computed, defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
 import { loadRemotePackages } from "../utils/common";
 
 // 要异步加载 remote vue
@@ -14,6 +15,12 @@ export default defineComponent({
     const routeName = ref("");
     const project = shallowRef<IProjectSchema>();
     const views = shallowRef<IViewSchema[]>([]);
+    const viewConsumers = computed(() =>
+      views.value.map(view => ({
+        ...view,
+        schema: new MaterialTransformer(view.schema).getConsumer()
+      }))
+    );
 
     loadRemotePackages().then(result => {
       window.vue = result.vue;
@@ -47,7 +54,7 @@ export default defineComponent({
           baseUrl="/renderer/vue/simulator.html"
           routeName={routeName.value}
           project={project.value}
-          views={views.value}
+          views={viewConsumers.value}
         />
       );
     };

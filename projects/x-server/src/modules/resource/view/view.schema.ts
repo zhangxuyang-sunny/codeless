@@ -1,7 +1,7 @@
 import { Document } from "mongoose";
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { database } from "config/database";
-import { IMaterialSchema } from "packages/x-core/src/types/material";
+import { IMaterialParamsSchema } from "packages/x-core/src/types/material";
 import { IViewSchema } from "packages/x-core/src/types/view";
 
 export type ViewDocument = IViewSchema & Document;
@@ -9,7 +9,8 @@ export type ViewDocument = IViewSchema & Document;
 @Schema({
   _id: false,
   id: false,
-  timestamps: true
+  timestamps: true,
+  minimize: false
 })
 export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt"> {
   @Prop({ select: false })
@@ -31,7 +32,7 @@ export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt"> {
   description: string;
 
   @Prop({ required: true, type: Object })
-  schema: IMaterialSchema;
+  schema: IMaterialParamsSchema;
 
   @Prop({ required: true })
   createdUser: string;

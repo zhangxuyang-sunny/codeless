@@ -1,20 +1,24 @@
-import { IMaterialSchema, IMaterialConsumer } from "../types/material";
+import {
+  IMaterialParamsSchema,
+  IMaterialParamsConsumer
+} from "../types/material";
 import { ObjectNode } from "../nodes";
 
 // 物料节点
 export class MaterialTransformer {
+  private id = "";
   private src = "";
   private readonly style = new ObjectNode();
   private readonly props = new ObjectNode();
-  private emits: IMaterialSchema["emits"] = [];
-  private listeners: IMaterialSchema["listeners"] = [];
-  private slots: IMaterialSchema["slots"] = {};
+  private emits: IMaterialParamsSchema["emits"] = [];
+  private listeners: IMaterialParamsSchema["listeners"] = [];
+  private slots: IMaterialParamsSchema["slots"] = {};
 
-  constructor(schema?: IMaterialSchema) {
+  constructor(schema?: IMaterialParamsSchema) {
     if (schema) this.setSchema(schema);
   }
 
-  setSchema(schema: IMaterialSchema): this {
+  setSchema(schema: IMaterialParamsSchema): this {
     this.src = schema.src;
     this.style.setSchema(schema.style);
     this.props.setSchema(schema.props);
@@ -24,8 +28,9 @@ export class MaterialTransformer {
     return this;
   }
 
-  getSchema(): IMaterialSchema {
+  getSchema(): IMaterialParamsSchema {
     return {
+      id: this.id,
       src: this.src,
       style: this.style.getSchema(),
       props: this.props.getSchema(),
@@ -35,7 +40,7 @@ export class MaterialTransformer {
     };
   }
 
-  getEmits(): IMaterialConsumer["emits"] {
+  getEmits(): IMaterialParamsConsumer["emits"] {
     return this.emits.map((emit) => {
       return {
         event: emit.event,
@@ -45,7 +50,7 @@ export class MaterialTransformer {
     });
   }
 
-  getSlots(): IMaterialConsumer["slots"] {
+  getSlots(): IMaterialParamsConsumer["slots"] {
     const slots = Object.entries(this.slots).reduce(
       (slotMap, [slotName, slots]) => {
         const slotValueList = slots.map((slot) =>
@@ -53,16 +58,17 @@ export class MaterialTransformer {
         );
         return slotMap.set(slotName, slotValueList);
       },
-      new Map<string, IMaterialConsumer[]>()
+      new Map<string, IMaterialParamsConsumer[]>()
     );
     return Object.fromEntries(slots);
   }
 
-  getConsumer(): IMaterialConsumer {
+  getConsumer(): IMaterialParamsConsumer {
     return {
+      id: this.id,
       src: this.src,
-      style: <IMaterialConsumer["style"]>this.style.getValue(),
-      props: <IMaterialConsumer["props"]>this.props.getValue(),
+      style: <IMaterialParamsConsumer["style"]>this.style.getValue(),
+      props: <IMaterialParamsConsumer["props"]>this.props.getValue(),
       emits: this.getEmits(),
       listeners: this.listeners,
       slots: this.getSlots()

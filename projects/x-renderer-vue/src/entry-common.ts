@@ -4,8 +4,8 @@ import "systemjs/dist/extras/use-default.min.js";
 import "systemjs/dist/extras/named-register.min.js";
 import "systemjs/dist/extras/dynamic-import-maps.min.js";
 
-import type { IProjectSchema } from "packages/x-core/dist/types/project";
-import type { IViewSchema } from "packages/x-core/dist/types/view";
+import type { IProjectSchema } from "packages/x-core/src/types/project";
+import type { IViewSchema } from "packages/x-core/src/types/view";
 import { importMap, addToImportMapImports } from "packages/x-shared/utils/ImportMap";
 
 window.__X_RENDERER_API__ = {

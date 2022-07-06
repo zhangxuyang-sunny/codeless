@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Popover } from "@arco-design/web-react";
-import { TypeMaterialSchema } from "packages/x-core/dist/types/material";
+import { TypeMaterial } from "packages/x-core/dist/types/material";
 import styled from "styled-components";
 
 export interface IMaterialItem {
-  data: TypeMaterialSchema;
+  data: TypeMaterial;
 }
 const MaterialItem: React.FC<IMaterialItem> = ({ data }) => {
   const [popupVisible, setPopupVisible] = useState(false);

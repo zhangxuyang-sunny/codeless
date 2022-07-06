@@ -6,7 +6,7 @@ import { ProjectStatus } from "packages/x-core/src/enums";
 
 export type ProjectDocument = IProjectSchema & Document;
 
-@Schema({ _id: false, id: false, timestamps: true })
+@Schema({ _id: false, id: false, timestamps: true, minimize: false })
 export class ProjectPO implements Omit<IProjectSchema, "createdAt" | "updatedAt"> {
   @Prop({ select: false })
   _id?: string;

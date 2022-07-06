@@ -4,7 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { database } from "config/database";
 import { MaterialTransformer } from "packages/x-core/src/transformer/MaterialTransformer";
-import { IViewVO } from "packages/x-core/src/types/view";
+import { IView } from "packages/x-core/src/types/view";
 import {
   ICreateViewParams,
   IFindViewsParams,
@@ -44,15 +44,15 @@ export class ViewService {
     return this.viewModel.insertMany(view);
   }
 
-  async findView(query: IFindViewsParams): Promise<IViewVO | null> {
+  async findView(query: IFindViewsParams): Promise<IView | null> {
     return this.viewModel.findOne(query);
   }
 
-  async findViews(query: IFindViewsParams): Promise<IViewVO[]> {
+  async findViews(query: IFindViewsParams): Promise<IView[]> {
     return this.viewModel.find(query);
   }
 
-  async findViewsByIds(ids: string[]): Promise<ViewPO[]> {
+  async findViewsByIds(ids: string[]): Promise<IView[]> {
     return this.viewModel.find({ id: { $in: ids } });
   }
 

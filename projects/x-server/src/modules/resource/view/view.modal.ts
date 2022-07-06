@@ -1,18 +1,17 @@
 import { IViewOption } from "packages/x-core/src/types/project";
-import { IMaterialSchema } from "packages/x-core/src/types/material";
+import { IMaterialParamsSchema } from "packages/x-core/src/types/material";
 import {
   ICreateViewParams,
   IFindViewsParams,
   IUpdateViewParams
 } from "packages/x-core/src/types/view";
-import { ViewPO } from "./view.schema";
 
 // 创建页面参数
 export class CreateViewDTO implements ICreateViewParams {
   projectId: string;
   title: string;
   description: string;
-  material: IMaterialSchema;
+  material: IMaterialParamsSchema;
 }
 
 export class UpdateViewDTO implements IUpdateViewParams {
@@ -20,7 +19,7 @@ export class UpdateViewDTO implements IUpdateViewParams {
   title?: string;
   description?: string;
   viewOptions?: IViewOption[];
-  schema?: IMaterialSchema;
+  schema?: IMaterialParamsSchema;
 }
 
 export class FindViewsDTO implements IFindViewsParams {

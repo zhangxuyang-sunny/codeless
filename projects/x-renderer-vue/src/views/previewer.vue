@@ -1,7 +1,8 @@
 <script lang="tsx">
-import type { IProjectSchema } from "packages/x-core/dist/types/project";
-import type { IViewSchema } from "packages/x-core/dist/types/view";
-import { defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
+import type { IProjectSchema, IApplication } from "packages/x-core/src/types/project";
+import type { IViewSchema } from "packages/x-core/src/types/view";
+import { MaterialTransformer } from "packages/x-core/src/transformer/MaterialTransformer";
+import { computed, defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
 import { loadRemotePackages } from "../utils/common";
 
 // 要异步加载 remote vue
@@ -15,14 +16,21 @@ export default defineComponent({
     const initialized = ref(false);
     const routeName = ref("");
     const project = shallowRef<IProjectSchema>();
-    const pages = shallowRef<IViewSchema[]>([]);
-    const { projectId } = Object.fromEntries(new URLSearchParams(window.location.search));
+    const views = shallowRef<IViewSchema[]>([]);
+    const { id } = Object.fromEntries(new URLSearchParams(window.location.search));
+
+    const viewConsumers = computed(() =>
+      views.value.map(view => ({
+        ...view,
+        schema: new MaterialTransformer(view.schema).getConsumer()
+      }))
+    );
 
     // TODO 接口还没写
-    window.fetch("http://" + projectId).then(async response => {
-      const data = await response.json();
-      project.value = data.project;
-      pages.value = data.pages;
+    window.fetch(`http://localhost:3333/api/v1/project?id=${id}`).then(async response => {
+      const data: { data: IApplication } = await response.json();
+      project.value = data.data.project;
+      views.value = data.data.views;
     });
 
     loadRemotePackages().then(result => {
@@ -40,11 +48,11 @@ export default defineComponent({
         return <div class="loading">No configuration.</div>;
       }
       return (
-        <Renderer //
+        <Renderer
           baseUrl="/renderer/vue"
           routeName={routeName.value}
           project={project.value}
-          views={pages.value}
+          views={viewConsumers.value}
         />
       );
     };

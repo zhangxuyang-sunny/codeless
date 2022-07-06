@@ -20,6 +20,12 @@ export class ProjectController {
   private readonly logger = new Logger(ProjectController.name);
   constructor(private readonly service: ProjectService) {}
 
+  // 通过 id 获取 project
+  @Get("/")
+  async getProjectByIdParam(@Query("id") id: string) {
+    return this.service.findForApplication(id);
+  }
+
   @Get("list")
   async getList(@Query() query: FindProjectDTO) {
     return this.service.findProjects(query);

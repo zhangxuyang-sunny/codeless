@@ -15,7 +15,9 @@
     "lib": ["esnext", "dom"],
     "paths": {
       "@/*": ["./src/*"],
-      "src/*": ["./src/*"]
+      "src/*": ["./src/*"],
+      "packages/*": ["../../packages/*"],
+      "projects/*": ["../../projects/*"]
     }
   },
   "ts-node": {

@@ -1,9 +1,9 @@
 import { NodeTypes } from "packages/x-core/dist/nodes";
-import { IMaterialSchema } from "packages/x-core/dist/types/material";
-import { IViewSchema } from "packages/x-core/dist/types/view";
+import { IMaterialParamsSchema } from "packages/x-core/dist/types/material";
+import { IView } from "packages/x-core/dist/types/view";
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 
-const schema: IMaterialSchema = {
+const schema: IMaterialParamsSchema = {
   src: `http://${host}/static/components/arco/Button.js`,
   // src: `http://${host}/static/components/common/EmptyContainer.js`,
   // style: {
@@ -63,14 +63,14 @@ const schema: IMaterialSchema = {
   listeners: []
 };
 
-export const view1: IViewSchema = {
+export const view1: IView = {
   id: "view_1",
   version: "0.0.1",
   title: "页面1",
   description: "我的第一个页面",
   createdUser: "sunny",
   updatedUser: "sunny",
-  createdAt: 0,
-  updatedAt: 0,
+  createdAt: "",
+  updatedAt: "",
   schema
 };

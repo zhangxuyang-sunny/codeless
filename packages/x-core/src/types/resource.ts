@@ -1,5 +1,5 @@
-import { IDatasetsVO, IProjectVO } from "packages/x-core/src/types/project";
-import { IViewVO } from "./view";
+import { IDatasetsVO, IProject } from "packages/x-core/src/types/project";
+import { IView } from "./view";
 
 export interface WithDocument {
   createdUser: string;
@@ -10,7 +10,7 @@ export interface WithDocument {
 
 // 资源
 export interface IResource {
-  projects: IProjectVO[];
-  views: IViewVO[];
+  projects: IProject[];
+  views: IView[];
   datasets: IDatasetsVO[];
 }

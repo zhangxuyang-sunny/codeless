@@ -6,9 +6,6 @@ import {
   IDatasetsSchema
 } from "packages/x-core/src/types/project";
 import { ProjectStatus } from "packages/x-core/src/enums";
-import { ProjectPO } from "./project.schema";
-
-export class ProjectVO extends ProjectPO {}
 
 export class CreateProjectDTO implements ICreateProjectParams {
   title: string;

@@ -1,5 +1,6 @@
 import { ProjectStatus } from "../enums";
 import { WithDocument } from "./resource";
+import { IView } from "./view";
 
 export interface IViewOption {
   viewId: string;
@@ -39,7 +40,7 @@ export interface IProjectSchema {
   datasets: IDatasetsSchema[];
 }
 
-export interface IProjectVO extends IProjectSchema, WithDocument {}
+export interface IProject extends IProjectSchema, WithDocument {}
 
 // 创建
 export interface ICreateProjectParams {
@@ -66,4 +67,11 @@ export interface IFindProjectsParams {
   updatedUser?: string;
   createdTimeRange?: [number, number];
   updatedTimeRange?: [number, number];
+}
+
+// 应用数据
+export interface IApplication {
+  project: IProject;
+  views: IView[];
+  datasets: IDatasetsVO[];
 }

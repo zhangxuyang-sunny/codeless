@@ -24,7 +24,7 @@ export type TypeMaterialListener = {
 };
 
 // 物料协议
-export type TypeMaterialSchema = {
+export type TypeMaterial = {
   id: string;
   name: string;
   version: string;
@@ -35,7 +35,7 @@ export type TypeMaterialSchema = {
   emits: TypeMaterialEmit[];
   listeners: TypeMaterialListener[];
   slots: Partial<{
-    default: TypeMaterialSchema[];
-    [x: string]: TypeMaterialSchema[];
+    default: TypeMaterial[];
+    [x: string]: TypeMaterial[];
   }>;
 };

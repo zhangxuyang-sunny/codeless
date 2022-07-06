@@ -1,6 +1,6 @@
-import { TypeMaterialSchema } from "packages/x-core/dist/types/material";
+import { TypeMaterial } from "packages/x-core/dist/types/material";
 
-const list: TypeMaterialSchema[] = [
+const list: TypeMaterial[] = [
   {
     url: "xxx",
     type: 1,
@@ -61,7 +61,7 @@ const list: TypeMaterialSchema[] = [
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (): Promise<TypeMaterialSchema[]> => {
+export default (): Promise<TypeMaterial[]> => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(list);
