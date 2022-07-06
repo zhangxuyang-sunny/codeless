@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar/Index";
-import { view1 } from "../../mock/view1";
-import { project } from "../../mock/project";
+import Simulator from "./components/Simulator";
+// import { page1 } from "./page1";
+// import { page2 } from "./page2";
+// import project from "./project";
 const Designer: React.FC = () => {
   return (
     <StyleDesigner>
@@ -12,7 +14,8 @@ const Designer: React.FC = () => {
           <Sidebar />
         </div>
         <div className="center">
-          <iframe
+          <Simulator />
+          {/* <iframe
             title="renderer"
             className="iframe"
             src="/renderer/vue/simulator.html"
@@ -31,9 +34,8 @@ const Designer: React.FC = () => {
                 // }, 1000);
               };
             }}
-          />
+          /> */}
         </div>
-        <div className="right"></div>
       </div>
     </StyleDesigner>
   );
@@ -64,11 +66,6 @@ const StyleDesigner = styled.div`
         height: 100%;
         border: none;
       }
-    }
-    .right {
-      width: 300px;
-      background-color: var(--color-bg-1);
-      border-left: 1px solid var(--color-border-2);
     }
   }
 `;

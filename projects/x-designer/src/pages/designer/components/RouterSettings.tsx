@@ -4,7 +4,7 @@ import { Button, Divider, Form, Input, Radio } from "@arco-design/web-react";
 import styled from "styled-components";
 import HelpIcon from "src/components/HelpIcon";
 import { useEffect, useRef, useState } from "react";
-import { IProjectRouter, IProjectViewLink } from "packages/x-core/dist/types/project";
+import { IRouterOption, IViewOption } from "packages/x-core/dist/types/project";
 
 const urls = Object.freeze({
   "hash": "https://router.vuejs.org/zh/api/#createwebhashhistory",
@@ -13,14 +13,14 @@ const urls = Object.freeze({
   "vue-router": "https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html"
 });
 
-type RouterMode = IProjectRouter["mode"];
+type RouterMode = IRouterOption["mode"];
 
 // 路由配置器
 const RouterSettings: React.FC<{
   defaultMode?: RouterMode;
   readonly?: boolean; // 只读模式
   mode?: RouterMode; // 受控
-  views: IProjectViewLink[];
+  views: IViewOption[];
   onUpdateMode?: (mode: RouterMode) => void;
   onAddRoute?: () => void;
   onDeleteRoute?: (id: string) => void;

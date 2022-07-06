@@ -1,4 +1,4 @@
-import { IProjectSchema } from "packages/x-core/dist/types/project";
+import { IProject } from "packages/x-core/dist/types/project";
 
 // 数据配置
 // const piniaList: [] = [
@@ -85,7 +85,7 @@ import { IProjectSchema } from "packages/x-core/dist/types/project";
 // }
 // ];
 
-const project: IProjectSchema = {
+const project: IProject = {
   id: "project_1",
   title: "应用1",
   router: {
@@ -99,8 +99,8 @@ const project: IProjectSchema = {
   description: "我的第一个应用",
   createdUser: "sunny",
   updatedUser: "sunny",
-  createdAt: 0,
-  updatedAt: 0
+  createdAt: "",
+  updatedAt: ""
 };
 
 export { project };

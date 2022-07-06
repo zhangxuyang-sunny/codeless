@@ -1,8 +1,8 @@
 import { v4 as uuid } from "uuid";
 import { atom, useRecoilState } from "recoil";
-import { IProjectRouter, IProjectViewLink } from "packages/x-core/dist/types/project";
+import { IRouterOption, IViewOption } from "packages/x-core/dist/types/project";
 
-export const routerState = atom<IProjectRouter>({
+export const routerState = atom<IRouterOption>({
   key: "router-schema",
   default: {
     base: "",
@@ -16,7 +16,7 @@ export function useRouterSchema() {
   const [routerSchema, setRouterState] = useRecoilState(routerState);
 
   // 设置路由模式
-  const setRouterMode = (mode: IProjectRouter["mode"]) => {
+  const setRouterMode = (mode: IRouterOption["mode"]) => {
     setRouterState({
       ...routerSchema,
       mode
@@ -24,7 +24,7 @@ export function useRouterSchema() {
   };
 
   // 添加一个路由页面
-  const addRouterView = (view: IProjectViewLink) => {
+  const addRouterView = (view: IViewOption) => {
     setRouterState({
       ...routerSchema,
       views: [...routerSchema.views, view]

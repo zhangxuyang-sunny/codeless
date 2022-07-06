@@ -20,7 +20,7 @@ const MaterialItem: React.FC<IMaterialItem> = ({ data }) => {
         arrow-class="material-arrow-popover"
         position="right"
         trigger="hover"
-        content={<img style={{ width: "300px" }} src={data.meta.image} alt="" />}
+        content={<img style={{ width: "300px" }} src={data.image} alt="" />}
       >
         <div
           className="material-item"
@@ -28,8 +28,8 @@ const MaterialItem: React.FC<IMaterialItem> = ({ data }) => {
           onMouseEnter={() => setPopupVisible(true)}
           onMouseLeave={() => setPopupVisible(false)}
         >
-          <img className="material-image" draggable={false} src={data.meta.image} alt="" />
-          <div className="title">{data.meta.title}</div>
+          <img className="material-image" draggable={false} src={data.image} alt="" />
+          <div className="title">{data.title}</div>
         </div>
       </Popover>
     </MaterialItemContainer>

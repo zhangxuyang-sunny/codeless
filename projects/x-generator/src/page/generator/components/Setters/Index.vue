@@ -55,9 +55,9 @@ export default defineComponent({
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  .main {
-    margin: 10px;
+  padding: 10px 0;
+  .arco-radio-group-button {
+    margin: 0 10px;
   }
 }
 </style>

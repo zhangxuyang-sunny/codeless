@@ -24,7 +24,7 @@ export default class Simulator {
 
   constructor() {
     this.mouseover.subscribe(e => {
-      console.log(e.target, "enter");
+      console.log("over");
       if (e.target instanceof Element) {
         this.domDecorate.setEnterLine(e.target);
       }
@@ -67,13 +67,19 @@ export default class Simulator {
     this.container = container;
     const nodes = this.querySelectorAll();
     if (nodes) {
+      console.log(nodes);
       nodes.forEach(el => {
-        this.onEvent(el, "mousedown", this.mousedown);
-        this.onEvent(el, "mouseover", this.mouseover);
-        this.onEvent(el, "mouseout", this.mouseout);
-        this.onEvent(el, "mouseup", this.mouseup);
+        this.onEvent(el, "mousedown");
+        this.onEvent(el, "mouseover");
+        this.onEvent(el, "mouseout");
+        this.onEvent(el, "mouseup");
+        this.baseDashed(el as HTMLElement);
       });
     }
+  }
+
+  baseDashed(el: HTMLElement) {
+    Object.assign(el.style, { outline: "1px dashed #ccc" });
   }
 
   update() {
@@ -82,12 +88,31 @@ export default class Simulator {
     }
   }
 
-  private onEvent(el: Element, eventName: keyof GlobalEventHandlersEventMap, func: Subject<Event>) {
-    el.addEventListener(eventName, e => {
-      if (e.target === e.currentTarget) {
-        func.next(e);
+  private dispatchTransaction = (e: Event) => {
+    if (e.target === e.currentTarget) {
+      switch (e.type) {
+        case "mousedown": {
+          this.mousedown.next(e);
+          break;
+        }
+        case "mouseover": {
+          this.mouseover.next(e);
+          break;
+        }
+        case "mouseout": {
+          this.mouseout.next(e);
+          break;
+        }
+        case "mouseup": {
+          this.mouseup.next(e);
+          break;
+        }
       }
-    });
+    }
+  };
+
+  private onEvent(el: Element, eventName: keyof GlobalEventHandlersEventMap) {
+    el.addEventListener(eventName, this.dispatchTransaction);
   }
 
   setHover(id: string) {

@@ -8,6 +8,7 @@ const {
   removeModuleScopePlugin,
   addLessLoader,
   adjustStyleLoaders
+  // addWebpackModuleRule
 } = require("customize-cra");
 
 function resolve(dir) {
@@ -62,4 +63,9 @@ module.exports = override(
     const postcssOptions = postcss.options;
     postcss.options = { postcssOptions };
   })
+
+  // addWebpackModuleRule({
+  //   test: /\.less$/,
+  //   use: ["style-loader", "css-loader", "less-loader"]
+  // })
 );
