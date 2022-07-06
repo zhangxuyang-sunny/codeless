@@ -5,13 +5,13 @@ export default class Shortcuts implements Behavior {
   constructor(private ctx: Simulator) {}
   getEvents(): SimulatorEvents {
     return {
-      "simulator:keydown": this.keydown,
-      "simulator:keyup": this.keyup
+      "document:keydown": this.keydown,
+      "document:keyup": this.keyup
     };
   }
 
   handleShift(isUp?: boolean) {
-    // this.ctx.setMode(isUp ? "default" : "hover");
+    this.ctx.setMode(isUp ? "default" : "dragSelect");
   }
 
   keydown = () => {

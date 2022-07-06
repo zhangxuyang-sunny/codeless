@@ -53,6 +53,7 @@ const SelectNodeContainer = styled.div`
   left: ${props => props.style?.left + "px"};
   width: ${props => props.style?.width + "px"};
   height: ${props => props.style?.height + "px"};
+  pointer-events: none;
 `;
 
 export default DrawSelectNode;

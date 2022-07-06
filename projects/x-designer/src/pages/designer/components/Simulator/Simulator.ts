@@ -1,31 +1,30 @@
 /* eslint-disable no-debugger */
 import Shortcuts from "./behavior/Shortcuts";
+import OperationDom, { OperationDomOptions } from "./classes/OperationDom";
 import { Behavior } from "./interface";
-import { getRealEventName, isGlobalEventName, isNodeEventName } from "./utils";
+import {
+  getRealEventName,
+  isSimulatorEventName,
+  isNodeEventName,
+  isDocumentEventName
+} from "./utils";
 
-interface SimulatorOptions {
-  /**
-   * 组件绑定id的属性
-   */
-  key: string;
-
-  container: HTMLElement;
-
+interface SimulatorOptions extends OperationDomOptions {
   modes?: Record<string, Array<new (...arg: Array<any>) => Behavior>>;
 }
 
-export class Simulator {
-  constructor(private options: SimulatorOptions) {
+export class Simulator extends OperationDom {
+  constructor(private config: SimulatorOptions) {
+    super({
+      key: config.key,
+      container: config.container
+    });
     this.enableKeyboard();
 
     this.registerBehavior();
 
     this.bindEvent();
   }
-  /**
-   * node 选中的ID
-   */
-  selectId = "";
 
   /**
    * 交互事件的机制。它与交互模式 Mode 搭配使用
@@ -42,28 +41,7 @@ export class Simulator {
    * 模型配置
    */
   get modes() {
-    return this.options.modes || {};
-  }
-
-  get key() {
-    return this.options.key;
-  }
-
-  get container() {
-    return this.options.container;
-  }
-  /**
-   * 选中node的节点
-   */
-  get selectNode() {
-    return Array.from(this.nodes).find(n => n.getAttribute(this.options.key) === this.selectId);
-  }
-
-  /**
-   * 当前渲染器中可操作的节点
-   */
-  get nodes(): NodeListOf<Element> {
-    return document.querySelectorAll(this.options.key);
+    return this.config.modes || {};
   }
 
   /**
@@ -76,11 +54,11 @@ export class Simulator {
       behaviorInstance.forEach(instance => {
         const events = instance.getEvents();
         for (const k in events) {
-          if (isGlobalEventName(k)) {
+          if (isSimulatorEventName(k)) {
             if (isUnbinding) {
-              this.options.container.removeEventListener(getRealEventName(k), events[k]);
+              this.container.removeEventListener(getRealEventName(k), events[k]);
             } else {
-              this.options.container.addEventListener(getRealEventName(k), events[k]);
+              this.container.addEventListener(getRealEventName(k), events[k]);
             }
           } else if (isNodeEventName(k)) {
             this.nodes.forEach(node => {
@@ -90,6 +68,12 @@ export class Simulator {
                 node.addEventListener(getRealEventName(k), events[k]);
               }
             });
+          } else if (isDocumentEventName(k)) {
+            if (isUnbinding) {
+              document.removeEventListener(getRealEventName(k), events[k]);
+            } else {
+              document.addEventListener(getRealEventName(k), events[k]);
+            }
           }
         }
       });
@@ -102,6 +86,8 @@ export class Simulator {
 
   private unBindEvent() {
     this.dealWithEvent(true);
+
+    this.behavior[this.mode].forEach(b => b.unmount?.());
   }
 
   private registerBehavior() {
@@ -116,7 +102,7 @@ export class Simulator {
     /**
      * 启用键盘事件
      */
-    this.options.container.setAttribute("tabIndex", "-1");
+    this.container.setAttribute("tabIndex", "-1");
   }
 
   /**

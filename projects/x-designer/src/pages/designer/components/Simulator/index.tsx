@@ -1,19 +1,24 @@
 // import { page1 } from "../../page1";
 // import project from "../../project";
 import { useEffect, useRef } from "react";
+
 import styled from "styled-components";
+
+import { Simulator } from "./Simulator";
 import HoverNode from "./behavior/HoverNode";
 import SelectNode from "./behavior/SelectNode";
-import { Simulator } from "./Simulator";
+import DragMultiSelectNode from "./behavior/DragMultiSelectNode";
+
 const SimulatorRender: React.FC = () => {
   const simulatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const simulator = new Simulator({
-      key: "[data-remote-id]",
+      key: "data-remote-id",
       container: simulatorRef.current as HTMLElement,
       modes: {
-        default: [SelectNode, HoverNode]
+        default: [SelectNode, HoverNode],
+        dragSelect: [DragMultiSelectNode]
       }
     });
     return () => {
@@ -62,6 +67,7 @@ const SimulatorContainer = styled.div`
   margin: 10px;
   display: flex;
   flex-direction: column;
+  user-select: none;
   .container {
     flex: 1;
     display: flex;

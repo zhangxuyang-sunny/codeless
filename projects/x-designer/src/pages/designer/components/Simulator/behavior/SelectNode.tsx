@@ -1,18 +1,11 @@
-import ReactDOM from "react-dom/client";
-import { Simulator } from "../Simulator";
 import { Behavior, SimulatorEvents } from "../interface";
-import DrawSelectNode from "../components/DrawSelectNode";
+import { Simulator } from "../Simulator";
 
 export default class SelectNode implements Behavior {
-  constructor(private ctx: Simulator) {
-    this.ctx.container.appendChild(this.drawNodeRoot);
-  }
+  constructor(private ctx: Simulator) {}
   /**
    *  模拟的node根节点
    */
-  drawNodeRoot = document.createElement("div");
-
-  reactDomRoot: ReactDOM.Root | null = null;
 
   /**
    * 选中节点的node
@@ -21,23 +14,35 @@ export default class SelectNode implements Behavior {
 
   getEvents(): SimulatorEvents {
     return {
-      "node:click": this.handleClick
+      "node:click": this.handleClick,
+      "document:click": this.simulatorClick,
+      "node:contextmenu": this.contextmenu
     };
   }
-
-  drawSelectNode() {
-    this.reactDomRoot && this.reactDomRoot.unmount();
-    if (this.realNode) {
-      const { height, width, x, y } = this.realNode.getBoundingClientRect();
-      this.reactDomRoot = ReactDOM.createRoot(this.drawNodeRoot);
-      this.reactDomRoot.render(<DrawSelectNode height={height} width={width} left={x} top={y} />);
-    }
-  }
-  handleClick = (event: Event) => {
+  contextmenu = (event: Event) => {
+    console.log(323);
     event.stopPropagation();
+    event.preventDefault();
     if (event.target instanceof Element) {
-      this.realNode = event.target.closest(this.ctx.key);
-      this.drawSelectNode();
+      const target = event.target.closest(`[${this.ctx.key}]`);
+      const id = target?.getAttribute(this.ctx.key);
+      id && this.ctx.cancelSelect(id);
     }
   };
+  handleClick = (event: Event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    if (event.target instanceof Element) {
+      this.ctx.cancelSelectAll();
+      const target = event.target.closest(`[${this.ctx.key}]`);
+      const id = target?.getAttribute(this.ctx.key);
+      id && this.ctx.setSelect(id);
+    }
+  };
+  simulatorClick = () => {
+    this.unmount();
+  };
+  unmount() {
+    this.ctx.cancelSelectAll();
+  }
 }
