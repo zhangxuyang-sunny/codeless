@@ -22,7 +22,7 @@ export class TasksService {
     const queue = willDeleteProjects.flatMap(item => {
       if (new Date().getTime() - new Date(item.updatedAt).getTime() > TIMEOUT) {
         logList.push(item);
-        return [this.projectService.deleteProject(item.id)];
+        return this.projectService.removeProject(item.id);
       }
       return [];
     });

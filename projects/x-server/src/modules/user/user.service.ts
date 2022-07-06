@@ -3,7 +3,6 @@ import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { database } from "config/database";
-import { ProjectService } from "../resource/project/project.service";
 import { RegisterUserDTO } from "./user.modal";
 import { UserInfoPO, UserInfoDocument } from "./user-info.schema";
 import { UserPlatformDocument, UserPlatformPO } from "./user-platform.schema";
@@ -12,7 +11,6 @@ import { UserPlatformDocument, UserPlatformPO } from "./user-platform.schema";
 export class UserService {
   private readonly logger = new Logger();
   constructor(
-    private readonly projectService: ProjectService,
     @InjectModel(UserInfoPO.name, database.db_user)
     private readonly userInfoModel: Model<UserInfoDocument>,
     @InjectModel(UserPlatformPO.name, database.db_user)

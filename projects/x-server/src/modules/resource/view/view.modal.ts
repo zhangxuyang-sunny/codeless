@@ -7,8 +7,6 @@ import {
 } from "packages/x-core/src/types/view";
 import { ViewPO } from "./view.schema";
 
-export class ViewVO extends ViewPO {}
-
 // 创建页面参数
 export class CreateViewDTO implements ICreateViewParams {
   projectId: string;

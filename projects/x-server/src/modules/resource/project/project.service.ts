@@ -1,7 +1,7 @@
 import shortUUID from "short-uuid";
-import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import database from "config/database";
 import {
   ICreateProjectParams,
@@ -10,7 +10,6 @@ import {
   IViewOption
 } from "packages/x-core/src/types/project";
 import { ProjectStatus } from "packages/x-core/src/enums";
-import { UserService } from "../../user/user.service";
 import { ProjectVO } from "./project.modal";
 import { ProjectDocument, ProjectPO } from "./project.schema";
 
@@ -18,7 +17,6 @@ import { ProjectDocument, ProjectPO } from "./project.schema";
 export class ProjectService {
   private readonly logger = new Logger();
   constructor(
-    // private readonly userService: UserService,
     @InjectModel(ProjectPO.name, database.db_resource)
     public readonly projectModel: Model<ProjectDocument>
   ) {}
@@ -80,6 +78,11 @@ export class ProjectService {
     return result;
   }
 
+  // 真删除
+  async removeProject(id: string) {
+    return this.projectModel.remove({ id });
+  }
+
   // 删除，将 status 标记为 ProjectStatus.delete 状态，可作为回收站
   async deleteProject(id: string) {
     return this.projectModel.findOneAndUpdate({ id }, { status: ProjectStatus.delete });
@@ -126,11 +129,15 @@ export class ProjectService {
     //   userPlatform.projects.map(id => this.findProjectBy({ id, ...query }))
     // );
     // return list.filter(Boolean);
-    return this.projectModel.find(query);
+    return await this.projectModel.find(query);
   }
 
-  async findProject(query: IFindProjectsParams): Promise<ProjectPO | null> {
-    return this.projectModel.findOne(query).exec();
+  async findProject(query: IFindProjectsParams): Promise<ProjectVO | null> {
+    return this.projectModel.findOne(query);
+  }
+
+  async findProjectsByIds(ids: string[]): Promise<ProjectVO[]> {
+    return this.projectModel.find({ id: { $in: ids } });
   }
 
   // 通过状态获取项目列表

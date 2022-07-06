@@ -38,10 +38,6 @@ export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt"> {
 
   @Prop({ required: true })
   updatedUser: string;
-
-  createdAt?: string;
-
-  updatedAt?: string;
 }
 
 export const ViewModel: ModelDefinition = {

@@ -1,4 +1,7 @@
+import { WithDocument } from "./resource";
 import { IMaterialConsumer, IMaterialSchema } from "./material";
+
+export interface IViewVO extends IViewSchema, WithDocument {}
 
 // 视图持久化数据
 export interface IViewSchema {
@@ -7,10 +10,6 @@ export interface IViewSchema {
   title: string;
   description: string;
   schema: IMaterialSchema;
-  createdUser: string;
-  updatedUser: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 // 视图运行消费数据
@@ -19,10 +18,6 @@ export interface IViewConsumer {
   version: string;
   title: string;
   description: string;
-  createdUser: string;
-  updatedUser: string;
-  createdAt: string;
-  updatedAt: string;
   schema: IMaterialConsumer;
 }
 

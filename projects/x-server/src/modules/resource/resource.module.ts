@@ -10,6 +10,8 @@ import { ViewController } from "./view/view.controller";
 import { ViewModel } from "./view/view.schema";
 import { ViewService } from "./view/view.service";
 import { DatasetsService } from "./datasets/datasets.service";
+import { ResourceService } from "./resource.service";
+import { ResourceController } from "./resource.controller";
 
 @Module({
   imports: [
@@ -17,8 +19,8 @@ import { DatasetsService } from "./datasets/datasets.service";
     forwardRef(() => UserModule),
     FileModule
   ],
-  controllers: [ProjectController, ViewController],
-  providers: [ProjectService, ViewService, DatasetsService],
+  controllers: [ResourceController, ProjectController, ViewController],
+  providers: [ResourceService, ProjectService, ViewService, DatasetsService],
   exports: [ProjectService]
 })
 export class ResourceModule {}

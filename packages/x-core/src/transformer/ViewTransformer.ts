@@ -6,10 +6,6 @@ export class ViewTransformer {
   private version = "";
   private title = "";
   private description = "";
-  private createdUser = "";
-  private updatedUser = "";
-  private createdAt = "";
-  private updatedAt = "";
   private readonly schema = new MaterialTransformer();
 
   setSchema(schema: IViewSchema) {
@@ -17,10 +13,6 @@ export class ViewTransformer {
     this.version = schema.version;
     this.title = schema.title;
     this.description = schema.description;
-    this.createdUser = schema.createdUser;
-    this.createdAt = schema.createdAt;
-    this.updatedUser = schema.updatedUser;
-    this.updatedAt = schema.updatedAt;
     this.schema.setSchema(schema.schema);
   }
 
@@ -30,10 +22,6 @@ export class ViewTransformer {
       version: this.version,
       title: this.title,
       description: this.description,
-      createdUser: this.createdUser,
-      updatedUser: this.updatedUser,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
       schema: this.schema.getSchema()
     };
   }
@@ -44,10 +32,6 @@ export class ViewTransformer {
       version: this.version,
       title: this.title,
       description: this.description,
-      createdUser: this.createdUser,
-      updatedUser: this.updatedUser,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
       schema: this.schema.getConsumer()
     };
   }

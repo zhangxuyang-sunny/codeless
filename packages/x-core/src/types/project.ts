@@ -1,4 +1,5 @@
 import { ProjectStatus } from "../enums";
+import { WithDocument } from "./resource";
 
 export interface IViewOption {
   viewId: string;
@@ -19,6 +20,8 @@ export interface IDatasetsSchema {
   define: string;
 }
 
+export interface IDatasetsVO extends IDatasetsSchema, WithDocument {}
+
 // TODO
 export interface IDatasetsConsumer {
   key: string;
@@ -34,11 +37,9 @@ export interface IProjectSchema {
   description: string;
   router: IRouterOption;
   datasets: IDatasetsSchema[];
-  createdUser: string;
-  updatedUser: string;
-  createdAt: string;
-  updatedAt: string;
 }
+
+export interface IProjectVO extends IProjectSchema, WithDocument {}
 
 // 创建
 export interface ICreateProjectParams {

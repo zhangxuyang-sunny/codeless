@@ -4,33 +4,33 @@ import { InjectModel } from "@nestjs/mongoose";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { database } from "config/database";
 import { MaterialTransformer } from "packages/x-core/src/transformer/MaterialTransformer";
+import { IViewVO } from "packages/x-core/src/types/view";
 import {
   ICreateViewParams,
   IFindViewsParams,
   IUpdateViewParams
 } from "packages/x-core/src/types/view";
-import { ProjectService } from "../project/project.service";
 import { ViewDocument, ViewPO } from "./view.schema";
 
 @Injectable()
 export class ViewService {
   constructor(
     @InjectModel(ViewPO.name, database.db_resource)
-    readonly viewModel: Model<ViewDocument>,
-    private readonly projectService: ProjectService
+    readonly viewModel: Model<ViewDocument>
   ) {}
 
   // 生成唯一 id
   private async generateId() {
-    let pageId = uuidV4();
-    while (await this.isIdExists(pageId)) {
-      pageId = uuidV4();
+    let id = uuidV4();
+    while (await this.isIdExists(id)) {
+      id = uuidV4();
     }
-    return pageId;
+    return id;
   }
 
-  async isIdExists(pageId: string) {
-    return this.viewModel.exists({ pageId });
+  // id 是否存在，返回 boolean
+  async isIdExists(id: string): Promise<boolean> {
+    return !!(await this.viewModel.exists({ id }));
   }
 
   // 检查是否存在
@@ -40,20 +40,20 @@ export class ViewService {
     }
   }
 
-  async addView(page: ViewPO) {
-    return this.viewModel.insertMany(page);
+  async addView(view: ViewPO) {
+    return this.viewModel.insertMany(view);
   }
 
-  async findView(query: IFindViewsParams): Promise<ViewPO | null> {
+  async findView(query: IFindViewsParams): Promise<IViewVO | null> {
     return this.viewModel.findOne(query);
   }
 
-  async findViews(query: Partial<IFindViewsParams>): Promise<ViewPO[]> {
+  async findViews(query: IFindViewsParams): Promise<IViewVO[]> {
     return this.viewModel.find(query);
   }
 
   async findViewsByIds(ids: string[]): Promise<ViewPO[]> {
-    return this.viewModel.find({ pageId: { $in: ids } });
+    return this.viewModel.find({ id: { $in: ids } });
   }
 
   // 创建页面
