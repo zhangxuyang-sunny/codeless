@@ -120,7 +120,7 @@ importers:
       typescript: 4.7.4
       vue: 3.2.36
 
-  packages/x-nodes:
+  packages/x-core:
     specifiers:
       '@types/lodash': ^4.14.182
       '@types/uuid': ^8.3.4
@@ -130,9 +130,11 @@ importers:
       eslint-config-prettier: ^8.3.0
       eslint-plugin-prettier: ^4.0.0
       lodash: ^4.17.21
+      mitt: ^3.0.0
       prettier: ^2.3.2
       typescript: ^4.3.5
       uuid: ^8.3.2
+      vue: ^3.2.37
     dependencies:
       lodash: 4.17.21
       uuid: 8.3.2
@@ -144,8 +146,10 @@ importers:
       eslint: 8.17.0
       eslint-config-prettier: 8.5.0_eslint@8.17.0
       eslint-plugin-prettier: 4.0.0_hsbo72uvra2cjko46y2c4fgzzm
+      mitt: 3.0.0
       prettier: 2.7.1
       typescript: 4.7.4
+      vue: 3.2.37
 
   packages/x-shared:
     specifiers:
@@ -161,42 +165,6 @@ importers:
       vue: 3.2.37
     devDependencies:
       '@types/systemjs': 6.1.1
-
-  packages/x-types:
-    specifiers:
-      '@types/react': 18.0.14
-      mitt: ^3.0.0
-      pinia: ^2.0.14
-      react: 18.2.0
-      recoil: ^0.7.3
-      vue: ^3.2.36
-      vue-router: ^4.0.15
-    dependencies:
-      '@types/react': 18.0.14
-      mitt: 3.0.0
-      pinia: 2.0.14_vue@3.2.37
-      react: 18.2.0
-      recoil: 0.7.3_react@18.2.0
-      vue: 3.2.37
-      vue-router: 4.0.16_vue@3.2.37
-
-  projects/typescript-base:
-    specifiers:
-      '@typescript-eslint/eslint-plugin': ^5.0.0
-      '@typescript-eslint/parser': ^5.0.0
-      eslint: ^8.0.1
-      eslint-config-prettier: ^8.3.0
-      eslint-plugin-prettier: ^4.0.0
-      prettier: ^2.3.2
-      typescript: ^4.3.5
-    devDependencies:
-      '@typescript-eslint/eslint-plugin': 5.28.0_bwdgjzdjqqu6lnspjrilve2nye
-      '@typescript-eslint/parser': 5.28.0_n4lrrl552kqf5nk4rgej5xdcha
-      eslint: 8.17.0
-      eslint-config-prettier: 8.5.0_eslint@8.17.0
-      eslint-plugin-prettier: 4.0.0_hsbo72uvra2cjko46y2c4fgzzm
-      prettier: 2.7.1
-      typescript: 4.7.4
 
   projects/x-designer:
     specifiers:
@@ -449,7 +417,7 @@ importers:
     specifiers:
       '@arco-design/web-vue': ^2.29.0
       '@babel/core': ^7.18.0
-      '@low/nodes': workspace:^0.1.0
+      '@low/core': workspace:^0.1.0
       '@types/node': ^18.0.0
       '@types/systemjs': ^6.1.1
       '@types/webpack-env': ^1.17.0
@@ -480,7 +448,7 @@ importers:
       vue-router: ^4.0.15
     dependencies:
       '@arco-design/web-vue': 2.31.0_vue@3.2.37
-      '@low/nodes': link:../../packages/x-nodes
+      '@low/core': link:../../packages/x-core
       '@types/webpack-env': 1.17.0
       core-js: 3.23.1
       mitt: 3.0.0
@@ -551,7 +519,6 @@ importers:
       md5: ^2.3.0
       mongodb: ^4.7.0
       mongoose: ^6.3.6
-      nedb-promises: ^6.0.3
       passport: ^0.5.0
       passport-jwt: ^4.0.0
       passport-local: ^1.0.0
@@ -590,7 +557,6 @@ importers:
       md5: 2.3.0
       mongodb: 4.7.0
       mongoose: 6.4.0
-      nedb-promises: 6.0.3
       passport: 0.5.3
       passport-jwt: 4.0.0
       passport-local: 1.0.0
@@ -628,136 +594,6 @@ importers:
       tsconfig-paths: 4.0.0
       tslib: 2.4.0
       typescript: 4.7.4
-
-  projects/x-server/static/materials/85001334-1210-4bc8-91c7-060e5d836634:
-    specifiers:
-      '@babel/core': ^7.18.2
-      '@babel/plugin-syntax-jsx': 7.16.7
-      '@babel/plugin-transform-runtime': ^7.18.2
-      '@babel/preset-env': ^7.18.2
-      '@babel/preset-typescript': ^7.17.12
-      '@babel/runtime': ^7.17.9
-      '@rollup/plugin-babel': ^5.3.1
-      '@rollup/plugin-commonjs': ^22.0.0
-      '@rollup/plugin-json': ^4.1.0
-      '@rollup/plugin-node-resolve': ^13.3.0
-      '@vue/babel-plugin-jsx': ^1.1.1
-      '@vue/babel-preset-jsx': ^1.2.4
-      '@vue/compiler-sfc': ^3.2.36
-      rollup: ^2.75.4
-      rollup-plugin-terser: ^7.0.2
-      rollup-plugin-typescript2: ^0.31.2
-      rollup-plugin-vue: ^6.0.0
-      typescript: ^4.7.2
-      vue: 3.2.36
-    dependencies:
-      '@babel/core': 7.18.5
-      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.5
-      '@babel/plugin-transform-runtime': 7.18.5_@babel+core@7.18.5
-      '@babel/preset-env': 7.18.2_@babel+core@7.18.5
-      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.5
-      '@babel/runtime': 7.18.3
-      '@rollup/plugin-babel': 5.3.1_zlefvkjd3mp2eij3mw2gs4aqfm
-      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.6
-      '@rollup/plugin-json': 4.1.0_rollup@2.75.6
-      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.6
-      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.5
-      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.5
-      '@vue/compiler-sfc': 3.2.37
-      rollup: 2.75.6
-      rollup-plugin-terser: 7.0.2_rollup@2.75.6
-      rollup-plugin-typescript2: 0.31.2_63sirsnfvviu2qxghjzgkmnlpm
-      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.37
-      typescript: 4.7.4
-      vue: 3.2.36
-
-  projects/x-server/static/materials/92c9cf69-d75e-4ae8-bdbc-a1d97deb17fe:
-    specifiers:
-      '@arco-design/web-vue': ^2.29.1
-      '@babel/core': ^7.18.2
-      '@babel/plugin-syntax-jsx': 7.16.7
-      '@babel/plugin-transform-runtime': ^7.18.2
-      '@babel/preset-env': ^7.18.2
-      '@babel/preset-typescript': ^7.17.12
-      '@babel/runtime': ^7.17.9
-      '@rollup/plugin-babel': ^5.3.1
-      '@rollup/plugin-commonjs': ^22.0.0
-      '@rollup/plugin-json': ^4.1.0
-      '@rollup/plugin-node-resolve': ^13.3.0
-      '@vue/babel-plugin-jsx': ^1.1.1
-      '@vue/babel-preset-jsx': ^1.2.4
-      '@vue/compiler-sfc': ^3.2.36
-      rollup: ^2.75.4
-      rollup-plugin-terser: ^7.0.2
-      rollup-plugin-typescript2: ^0.31.2
-      rollup-plugin-vue: ^6.0.0
-      typescript: ^4.7.2
-      vue: 3.2.36
-    dependencies:
-      '@arco-design/web-vue': 2.31.0_vue@3.2.36
-      '@babel/core': 7.18.5
-      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.5
-      '@babel/plugin-transform-runtime': 7.18.5_@babel+core@7.18.5
-      '@babel/preset-env': 7.18.2_@babel+core@7.18.5
-      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.5
-      '@babel/runtime': 7.18.3
-      '@rollup/plugin-babel': 5.3.1_zlefvkjd3mp2eij3mw2gs4aqfm
-      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.6
-      '@rollup/plugin-json': 4.1.0_rollup@2.75.6
-      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.6
-      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.5
-      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.5
-      '@vue/compiler-sfc': 3.2.37
-      rollup: 2.75.6
-      rollup-plugin-terser: 7.0.2_rollup@2.75.6
-      rollup-plugin-typescript2: 0.31.2_63sirsnfvviu2qxghjzgkmnlpm
-      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.37
-      typescript: 4.7.4
-      vue: 3.2.36
-
-  projects/x-server/static/materials/9cce60c8-80b1-487c-b221-8767092267e1:
-    specifiers:
-      '@arco-design/web-vue': ^2.29.1
-      '@babel/core': ^7.18.2
-      '@babel/plugin-syntax-jsx': 7.16.7
-      '@babel/plugin-transform-runtime': ^7.18.2
-      '@babel/preset-env': ^7.18.2
-      '@babel/preset-typescript': ^7.17.12
-      '@babel/runtime': ^7.17.9
-      '@rollup/plugin-babel': ^5.3.1
-      '@rollup/plugin-commonjs': ^22.0.0
-      '@rollup/plugin-json': ^4.1.0
-      '@rollup/plugin-node-resolve': ^13.3.0
-      '@vue/babel-plugin-jsx': ^1.1.1
-      '@vue/babel-preset-jsx': ^1.2.4
-      '@vue/compiler-sfc': ^3.2.36
-      rollup: ^2.75.4
-      rollup-plugin-terser: ^7.0.2
-      rollup-plugin-typescript2: ^0.31.2
-      rollup-plugin-vue: ^6.0.0
-      typescript: ^4.7.2
-      vue: 3.2.36
-    dependencies:
-      '@arco-design/web-vue': 2.31.0_vue@3.2.36
-      '@babel/core': 7.18.5
-      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.5
-      '@babel/plugin-transform-runtime': 7.18.5_@babel+core@7.18.5
-      '@babel/preset-env': 7.18.2_@babel+core@7.18.5
-      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.5
-      '@babel/runtime': 7.18.3
-      '@rollup/plugin-babel': 5.3.1_zlefvkjd3mp2eij3mw2gs4aqfm
-      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.6
-      '@rollup/plugin-json': 4.1.0_rollup@2.75.6
-      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.6
-      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.5
-      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.5
-      '@vue/compiler-sfc': 3.2.37
-      rollup: 2.75.6
-      rollup-plugin-terser: 7.0.2_rollup@2.75.6
-      rollup-plugin-typescript2: 0.31.2_63sirsnfvviu2qxghjzgkmnlpm
-      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.37
-      typescript: 4.7.4
-      vue: 3.2.36
 
 packages:
 
@@ -4543,18 +4379,6 @@ packages:
     resolution: {integrity: sha512-WiBSI6JBIhC6LRIsB2Kwh8DsGTlbBU+mLRxJmAe3LjHTdkDpwIbEOZgoXBbZilk/vlfjK8i6nKRAvIRn1XaIMw==}
     dev: true
 
-  /@seald-io/binary-search-tree/1.0.2:
-    resolution: {integrity: sha512-+pYGvPFAk7wUR+ONMOlc6A+LUN4kOCFwyPLjyaeS7wVibADPHWYJNYsNtyIAwjF1AXQkuaXElnIc4XjKt55QZA==}
-    dev: false
-
-  /@seald-io/nedb/2.2.2:
-    resolution: {integrity: sha512-z91J3pem4ENzHuu9BilOSdlGL2S14OQYePPdvBcPHgHr+s51VIUwQARcOjx21KvtkA27vEpgPqzrVKh7nSlIfw==}
-    dependencies:
-      '@seald-io/binary-search-tree': 1.0.2
-      async: 0.2.10
-      localforage: 1.10.0
-    dev: false
-
   /@sideway/address/4.1.4:
     resolution: {integrity: sha512-7vwq+rOHVWjyXxVlR76Agnvhy8I9rpzjosTESvmhNeXOXdZZB15Fl+TI9x1SiHZH5Jv2wTGduSxFDIaq0m3DUw==}
     dependencies:
@@ -7028,10 +6852,6 @@ packages:
     resolution: {integrity: sha512-7HhHjtERjqlNbZtqNqy2rckN/SpOOlmDliet+lP7k+eKZEjPk3DgyeU9lIXLdeLz0uBbbVp+9Qdow9wJWgwwfg==}
     dev: false
 
-  /async/0.2.10:
-    resolution: {integrity: sha512-eAkdoKxU6/LkKDBzLpT+t6Ff5EtfSF4wx1WfJiPEEV7WNLnDaRXk0oVysiEPm262roaachGexwUv94WhSgN5TQ==}
-    dev: false
-
   /async/2.6.4:
     resolution: {integrity: sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA==}
     dependencies:
@@ -8065,7 +7885,7 @@ packages:
       lodash: ^4.17.20
       marko: ^3.14.4
       mote: ^0.2.0
-      mustache: ^4.0.1
+      mustache: ^3.0.0
       nunjucks: ^3.2.2
       plates: ~0.4.11
       pug: ^3.0.0
@@ -11016,10 +10836,6 @@ packages:
     dev: true
     optional: true
 
-  /immediate/3.0.6:
-    resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
-    dev: false
-
   /immer/9.0.15:
     resolution: {integrity: sha512-2eB/sswms9AEUSkOm4SbV5Y7Vmt/bKRwByd52jfLkW4OLYeaTP3EEiJ9agqU0O/tq6Dk62Zfj+TJSqfm1rLVGQ==}
     dev: true
@@ -12724,12 +12540,6 @@ packages:
   /libphonenumber-js/1.10.6:
     resolution: {integrity: sha512-CIjT100/SmntsUjsLVs2t3ufeN4KdNXUxhD07tH153pdbaCWuAjv0jK/gPuywR3IImB/U/MQM+x9RfhMs5XZiA==}
 
-  /lie/3.1.1:
-    resolution: {integrity: sha512-RiNhHysUjhrDQntfYSfY4MU24coXXdEOgw9WGcKHNeEwffDYbF//u87M1EWaMGzuFoSbqW0C9C6lEEhDOAswfw==}
-    dependencies:
-      immediate: 3.0.6
-    dev: false
-
   /lilconfig/2.0.5:
     resolution: {integrity: sha512-xaYmXZtTHPAw5m+xLN8ab9C+3a8YmV3asNSPOATITbtwrfbwaLJj8h66H1WMIpALCkqsIzK3h7oQ+PdX+LQ9Eg==}
     engines: {node: '>=10'}
@@ -12817,12 +12627,6 @@ packages:
     resolution: {integrity: sha512-HVl9ZqccQihZ7JM85dco1MvO9G+ONvxoGa9rkhzFsneGLKSUg1gJf9bWzhRhcvm2qChhWpebQhP44qxjKIUCaQ==}
     engines: {node: '>= 12.13.0'}
     dev: true
-
-  /localforage/1.10.0:
-    resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
-    dependencies:
-      lie: 3.1.1
-    dev: false
 
   /locate-path/2.0.0:
     resolution: {integrity: sha512-NCI2kiDkyR7VeEKm27Kda/iQHyKJe1Bu0FlTbYp3CqJu+9IFe9bLyAjMxf5ZDDbEg+iMPzB5zYyUTSm8wVTKmA==}
@@ -13176,7 +12980,6 @@ packages:
 
   /mitt/3.0.0:
     resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
-    dev: false
 
   /mkdirp/0.5.6:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
@@ -13301,12 +13104,6 @@ packages:
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
-
-  /nedb-promises/6.0.3:
-    resolution: {integrity: sha512-pd0N6EsIPhXsfqdLcBJGig1FoTdV8wtuiXB7rBUqycJdUSA6wdI5BlkwEAjDBWIwZc4+xqBHRLtuAB7/bjS+rg==}
-    dependencies:
-      '@seald-io/nedb': 2.2.2
-    dev: false
 
   /needle/2.4.0:
     resolution: {integrity: sha512-4Hnwzr3mi5L97hMYeNl8wRW/Onhy4nUKR/lVemJ8gJedxxUyBLm9kkrDColJvoSfwi0jCNhD+xCdOtiGDQiRZg==}
@@ -13999,23 +13796,6 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.1.4
       typescript: 4.6.4
-      vue: 3.2.37
-      vue-demi: 0.13.1_vue@3.2.37
-    dev: false
-
-  /pinia/2.0.14_vue@3.2.37:
-    resolution: {integrity: sha512-0nPuZR4TetT/WcLN+feMSjWJku3SQU7dBbXC6uw+R6FLQJCsg+/0pzXyD82T1FmAYe0lsx+jnEDQ1BLgkRKlxA==}
-    peerDependencies:
-      '@vue/composition-api': ^1.4.0
-      typescript: '>=4.4.4'
-      vue: ^2.6.14 || ^3.2.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-      typescript:
-        optional: true
-    dependencies:
-      '@vue/devtools-api': 6.1.4
       vue: 3.2.37
       vue-demi: 0.13.1_vue@3.2.37
     dev: false
@@ -15555,22 +15335,6 @@ packages:
       hamt_plus: 1.0.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /recoil/0.7.3_react@18.2.0:
-    resolution: {integrity: sha512-WaPppk3Hz5/V9nOVmu1X/o3cJyf/rLXw/YsEENvMzEDk+LKqMiGfFgZ3Gg51TKWccpCZCyrSBXn2O4L1E2WDPQ==}
-    peerDependencies:
-      react: '>=16.13.1'
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      hamt_plus: 1.0.2
-      react: 18.2.0
     dev: false
 
   /recursive-readdir/2.2.2:

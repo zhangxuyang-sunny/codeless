@@ -23,9 +23,10 @@ const Designer: React.FC = () => {
               if (!ref) return;
               ref.onload = () => {
                 const rendererApi = (ref?.contentWindow as any)?.__X_RENDERER_API__;
+                console.log(rendererApi);
 
-                rendererApi.updateProjectSchema(project);
-                rendererApi.updatePageSchemaList([page1]);
+                rendererApi.updateProject(project);
+                rendererApi.updateViews([view1]);
                 // let f = false;
                 // setInterval(() => {
                 //   rendererApi.updatePageSchemaList(f ? [page1] : [page2]);

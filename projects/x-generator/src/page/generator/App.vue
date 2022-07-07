@@ -2,7 +2,7 @@
 import { v4 as uuid } from "uuid";
 import { defineComponent, ref } from "vue";
 import { Spin } from "@arco-design/web-vue";
-import { PageNode, PageSchema } from "packages/x-nodes";
+import { PageNode, PageSchema } from "packages/x-core";
 import { usePageStore, useRouterConfig } from "./store";
 import Sidebar from "./components/Sidebar/Index.vue";
 import HeaderVue from "./components/Header/Index.vue";

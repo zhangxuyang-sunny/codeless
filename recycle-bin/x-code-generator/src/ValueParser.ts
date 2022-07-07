@@ -1,6 +1,6 @@
-import type { TypePiniaConfig, TypePiniaStore } from "../../x-types/schema/config";
-import type { TypeValueSchema } from "../../x-types/schema/value";
-import type { TypeMaterialConfig } from "../../x-types/material";
+import type { TypePiniaConfig, TypePiniaStore } from "../../x-types/src/schema/config";
+import type { TypeValueSchema } from "../../x-types/src/schema/value";
+import type { TypeMaterialConfig } from "../../x-types/src/material";
 
 import mapToRecord from "../../x-shared/mapToRecord";
 import {

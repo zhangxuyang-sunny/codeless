@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "isolatedModules": true,
+    "removeComments": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "paths": {
+      "packages/*":[
+        "../*"
+      ]
+    }
+  },
+  "include": [
+    "./**/*.ts",
+  ],
+  "exclude": [
+    "node_modules", "dist", "recycle-bin"
+  ]
+}

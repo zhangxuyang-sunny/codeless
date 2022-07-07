@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { Popover } from "@arco-design/web-react";
-import { TypeMaterialSchema } from "packages/x-types/material";
+import { TypeMaterial } from "packages/x-core/dist/types/material";
 import styled from "styled-components";
 
 export interface IMaterialItem {
-  data: TypeMaterialSchema;
+  data: TypeMaterial;
 }
 const MaterialItem: React.FC<IMaterialItem> = ({ data }) => {
   const materialItemEle = useRef<HTMLDivElement>(null);
@@ -21,11 +21,11 @@ const MaterialItem: React.FC<IMaterialItem> = ({ data }) => {
         }}
         position="right"
         trigger="hover"
-        content={<img style={{ width: "300px" }} src={data.meta.image} alt="" />}
+        content={<img style={{ width: "300px" }} src={data.image} alt="" />}
       >
         <div className="material-item" ref={materialItemEle}>
-          <img className="material-image" draggable={false} src={data.meta.image} alt="" />
-          <div className="title">{data.meta.title}</div>
+          <img className="material-image" draggable={false} src={data.image} alt="" />
+          <div className="title">{data.title}</div>
         </div>
       </Popover>
     </MaterialItemContainer>

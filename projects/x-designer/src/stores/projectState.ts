@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-import { ProjectNode, ProjectSchema } from "packages/x-nodes";
+import { IProjectSchema } from "packages/x-core/dist/types/project";
 
-export const projectState = atom<ProjectSchema>({
-  key: "project-schema",
-  default: new ProjectNode().getSchema()
+export const projectState = atom<IProjectSchema | null>({
+  key: "project",
+  default: null
 });

@@ -6,7 +6,9 @@ const {
   addBabelPlugin,
   fixBabelImports,
   removeModuleScopePlugin,
-  addWebpackModuleRule
+  addLessLoader,
+  adjustStyleLoaders
+  // addWebpackModuleRule
 } = require("customize-cra");
 
 function resolve(dir) {
@@ -51,8 +53,19 @@ module.exports = override(
       transpileTemplateLiterals: false
     }
   ]),
-  addWebpackModuleRule({
-    test: /\.less$/,
-    use: ["style-loader", "css-loader", "less-loader"]
+  addLessLoader({
+    lessOptions: {
+      javascriptEnabled: true,
+      localIdentName: "[local]--[hash:base64:5]"
+    }
+  }),
+  adjustStyleLoaders(({ use: [, , postcss] }) => {
+    const postcssOptions = postcss.options;
+    postcss.options = { postcssOptions };
   })
+
+  // addWebpackModuleRule({
+  //   test: /\.less$/,
+  //   use: ["style-loader", "css-loader", "less-loader"]
+  // })
 );

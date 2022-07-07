@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import XElement from "@/classes/XElement";
-import { MaterialSchema, NodeTypes, PageSchema } from "packages/x-nodes";
+import { MaterialSchema, NodeTypes, PageSchema } from "packages/x-core";
 import { ThreeTriangles } from "@icon-park/vue-next";
 function traverseSchema<T extends MaterialSchema | PageSchema>(
   schema: T,

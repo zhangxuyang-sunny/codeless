@@ -1,7 +1,8 @@
-import { TypeMaterialSchema } from "packages/x-types/material";
+import { TypeMaterial } from "packages/x-core/dist/types/material";
 
-const list: TypeMaterialSchema[] = [
+const list: TypeMaterial[] = [
   {
+    id: "id_1",
     url: "xxx",
     type: 1,
     // version: "0.0.0",
@@ -12,15 +13,14 @@ const list: TypeMaterialSchema[] = [
       listeners: []
     },
     collection: false,
-    meta: {
-      title: "按钮",
-      image: require("../image/button.png"),
-      category: "基础组件",
-      name: "",
-      description: "xxxx"
-    }
+    title: "按钮",
+    image: require("../image/button.png"),
+    category: "基础组件",
+    name: "",
+    description: "xxxx"
   },
   {
+    id: "id_2",
     url: "xxxxx",
     type: 1,
     // version: "0.0.0",
@@ -31,91 +31,14 @@ const list: TypeMaterialSchema[] = [
       emits: [],
       listeners: []
     },
-    meta: {
-      title: "Input组建",
-      image: require("../image/input.png"),
-      category: "基础组件",
-      name: "",
-      description: "xxxx"
-    }
+    title: "Input组建",
+    image: require("../image/input.png"),
+    category: "基础组件",
+    name: "",
+    description: "xxxx"
   },
   {
-    url: "xxx",
-    type: 1,
-    // version: "0.0.0",
-    options: {
-      props: [],
-      slots: [],
-      emits: [],
-      listeners: []
-    },
-    collection: false,
-    meta: {
-      title: "按钮",
-      image: require("../image/button.png"),
-      category: "基础组件",
-      name: "",
-      description: "xxxx"
-    }
-  },
-  {
-    url: "xxxxx",
-    type: 1,
-    // version: "0.0.0",
-    collection: false,
-    options: {
-      props: [],
-      slots: [],
-      emits: [],
-      listeners: []
-    },
-    meta: {
-      title: "Input组建",
-      image: require("../image/input.png"),
-      category: "基础组件",
-      name: "",
-      description: "xxxx"
-    }
-  },
-  {
-    url: "xxx",
-    type: 1,
-    // version: "0.0.0",
-    options: {
-      props: [],
-      slots: [],
-      emits: [],
-      listeners: []
-    },
-    collection: false,
-    meta: {
-      title: "按钮",
-      image: require("../image/button.png"),
-      category: "基础组件",
-      name: "",
-      description: "xxxx"
-    }
-  },
-  {
-    url: "xxxxx",
-    type: 1,
-    // version: "0.0.0",
-    collection: false,
-    options: {
-      props: [],
-      slots: [],
-      emits: [],
-      listeners: []
-    },
-    meta: {
-      title: "Input组建",
-      image: require("../image/input.png"),
-      category: "基础组件",
-      name: "",
-      description: "xxxx"
-    }
-  },
-  {
+    id: "id_3",
     url: "xxxxxxxx",
     // version: "0.0.0",
     type: 1,
@@ -126,18 +49,16 @@ const list: TypeMaterialSchema[] = [
       emits: [],
       listeners: []
     },
-    meta: {
-      title: "Layout",
-      image: require("../image/layout.png"),
-      category: "布局组建",
-      name: "",
-      description: "xxxx"
-    }
+    title: "Layout",
+    image: require("../image/layout.png"),
+    category: "布局组建",
+    name: "",
+    description: "xxxx"
   }
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (): Promise<TypeMaterialSchema[]> => {
+export default (): Promise<TypeMaterial[]> => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(list);

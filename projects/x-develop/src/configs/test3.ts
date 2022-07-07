@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { defineStore } from 'pinia';
 import type {
   TypeMaterialCommonProps,
-  TypeMaterialSchema
+  TypeMaterial
 } from '@/types/schema/material';
 import { createDataset, createElement } from '@/common/utils/index';
 // import { Message } from '@arco-design/web-vue';
@@ -24,7 +24,7 @@ const MaterialMap = {
   Filter: 'http://127.0.0.1:7890/dist/material/Filter.js'
 };
 
-const Header: TypeMaterialSchema = createElement(RemoteMap.HorizontalLayout)
+const Header: TypeMaterial = createElement(RemoteMap.HorizontalLayout)
   .setStyle({
     display: 'flex',
     justifyContent: 'space-between',
@@ -51,7 +51,7 @@ const Header: TypeMaterialSchema = createElement(RemoteMap.HorizontalLayout)
   })
   .create();
 
-const config: TypeMaterialSchema = {
+const config: TypeMaterial = {
   id: '',
   name: '',
   version: '',

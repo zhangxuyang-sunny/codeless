@@ -1,12 +1,12 @@
-import { TypeMaterialSchema } from "packages/x-types/material";
+import { TypeMaterial } from "packages/x-types/material";
 import { ref } from "vue";
 import materialList from "../../../mock/materialList";
 type TypeData = {
-  type: TypeMaterialSchema["type"];
+  type: TypeMaterial["type"];
 };
 
 export default (data: TypeData) => {
-  const list = ref<TypeMaterialSchema[]>([]);
+  const list = ref<TypeMaterial[]>([]);
   const loading = ref(false);
   const doFetch = async (): Promise<void> => {
     loading.value = true;

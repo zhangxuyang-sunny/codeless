@@ -3,8 +3,8 @@
 import { Button, Divider, Form, Input, Radio } from "@arco-design/web-react";
 import styled from "styled-components";
 import HelpIcon from "src/components/HelpIcon";
-import { ViewOption, RouterValue } from "packages/x-nodes/dist";
 import { useEffect, useRef, useState } from "react";
+import { IRouterOption, IViewOption } from "packages/x-core/dist/types/project";
 
 const urls = Object.freeze({
   "hash": "https://router.vuejs.org/zh/api/#createwebhashhistory",
@@ -13,14 +13,14 @@ const urls = Object.freeze({
   "vue-router": "https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html"
 });
 
-type RouterMode = RouterValue["mode"];
+type RouterMode = IRouterOption["mode"];
 
 // 路由配置器
 const RouterSettings: React.FC<{
   defaultMode?: RouterMode;
   readonly?: boolean; // 只读模式
   mode?: RouterMode; // 受控
-  views: ViewOption[];
+  views: IViewOption[];
   onUpdateMode?: (mode: RouterMode) => void;
   onAddRoute?: () => void;
   onDeleteRoute?: (id: string) => void;
@@ -121,26 +121,26 @@ const RouterSettings: React.FC<{
           }
         >
           <div ref={pageListRef} className="page-list">
-            {props.views.map((page, index) => (
-              <div className="page-item" key={page.pageId}>
+            {props.views.map((view, index) => (
+              <div className="page-item" key={view.viewId}>
                 <Form.Item field={`pages.${index}.id`}>
                   <div className="form-item">
                     <p className="title">页面ID</p>
-                    <Input value={page.pageId} placeholder="未填写页面ID" size="small" />
+                    <Input value={view.viewId} placeholder="未填写页面ID" size="small" />
                   </div>
                 </Form.Item>
                 <span className="label"></span>
                 <Form.Item field={`pages.${index}.title`}>
                   <div className="form-item">
                     <p className="title">页面名称</p>
-                    <Input value={page.title} placeholder="未填写页面名称" size="small" />
+                    <Input value={view.title} placeholder="未填写页面名称" size="small" />
                   </div>
                 </Form.Item>
                 <span className="label"></span>
                 <Form.Item field={`pages.${index}.path`}>
                   <div className="form-item">
                     <p className="title">页面路径</p>
-                    <Input value={page.path} placeholder="未填写页面路径" size="small" />
+                    <Input value={view.urlPath} placeholder="未填写页面路径" size="small" />
                   </div>
                 </Form.Item>
                 <span className="label"></span>
@@ -150,7 +150,7 @@ const RouterSettings: React.FC<{
                   status="danger"
                   disabled={props.views.length <= 1}
                   onClick={() => {
-                    delRoute(page.pageId, index);
+                    delRoute(view.viewId, index);
                   }}
                 >
                   {confirmFlags[index] ? "确认" : "删除"}

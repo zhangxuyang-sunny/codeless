@@ -1,5 +1,5 @@
 import type usePageStore from "@generator/store/usePageStore";
-import { PageSchema } from "packages/x-nodes";
+import { PageSchema } from "packages/x-core";
 import { Subject } from "rxjs";
 import { watch } from "vue";
 

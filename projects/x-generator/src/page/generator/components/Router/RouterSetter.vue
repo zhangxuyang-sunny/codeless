@@ -1,5 +1,5 @@
 <script lang="tsx">
-import type { PageSchema, RouterSchema } from "packages/x-nodes";
+import type { PageSchema, RouterSchema } from "packages/x-core";
 import { defineComponent, nextTick, PropType, reactive, ref, watch, watchEffect } from "vue";
 import { Radio, Form, Input, Button, Divider } from "@arco-design/web-vue";
 import HelpIconTooltip from "packages/x-shared/components/HelpIconTooltip.vue";

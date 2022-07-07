@@ -2,25 +2,25 @@ import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { Button, Divider, Select, Space } from "@arco-design/web-react";
 import { IconEye, IconHistory, IconLeft, IconSave, IconSend } from "@arco-design/web-react/icon";
-import { routerSchemaState } from "src/stores/routerState";
-import { pagesState } from "src/stores/pagesState";
+import { routerState } from "src/stores/routerState";
+import { viewState } from "src/stores/viewState";
 import RouterSetter from "./RouterSetter";
 
 // 工作区顶栏
 const WorkbenchHeader: React.FC = () => {
-  const routerSchema = useRecoilValue(routerSchemaState);
-  const pageSchemaList = useRecoilValue(pagesState);
+  const routerSchema = useRecoilValue(routerState);
+  const view = useRecoilValue(viewState);
   return (
     <StyleWorkbench>
       <div className="left">
         <Button className="back-button" icon={<IconLeft />} type="text" shape="circle" />
         <Divider type="vertical" />
         <Select placeholder="选择页面">
-          {pageSchemaList.map((pageSchema, index) => (
+          {/* {pageSchemaList.map((pageSchema, index) => (
             <Select.Option key={index} value={pageSchema.title}>
               {pageSchema.title}
             </Select.Option>
-          ))}
+          ))} */}
         </Select>
         <RouterSetter />
       </div>

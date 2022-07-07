@@ -1,6 +1,6 @@
-import { TypeMaterialSchema } from "packages/x-types/material";
+import { TypeMaterial } from "packages/x-types/material";
 
-const list: TypeMaterialSchema[] = [
+const list: TypeMaterial[] = [
   {
     url: "",
     type: 1,
@@ -60,7 +60,7 @@ const list: TypeMaterialSchema[] = [
   }
 ];
 
-export default (): Promise<TypeMaterialSchema[]> => {
+export default (): Promise<TypeMaterial[]> => {
   return new Promise(resolve => {
     resolve(list);
   });

@@ -28,10 +28,10 @@
 import type { PropType } from "vue";
 import { defineProps, onMounted, ref } from "vue";
 import { Popover } from "@arco-design/web-vue";
-import { TypeMaterialSchema } from "@low/types/material";
+import { TypeMaterial } from "@low/types/material";
 defineProps({
   data: {
-    type: Object as PropType<TypeMaterialSchema>,
+    type: Object as PropType<TypeMaterial>,
     require: true
   },
   draggable: {

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { v4 as uuid } from "uuid";
-import { RouterNode, RouterSchema, PageNode, PageSchema } from "packages/x-nodes";
+import { RouterNode, RouterSchema, PageNode, PageSchema } from "packages/x-core";
 export default defineStore({
   id: "routerConfig",
   state: (): {

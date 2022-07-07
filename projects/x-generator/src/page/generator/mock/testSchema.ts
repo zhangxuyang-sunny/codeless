@@ -1,4 +1,4 @@
-import { NodeTypes, PageSchema } from "packages/x-nodes";
+import { NodeTypes, PageSchema } from "packages/x-core";
 
 export const testSchema1: PageSchema = {
   type: NodeTypes.Page,
