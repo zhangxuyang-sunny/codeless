@@ -27,6 +27,7 @@ const schema: IMaterialParamsSchema = {
   //   type: NodeTypes.ReactiveByPinia,
   //   path: "dataset1.style"
   // },
+  id: "xxx",
   style: {
     type: NodeTypes.Object,
     properties: {}
