@@ -54,7 +54,6 @@ const StyleDesigner = styled.div`
     overflow: hidden;
     .left {
       display: flex;
-      overflow: hidden;
       grid-column-gap: 6px;
     }
     .center {

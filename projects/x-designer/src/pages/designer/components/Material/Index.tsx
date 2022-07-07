@@ -8,6 +8,7 @@ const RadioGroup = Radio.Group;
 const Search = Input.Search;
 export default function Material() {
   const [selectComp, setSelectComp] = useState<"installed" | "own" | "collection">("installed");
+
   const ContentMap = {
     installed: () => <Installed />,
     own: () => <Own />,
@@ -20,7 +21,13 @@ export default function Material() {
         {/* <Search /> */}
       </header>
       <div className="content">
-        <RadioGroup type="button" value={selectComp}>
+        <RadioGroup
+          type="button"
+          value={selectComp}
+          onChange={v => {
+            setSelectComp(v);
+          }}
+        >
           <Radio value="installed">已安装</Radio>
           <Radio value="own">我的</Radio>
           <Radio value="collection">收藏</Radio>

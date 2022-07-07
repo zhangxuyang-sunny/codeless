@@ -25,10 +25,12 @@ const Installed: React.FC = () => {
   );
 };
 const InstallContainer = styled.div`
+  position: relative;
   padding: 10px 0;
   display: grid;
   grid-template-columns: repeat(3, 95px);
   grid-column-gap: 5px;
+  grid-row-gap: 5px;
   justify-content: center;
 `;
 export default Installed;
