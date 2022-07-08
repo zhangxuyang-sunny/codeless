@@ -65,7 +65,7 @@ const schema: IMaterialParamsSchema = {
 };
 
 export const view1: IView = {
-  id: "view_1",
+  id: "page_1",
   version: "0.0.1",
   title: "页面1",
   description: "我的第一个页面",

@@ -6,13 +6,22 @@ export interface OperationDomOptions {
    */
   key: string;
 
+  /**
+   * 用来挂载元素
+   */
   container: HTMLElement;
+
+  /**
+   * 用来获取dom
+   */
+  popoverContainer: HTMLElement;
 }
 export default class OperationDom {
   /**
    * 鼠标悬浮上来的类名
    */
   enterClass = "simulator-enter";
+
   constructor(private options: OperationDomOptions) {}
 
   selectNodeRoot: Map<string, { rootDom: HTMLElement; root: ReactDOM.Root }> = new Map();
@@ -32,6 +41,10 @@ export default class OperationDom {
     return this.options.container;
   }
 
+  get popoverContainer() {
+    return this.options.popoverContainer;
+  }
+
   /**
    *  通过id获取当前的node
    */
@@ -40,7 +53,7 @@ export default class OperationDom {
   }
 
   private createRootDom(div: HTMLElement = document.createElement("div")) {
-    this.container.appendChild(div);
+    this.popoverContainer.appendChild(div);
     return div;
   }
   setSelect(id: string) {

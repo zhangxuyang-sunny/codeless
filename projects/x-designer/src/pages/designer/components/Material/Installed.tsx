@@ -13,6 +13,7 @@ const Installed: React.FC = () => {
     setList(res);
     setLoading(false);
   });
+
   return (
     <>
       <InstallContainer className="installed-container">

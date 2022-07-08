@@ -21,28 +21,24 @@ export default class SelectNode implements Behavior {
 
   contextmenu = (event: Event) => {
     event.stopPropagation();
+
     event.preventDefault();
-    if (event.target instanceof Element) {
-      const target = event.target.closest(`[${this.ctx.key}]`);
-      const id = target?.getAttribute(this.ctx.key);
-      id && this.ctx.cancelSelect(id);
-    }
+
+    const id = this.ctx.getNodeId(event.target);
+
+    id && this.ctx.cancelSelect(id);
   };
 
   handleClick = (event: Event) => {
     event.stopPropagation();
 
-    if (event.target instanceof Element) {
-      this.ctx.cancelSelectAll();
+    this.ctx.cancelSelectAll();
 
-      const target = event.target.closest(`[${this.ctx.key}]`);
+    const id = this.ctx.getNodeId(event.target);
 
-      const id = target?.getAttribute(this.ctx.key);
-
-      if (id && !this.ctx.isSelect(id)) {
-        this.ctx.setSelect(id);
-        this.ctx.cancelEnter(id);
-      }
+    if (id && !this.ctx.isSelect(id)) {
+      this.ctx.setSelect(id);
+      this.ctx.cancelEnter(id);
     }
   };
 
