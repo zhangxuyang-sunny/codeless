@@ -1,5 +1,7 @@
-import { StringNode, StringSchema } from "../nodes/StringNode";
-import { JSValue, JSValueNode, JSValueSchema } from "../nodes/JSValueNode";
+import { StringSchema } from "../nodes/StringNode";
+import { JSValue, JSValueSchema } from "../nodes/JSValueNode";
+import { IDatasetsConsumer, IDatasetsSchema } from "../types/project";
+import { FunctionNode } from "../nodes";
 
 export interface DatasetSchema {
   key: StringSchema;
@@ -15,24 +17,28 @@ export interface DatasetValue {
 // 抽象出跨平台的数据集定义
 // 不同的框架下根据数据协议自行解析数据集定义生成响应式数据
 export class DatasetTransformer {
-  private readonly id = new StringNode();
-  private readonly default = new JSValueNode();
+  private key = "";
+  private readonly define = new FunctionNode();
 
-  setSchema(schema: DatasetSchema): this {
-    this.id.setSchema(schema.key);
-    this.default.setSchema(schema.default);
+  constructor(schema: IDatasetsSchema) {
+    this.setSchema(schema);
+  }
+
+  setSchema(schema: IDatasetsSchema): this {
+    this.key = schema.key;
+    this.define.setSchema(schema.define);
     return this;
   }
-  getSchema(): DatasetSchema {
+  getSchema(): IDatasetsSchema {
     return {
-      key: this.id.getSchema(),
-      default: this.default.getSchema()
+      key: this.key,
+      define: this.define.getSchema()
     };
   }
-  getValue(): DatasetValue {
+  getConsumer(): IDatasetsConsumer {
     return {
-      key: this.id.getValue(),
-      default: this.default.getValue()
+      key: this.key,
+      define: this.define.getValue()
     };
   }
 }

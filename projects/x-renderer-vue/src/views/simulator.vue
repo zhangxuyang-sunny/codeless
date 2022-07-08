@@ -1,9 +1,13 @@
 <script lang="tsx">
-import { MaterialTransformer } from "packages/x-core/src/transformer/MaterialTransformer";
-import { IProjectSchema } from "packages/x-core/src/types/project";
-import { IViewSchema } from "packages/x-core/src/types/view";
 import { computed, defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
+import { IProjectConsumer, IProjectSchema } from "packages/x-core/src/types/project";
+import { IViewSchema } from "packages/x-core/src/types/view";
+import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
+import { ProjectTransformer } from "packages/x-core/src/transformer/ProjectTransformer";
 import { loadRemotePackages } from "../utils/common";
+
+import { project } from "../draft/project";
+import { view1 } from "../draft/view1";
 
 // 要异步加载 remote vue
 const Renderer = defineAsyncComponent(() => import("../components/Renderer.vue"));
@@ -13,14 +17,23 @@ export default defineComponent({
   setup() {
     const initialized = ref(false);
     const routeName = ref("");
-    const project = shallowRef<IProjectSchema>();
-    const views = shallowRef<IViewSchema[]>([]);
-    const viewConsumers = computed(() =>
-      views.value.map(view => ({
-        ...view,
-        schema: new MaterialTransformer(view.schema).getConsumer()
-      }))
+    const projectSchema = shallowRef<IProjectSchema>();
+    const projectConsumer = computed(() =>
+      new ProjectTransformer(projectSchema.value).getConsumer()
     );
+    const viewSchemas = shallowRef<IViewSchema[]>([]);
+    const viewConsumers = computed(() => {
+      return viewSchemas.value.map(view => ({
+        ...view,
+        schema: new MaterialOptionTransformer(view.schema).getConsumer()
+      }));
+    });
+
+    projectSchema.value = project;
+    viewSchemas.value = [view1];
+
+    console.log(projectSchema, projectConsumer);
+    console.log(viewSchemas, viewConsumers);
 
     loadRemotePackages().then(result => {
       window.vue = result.vue;
@@ -34,11 +47,11 @@ export default defineComponent({
       routeName.value = name;
     };
     window.__X_RENDERER_API__.updateProject = schema => {
-      project.value = schema;
+      projectSchema.value = schema;
       console.log("project", schema);
     };
     window.__X_RENDERER_API__.updateViews = data => {
-      views.value = data;
+      viewSchemas.value = data;
       console.log("views", data);
     };
 
@@ -46,14 +59,14 @@ export default defineComponent({
       if (!initialized.value) {
         return <div class="loading">loading...</div>;
       }
-      if (!project.value) {
+      if (!projectConsumer.value) {
         return <div class="loading">No configuration.</div>;
       }
       return (
         <Renderer //
           baseUrl="/renderer/vue/simulator.html"
           routeName={routeName.value}
-          project={project.value}
+          project={projectConsumer.value}
           views={viewConsumers.value}
         />
       );

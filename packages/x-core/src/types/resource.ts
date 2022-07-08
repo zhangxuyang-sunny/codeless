@@ -1,4 +1,4 @@
-import { IDatasetsVO, IProject } from "packages/x-core/src/types/project";
+import { IDatasets, IProject } from "packages/x-core/src/types/project";
 import { IView } from "./view";
 
 export interface WithDocument {
@@ -12,5 +12,5 @@ export interface WithDocument {
 export interface IResource {
   projects: IProject[];
   views: IView[];
-  datasets: IDatasetsVO[];
+  datasets: IDatasets[];
 }

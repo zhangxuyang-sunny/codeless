@@ -1,5 +1,5 @@
 import { WithDocument } from "./resource";
-import { IMaterialParamsConsumer, IMaterialParamsSchema } from "./material";
+import { IMaterialOptionConsumer, IMaterialOptionSchema } from "./material";
 
 export interface IView extends IViewSchema, WithDocument {}
 
@@ -9,7 +9,7 @@ export interface IViewSchema {
   version: string;
   title: string;
   description: string;
-  schema: IMaterialParamsSchema;
+  schema: IMaterialOptionSchema;
 }
 
 // 视图运行消费数据
@@ -18,7 +18,7 @@ export interface IViewConsumer {
   version: string;
   title: string;
   description: string;
-  schema: IMaterialParamsConsumer;
+  schema: IMaterialOptionConsumer;
 }
 
 // 创建视图参数
@@ -34,7 +34,7 @@ export interface IUpdateViewParams {
   version?: string;
   title?: string;
   description?: string;
-  schema?: IMaterialParamsSchema;
+  schema?: IMaterialOptionSchema;
 }
 
 // 查询视图参数

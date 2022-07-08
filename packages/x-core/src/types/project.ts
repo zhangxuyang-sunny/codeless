@@ -1,4 +1,5 @@
 import { ProjectStatus } from "../enums";
+import { FunctionSchema, FunctionValue } from "../nodes";
 import { WithDocument } from "./resource";
 import { IView } from "./view";
 
@@ -18,15 +19,42 @@ export interface IRouterOption {
 
 export interface IDatasetsSchema {
   key: string;
-  define: string;
+  define: FunctionSchema;
 }
 
-export interface IDatasetsVO extends IDatasetsSchema, WithDocument {}
+export interface IDatasets extends IDatasetsSchema, WithDocument {}
 
 // TODO
 export interface IDatasetsConsumer {
   key: string;
-  define: string;
+  define: FunctionValue;
+}
+
+// 创建参数
+export interface ICreateProjectParams {
+  title: string;
+  description: string;
+}
+
+// 更新参数
+export interface IUpdateProjectParams {
+  id: string;
+  title?: string;
+  version?: string;
+  description?: string;
+  router?: IRouterOption;
+  datasets?: IDatasetsSchema[];
+}
+
+// 查找参数
+export interface IFindProjectsParams {
+  id?: string;
+  title?: string;
+  status?: ProjectStatus;
+  createdUser?: string;
+  updatedUser?: string;
+  createdTimeRange?: [number, number];
+  updatedTimeRange?: [number, number];
 }
 
 // 持久化数据
@@ -42,36 +70,19 @@ export interface IProjectSchema {
 
 export interface IProject extends IProjectSchema, WithDocument {}
 
-// 创建
-export interface ICreateProjectParams {
-  title: string;
-  description: string;
-}
-
-// 更新
-export interface IUpdateProjectParams {
+export interface IProjectConsumer {
   id: string;
-  title?: string;
-  version?: string;
-  description?: string;
-  router?: IRouterOption;
-  datasets?: IDatasetsSchema[];
-}
-
-// 查找
-export interface IFindProjectsParams {
-  id?: string;
-  title?: string;
-  status?: ProjectStatus;
-  createdUser?: string;
-  updatedUser?: string;
-  createdTimeRange?: [number, number];
-  updatedTimeRange?: [number, number];
+  title: string;
+  version: string;
+  status: ProjectStatus;
+  description: string;
+  router: IRouterOption;
+  datasets: IDatasetsConsumer[];
 }
 
 // 应用数据
 export interface IApplication {
   project: IProject;
   views: IView[];
-  datasets: IDatasetsVO[];
+  datasets: IDatasets[];
 }

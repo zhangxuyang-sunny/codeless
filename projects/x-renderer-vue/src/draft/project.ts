@@ -1,5 +1,5 @@
-import { NodeTypes } from "packages/x-core/dist/nodes";
-import { IProject } from "packages/x-core/dist/types/project";
+import { NodeTypes } from "packages/x-core/src/nodes";
+import { IProject } from "packages/x-core/src/types/project";
 
 // 数据配置
 // const piniaList: [] = [
@@ -92,14 +92,14 @@ const project: IProject = {
   router: {
     base: "/",
     mode: "history",
-    views: [{ viewId: "page_1", title: "未命名页面", urlPath: "/" }]
+    views: [{ viewId: "view_1", title: "未命名页面", urlPath: "/" }]
   },
   datasets: [
     {
       key: "dataset_1",
       define: {
         type: NodeTypes.Function,
-        code: `function defineDataset() {
+        code: `function DefineDataset() {
                   return {
                     state: {
                       loading: true

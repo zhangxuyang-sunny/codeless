@@ -1,12 +1,12 @@
 import { IViewSchema, IViewConsumer } from "../types/view";
-import { MaterialTransformer } from "./MaterialTransformer";
+import { MaterialOptionTransformer } from "./MaterialOptionTransformer";
 
 export class ViewTransformer {
   private id = "";
   private version = "";
   private title = "";
   private description = "";
-  private readonly schema = new MaterialTransformer();
+  private readonly schema = new MaterialOptionTransformer();
 
   setSchema(schema: IViewSchema) {
     this.id = schema.id;

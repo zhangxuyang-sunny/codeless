@@ -16,7 +16,7 @@ import { Router, RouteRecordRaw } from "vue-router";
 import { Store } from "pinia";
 import { AbstractNode, JSValue } from "packages/x-core/src/nodes";
 import { TypeGlobalProperties } from "packages/x-core/src/types/index";
-import { IProjectSchema } from "packages/x-core/src/types/project";
+import { IProjectConsumer } from "packages/x-core/src/types/project";
 import { IViewConsumer } from "packages/x-core/src/types/view";
 
 const { defineAsyncComponent } = await System.import("vue");
@@ -34,7 +34,7 @@ export default defineComponent({
     routeName: String,
     // 受控的工程配置
     project: {
-      type: Object as PropType<IProjectSchema>,
+      type: Object as PropType<IProjectConsumer>,
       required: true
     },
     // 受控的页面列表
