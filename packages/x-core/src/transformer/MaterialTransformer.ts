@@ -19,6 +19,7 @@ export class MaterialTransformer {
   }
 
   setSchema(schema: IMaterialParamsSchema): this {
+    this.id = schema.id;
     this.src = schema.src;
     this.style.setSchema(schema.style);
     this.props.setSchema(schema.props);
