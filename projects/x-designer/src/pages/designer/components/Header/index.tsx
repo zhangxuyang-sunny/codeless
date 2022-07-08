@@ -4,7 +4,7 @@ import { Button, Divider, Select, Space } from "@arco-design/web-react";
 import { IconEye, IconHistory, IconLeft, IconSave, IconSend } from "@arco-design/web-react/icon";
 import { routerState } from "src/stores/routerState";
 import { viewState } from "src/stores/viewState";
-import RouterSetter from "./RouterSetter";
+import RouterSetter from "../RouterSetter";
 
 // 工作区顶栏
 const WorkbenchHeader: React.FC = () => {
