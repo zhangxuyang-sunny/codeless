@@ -9,6 +9,10 @@ export interface OperationDomOptions {
   container: HTMLElement;
 }
 export default class OperationDom {
+  /**
+   * 鼠标悬浮上来的类名
+   */
+  enterClass = "simulator-enter";
   constructor(private options: OperationDomOptions) {}
 
   selectNodeRoot: Map<string, { rootDom: HTMLElement; root: ReactDOM.Root }> = new Map();
@@ -48,9 +52,7 @@ export default class OperationDom {
 
       const root = selected ? selected.root : ReactDOM.createRoot(rootDom);
 
-      const { height, width, x, y } = node.getBoundingClientRect();
-
-      root.render(<DrawSelectNode height={height} width={width} left={x} top={y} />);
+      root.render(<DrawSelectNode node={node} />);
 
       this.selectNodeRoot.set(id, { rootDom, root });
     }
@@ -67,5 +69,23 @@ export default class OperationDom {
     Array.from(this.selectNodeRoot.keys()).forEach(id => {
       this.cancelSelect(id);
     });
+  }
+
+  setEnter(id: string) {
+    const node = this.getNodeById(id);
+    if (node) {
+      node.classList.add(this.enterClass);
+    }
+  }
+
+  cancelEnter(id: string) {
+    const node = this.getNodeById(id);
+    if (node) {
+      node.classList.remove(this.enterClass);
+    }
+  }
+
+  isSelect(id: string | undefined | null) {
+    return id ? !!this.selectNodeRoot.get(id) : undefined;
   }
 }

@@ -15,12 +15,11 @@ export default class SelectNode implements Behavior {
   getEvents(): SimulatorEvents {
     return {
       "node:click": this.handleClick,
-      "document:click": this.simulatorClick,
       "node:contextmenu": this.contextmenu
     };
   }
+
   contextmenu = (event: Event) => {
-    console.log(323);
     event.stopPropagation();
     event.preventDefault();
     if (event.target instanceof Element) {
@@ -29,19 +28,24 @@ export default class SelectNode implements Behavior {
       id && this.ctx.cancelSelect(id);
     }
   };
+
   handleClick = (event: Event) => {
     event.stopPropagation();
-    event.preventDefault();
+
     if (event.target instanceof Element) {
       this.ctx.cancelSelectAll();
+
       const target = event.target.closest(`[${this.ctx.key}]`);
+
       const id = target?.getAttribute(this.ctx.key);
-      id && this.ctx.setSelect(id);
+
+      if (id && !this.ctx.isSelect(id)) {
+        this.ctx.setSelect(id);
+        this.ctx.cancelEnter(id);
+      }
     }
   };
-  simulatorClick = () => {
-    this.unmount();
-  };
+
   unmount() {
     this.ctx.cancelSelectAll();
   }

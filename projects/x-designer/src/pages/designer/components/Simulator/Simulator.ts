@@ -124,4 +124,17 @@ export class Simulator extends OperationDom {
   destroy() {
     this.unBindEvent();
   }
+
+  getTarget(target: EventTarget | null) {
+    if (target instanceof Element) {
+      return target.closest(`[${this.key}]`);
+    }
+  }
+
+  getNodeId(target: EventTarget | null) {
+    const _t = this.getTarget(target);
+    if (_t) {
+      return _t.getAttribute(this.key);
+    }
+  }
 }

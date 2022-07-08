@@ -4,44 +4,52 @@ import styled from "styled-components";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/animations/perspective.css";
+import { debounce } from "lodash";
 Tippy.defaultProps = {
   arrow: false,
   delay: 100,
   theme: "light",
   animation: "perspective"
 } as TippyProps;
-interface SelectNodeProps {
-  width: number;
-  height: number;
-  top: number;
-  left: number;
-}
 
 function Tooltip() {
   return <span>配置</span>;
 }
-const DrawSelectNode: React.FC<SelectNodeProps> = props => {
+const DrawSelectNode: React.FC<{ node: Element }> = props => {
   const container = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+
+  const [rect, setRect] = useState({
+    width: 0,
+    height: 0,
+    left: 0,
+    top: 0
+  });
+
+  const setRectDebounceFunc = debounce<ResizeObserverCallback>(entry => {
+    const { target } = entry[0];
+
+    const { width, height, left, top } = target.getBoundingClientRect();
+
+    setRect({
+      width,
+      height,
+      left,
+      top
+    });
+  }, 100);
+
+  const nodeObs = new ResizeObserver(setRectDebounceFunc);
+
+  nodeObs.observe(props.node);
+
   useEffect(() => {
-    // tippy(container.current as Element, {
-    //   content: "I'm a Tippy tooltip!",
-    //   placement: "top-start",
-    //   offset: [0, 5],
-    //   arrow: false,
-    //   theme: "light",
-    //   delay: 50,
-    //   followCursor: true,
-    //   animation: "perspective"
-    // });
+    return () => {
+      nodeObs.disconnect();
+    };
   }, []);
   return (
     <Tippy content={<Tooltip />} placement="top-start">
-      <SelectNodeContainer
-        style={props}
-        onMouseOver={() => setVisible(true)}
-        // onMouseLeave={() => setVisible(false)}
-      />
+      <SelectNodeContainer style={rect} />
     </Tippy>
   );
 };

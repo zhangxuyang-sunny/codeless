@@ -49,6 +49,7 @@ const StyleDesigner = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  user-select: none;
   .main {
     display: flex;
     flex-grow: 1;

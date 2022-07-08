@@ -9,6 +9,8 @@ import HoverNode from "./behavior/HoverNode";
 import SelectNode from "./behavior/SelectNode";
 import DragMultiSelectNode from "./behavior/DragMultiSelectNode";
 
+import "./styles/index.less";
+
 const SimulatorRender: React.FC = () => {
   const simulatorRef = useRef<HTMLDivElement>(null);
 
