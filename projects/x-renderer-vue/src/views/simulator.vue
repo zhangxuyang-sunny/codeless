@@ -1,7 +1,7 @@
 <script lang="tsx">
 import { computed, defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
 import { IProjectConsumer, IProjectSchema } from "packages/x-core/src/types/project";
-import { IViewSchema } from "packages/x-core/src/types/view";
+import { IViewConsumer, IViewSchema } from "packages/x-core/src/types/view";
 import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
 import { ProjectTransformer } from "packages/x-core/src/transformer/ProjectTransformer";
 import { loadRemotePackages } from "../utils/common";
@@ -18,22 +18,30 @@ export default defineComponent({
     const initialized = ref(false);
     const routeName = ref("");
     const projectSchema = shallowRef<IProjectSchema>();
-    const projectConsumer = computed(() =>
+    const projectConsumer = computed<IProjectConsumer>(() =>
       new ProjectTransformer(projectSchema.value).getConsumer()
     );
     const viewSchemas = shallowRef<IViewSchema[]>([]);
-    const viewConsumers = computed(() => {
-      return viewSchemas.value.map(view => ({
+    const viewConsumers = computed<IViewConsumer[]>(() => {
+      return viewSchemas.value.map<IViewConsumer>(view => ({
         ...view,
-        schema: new MaterialOptionTransformer(view.schema).getConsumer()
+        material: new MaterialOptionTransformer(view.material).getConsumer()
       }));
     });
 
+    /**
+     * mock 数据
+     */
     projectSchema.value = project;
     viewSchemas.value = [view1];
 
-    console.log(projectSchema, projectConsumer);
-    console.log(viewSchemas, viewConsumers);
+    console.log({
+      projectSchema,
+      projectConsumer,
+      viewSchemas,
+      viewConsumers
+    });
+    /** */
 
     loadRemotePackages().then(result => {
       window.vue = result.vue;
@@ -43,16 +51,17 @@ export default defineComponent({
     });
 
     // 注册渲染器 api
-    window.__X_RENDERER_API__.updateCurrentRoute = name => {
+    window.__X_RENDERER_API__.updateRoute = name => {
       routeName.value = name;
+      console.log("update router:", name);
     };
     window.__X_RENDERER_API__.updateProject = schema => {
       projectSchema.value = schema;
-      console.log("project", schema);
+      console.log("update project:", schema);
     };
-    window.__X_RENDERER_API__.updateViews = data => {
-      viewSchemas.value = data;
-      console.log("views", data);
+    window.__X_RENDERER_API__.updateViews = schemas => {
+      viewSchemas.value = schemas;
+      console.log("update views:", schemas);
     };
 
     return () => {

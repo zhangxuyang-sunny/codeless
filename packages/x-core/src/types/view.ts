@@ -9,7 +9,7 @@ export interface IViewSchema {
   version: string;
   title: string;
   description: string;
-  schema: IMaterialOptionSchema;
+  material: IMaterialOptionSchema;
 }
 
 // 视图运行消费数据
@@ -18,7 +18,7 @@ export interface IViewConsumer {
   version: string;
   title: string;
   description: string;
-  schema: IMaterialOptionConsumer;
+  material: IMaterialOptionConsumer;
 }
 
 // 创建视图参数
@@ -34,7 +34,7 @@ export interface IUpdateViewParams {
   version?: string;
   title?: string;
   description?: string;
-  schema?: IMaterialOptionSchema;
+  material?: IMaterialOptionSchema;
 }
 
 // 查询视图参数

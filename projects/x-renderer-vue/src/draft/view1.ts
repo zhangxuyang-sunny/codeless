@@ -3,7 +3,7 @@ import { IMaterialOptionSchema } from "packages/x-core/src/types/material";
 import { IView } from "packages/x-core/src/types/view";
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 
-const schema: IMaterialOptionSchema = {
+const materialOption: IMaterialOptionSchema = {
   id: "view_1",
   src: `http://${host}/static/components/arco/Button.js`,
   // src: `http://${host}/static/components/common/EmptyContainer.js`,
@@ -73,5 +73,5 @@ export const view1: IView = {
   updatedUser: "sunny",
   createdAt: "",
   updatedAt: "",
-  schema
+  material: materialOption
 };

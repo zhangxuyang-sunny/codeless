@@ -1,6 +1,10 @@
 <script lang="tsx">
-import type { IApplication, IProjectSchema } from "packages/x-core/src/types/project";
-import type { IViewSchema } from "packages/x-core/src/types/view";
+import type {
+  IProjectWithResource,
+  IProjectConsumer,
+  IProjectSchema
+} from "packages/x-core/src/types/project";
+import type { IViewConsumer, IViewSchema } from "packages/x-core/src/types/view";
 import { computed, defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
 import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
 import { ProjectTransformer } from "packages/x-core/src/transformer/ProjectTransformer";
@@ -18,20 +22,19 @@ export default defineComponent({
     const initialized = ref(false);
     const routeName = ref("");
     const projectSchema = shallowRef<IProjectSchema>();
-    const projectConsumer = computed(() =>
+    const projectConsumer = computed<IProjectConsumer>(() =>
       new ProjectTransformer(projectSchema.value).getConsumer()
     );
     const viewsSchema = shallowRef<IViewSchema[]>([]);
-    const viewConsumers = computed(() =>
-      viewsSchema.value.map(view => ({
+    const viewConsumers = computed<IViewConsumer[]>(() =>
+      viewsSchema.value.map<IViewConsumer>(view => ({
         ...view,
-        schema: new MaterialOptionTransformer(view.schema).getConsumer()
+        material: new MaterialOptionTransformer(view.material).getConsumer()
       }))
     );
 
-    // TODO 接口还没写
     window.fetch(`http://localhost:3333/api/v1/project?id=${id}`).then(async response => {
-      const data: { data: IApplication } = await response.json();
+      const data: { data: IProjectWithResource } = await response.json();
       projectSchema.value = data.data.project;
       viewsSchema.value = data.data.views;
     });

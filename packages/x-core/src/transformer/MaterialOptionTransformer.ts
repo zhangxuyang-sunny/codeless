@@ -4,7 +4,7 @@ import {
 } from "../types/material";
 import { ObjectNode } from "../nodes";
 
-// 物料节点
+// 使用物料的选项解析
 export class MaterialOptionTransformer {
   private id = "";
   private src = "";
@@ -18,7 +18,7 @@ export class MaterialOptionTransformer {
     if (schema) this.setSchema(schema);
   }
 
-  setSchema(schema: IMaterialOptionSchema): this {
+  setSchema(schema: IMaterialOptionSchema) {
     this.src = schema.src;
     this.style.setSchema(schema.style);
     this.props.setSchema(schema.props);
@@ -53,10 +53,12 @@ export class MaterialOptionTransformer {
   getSlots(): IMaterialOptionConsumer["slots"] {
     const slots = Object.entries(this.slots).reduce(
       (slotMap, [slotName, slots]) => {
-        const slotValueList = slots.map((slot) =>
-          new MaterialOptionTransformer().setSchema(slot).getConsumer()
+        return slotMap.set(
+          slotName,
+          slots.map((slot) =>
+            new MaterialOptionTransformer().setSchema(slot).getConsumer()
+          )
         );
-        return slotMap.set(slotName, slotValueList);
       },
       new Map<string, IMaterialOptionConsumer[]>()
     );

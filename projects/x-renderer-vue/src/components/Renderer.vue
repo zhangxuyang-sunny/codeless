@@ -172,7 +172,7 @@ export default defineComponent({
               );
               return () =>
                 vue.h(RENDERER_ENTRY, {
-                  data: viewReactive.value?.schema
+                  data: viewReactive.value?.material
                 });
             }
           })

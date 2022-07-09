@@ -13,7 +13,8 @@ export class ViewTransformer {
     this.version = schema.version;
     this.title = schema.title;
     this.description = schema.description;
-    this.schema.setSchema(schema.schema);
+    this.schema.setSchema(schema.material);
+    return this;
   }
 
   getSchema(): IViewSchema {
@@ -22,7 +23,7 @@ export class ViewTransformer {
       version: this.version,
       title: this.title,
       description: this.description,
-      schema: this.schema.getSchema()
+      material: this.schema.getSchema()
     };
   }
 
@@ -32,7 +33,7 @@ export class ViewTransformer {
       version: this.version,
       title: this.title,
       description: this.description,
-      schema: this.schema.getConsumer()
+      material: this.schema.getConsumer()
     };
   }
 }
