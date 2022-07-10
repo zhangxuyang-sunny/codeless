@@ -1,16 +1,14 @@
 <script lang="tsx">
-import { computed, defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
+import { computed, defineComponent, ref, shallowRef } from "vue";
 import { IProjectConsumer, IProjectSchema } from "packages/x-core/src/types/project";
 import { IViewConsumer, IViewSchema } from "packages/x-core/src/types/view";
 import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
 import { ProjectTransformer } from "packages/x-core/src/transformer/ProjectTransformer";
 import { loadRemotePackages } from "../utils/common";
+import Renderer from "../components/Renderer.vue";
 
 import { project } from "../draft/project";
 import { view1 } from "../draft/view1";
-
-// 要异步加载 remote vue
-const Renderer = defineAsyncComponent(() => import("../components/Renderer.vue"));
 
 export default defineComponent({
   name: "Simulator",

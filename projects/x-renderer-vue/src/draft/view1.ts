@@ -49,11 +49,11 @@ const materialOption: IMaterialOptionSchema = {
           console.log("this", this)
           console.log("context", context)
           console.log("e", e)
-          context.piniaRecord.dataset1.tableLoading = !context.piniaRecord.dataset1.tableLoading;
-          context.piniaRecord.dataset1.style.margin = "0";
+          context.datasets.dataset_1.tableLoading = !context.datasets.dataset_1.tableLoading;
+          context.datasets.dataset_1.style.margin = "0";
           await new Promise((resolve) => setTimeout(resolve, 1000));
-          context.piniaRecord.dataset1.tableLoading = false;
-          context.piniaRecord.dataset1.style.margin = "0 100px";
+          context.datasets.dataset_1.tableLoading = false;
+          context.datasets.dataset_1.style.margin = "0 100px";
         }`,
         useStrict: false
       }

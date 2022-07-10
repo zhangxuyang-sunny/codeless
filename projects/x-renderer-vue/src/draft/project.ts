@@ -99,11 +99,14 @@ const project: IProject = {
       key: "dataset_1",
       define: {
         type: NodeTypes.Function,
-        code: `function DefineDataset() {
+        code: `function defineDataset() {
                   return {
-                    state: {
-                      loading: true
-                    },
+                    state: () => ({
+                      tableLoading: true,
+                      style: {
+                        margin: "0 100px"
+                      }
+                    }),
                     actions: {
                       setLoading(status) {
                         this.loading = status

@@ -5,15 +5,12 @@ import type {
   IProjectSchema
 } from "packages/x-core/src/types/project";
 import type { IViewConsumer, IViewSchema } from "packages/x-core/src/types/view";
-import { computed, defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
+import { computed, defineComponent, ref, shallowRef } from "vue";
 import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
 import { ProjectTransformer } from "packages/x-core/src/transformer/ProjectTransformer";
 import { loadRemotePackages } from "../utils/common";
+import Renderer from "../components/Renderer.vue";
 
-// 要异步加载 remote vue
-const Renderer = defineAsyncComponent(() => import("../components/Renderer.vue"));
-
-// TODO
 // 预览器数据自行获取，通过 url 传递 id
 export default defineComponent({
   name: "Previewer",

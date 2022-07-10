@@ -13,15 +13,14 @@ import {
   toRefs
 } from "vue";
 import { Router, RouteRecordRaw } from "vue-router";
-import { Store } from "pinia";
-import { AbstractNode, JSValue } from "packages/x-core/src/nodes";
+import { Store, DefineStoreOptions, _GettersTree } from "pinia";
+import { AbstractNode, ObjectValue } from "packages/x-core/src/nodes";
 import { TypeGlobalProperties } from "packages/x-core/src/types/index";
 import { IProjectConsumer } from "packages/x-core/src/types/project";
 import { IViewConsumer } from "packages/x-core/src/types/view";
+import RendererEntry from "./RendererEntry.vue";
 
-const { defineAsyncComponent } = await System.import("vue");
 const RENDERER_ID = "__renderer_vue__";
-const RENDERER_ENTRY = defineAsyncComponent(() => System.import("RendererEntry"));
 
 export default defineComponent({
   name: "Renderer",
@@ -123,20 +122,14 @@ export default defineComponent({
           if (project.value.datasets.length) {
             vue.use(pinia.createPinia());
             const piniaMap = project.value.datasets.reduce((map, dataset) => {
+              type t = DefineStoreOptions<string, ObjectValue, _GettersTree<ObjectValue>, unknown>;
+              const datasetOpt = dataset.define<t>();
               return map.set(
                 dataset.key,
-                pinia.defineStore({
-                  id: dataset.key,
-                  state: () => ({
-                    // pinia 必须返回一个对象
-                    // 挂载在 data 字段上 (暂定)
-                    data: {}
-                  }),
-                  // TODO
-                  actions: {}
-                })() // 注意这里调用一下生成 pinia atom
+                pinia.defineStore(dataset.key, datasetOpt)() // 注意这里调用一下生成 pinia atom
               );
-            }, new Map<string, Store<string, { data: JSValue }>>());
+            }, new Map<string, Store<string, ObjectValue>>());
+            console.log({ piniaMap });
             // 设置数据中心
             AbstractNode.setContext({
               datasets: Object.fromEntries(piniaMap)
@@ -157,7 +150,7 @@ export default defineComponent({
           name: view.viewId,
           path: view.urlPath,
           component: defineComponent({
-            name: `IView-${view.viewId}`,
+            name: `View-${view.viewId}`,
             setup() {
               const viewReactive = vue.shallowRef<IViewConsumer>();
               // 连接两个 vue 实例响应式的桥梁
@@ -171,7 +164,7 @@ export default defineComponent({
                 { immediate: true }
               );
               return () =>
-                vue.h(RENDERER_ENTRY, {
+                vue.h(RendererEntry, {
                   data: viewReactive.value?.material
                 });
             }
@@ -192,7 +185,7 @@ export default defineComponent({
     // 初始化 vue
     const createApp = () => {
       const HostComponent: Component = {
-        name: "ProjectVue",
+        name: "RendererVue",
         setup() {
           return () => null;
         }

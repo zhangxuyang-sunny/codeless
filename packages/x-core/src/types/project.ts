@@ -14,7 +14,6 @@ export interface IViewOption {
 
 // 路由配置项
 // 路由映射了多个 view
-
 export interface IRouterOption {
   base: string;
   // 路由模式
@@ -35,8 +34,19 @@ export interface IDatasets extends IDatasetsSchema, WithDocument {}
 // 数据集消费数据
 export interface IDatasetsConsumer {
   key: string;
-  define: FunctionValue;
+  define: <T = () => unknown>() => T;
 }
+
+// export interface IDatasetsConsumer<State = Record<string, unknown>> {
+//   key: string;
+//   define: FunctionValue<
+//     () => {
+//       state: State;
+//       actions: Record<string, (...args: any[]) => any>;
+//       getters: Record<string, (state: State) => any>;
+//     }
+//   >;
+// }
 
 // 创建项目的请求参数
 export interface ICreateProjectParams {
