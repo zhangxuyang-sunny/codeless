@@ -1,10 +1,12 @@
 import React, { useMemo, useState } from "react";
+import styled from "styled-components";
+
 import { Tooltip } from "@arco-design/web-react";
 import Api from "../Api/Index";
 import History from "../History/Index";
 import Material from "../Material/Index";
 import Outline from "../Outline/Index";
-import styled from "styled-components";
+import DataSet from "../DataSet";
 
 export default function Sidebar() {
   type TypePlugin = {
@@ -28,6 +30,11 @@ export default function Sidebar() {
       desc: "接口",
       icon: "Api",
       Content: Api
+    },
+    {
+      desc: "dataset",
+      icon: "dataset",
+      Content: DataSet
     },
     {
       desc: "历史版本",
