@@ -3,7 +3,7 @@ import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { database } from "config/database";
-import { MaterialTransformer } from "packages/x-core/src/transformer/MaterialTransformer";
+import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
 import { IView } from "packages/x-core/src/types/view";
 import {
   ICreateViewParams,
@@ -68,7 +68,7 @@ export class ViewService {
       updatedUser: createdUser,
       title: data.title,
       description: data.description,
-      schema: new MaterialTransformer().getSchema()
+      schema: new MaterialOptionTransformer().getSchema()
     });
     return result;
   }

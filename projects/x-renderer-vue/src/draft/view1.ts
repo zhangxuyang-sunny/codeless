@@ -1,9 +1,9 @@
-import { NodeTypes } from "packages/x-core/dist/nodes";
-import { IMaterialOptionSchema } from "packages/x-core/dist/types/material";
-import { IView } from "packages/x-core/dist/types/view";
+import { NodeTypes } from "packages/x-core/src/nodes";
+import { IMaterialOptionSchema } from "packages/x-core/src/types/material";
+import { IView } from "packages/x-core/src/types/view";
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 
-const schema: IMaterialOptionSchema = {
+const materialOption: IMaterialOptionSchema = {
   id: "view_1",
   src: `http://${host}/static/components/arco/Button.js`,
   // src: `http://${host}/static/components/common/EmptyContainer.js`,
@@ -28,7 +28,6 @@ const schema: IMaterialOptionSchema = {
   //   type: NodeTypes.ReactiveByPinia,
   //   path: "dataset1.style"
   // },
-  id: "xxx",
   style: {
     type: NodeTypes.Object,
     properties: {}
@@ -50,11 +49,11 @@ const schema: IMaterialOptionSchema = {
           console.log("this", this)
           console.log("context", context)
           console.log("e", e)
-          context.piniaRecord.dataset1.tableLoading = !context.piniaRecord.dataset1.tableLoading;
-          context.piniaRecord.dataset1.style.margin = "0";
+          context.datasets.dataset_1.tableLoading = !context.datasets.dataset_1.tableLoading;
+          context.datasets.dataset_1.style.margin = "0";
           await new Promise((resolve) => setTimeout(resolve, 1000));
-          context.piniaRecord.dataset1.tableLoading = false;
-          context.piniaRecord.dataset1.style.margin = "0 100px";
+          context.datasets.dataset_1.tableLoading = false;
+          context.datasets.dataset_1.style.margin = "0 100px";
         }`,
         useStrict: false
       }
@@ -66,7 +65,7 @@ const schema: IMaterialOptionSchema = {
 };
 
 export const view1: IView = {
-  id: "page_1",
+  id: "view_1",
   version: "0.0.1",
   title: "页面1",
   description: "我的第一个页面",
@@ -74,5 +73,5 @@ export const view1: IView = {
   updatedUser: "sunny",
   createdAt: "",
   updatedAt: "",
-  schema
+  material: materialOption
 };

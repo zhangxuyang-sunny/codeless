@@ -1,19 +1,20 @@
 import { IViewSchema, IViewConsumer } from "../types/view";
-import { MaterialTransformer } from "./MaterialTransformer";
+import { MaterialOptionTransformer } from "./MaterialOptionTransformer";
 
 export class ViewTransformer {
   private id = "";
   private version = "";
   private title = "";
   private description = "";
-  private readonly schema = new MaterialTransformer();
+  private readonly schema = new MaterialOptionTransformer();
 
   setSchema(schema: IViewSchema) {
     this.id = schema.id;
     this.version = schema.version;
     this.title = schema.title;
     this.description = schema.description;
-    this.schema.setSchema(schema.schema);
+    this.schema.setSchema(schema.material);
+    return this;
   }
 
   getSchema(): IViewSchema {
@@ -22,7 +23,7 @@ export class ViewTransformer {
       version: this.version,
       title: this.title,
       description: this.description,
-      schema: this.schema.getSchema()
+      material: this.schema.getSchema()
     };
   }
 
@@ -32,7 +33,7 @@ export class ViewTransformer {
       version: this.version,
       title: this.title,
       description: this.description,
-      schema: this.schema.getConsumer()
+      material: this.schema.getConsumer()
     };
   }
 }

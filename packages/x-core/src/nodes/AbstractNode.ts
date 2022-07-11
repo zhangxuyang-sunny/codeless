@@ -60,7 +60,7 @@ export abstract class AbstractNode<
   };
   // 设置平台上下文
   static setContext(context: TypePlatformThis) {
-    this.context = context;
+    this.context = Object.assign(this.context, { ...context });
   }
   // 获取平台上下文
   static getContext() {

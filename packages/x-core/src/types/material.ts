@@ -71,7 +71,7 @@ export interface IUpdateMaterialParams extends ICreateMaterialParams {
 }
 
 // 物料参数描述数据
-export interface IMaterialParamsSchema {
+export interface IMaterialOptionSchema {
   id: string;
   src: string;
   props: ObjectSchema;
@@ -85,14 +85,14 @@ export interface IMaterialParamsSchema {
     event: string;
     origin: string;
   }>;
-  slots: Record<string, IMaterialParamsSchema[]>;
+  slots: Record<string, IMaterialOptionSchema[]>;
 }
 
 // export type MaterialTarget = string[];
 // | [MaterialEvent, (...args: unknown[]) => unknown]
 
 // 物料参数消费数据
-export interface IMaterialParamsConsumer {
+export interface IMaterialOptionConsumer {
   id: string;
   src: string;
   style: Partial<CSSStyleDeclaration>;
@@ -112,7 +112,7 @@ export interface IMaterialParamsConsumer {
     origin: string;
   }>;
   slots: Partial<{
-    default: IMaterialParamsConsumer[];
-    [x: string]: IMaterialParamsConsumer[];
+    default: IMaterialOptionConsumer[];
+    [x: string]: IMaterialOptionConsumer[];
   }>;
 }

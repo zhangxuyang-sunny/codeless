@@ -1,36 +1,39 @@
 <script lang="tsx">
-import type { IProjectSchema, IApplication } from "packages/x-core/src/types/project";
-import type { IViewSchema } from "packages/x-core/src/types/view";
-import { MaterialTransformer } from "packages/x-core/src/transformer/MaterialTransformer";
-import { computed, defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
+import type {
+  IProjectWithResource,
+  IProjectConsumer,
+  IProjectSchema
+} from "packages/x-core/src/types/project";
+import type { IViewConsumer, IViewSchema } from "packages/x-core/src/types/view";
+import { computed, defineComponent, ref, shallowRef } from "vue";
+import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
+import { ProjectTransformer } from "packages/x-core/src/transformer/ProjectTransformer";
 import { loadRemotePackages } from "../utils/common";
+import Renderer from "../components/Renderer.vue";
 
-// 要异步加载 remote vue
-const Renderer = defineAsyncComponent(() => import("../components/Renderer.vue"));
-
-// TODO
 // 预览器数据自行获取，通过 url 传递 id
 export default defineComponent({
   name: "Previewer",
   setup() {
+    const { id } = Object.fromEntries(new URLSearchParams(window.location.search));
     const initialized = ref(false);
     const routeName = ref("");
-    const project = shallowRef<IProjectSchema>();
-    const views = shallowRef<IViewSchema[]>([]);
-    const { id } = Object.fromEntries(new URLSearchParams(window.location.search));
-
-    const viewConsumers = computed(() =>
-      views.value.map(view => ({
+    const projectSchema = shallowRef<IProjectSchema>();
+    const projectConsumer = computed<IProjectConsumer>(() =>
+      new ProjectTransformer(projectSchema.value).getConsumer()
+    );
+    const viewsSchema = shallowRef<IViewSchema[]>([]);
+    const viewConsumers = computed<IViewConsumer[]>(() =>
+      viewsSchema.value.map<IViewConsumer>(view => ({
         ...view,
-        schema: new MaterialTransformer(view.schema).getConsumer()
+        material: new MaterialOptionTransformer(view.material).getConsumer()
       }))
     );
 
-    // TODO 接口还没写
     window.fetch(`http://localhost:3333/api/v1/project?id=${id}`).then(async response => {
-      const data: { data: IApplication } = await response.json();
-      project.value = data.data.project;
-      views.value = data.data.views;
+      const data: { data: IProjectWithResource } = await response.json();
+      projectSchema.value = data.data.project;
+      viewsSchema.value = data.data.views;
     });
 
     loadRemotePackages().then(result => {
@@ -44,14 +47,14 @@ export default defineComponent({
       if (!initialized.value) {
         return <div class="loading">loading...</div>;
       }
-      if (!project.value) {
+      if (!projectSchema.value) {
         return <div class="loading">No configuration.</div>;
       }
       return (
         <Renderer
           baseUrl="/renderer/vue"
           routeName={routeName.value}
-          project={project.value}
+          project={projectConsumer.value}
           views={viewConsumers.value}
         />
       );

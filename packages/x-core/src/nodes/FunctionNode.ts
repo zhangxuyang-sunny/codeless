@@ -48,7 +48,7 @@ export class FunctionNode extends AbstractNode<NodeTypes.Function> {
     };
   }
 
-  getValue(): FunctionValue<TypePlatformFunction> {
+  getValue<T extends () => unknown>(): FunctionValue<T> {
     // eslint-disable-next-line no-new-func
     return Function(
       "context",

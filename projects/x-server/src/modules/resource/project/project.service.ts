@@ -4,7 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import database from "config/database";
 import {
-  IApplication,
+  IProjectWithResource,
   ICreateProjectParams,
   IFindProjectsParams,
   IProject,
@@ -143,7 +143,7 @@ export class ProjectService {
     return this.projectModel.find({ id: { $in: ids } });
   }
 
-  async findForApplication(id: string): Promise<IApplication> {
+  async findForApplication(id: string): Promise<IProjectWithResource> {
     const project = await this.findProject({ id });
     if (!project) {
       throw new HttpException(`project "${id}" 不存在`, HttpStatus.BAD_REQUEST);

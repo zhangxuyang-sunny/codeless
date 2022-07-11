@@ -1,5 +1,5 @@
 import { IViewOption } from "packages/x-core/src/types/project";
-import { IMaterialParamsSchema } from "packages/x-core/src/types/material";
+import { IMaterialOptionSchema } from "packages/x-core/src/types/material";
 import {
   ICreateViewParams,
   IFindViewsParams,
@@ -11,7 +11,7 @@ export class CreateViewDTO implements ICreateViewParams {
   projectId: string;
   title: string;
   description: string;
-  material: IMaterialParamsSchema;
+  material: IMaterialOptionSchema;
 }
 
 export class UpdateViewDTO implements IUpdateViewParams {
@@ -19,7 +19,7 @@ export class UpdateViewDTO implements IUpdateViewParams {
   title?: string;
   description?: string;
   viewOptions?: IViewOption[];
-  schema?: IMaterialParamsSchema;
+  schema?: IMaterialOptionSchema;
 }
 
 export class FindViewsDTO implements IFindViewsParams {

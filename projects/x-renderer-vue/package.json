@@ -9,15 +9,14 @@
     "debug": "node --inspect-brk=9229 ./node_modules/@vue/cli-service/bin/vue-cli-service.js serve"
   },
   "dependencies": {
-    "@arco-design/web-vue": "^2.29.0",
-    "@low/core": "workspace:^0.1.0",
+    "@arco-design/web-vue": "^2.33.0",
     "@types/webpack-env": "^1.17.0",
-    "core-js": "^3.22.7",
+    "core-js": "^3.23.4",
     "mitt": "^3.0.0",
     "pinia": "^2.0.14",
     "systemjs": "^6.12.1",
-    "vue": "^3.2.36",
-    "vue-router": "^4.0.15"
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.0",

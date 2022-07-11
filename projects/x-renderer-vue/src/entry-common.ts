@@ -10,7 +10,7 @@ import { importMap, addToImportMapImports } from "packages/x-shared/utils/Import
 
 window.__X_RENDERER_API__ = {
   document,
-  updateCurrentRoute() {
+  updateRoute() {
     console.warn("render is not initialized");
   },
   updateProject() {
@@ -27,7 +27,7 @@ declare global {
     __X_RENDERER_API__: {
       document: Document;
       // 渲染器可渲染单页面和整个工程页面
-      updateCurrentRoute: (id: string) => void;
+      updateRoute: (id: string) => void;
       updateProject: (schema: IProjectSchema) => void;
       updateViews: (schema: IViewSchema[]) => void;
     };

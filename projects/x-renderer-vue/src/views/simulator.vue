@@ -1,26 +1,45 @@
 <script lang="tsx">
-import { MaterialTransformer } from "packages/x-core/src/transformer/MaterialTransformer";
-import { IProjectSchema } from "packages/x-core/src/types/project";
-import { IViewSchema } from "packages/x-core/src/types/view";
-import { computed, defineAsyncComponent, defineComponent, ref, shallowRef } from "vue";
+import { computed, defineComponent, ref, shallowRef } from "vue";
+import { IProjectConsumer, IProjectSchema } from "packages/x-core/src/types/project";
+import { IViewConsumer, IViewSchema } from "packages/x-core/src/types/view";
+import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
+import { ProjectTransformer } from "packages/x-core/src/transformer/ProjectTransformer";
 import { loadRemotePackages } from "../utils/common";
+import Renderer from "../components/Renderer.vue";
 
-// 要异步加载 remote vue
-const Renderer = defineAsyncComponent(() => import("../components/Renderer.vue"));
+import { project } from "../draft/project";
+import { view1 } from "../draft/view1";
 
 export default defineComponent({
   name: "Simulator",
   setup() {
     const initialized = ref(false);
     const routeName = ref("");
-    const project = shallowRef<IProjectSchema>();
-    const views = shallowRef<IViewSchema[]>([]);
-    const viewConsumers = computed(() =>
-      views.value.map(view => ({
-        ...view,
-        schema: new MaterialTransformer(view.schema).getConsumer()
-      }))
+    const projectSchema = shallowRef<IProjectSchema>();
+    const projectConsumer = computed<IProjectConsumer>(() =>
+      new ProjectTransformer(projectSchema.value).getConsumer()
     );
+    const viewSchemas = shallowRef<IViewSchema[]>([]);
+    const viewConsumers = computed<IViewConsumer[]>(() => {
+      return viewSchemas.value.map<IViewConsumer>(view => ({
+        ...view,
+        material: new MaterialOptionTransformer(view.material).getConsumer()
+      }));
+    });
+
+    /**
+     * mock 数据
+     */
+    projectSchema.value = project;
+    viewSchemas.value = [view1];
+
+    console.log({
+      projectSchema,
+      projectConsumer,
+      viewSchemas,
+      viewConsumers
+    });
+    /** */
 
     loadRemotePackages().then(result => {
       window.vue = result.vue;
@@ -30,30 +49,31 @@ export default defineComponent({
     });
 
     // 注册渲染器 api
-    window.__X_RENDERER_API__.updateCurrentRoute = name => {
+    window.__X_RENDERER_API__.updateRoute = name => {
       routeName.value = name;
+      console.log("update router:", name);
     };
     window.__X_RENDERER_API__.updateProject = schema => {
-      project.value = schema;
-      console.log("project", schema);
+      projectSchema.value = schema;
+      console.log("update project:", schema);
     };
-    window.__X_RENDERER_API__.updateViews = data => {
-      views.value = data;
-      console.log("views", data);
+    window.__X_RENDERER_API__.updateViews = schemas => {
+      viewSchemas.value = schemas;
+      console.log("update views:", schemas);
     };
 
     return () => {
       if (!initialized.value) {
         return <div class="loading">loading...</div>;
       }
-      if (!project.value) {
+      if (!projectConsumer.value) {
         return <div class="loading">No configuration.</div>;
       }
       return (
         <Renderer //
           baseUrl="/renderer/vue/simulator.html"
           routeName={routeName.value}
-          project={project.value}
+          project={projectConsumer.value}
           views={viewConsumers.value}
         />
       );
