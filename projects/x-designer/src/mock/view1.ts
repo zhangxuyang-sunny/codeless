@@ -3,7 +3,7 @@ import { IMaterialOptionSchema } from "packages/x-core/dist/types/material";
 import { IView } from "packages/x-core/dist/types/view";
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 
-const schema: IMaterialOptionSchema = {
+const material: IMaterialOptionSchema = {
   id: "view_1",
   src: `http://${host}/static/components/arco/Button.js`,
   // src: `http://${host}/static/components/common/EmptyContainer.js`,
@@ -28,7 +28,6 @@ const schema: IMaterialOptionSchema = {
   //   type: NodeTypes.ReactiveByPinia,
   //   path: "dataset1.style"
   // },
-  id: "xxx",
   style: {
     type: NodeTypes.Object,
     properties: {}
@@ -74,5 +73,5 @@ export const view1: IView = {
   updatedUser: "sunny",
   createdAt: "",
   updatedAt: "",
-  schema
+  material
 };

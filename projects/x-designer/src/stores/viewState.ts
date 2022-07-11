@@ -10,7 +10,7 @@ export const viewState = atom<IViewSchema[] | null>({
       version: "1.0.0",
       title: "首页",
       description: "商城首页",
-      schema: {
+      material: {
         id: "container1",
         src: "http://localhost:7890/components/arco/Container.js",
         props: {
