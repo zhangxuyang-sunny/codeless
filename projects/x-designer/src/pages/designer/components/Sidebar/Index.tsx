@@ -7,7 +7,7 @@ import History from "../History/Index";
 import Material from "../Material/Index";
 import Outline from "../Outline/Index";
 import DataSet from "../DataSet";
-
+import Json from "../Json";
 export default function Sidebar() {
   type TypePlugin = {
     Content: React.FC;
@@ -40,10 +40,15 @@ export default function Sidebar() {
       desc: "历史版本",
       icon: "History",
       Content: History
+    },
+    {
+      desc: "全局Schema",
+      icon: "schema",
+      Content: Json
     }
   ];
 
-  const [selectIndex, setSelectIndex] = useState(1);
+  const [selectIndex, setSelectIndex] = useState(5);
 
   /**
    * @todo 寻找包警告的错误

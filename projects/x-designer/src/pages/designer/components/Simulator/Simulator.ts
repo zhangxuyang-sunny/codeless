@@ -1,4 +1,5 @@
 /* eslint-disable no-debugger */
+import { IMaterialOptionSchema } from "packages/x-core/src/types/material";
 import Shortcuts from "./behavior/Shortcuts";
 import OperationDom, { OperationDomOptions } from "./classes/OperationDom";
 import { Behavior } from "./interface";
@@ -139,5 +140,14 @@ export class Simulator extends OperationDom {
     if (_t) {
       return _t.getAttribute(this.key);
     }
+  }
+
+  /**
+   *
+   * @param id material添加到哪个id的后面
+   * @param material
+   */
+  addBeforeend(id: string, material: IMaterialOptionSchema) {
+    console.log(id);
   }
 }

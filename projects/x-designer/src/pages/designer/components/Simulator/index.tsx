@@ -6,7 +6,6 @@ import SelectNode from "./behavior/SelectNode";
 import DragMultiSelectNode from "./behavior/DragMultiSelectNode";
 import { project } from "../../../../mock/project";
 import { useViewState } from "src/stores/viewState";
-import { view1 } from "src/mock/view1";
 
 const SimulatorRender: React.FC = () => {
   const simulatorRef = useRef<HTMLDivElement>(null);
@@ -23,25 +22,22 @@ const SimulatorRender: React.FC = () => {
           if (!ref) return;
           ref.onload = () => {
             const rendererApi = (ref?.contentWindow as any)?.__X_RENDERER_API__;
-            rendererApi.updateProject(project);
-            rendererApi.updateViews(viewState);
-            setInterval(() => {
-              rendererApi.updateViews([view1]);
-            }, 6000);
 
+            rendererApi.updateProject(project);
+            rendererApi.updateViews([viewState]);
+
+            ref.contentDocument?.head.insertAdjacentHTML(
+              "beforeend",
+              `<style>
+            .simulator-enter {
+              outline: 1px dashed #3e5bff!important;
+              outline-offset: -1px;
+              background-color: rgba(229, 235, 242, .5);
+            }
+            
+            </style>`
+            );
             setTimeout(() => {
-              ref.contentDocument?.head.insertAdjacentHTML(
-                "beforeend",
-                `<style>
-              
-              .simulator-enter {
-                outline: 1px dashed #3e5bff!important;
-                outline-offset: -1px;
-                background-color: rgba(229, 235, 242, .5);
-              }
-              
-              </style>`
-              );
               if (ref.contentDocument) {
                 new Simulator({
                   key: "data-remote-id",
