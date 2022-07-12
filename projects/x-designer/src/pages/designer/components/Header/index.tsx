@@ -5,6 +5,7 @@ import { IconEye, IconHistory, IconLeft, IconSave, IconSend } from "@arco-design
 import { routerState } from "src/stores/routerState";
 import { viewState } from "src/stores/viewState";
 import RouterSetter from "../RouterSetter";
+import ViewDropDown from "../ViewDropDown";
 
 // 工作区顶栏
 const WorkbenchHeader: React.FC = () => {
@@ -15,13 +16,7 @@ const WorkbenchHeader: React.FC = () => {
       <div className="left">
         <Button className="back-button" icon={<IconLeft />} type="text" shape="circle" />
         <Divider type="vertical" />
-        <Select placeholder="选择页面">
-          {/* {pageSchemaList.map((pageSchema, index) => (
-            <Select.Option key={index} value={pageSchema.title}>
-              {pageSchema.title}
-            </Select.Option>
-          ))} */}
-        </Select>
+        <ViewDropDown />
         <RouterSetter />
       </div>
       <div className="right">
