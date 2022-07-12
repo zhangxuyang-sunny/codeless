@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -10,10 +10,10 @@ declare global {
   }
 }
 
-export type StringSchema<T extends string = string> = {
+export interface StringSchema<T extends string = string> extends BaseSchema {
   type: NodeTypes.String;
   value: StringValue<T>;
-};
+}
 
 export type StringValue<T extends string = string> = T;
 
@@ -37,7 +37,7 @@ export class StringNode<T extends string = string> //
 
   getSchema(): StringSchema<T> {
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       value: this.value
     };
   }

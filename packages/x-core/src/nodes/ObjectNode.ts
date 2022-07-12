@@ -1,6 +1,6 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
-import { JSValueSchemas } from "./JSValueNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
+import { JSValueSchemas } from "../transformer/JSValueTransformer";
 
 declare global {
   interface NodeSchema {
@@ -11,7 +11,8 @@ declare global {
   }
 }
 
-export interface ObjectSchema<T extends PropertyKey = string> {
+export interface ObjectSchema<T extends PropertyKey = string>
+  extends BaseSchema {
   type: NodeTypes.Object;
   properties: Record<T, JSValueSchemas>;
 }
@@ -63,7 +64,7 @@ export class ObjectNode<T extends PropertyKey = string> //
       properties[key] = item;
     });
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       properties
     };
   }

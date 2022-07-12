@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export interface WeakSetSchema {
+export interface WeakSetSchema extends BaseSchema {
   type: NodeTypes.WeakSet;
 }
 
@@ -26,9 +26,7 @@ export class WeakSetNode extends AbstractNode<NodeTypes.WeakSet> {
   }
 
   getSchema() {
-    return {
-      type: this.type
-    };
+    return super.getBaseSchema();
   }
 
   getValue() {

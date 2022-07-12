@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export interface MapSchema<T extends string = string> {
+export interface MapSchema<T extends string = string> extends BaseSchema {
   type: NodeTypes.Map;
   iterable: [T, NodeSchemas][];
 }
@@ -36,7 +36,7 @@ export class MapNode<T extends string = string> //
 
   getSchema() {
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       iterable: this.iterable
     };
   }

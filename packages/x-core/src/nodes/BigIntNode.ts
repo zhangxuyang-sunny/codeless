@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -11,7 +11,8 @@ declare global {
 }
 
 type BigIntDesc = Parameters<typeof BigInt>[0];
-export interface BigIntSchema<T extends BigIntDesc = BigIntDesc> {
+export interface BigIntSchema<T extends BigIntDesc = BigIntDesc>
+  extends BaseSchema {
   type: NodeTypes.BigInt;
   value: T;
 }
@@ -38,7 +39,7 @@ export class BigIntNode<T extends BigIntDesc = BigIntDesc> //
 
   getSchema() {
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       value: this.value
     };
   }

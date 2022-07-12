@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export interface NumberSchema<T extends number = number> {
+export interface NumberSchema<T extends number = number> extends BaseSchema {
   type: NodeTypes.Number;
   value: T;
 }
@@ -37,7 +37,7 @@ export class NumberNode<T extends number = number> //
 
   getSchema(): NumberSchema<T> {
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       value: this.value
     };
   }

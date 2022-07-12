@@ -1,16 +1,16 @@
 import { StringSchema } from "../nodes/StringNode";
-import { JSValue, JSValueSchema } from "../nodes/JSValueNode";
 import { IDatasetsConsumer, IDatasetsSchema } from "../types/project";
 import { FunctionNode } from "../nodes";
+import { JSValueSchemas, JSValueValues } from "./JSValueTransformer";
 
 export interface DatasetSchema {
   key: StringSchema;
-  default: JSValueSchema;
+  default: JSValueSchemas;
 }
 
 export interface DatasetValue {
   key: string;
-  default: JSValue;
+  default: JSValueValues;
 }
 
 // 数据集转换器

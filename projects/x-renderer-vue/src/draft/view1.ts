@@ -30,13 +30,16 @@ const materialOption: IMaterialOptionSchema = {
   // },
   style: {
     type: NodeTypes.Object,
+    bind: "context.datasets.dataset_1.style",
     properties: {}
   },
   props: {
     type: NodeTypes.Object,
+    bind: "",
     properties: {
       type: {
         type: NodeTypes.String,
+        bind: "",
         value: "primary"
       },
       // loading: {
@@ -45,16 +48,17 @@ const materialOption: IMaterialOptionSchema = {
       // },
       onClick: {
         type: NodeTypes.Function,
+        bind: "",
         code: `async function (e) {
-          console.log("this", this)
-          console.log("context", context)
-          console.log("e", e)
-          context.datasets.dataset_1.tableLoading = !context.datasets.dataset_1.tableLoading;
-          context.datasets.dataset_1.style.margin = "0";
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          context.datasets.dataset_1.tableLoading = false;
-          context.datasets.dataset_1.style.margin = "0 100px";
-        }`,
+                console.log("this", this)
+                console.log("context", context)
+                console.log("e", e)
+                context.datasets.dataset_1.tableLoading = !context.datasets.dataset_1.tableLoading;
+                context.datasets.dataset_1.style.margin = "0";
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                context.datasets.dataset_1.tableLoading = false;
+                context.datasets.dataset_1.style.margin = "0 100px";
+              }`,
         useStrict: false
       }
     }

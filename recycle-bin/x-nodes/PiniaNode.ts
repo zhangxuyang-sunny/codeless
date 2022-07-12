@@ -1,7 +1,7 @@
 // @ts-ignore
 import type { DefineStoreOptions } from "pinia";
 import { NodeTypes } from "../common/enums";
-import { AbstractNode, TypePlatformFunction } from "../common/AbstractNode";
+import { AbstractNode, IPlatformFunction } from "../common/AbstractNode";
 import { StringNode, StringSchema } from "./StringNode";
 import { FunctionNode, FunctionSchema } from "./FunctionNode";
 
@@ -29,8 +29,8 @@ export type PiniaValue<
 > = DefineStoreOptions<
   string,
   T,
-  Record<string, TypePlatformFunction>,
-  Record<string, TypePlatformFunction>
+  Record<string, IPlatformFunction>,
+  Record<string, IPlatformFunction>
 >;
 
 export class PiniaNode<
@@ -69,7 +69,7 @@ export class PiniaNode<
 
   getValue(): PiniaValue<T> {
     const mapFunc = (record: Record<string, FunctionSchema>) => {
-      const obj: Record<string, TypePlatformFunction> = {};
+      const obj: Record<string, IPlatformFunction> = {};
       for (const key in record) {
         obj[key] = new FunctionNode().setSchema(record[key]).getValue();
       }

@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -10,10 +10,10 @@ declare global {
   }
 }
 
-export type BooleanSchema<T extends boolean = boolean> = {
+export interface BooleanSchema<T extends boolean = boolean> extends BaseSchema {
   type: NodeTypes.Boolean;
   value: BooleanValue<T>;
-};
+}
 
 export type BooleanValue<T extends boolean = boolean> = T;
 
@@ -37,7 +37,7 @@ export class BooleanNode<T extends boolean = boolean> //
 
   getSchema() {
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       value: this.value
     };
   }

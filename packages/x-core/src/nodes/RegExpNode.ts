@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export interface RegExpSchema {
+export interface RegExpSchema extends BaseSchema {
   type: NodeTypes.RegExp;
   pattern: Parameters<typeof RegExp>[0];
   flag: Parameters<typeof RegExp>[1] | undefined;
@@ -43,7 +43,7 @@ export class RegExpNode extends AbstractNode<NodeTypes.RegExp> {
 
   getSchema() {
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       pattern: this.pattern,
       flag: this.flag
     };

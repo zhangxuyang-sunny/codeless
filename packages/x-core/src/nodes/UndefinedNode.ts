@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export interface UndefinedSchema {
+export interface UndefinedSchema extends BaseSchema {
   type: NodeTypes.Undefined;
   value: UndefinedValue;
 }
@@ -29,7 +29,7 @@ export class UndefinedNode extends AbstractNode<NodeTypes.Undefined> {
 
   getSchema() {
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       value: this.value
     };
   }

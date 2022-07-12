@@ -1,29 +1,30 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
-import { NodeTypes } from "./enums";
+import { NodeTypes } from "../enums";
 
 // type isEqual<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
-type ExcludeEqual<T, U> = T extends U ? (U extends T ? never : T) : T;
-
-type BaseSchema = { type: NodeTypes };
+// 好像后来没用了
+// type ExcludeEqual<T, U> = T extends U ? (U extends T ? never : T) : T;
+export type BaseSchema = { type: NodeTypes; bind: string };
 type BaseNodeSchema = Record<NodeTypes, { schema: BaseSchema; value: unknown }>;
 
 declare global {
   interface NodeSchema extends BaseNodeSchema {}
-  type NodeSchemas<T extends NodeTypes = NodeTypes> = ExcludeEqual<
-    NodeSchema[T]["schema"],
-    BaseSchema
-  >;
+  // type NodeSchemas<T extends NodeTypes = NodeTypes> = ExcludeEqual<
+  //   NodeSchema[T]["schema"],
+  //   BaseSchema
+  // >;
+  type NodeSchemas<T extends NodeTypes = NodeTypes> = NodeSchema[T]["schema"];
   type NodeValues<T extends NodeTypes = NodeTypes> = NodeSchema[T]["value"];
 }
 
-type TypePlatformThis<
-  T extends Record<string, unknown> = Record<string, unknown>
-> = {
-  datasets: T;
-};
+interface IPlatformThis {
+  datasets: Record<string, unknown>;
+}
 
-export type TypePlatformFunction = (this: TypePlatformThis) => unknown;
+export interface IPlatformFunction {
+  (this: IPlatformThis): unknown;
+}
 
 // 数据节点抽象类
 export abstract class AbstractNode<
@@ -32,8 +33,26 @@ export abstract class AbstractNode<
   V extends NodeValues = NodeValues<T>
 > {
   constructor(protected readonly type: T) {}
+
+  protected readonly bind: string = "";
+
+  public getBind() {
+    return this.bind;
+  }
   public getType() {
     return this.type;
+  }
+
+  protected getBaseSchema() {
+    return {
+      type: this.type,
+      bind: this.bind
+    };
+  }
+  protected getBaseValue() {
+    return {
+      bind: this.bind
+    };
   }
 
   // 赋值 schema
@@ -55,11 +74,11 @@ export abstract class AbstractNode<
     }
   }
   // 平台上下文挂载点
-  private static context: TypePlatformThis = {
+  private static context: IPlatformThis = {
     datasets: {}
   };
   // 设置平台上下文
-  static setContext(context: TypePlatformThis) {
+  static setContext(context: IPlatformThis) {
     this.context = Object.assign(this.context, { ...context });
   }
   // 获取平台上下文

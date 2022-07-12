@@ -99,6 +99,7 @@ const project: IProject = {
       key: "dataset_1",
       define: {
         type: NodeTypes.Function,
+        bind: "",
         code: `function defineDataset() {
                   return {
                     state: () => ({

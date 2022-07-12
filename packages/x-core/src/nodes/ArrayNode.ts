@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -10,10 +10,10 @@ declare global {
   }
 }
 
-export type ArraySchema = {
+export interface ArraySchema extends BaseSchema {
   type: NodeTypes.Array;
   elements: NodeSchemas[];
-};
+}
 
 export type ArrayValue = NodeValues[];
 
@@ -40,7 +40,7 @@ export class ArrayNode extends AbstractNode<NodeTypes.Array> {
 
   getSchema() {
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       elements: this.elements
     };
   }

@@ -1,5 +1,5 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode, TypePlatformFunction } from "./AbstractNode";
+import { NodeTypes } from "../enums";
+import { AbstractNode, BaseSchema, IPlatformFunction } from "./AbstractNode";
 
 declare global {
   interface NodeSchema {
@@ -10,11 +10,11 @@ declare global {
   }
 }
 
-export type FunctionSchema = {
+export interface FunctionSchema extends BaseSchema {
   type: NodeTypes.Function;
   code: string;
   useStrict?: boolean;
-};
+}
 
 export type FunctionValue<V extends () => unknown = () => unknown> = V;
 
@@ -43,12 +43,12 @@ export class FunctionNode extends AbstractNode<NodeTypes.Function> {
 
   getSchema() {
     return {
-      type: this.type,
+      ...super.getBaseSchema(),
       code: this.code
     };
   }
 
-  getValue<T extends () => unknown>(): FunctionValue<T> {
+  getValue<T extends IPlatformFunction>(): FunctionValue<T> {
     // eslint-disable-next-line no-new-func
     return Function(
       "context",

@@ -1,24 +1,28 @@
-import { NodeTypes } from "./enums";
-import { AbstractNode } from "./AbstractNode";
+import { AbstractNode } from "../nodes";
+import { NodeTypes } from "../enums";
 import {
   UndefinedSchema,
   UndefinedNode,
   UndefinedValue
-} from "./UndefinedNode";
-import { NullSchema, NullNode, NullValue } from "./NullNode";
-import { StringSchema, StringNode, StringValue } from "./StringNode";
-import { NumberSchema, NumberNode, NumberValue } from "./NumberNode";
-import { BooleanSchema, BooleanNode, BooleanValue } from "./BooleanNode";
-import { ObjectSchema, ObjectNode, ObjectValue } from "./ObjectNode";
-import { ArraySchema, ArrayNode, ArrayValue } from "./ArrayNode";
-import { FunctionSchema, FunctionNode, FunctionValue } from "./FunctionNode";
-import { RegExpSchema, RegExpNode, RegExpValue } from "./RegExpNode";
-import { SymbolSchema, SymbolNode, SymbolValue } from "./SymbolNode";
-import { BigIntSchema, BigIntNode, BigIntValue } from "./BigIntNode";
-import { MapSchema, MapNode, MapValue } from "./MapNode";
-import { SetSchema, SetNode, SetValue } from "./SetNode";
-import { WeakMapSchema, WeakMapNode, WeakMapValue } from "./WeakMapNode";
-import { WeakSetSchema, WeakSetNode, WeakSetValue } from "./WeakSetNode";
+} from "../nodes/UndefinedNode";
+import { NullSchema, NullNode, NullValue } from "../nodes/NullNode";
+import { StringSchema, StringNode, StringValue } from "../nodes/StringNode";
+import { NumberSchema, NumberNode, NumberValue } from "../nodes/NumberNode";
+import { BooleanSchema, BooleanNode, BooleanValue } from "../nodes/BooleanNode";
+import { ObjectSchema, ObjectNode, ObjectValue } from "../nodes/ObjectNode";
+import { ArraySchema, ArrayNode, ArrayValue } from "../nodes/ArrayNode";
+import {
+  FunctionSchema,
+  FunctionNode,
+  FunctionValue
+} from "../nodes/FunctionNode";
+import { RegExpSchema, RegExpNode, RegExpValue } from "../nodes/RegExpNode";
+import { SymbolSchema, SymbolNode, SymbolValue } from "../nodes/SymbolNode";
+import { BigIntSchema, BigIntNode, BigIntValue } from "../nodes/BigIntNode";
+import { MapSchema, MapNode, MapValue } from "../nodes/MapNode";
+import { SetSchema, SetNode, SetValue } from "../nodes/SetNode";
+import { WeakMapSchema, WeakMapNode, WeakMapValue } from "../nodes/WeakMapNode";
+import { WeakSetSchema, WeakSetNode, WeakSetValue } from "../nodes/WeakSetNode";
 
 /**
  * JS 表达式节点类型集合
@@ -116,21 +120,6 @@ export function getJSValueParser(type: JSValueTypes) {
   return JSParserMapper[type];
 }
 
-/** JSValueNode start */
-declare global {
-  interface NodeSchema {
-    [NodeTypes.JSValue]: {
-      schema: JSValueSchema;
-      value: JSValue;
-    };
-  }
-}
-
-export type JSValueSchema = {
-  type: NodeTypes.JSValue;
-  schema: JSValueSchemas;
-};
-
 export type JSValue =
   | void
   | null
@@ -148,26 +137,22 @@ export type JSValue =
   | WeakMap<object, any>
   | WeakSet<object>;
 
-export class JSValueNode extends AbstractNode<NodeTypes.JSValue> {
-  private jsValueNode: JSValueNodes = new NullNode();
-  setSchema(schema: JSValueSchema): this {
-    const Parser = getJSValueParser(schema.schema.type);
-    if (!Parser) return this;
-    this.jsValueNode = new Parser();
+export class JSValueTransformer<T extends NodeTypes> {
+  constructor(schema: NodeSchemas<T>) {
+    this.setSchema(schema);
+  }
+  private jsValueNode: AbstractNode = new NullNode();
+  setSchema(schema: NodeSchemas<T>): this {
+    const Parser = getJSValueParser(schema.type);
+    if (Parser) {
+      this.jsValueNode = new Parser();
+    }
     return this;
   }
-  getSchema(): JSValueSchema {
-    return {
-      type: NodeTypes.JSValue,
-      schema: this.jsValueNode.getSchema()
-    };
+  getSchema() {
+    return this.jsValueNode.getSchema();
   }
-  getValue(): JSValue {
-    return <JSValue>this.jsValueNode.getValue();
-  }
-  constructor() {
-    super(NodeTypes.JSValue);
+  getValue() {
+    return this.jsValueNode.getValue();
   }
 }
-
-AbstractNode.setParser(JSValueNode);

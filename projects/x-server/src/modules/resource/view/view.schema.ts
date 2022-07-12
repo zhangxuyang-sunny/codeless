@@ -32,7 +32,7 @@ export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt"> {
   description: string;
 
   @Prop({ required: true, type: Object })
-  schema: IMaterialOptionSchema;
+  material: IMaterialOptionSchema;
 
   @Prop({ required: true })
   createdUser: string;

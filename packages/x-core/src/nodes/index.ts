@@ -1,4 +1,4 @@
-export * from "./enums";
+export * from "../enums";
 export * from "./AbstractNode";
 export * from "./ArrayNode";
 export * from "./BigIntNode";
@@ -15,4 +15,3 @@ export * from "./SymbolNode";
 export * from "./UndefinedNode";
 export * from "./WeakMapNode";
 export * from "./WeakSetNode";
-export * from "./JSValueNode";
