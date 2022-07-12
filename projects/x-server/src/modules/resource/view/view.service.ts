@@ -68,7 +68,7 @@ export class ViewService {
       updatedUser: createdUser,
       title: data.title,
       description: data.description,
-      schema: new MaterialOptionTransformer().getSchema()
+      material: new MaterialOptionTransformer().getSchema()
     });
     return result;
   }

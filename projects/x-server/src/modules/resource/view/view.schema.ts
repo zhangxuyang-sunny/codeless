@@ -12,7 +12,7 @@ export type ViewDocument = IViewSchema & Document;
   timestamps: true,
   minimize: false
 })
-export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt"> {
+export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt" | "material"> {
   @Prop({ select: false })
   _id?: string;
 
@@ -32,7 +32,7 @@ export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt"> {
   description: string;
 
   @Prop({ required: true, type: Object })
-  schema: IMaterialOptionSchema;
+  material: IMaterialOptionSchema;
 
   @Prop({ required: true })
   createdUser: string;
