@@ -1,10 +1,10 @@
 import { IViewOption } from "packages/x-core/src/types/project";
-import { IMaterialOptionSchema } from "packages/x-core/src/types/material";
+import { IMaterialOptionSchema } from "packages/x-core/src/types/material.d";
 import {
   ICreateViewParams,
   IFindViewsParams,
   IUpdateViewParams
-} from "packages/x-core/src/types/view";
+} from "packages/x-core/src/types/page";
 
 // 创建页面参数
 export class CreateViewDTO implements ICreateViewParams {

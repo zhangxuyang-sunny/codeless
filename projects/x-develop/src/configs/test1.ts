@@ -77,7 +77,7 @@ defineMethod({
     dataset.setTableLoading(true);
     // dataset.tableLoading = true;
     return fetch(
-      'http://127.0.0.1:4523/mock/616827/list?' + qs.stringify(query)
+      `http://127.0.0.1:4523/mock/616827/list?${  qs.stringify(query)}`
     ).then(async (response) => {
       const result: { data: TypeTable[] } = await response.json();
       await new Promise((resolve) => setTimeout(resolve, 300));
@@ -222,7 +222,7 @@ const app: TypeMaterial = {
                                     dataset.form.name,
                                     'modelValue'
                                   ],
-                                  placeholder: '请输入姓名'
+                                  'placeholder': '请输入姓名'
                                 })
                                 .setEmit({
                                   event: 'input',
@@ -412,7 +412,10 @@ const app: TypeMaterial = {
                       },
                       loading: computed(() => dataset.tableLoading),
                       data: computed(() => dataset.tableList),
-                      // TODO: 是保留原汁原味的 vue 用法，还是代理到平台组件上层？
+                      /**
+                       * @TODO 是保留原汁原味的 vue 用法，还是代理到平台组件上层？
+                       * @param args 
+                       */
                       onVnodeBeforeMount(...args) {
                         console.log('Table组件beforeMount', args);
                       },

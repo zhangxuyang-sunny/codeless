@@ -1,4 +1,4 @@
-import { TypeMaterialConfig } from "@low/types/material";
+import { TypeMaterialConfig } from "@low/types/material.d";
 import type {
   TypeNumber,
   TypeString,
@@ -133,7 +133,7 @@ abstract class Value<T extends TypeValueSchema, R> {
         schema.$$ = `Unknown Type: ${schema.type}`;
         break;
       }
-      // TODO: Promise 类型考虑用 async Function 实现，
+      // @TODO Promise 类型考虑用 async Function 实现，
       // case "Promise": {
       //   const { method } = schema;
       //   switch (method) {

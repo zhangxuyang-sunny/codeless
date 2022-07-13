@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { IResource } from "packages/x-core/src/types/resource";
+import { ResourceData } from "packages/x-core/src/types/manager";
 import { ProjectService } from "./project/project.service";
 import { ViewService } from "./view/view.service";
 
@@ -10,13 +10,13 @@ export class ResourceService {
     private readonly viewService: ViewService
   ) {}
 
-  async getResource(): Promise<IResource> {
+  async getResource(): Promise<ResourceData> {
     const projects = await this.projectService.findProjects({});
-    const views = await this.viewService.findViews({});
+    const pages = await this.viewService.findViews({});
     // const datasets =
     return {
       projects,
-      views,
+      pages,
       datasets: []
     };
   }

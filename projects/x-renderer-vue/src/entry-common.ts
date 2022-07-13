@@ -4,19 +4,15 @@ import "systemjs/dist/extras/use-default.min.js";
 import "systemjs/dist/extras/named-register.min.js";
 import "systemjs/dist/extras/dynamic-import-maps.min.js";
 
-import type { IProjectSchema } from "packages/x-core/src/types/project";
-import type { IViewSchema } from "packages/x-core/src/types/view";
 import { importMap, addToImportMapImports } from "packages/x-shared/utils/ImportMap";
+import { ApplicationSchema } from "packages/x-core/src/types/schemas/application";
 
 window.__X_RENDERER_API__ = {
   document,
   updateRoute() {
     console.warn("render is not initialized");
   },
-  updateProject() {
-    console.warn("render is not initialized");
-  },
-  updateViews() {
+  updateSchema() {
     console.warn("render is not initialized");
   }
 };
@@ -26,10 +22,8 @@ declare global {
     // 渲染器对外暴露 api
     __X_RENDERER_API__: {
       document: Document;
-      // 渲染器可渲染单页面和整个工程页面
       updateRoute: (id: string) => void;
-      updateProject: (schema: IProjectSchema) => void;
-      updateViews: (schema: IViewSchema[]) => void;
+      updateSchema: (runtime: ApplicationSchema) => void;
     };
     pinia: typeof import("pinia");
     vue: typeof import("vue");

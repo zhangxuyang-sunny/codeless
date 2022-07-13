@@ -28,7 +28,7 @@
 import type { PropType } from "vue";
 import { defineProps, onMounted, ref } from "vue";
 import { Popover } from "@arco-design/web-vue";
-import { TypeMaterial } from "@low/types/material";
+import { TypeMaterial } from "@low/types/material.d";
 defineProps({
   data: {
     type: Object as PropType<TypeMaterial>,

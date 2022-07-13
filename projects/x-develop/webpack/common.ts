@@ -23,7 +23,7 @@ import {
 } from './loaders';
 import { PORT } from './devServer';
 
-const entryList = [];
+const entryList:Array<Record<string,string>> = [];
 function getEntryByDir(name: string) {
   const dir = `./src/${name}`;
   const entry = fs
@@ -47,8 +47,6 @@ const config: Configuration = {
     'packages/pinia/2.0.14/index': './node_modules/pinia/index.js',
     'packages/vue-router/4.0.13/index':
       './node_modules/vue-router/dist/vue-router.cjs.js',
-    'components/common/RendererEntry':
-      './src/components/common/RendererEntry/Index.vue',
     'components/arco/Button': './src/components/arco/Button.vue',
     // 'ui/antd/ant-design-vue': './node_modules/ant-design-vue/lib/index.js',
     'packages/@arco-design/web-vue/2.27.1/index':

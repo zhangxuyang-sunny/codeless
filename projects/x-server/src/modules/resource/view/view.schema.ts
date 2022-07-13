@@ -1,8 +1,8 @@
 import { Document } from "mongoose";
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { database } from "config/database";
-import { IMaterialOptionSchema } from "packages/x-core/src/types/material";
-import { IViewSchema } from "packages/x-core/src/types/view";
+import { IMaterialOptionSchema } from "packages/x-core/src/types/material.d";
+import { IViewSchema } from "packages/x-core/src/types/page";
 
 export type ViewDocument = IViewSchema & Document;
 

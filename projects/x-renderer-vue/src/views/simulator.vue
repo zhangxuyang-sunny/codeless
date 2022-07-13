@@ -1,45 +1,26 @@
 <script lang="tsx">
-import { computed, defineComponent, ref, shallowRef } from "vue";
-import { IProjectConsumer, IProjectSchema } from "packages/x-core/src/types/project";
-import { IViewConsumer, IViewSchema } from "packages/x-core/src/types/view";
-import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
-import { ProjectTransformer } from "packages/x-core/src/transformer/ProjectTransformer";
+import { defineComponent, ref, shallowRef, watch } from "vue";
+import { ApplicationRuntime } from "../core/schema";
 import { loadRemotePackages } from "../utils/common";
-import Renderer from "../components/Renderer.vue";
+import { defineApplication } from "../core/defineApplication";
+import { applicationSchema } from "../draft/application";
+import { ApplicationSchema } from "packages/x-core/src/types/schemas/application";
+import { ApplicationTransformer } from "@/core/Transformer";
+// import Renderer from "../components/Renderer.vue";
 
-import { project } from "../draft/project";
-import { view1 } from "../draft/view1";
+const Application = defineApplication({
+  vue: await System.import("vue"),
+  vueRouter: await System.import("vue-router"),
+  pinia: await System.import("pinia")
+});
 
 export default defineComponent({
   name: "Simulator",
   setup() {
     const initialized = ref(false);
     const routeName = ref("");
-    const projectSchema = shallowRef<IProjectSchema>();
-    const projectConsumer = computed<IProjectConsumer>(() =>
-      new ProjectTransformer(projectSchema.value).getConsumer()
-    );
-    const viewSchemas = shallowRef<IViewSchema[]>([]);
-    const viewConsumers = computed<IViewConsumer[]>(() => {
-      return viewSchemas.value.map<IViewConsumer>(view => ({
-        ...view,
-        material: new MaterialOptionTransformer(view.material).getConsumer()
-      }));
-    });
-
-    /**
-     * mock 数据
-     */
-    projectSchema.value = project;
-    viewSchemas.value = [view1];
-
-    console.log({
-      projectSchema,
-      projectConsumer,
-      viewSchemas,
-      viewConsumers
-    });
-    /** */
+    const schema = shallowRef<ApplicationSchema>();
+    const application = shallowRef<ApplicationRuntime>();
 
     loadRemotePackages().then(result => {
       window.vue = result.vue;
@@ -53,28 +34,39 @@ export default defineComponent({
       routeName.value = name;
       console.log("update router:", name);
     };
-    window.__X_RENDERER_API__.updateProject = schema => {
-      projectSchema.value = schema;
-      console.log("update project:", schema);
+    window.__X_RENDERER_API__.updateSchema = data => {
+      schema.value = data;
+      console.log("update application:", data);
     };
-    window.__X_RENDERER_API__.updateViews = schemas => {
-      viewSchemas.value = schemas;
-      console.log("update views:", schemas);
-    };
+
+    watch([initialized, schema], () => {
+      if (initialized.value && schema.value) {
+        application.value = new ApplicationTransformer(schema.value).runtime();
+      }
+    });
+
+    /**
+     * mock 数据
+     */
+    schema.value = applicationSchema;
+
+    /** */
 
     return () => {
       if (!initialized.value) {
         return <div class="loading">loading...</div>;
       }
-      if (!projectConsumer.value) {
-        return <div class="loading">No configuration.</div>;
+      if (!schema.value) {
+        return <div class="loading">No configuration</div>;
+      }
+      if (!application.value) {
+        return <div class="loading">Application is not initialized</div>;
       }
       return (
-        <Renderer //
+        <Application //
           baseUrl="/renderer/vue/simulator.html"
           routeName={routeName.value}
-          project={projectConsumer.value}
-          views={viewConsumers.value}
+          schema={application.value}
         />
       );
     };

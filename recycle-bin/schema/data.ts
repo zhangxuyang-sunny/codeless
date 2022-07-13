@@ -48,7 +48,9 @@ export namespace NSValueSchema {
     value: Parameters<typeof BigInt>[0];
     $$?: bigint;
   };
-  // TODO：为什么用 type 会导致循环引用自身
+  /**
+   * @TODO 为什么用 type 会导致循环引用自身
+   */
   export interface IArray<T = TypeValueSchema, V = unknown> {
     type: "Array";
     elements: T[];

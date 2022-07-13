@@ -120,10 +120,14 @@ export class ProjectService {
 
   // 条件查找工程
   // 获取当前用户资源数据
-  // TODO:
-  // 1. 区分用户查询
-  // 2. 时间段查询
-  // 3. description title 模糊查询
+  /**
+   * @TODO
+   * 1. 区分用户查询
+   * 2. 时间段查询
+   * 3. description title 模糊查询
+   * @param query
+   * @returns
+   */
   async findProjects(query: IFindProjectsParams): Promise<IProject[]> {
     // return this.tbUserService.findUserResources(uid);
     // const userPlatform = await this.userService.findUserPlatformById(uid);

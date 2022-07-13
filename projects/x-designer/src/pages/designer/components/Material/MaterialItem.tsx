@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Popover } from "@arco-design/web-react";
-import { TypeMaterial } from "packages/x-core/dist/types/material";
+import { TypeMaterial } from "packages/x-core/dist/types/material.d";
 import styled from "styled-components";
 
 export interface IMaterialItem {

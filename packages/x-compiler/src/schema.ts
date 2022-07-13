@@ -3,7 +3,7 @@ import {
   PageSchema,
   PiniaSchema,
   RouterSchema,
-  ProjectSchema,
+  Project,
   NodeTypes,
   BooleanNode
 } from "packages/x-core";
@@ -202,7 +202,7 @@ const pageList: PageSchema[] = [
   }
 ];
 
-const project: ProjectSchema = {
+const project: Project = {
   type: NodeTypes.Project,
   router,
   piniaList,

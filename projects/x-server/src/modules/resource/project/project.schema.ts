@@ -1,7 +1,11 @@
 import { Document } from "mongoose";
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { database } from "config/database";
-import { IProjectSchema, IRouterOption, IDatasetsSchema } from "packages/x-core/src/types/project";
+import {
+  IProjectSchema,
+  IRouterOption,
+  IDatasetsSchema
+} from "packages/x-core/src/types/project";
 import { ProjectStatus } from "packages/x-core/src/enums";
 
 export type ProjectDocument = IProjectSchema & Document;

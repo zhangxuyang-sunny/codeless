@@ -6,11 +6,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "designer:start": "pnpm build:nodes && pnpm --filter @low/designer start",
-    "server:start:dev": "pnpm build:nodes && pnpm --filter @low/server start:dev",
-    "renderer/vue:start": "pnpm build:nodes && pnpm --filter @low/renderer-vue serve",
+    "designer:start": "pnpm build:core && pnpm --filter @low/designer start",
+    "server:start:dev": "pnpm build:core && pnpm --filter @low/server start:dev",
+    "renderer/vue:start": "pnpm build:core && pnpm --filter @low/renderer-vue serve",
     "develop:start": "pnpm --filter @low/develop serve",
-    "build:nodes": "pnpm --filter @low/core build",
+    "build:core": "pnpm --filter @low/core build",
     "deploy": "sh scripts/deploy-server.sh",
     "redeploy": "sh scripts/redeploy-server.sh"
   },

@@ -1,6 +1,6 @@
 import { NodeTypes } from "packages/x-core/dist/nodes";
-import { IMaterialOptionSchema } from "packages/x-core/dist/types/material";
-import { IView } from "packages/x-core/dist/types/view";
+import { IMaterialOptionSchema } from "packages/x-core/dist/types/material.d";
+import { IView } from "packages/x-core/dist/types/page";
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 
 const schema: IMaterialOptionSchema = {

@@ -1,4 +1,4 @@
-import { TypeMaterial } from "packages/x-types/material";
+import { TypeMaterial } from "packages/x-types/material.d";
 import { ref } from "vue";
 import materialList from "../../../mock/materialList";
 type TypeData = {

@@ -109,7 +109,9 @@ export default class ValueParser {
         schema.$$ = new WeakSet();
         break;
       }
-      // TODO: Promise 类型考虑用 async Function 实现，
+      /**
+       * @TODO Promise 类型考虑用 async Function 实现
+       */
       case "Promise": {
         const { method } = schema;
         switch (method) {

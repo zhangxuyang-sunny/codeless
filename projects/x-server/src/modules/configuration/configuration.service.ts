@@ -3,10 +3,12 @@ import fse from "fs-extra";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
-// TODO：这是个临时的数据库方案，后面采用 mysql / mongo
-// 区分环境的配置都在以下文件中配置，然后通过此服务获取
-// root/.env.development
-// root/.env.production
+/**
+ * @TODO 这是个临时的数据库方案，后面采用 mysql / mongo
+ * 区分环境的配置都在以下文件中配置，然后通过此服务获取
+ * root/.env.development
+ * root/.env.production
+ */
 @Injectable()
 export class ConfigurationService {
   constructor(private readonly configService: ConfigService) {}

@@ -1,4 +1,4 @@
-import { TypeMaterial } from "packages/x-core/dist/types/material";
+import { TypeMaterial } from "packages/x-core/dist/types/material.d";
 
 const list: TypeMaterial[] = [
   {

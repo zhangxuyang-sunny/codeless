@@ -4,12 +4,6 @@ import { InjectModel } from "@nestjs/mongoose";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { database } from "config/database";
 import { MaterialOptionTransformer } from "packages/x-core/src/transformer/MaterialOptionTransformer";
-import { IView } from "packages/x-core/src/types/view";
-import {
-  ICreateViewParams,
-  IFindViewsParams,
-  IUpdateViewParams
-} from "packages/x-core/src/types/view";
 import { ViewDocument, ViewPO } from "./view.schema";
 
 @Injectable()
