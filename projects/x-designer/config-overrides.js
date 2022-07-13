@@ -56,7 +56,11 @@ module.exports = override(
   addLessLoader({
     lessOptions: {
       javascriptEnabled: true,
-      localIdentName: "[local]--[hash:base64:5]"
+      localIdentName: "[local]--[hash:base64:5]",
+      modifyVars: {
+        // 在less-loader@6 modifyVars 配置被移到 lessOptions 中
+        "arcoblue-6": "#ee7934"
+      }
     }
   }),
   adjustStyleLoaders(({ use: [, , postcss] }) => {
