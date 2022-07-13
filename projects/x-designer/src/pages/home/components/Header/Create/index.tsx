@@ -1,21 +1,46 @@
+import { IconCodeSquare } from "@arco-design/web-react/icon";
+import useCreateView from "src/hooks/useCreateView";
 import styled from "styled-components";
 import HeaderButton from "../HeaderButton";
 
 const Create: React.FC = () => {
+  const { openCreateViewModel, contextHolder } = useCreateView();
+  const createList = [
+    {
+      title: "创建页面",
+      icon: <IconCodeSquare />,
+      handleClick: () => {
+        console.log(3232);
+        openCreateViewModel();
+      }
+    },
+    {
+      title: "创建项目",
+      icon: <IconCodeSquare />,
+      handleClick: () => {
+        console.log(3232);
+      }
+    },
+    {
+      title: "创建工作区",
+      icon: <IconCodeSquare />,
+      handleClick: () => {
+        console.log(3232);
+      }
+    }
+  ];
   const OverlayRender = (
     <CreateOverlayContainer>
-      <div className="create-item">
-        <div className="title">创建页面</div>
-        <div className="description"></div>
-      </div>
-      <div className="create-item">
-        <div className="title">创建项目</div>
-        <div className="description"></div>
-      </div>
-      <div className="create-item">
-        <div className="title">创建工作区</div>
-        <div className="description"></div>
-      </div>
+      {contextHolder}
+      {createList.map(c => {
+        return (
+          <div className="create-item hover-bg" onClick={c.handleClick} key={c.title}>
+            {c.icon}
+            <div className="title">{c.title}</div>
+            <div className="description"></div>
+          </div>
+        );
+      })}
     </CreateOverlayContainer>
   );
   return (
@@ -25,6 +50,18 @@ const Create: React.FC = () => {
   );
 };
 
-const CreateOverlayContainer = styled.div``;
+const CreateOverlayContainer = styled.div`
+  .create-item {
+    display: flex;
+    align-items: center;
+    min-height: 35px;
+    border-radius: 3px;
+    padding: 0 6px;
+    margin-top: 4px;
+    .arco-icon {
+      margin-right: 10px;
+    }
+  }
+`;
 
 export default Create;
