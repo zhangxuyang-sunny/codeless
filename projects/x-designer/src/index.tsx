@@ -1,11 +1,9 @@
-import "@arco-design/web-react/dist/css/index.less";
 import "./style/index.less";
 import ReactDOM from "react-dom/client";
 import { useEffect } from "react";
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import { RecoilRoot, useRecoilSnapshot } from "recoil";
 import reportWebVitals from "./reportWebVitals";
-
 import routes from "./routes";
 
 function DebugObserver() {
