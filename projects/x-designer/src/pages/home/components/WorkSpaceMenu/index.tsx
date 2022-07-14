@@ -1,4 +1,3 @@
-import { Modal } from "@arco-design/web-react";
 import {
   IconDown,
   IconPlus,
@@ -8,33 +7,9 @@ import {
   IconUser
 } from "@arco-design/web-react/icon";
 import { useToggle } from "ahooks";
-import React from "react";
+import React, { useState } from "react";
+import useCreateWorkSpace from "src/hooks/useCreateWorkSpace";
 import styled from "styled-components";
-
-/**
- * 新增工作区的渲染
- */
-const AddWorkSpaceRender: React.FC = () => {
-  const [visible, setVisible] = React.useState(false);
-  return (
-    <>
-      <IconPlus className="hover-bg" onClick={() => setVisible(true)} />
-      <Modal
-        title="新增工作区"
-        visible={visible}
-        onOk={() => setVisible(false)}
-        onCancel={() => setVisible(false)}
-        autoFocus={false}
-        focusLock={true}
-      >
-        <p>
-          You can customize modal body text by the current situation. This modal will be closed
-          immediately once you press the OK button.
-        </p>
-      </Modal>
-    </>
-  );
-};
 
 /**
  * 每一个工作区
@@ -90,11 +65,13 @@ const WorkSpaceItemRender: React.FC = () => {
 };
 
 const WorkSpaceMenu: React.FC = () => {
+  const { openWorkSpaceModel, contextHolder } = useCreateWorkSpace();
   return (
     <WorkSpaceMenuContainer>
+      {contextHolder}
       <div className="title">
         <span>工作区</span>
-        <AddWorkSpaceRender />
+        <IconPlus className="hover-bg" onClick={openWorkSpaceModel} />
       </div>
       <WorkSpaceItemRender />
       <WorkSpaceItemRender />

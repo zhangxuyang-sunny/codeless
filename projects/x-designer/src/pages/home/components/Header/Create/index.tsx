@@ -1,16 +1,19 @@
-import { IconCodeSquare } from "@arco-design/web-react/icon";
-import useCreateView from "src/hooks/useCreateView";
 import styled from "styled-components";
+import { IconCodeSquare } from "@arco-design/web-react/icon";
+import useCreateProject from "src/hooks/useCreateProject";
+import useCreateView from "src/hooks/useCreateView";
+import useCreateWorkSpace from "src/hooks/useCreateWorkSpace";
 import HeaderButton from "../HeaderButton";
 
 const Create: React.FC = () => {
   const { openCreateViewModel, contextHolder } = useCreateView();
+  const { openWorkSpaceModel, contextHolder: createWorkSpaceCtxHolder } = useCreateWorkSpace();
+  const { openCreateProject, contextHolder: createProjectCtxHolder } = useCreateProject();
   const createList = [
     {
       title: "创建页面",
       icon: <IconCodeSquare />,
       handleClick: () => {
-        console.log(3232);
         openCreateViewModel();
       }
     },
@@ -18,20 +21,20 @@ const Create: React.FC = () => {
       title: "创建项目",
       icon: <IconCodeSquare />,
       handleClick: () => {
-        console.log(3232);
+        openCreateProject();
       }
     },
     {
       title: "创建工作区",
       icon: <IconCodeSquare />,
       handleClick: () => {
-        console.log(3232);
+        openWorkSpaceModel();
       }
     }
   ];
   const OverlayRender = (
     <CreateOverlayContainer>
-      {contextHolder}
+      {[contextHolder, createWorkSpaceCtxHolder, createProjectCtxHolder]}
       {createList.map(c => {
         return (
           <div className="create-item hover-bg" onClick={c.handleClick} key={c.title}>
