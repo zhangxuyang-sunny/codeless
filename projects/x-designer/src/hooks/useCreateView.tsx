@@ -3,11 +3,17 @@ import useForm from "@arco-design/web-react/es/Form/useForm";
 import { useToggle } from "ahooks";
 import { useState } from "react";
 import { createView } from "src/api";
+import { ExtractPromiseResolve } from "src/typeUtils";
+
+type ResolveValueType = ExtractPromiseResolve<ReturnType<typeof createView>>;
 
 const FormItem = Form.Item;
 export default function useCreateView() {
+  const [submitResolve, setResolve] = useState<(value: ResolveValueType) => void>();
+
   const [visible, { setLeft, setRight }] = useToggle();
   const [submitLoading, setLoading] = useState(false);
+
   const [form] = useForm();
 
   const handleClose = () => {
@@ -20,10 +26,10 @@ export default function useCreateView() {
     const params = await form.validate();
     setLoading(true);
     const res = await createView(params);
-
     if (res.code === 0) {
       Message.success(res.message);
       handleClose();
+      submitResolve?.(res);
     }
   };
 
@@ -50,8 +56,12 @@ export default function useCreateView() {
       </Form>
     </Modal>
   );
-  const openCreateViewModel = () => {
-    setRight();
+
+  const openCreateViewModel = async () => {
+    return new Promise<ResolveValueType>(resolve => {
+      setRight();
+      setResolve(() => resolve);
+    });
   };
   return {
     contextHolder,

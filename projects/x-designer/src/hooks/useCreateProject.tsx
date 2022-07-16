@@ -3,9 +3,13 @@ import useForm from "@arco-design/web-react/es/Form/useForm";
 import { useToggle } from "ahooks";
 import { useState } from "react";
 import { createProject } from "src/api";
+import { ExtractPromiseResolve } from "src/typeUtils";
 
+type ResolveValueType = ExtractPromiseResolve<ReturnType<typeof createProject>>;
 const FormItem = Form.Item;
 export default function useCreateProject() {
+  const [submitResolve, setResolve] = useState<(value: ResolveValueType) => void>();
+
   const [visible, { setLeft, setRight }] = useToggle();
   const [submitLoading, setLoading] = useState(false);
   const [form] = useForm();
@@ -24,7 +28,15 @@ export default function useCreateProject() {
     if (res.code === 0) {
       Message.success(res.message);
       handleClose();
+      submitResolve?.(res);
     }
+  };
+
+  const openCreateProject = () => {
+    return new Promise<ResolveValueType>(resolve => {
+      setRight();
+      setResolve(() => resolve);
+    });
   };
 
   const contextHolder = (
@@ -50,9 +62,7 @@ export default function useCreateProject() {
       </Form>
     </Modal>
   );
-  const openCreateProject = () => {
-    setRight();
-  };
+
   return {
     contextHolder,
     openCreateProject

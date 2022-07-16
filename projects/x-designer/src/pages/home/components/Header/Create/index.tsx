@@ -4,17 +4,21 @@ import useCreateProject from "src/hooks/useCreateProject";
 import useCreateView from "src/hooks/useCreateView";
 import useCreateWorkSpace from "src/hooks/useCreateWorkSpace";
 import HeaderButton from "../HeaderButton";
+import useViewList from "src/stores/viewListState";
 
 const Create: React.FC = () => {
   const { openCreateViewModel, contextHolder } = useCreateView();
   const { openWorkSpaceModel, contextHolder: createWorkSpaceCtxHolder } = useCreateWorkSpace();
   const { openCreateProject, contextHolder: createProjectCtxHolder } = useCreateProject();
+
+  const { doFetch: doFetchForViewList } = useViewList();
+
   const createList = [
     {
       title: "创建页面",
       icon: <IconCodeSquare />,
       handleClick: () => {
-        openCreateViewModel();
+        openCreateViewModel().then(doFetchForViewList);
       }
     },
     {

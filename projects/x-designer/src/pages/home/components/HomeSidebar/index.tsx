@@ -49,6 +49,8 @@ const HomeSidebar: React.FC = () => {
 };
 
 const HomeSidebarContainer = styled.div`
+  position: sticky;
+  top: 0;
   padding: 0 16px;
   padding-top: 40px;
   width: 240px;

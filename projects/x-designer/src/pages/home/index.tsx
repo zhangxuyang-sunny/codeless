@@ -22,9 +22,9 @@ const StyledIndex = styled.div`
   display: flex;
   .container {
     flex: 1;
-    overflow: hidden;
     display: flex;
     justify-content: center;
+    overflow: auto;
   }
 `;
 
