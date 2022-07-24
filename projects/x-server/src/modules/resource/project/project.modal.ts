@@ -1,11 +1,10 @@
 import {
   IFindProjectsParams,
   ICreateProjectParams,
-  IUpdateProjectParams,
-  IRouterOption,
-  IDatasetsSchema
-} from "packages/x-core/src/types/project";
+  IUpdateProjectParams
+} from "packages/x-core/src/types/dto/project";
 import { ProjectStatus } from "packages/x-core/src/enums";
+import { DatasetConfig, RouterConfig } from "packages/x-core/src/types/manager";
 
 export class CreateProjectDTO implements ICreateProjectParams {
   title: string;
@@ -17,8 +16,8 @@ export class UpdateProjectDTO implements IUpdateProjectParams {
   title?: string;
   version?: string;
   description?: string;
-  router?: IRouterOption;
-  datasets?: IDatasetsSchema[];
+  router?: RouterConfig;
+  datasets?: DatasetConfig[];
 }
 
 // const statusString = [ProjectStatus.normal, ProjectStatus.unlink, ProjectStatus.delete];

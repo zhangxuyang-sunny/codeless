@@ -1,21 +1,21 @@
-import { IconBgColors } from "@arco-design/web-react/icon";
-import { IViewSchema } from "packages/x-core/dist/types/view";
 import React, { useEffect } from "react";
-import useCreateProject from "src/hooks/useCreateProject";
-import useViewList from "src/stores/viewListState";
 import styled from "styled-components";
+import { IconBgColors } from "@arco-design/web-react/icon";
+import useCreateProject from "src/hooks/useCreateProject";
+import useComponentList from "src/stores/componentListState";
+import { ComponentData } from "packages/x-core/dist/types/manager";
 
-const ViewItem: React.FC<{ item: IViewSchema }> = props => {
+const ComponentItem: React.FC<{ item: ComponentData }> = props => {
   const { item } = props;
   return (
-    <div className="view-item">
-      <div className="view-content">{item.title}</div>
+    <div className="component-item">
+      <div className="component-content">{item.title}</div>
     </div>
   );
 };
 
-const Views: React.FC = () => {
-  const { viewList, doFetch } = useViewList();
+const Components: React.FC = () => {
+  const { list: componentList, doFetch } = useComponentList();
 
   const { openCreateProject, contextHolder } = useCreateProject();
 
@@ -25,7 +25,7 @@ const Views: React.FC = () => {
 
   const CreateViewRender = (
     <div
-      className="view-item create-button"
+      className="component-item create-button"
       onClick={() => {
         openCreateProject().then(() => {
           doFetch();
@@ -37,23 +37,23 @@ const Views: React.FC = () => {
   );
 
   return (
-    <ViewContainer>
+    <ComponentContainer>
       {contextHolder}
       <div className="title">
         <IconBgColors />
         您的项目
       </div>
-      <div className="views-container">
-        {viewList.map(item => (
-          <ViewItem item={item} key={item.id} />
+      <div className="components-container">
+        {componentList.map(item => (
+          <ComponentItem item={item} key={item.id} />
         ))}
         {CreateViewRender}
       </div>
-    </ViewContainer>
+    </ComponentContainer>
   );
 };
 
-const ViewContainer = styled.div`
+const ComponentContainer = styled.div`
   .title {
     font-size: 16px;
     color: #172b4d;
@@ -61,13 +61,13 @@ const ViewContainer = styled.div`
       margin-right: 10px;
     }
   }
-  .views-container {
+  .components-container {
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
     grid-column-gap: 15px;
     grid-row-gap: 15px;
-    .view-item {
+    .component-item {
       position: relative;
       width: 23.5%;
       height: 80px;
@@ -92,7 +92,7 @@ const ViewContainer = styled.div`
         }
       }
     }
-    .view-content {
+    .component-content {
       position: absolute;
       margin: 10px;
       z-index: 2;
@@ -107,4 +107,4 @@ const ViewContainer = styled.div`
     }
   }
 `;
-export default Views;
+export default Components;

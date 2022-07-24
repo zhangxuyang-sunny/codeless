@@ -1,26 +1,26 @@
-import { ApplicationStatus } from "../../enums";
+import { ProjectStatus } from "../../enums";
 import { ApplicationConfig } from "../manager";
 
-// 创建项目的请求参数
-export interface CreateProjectParams {
+// 创建应用的请求参数
+export interface ICreateProjectParams {
   title: string;
   description: string;
 }
 
-// 更新项目的请求参数
-export interface UpdateProjectParams {
+// 更新应用的请求参数
+export interface IUpdateProjectParams {
   id: string;
   version?: string;
-  status?: ApplicationStatus;
+  status?: ProjectStatus;
   schema?: ApplicationConfig;
 }
 
-// 查找项目的请求参数
+// 查找应用的请求参数
 // 支持标题的模糊搜索、创建/更新人/时间区间搜索
-export interface FindProjectsParams {
+export interface IFindProjectsParams {
   id?: string;
   title?: string;
-  status?: ApplicationStatus;
+  status?: ProjectStatus;
   createdUser?: string;
   updatedUser?: string;
   createdTimeRange?: [number, number];

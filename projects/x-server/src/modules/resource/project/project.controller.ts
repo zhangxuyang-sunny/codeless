@@ -23,7 +23,7 @@ export class ProjectController {
   // 通过 id 获取 project
   @Get("/")
   async getProjectByIdParam(@Query("id") id: string) {
-    return this.service.findForApplication(id);
+    return this.service.findProject({ id });
   }
 
   @Get("list")

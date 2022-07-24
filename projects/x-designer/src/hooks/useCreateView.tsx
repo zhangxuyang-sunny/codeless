@@ -2,10 +2,10 @@ import { Form, Input, Message, Modal } from "@arco-design/web-react";
 import useForm from "@arco-design/web-react/es/Form/useForm";
 import { useToggle } from "ahooks";
 import { useState } from "react";
-import { createView } from "src/api";
+import { createComponent } from "src/api";
 import { ExtractPromiseResolve } from "src/typeUtils";
 
-type ResolveValueType = ExtractPromiseResolve<ReturnType<typeof createView>>;
+type ResolveValueType = ExtractPromiseResolve<ReturnType<typeof createComponent>>;
 
 const FormItem = Form.Item;
 export default function useCreateView() {
@@ -25,7 +25,7 @@ export default function useCreateView() {
   const submitValue = async () => {
     const params = await form.validate();
     setLoading(true);
-    const res = await createView(params);
+    const res = await createComponent(params);
     if (res.code === 0) {
       Message.success(res.message);
       handleClose();

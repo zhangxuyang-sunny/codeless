@@ -2,18 +2,18 @@ import styled from "styled-components";
 import { Button, Drawer } from "@arco-design/web-react";
 import { IconEdit } from "@arco-design/web-react/icon";
 import { useToggle } from "ahooks";
-import { useRouterSchema } from "src/stores/routerState";
+import { useProjectConfig } from "src/stores/projectConfigState";
 import RouterSettings from "./RouterSettings";
 
 // UI表现为路由设置按钮，内置抽屉编辑组件
 const RouterSetter: React.FC = () => {
   const [drawerToggle, { setLeft, setRight }] = useToggle(false);
   const {
-    routerSchema, //
+    projectConfig, //
     setRouterMode,
-    deleteRouterView,
-    createRouterView
-  } = useRouterSchema();
+    createPage,
+    deletePage
+  } = useProjectConfig();
   return (
     <StyleRouterSetter>
       <Button
@@ -34,15 +34,15 @@ const RouterSetter: React.FC = () => {
       >
         <RouterSettings
           defaultMode="hash"
-          views={routerSchema.views}
+          // views={routerSchema.views}
           onUpdateMode={mode => {
             setRouterMode(mode);
           }}
           onAddRoute={() => {
-            createRouterView();
+            createPage();
           }}
           onDeleteRoute={id => {
-            deleteRouterView(id);
+            deletePage(id);
           }}
         />
       </Drawer>

@@ -57,6 +57,10 @@ export interface ApplicationSchema {
   datasets: DatasetSchema[];
 }
 
+export type RouterSchema = ApplicationSchema["router"];
+
+export type PageSchema = ApplicationSchema["pages"][number];
+
 /**
  * 物料组件协议：描述如何使用一个物料组件
  * 包括使用什么物料组件、以及传入对应的属性、样式、事件等配置
@@ -83,7 +87,9 @@ export interface ComponentSchema {
   /**
    * 组件内联样式
    */
-  style: JSExpression | Record<keyof CSSStyleDeclaration, JSExpression>;
+  style:
+    | JSExpression
+    | Partial<Record<keyof CSSStyleDeclaration, JSExpression>>;
   // style: JSExpression | { [x in keyof CSSStyleDeclaration]: JSExpression };
   /**
    * 组件发射事件

@@ -1,10 +1,10 @@
 import { Document } from "mongoose";
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { database } from "config/database";
-import { IMaterialOptionSchema } from "packages/x-core/src/types/material.d";
-import { IViewSchema } from "packages/x-core/src/types/page";
+import { ComponentData } from "packages/x-core/src/types/manager";
+import { ComponentStatus } from "packages/x-core/src/enums";
 
-export type ViewDocument = IViewSchema & Document;
+export type ComponentDocument = ComponentData & Document;
 
 @Schema({
   _id: false,
@@ -12,7 +12,7 @@ export type ViewDocument = IViewSchema & Document;
   timestamps: true,
   minimize: false
 })
-export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt" | "material"> {
+export class ComponentPO implements Omit<ComponentData, "createdAt" | "updatedAt" | "schema"> {
   @Prop({ select: false })
   _id?: string;
 
@@ -31,8 +31,11 @@ export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt" | "ma
   @Prop({ required: true })
   description: string;
 
+  @Prop({ type: Number, required: true })
+  status: ComponentStatus;
+
   @Prop({ required: true, type: Object })
-  material: IMaterialOptionSchema;
+  schema: ComponentDocument["schema"] | null;
 
   @Prop({ required: true })
   createdUser: string;
@@ -41,8 +44,8 @@ export class ViewPO implements Omit<IViewSchema, "createdAt" | "updatedAt" | "ma
   updatedUser: string;
 }
 
-export const ViewModel: ModelDefinition = {
-  name: ViewPO.name,
-  schema: SchemaFactory.createForClass(ViewPO),
-  collection: database.table_views
+export const ComponentModel: ModelDefinition = {
+  name: ComponentPO.name,
+  schema: SchemaFactory.createForClass(ComponentPO),
+  collection: database.table_components
 };

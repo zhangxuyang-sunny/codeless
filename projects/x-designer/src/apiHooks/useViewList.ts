@@ -1,25 +1,24 @@
-import { IViewSchema } from "packages/x-core/dist/types/view";
-import { useEffect, useState } from "react";
-import { getViewList } from "src/api";
+// import { useEffect, useState } from "react";
+// import { getComponentList } from "src/api";
 
-export default function useViewData(loadCallback?: (firstData: IViewSchema) => void) {
-  const [data, setData] = useState<IViewSchema[]>([]);
-  const [isLoading, setLoading] = useState(false);
+// export default function useViewData(loadCallback?: (firstData: IViewSchema) => void) {
+//   const [data, setData] = useState<IViewSchema[]>([]);
+//   const [isLoading, setLoading] = useState(false);
 
-  const doFetch = async (...arg: Parameters<typeof getViewList>) => {
-    setLoading(true);
-    const res = await getViewList.apply(getViewList, arg);
-    setData(res.data);
-    setLoading(false);
-    loadCallback?.(res.data[0]);
-  };
+//   const doFetch = async (...arg: Parameters<typeof getComponentList>) => {
+//     setLoading(true);
+//     const res = await getComponentList.apply(getComponentList, arg);
+//     setData(res.data);
+//     setLoading(false);
+//     loadCallback?.(res.data[0]);
+//   };
 
-  useEffect(() => {
-    doFetch({});
-  }, []);
+//   useEffect(() => {
+//     doFetch({});
+//   }, []);
 
-  return {
-    data,
-    isLoading
-  };
-}
+//   return {
+//     data,
+//     isLoading
+//   };
+// }

@@ -1,21 +1,21 @@
-import { IconBgColors } from "@arco-design/web-react/icon";
-import { IViewSchema } from "packages/x-core/dist/types/view";
-import React, { useEffect } from "react";
-import useCreateView from "src/hooks/useCreateView";
-import useViewList from "src/stores/viewListState";
 import styled from "styled-components";
+import React, { useEffect } from "react";
+import { IconBgColors } from "@arco-design/web-react/icon";
+import { ComponentData } from "packages/x-core/dist/types/manager";
+import useCreateView from "src/hooks/useCreateView";
+import useComponentList from "src/stores/componentListState";
 
-const ViewItem: React.FC<{ item: IViewSchema }> = props => {
+const ComponentItem: React.FC<{ item: ComponentData }> = props => {
   const { item } = props;
   return (
-    <div className="view-item">
-      <div className="view-content">{item.title}</div>
+    <div className="component-item">
+      <div className="component-content">{item.title}</div>
     </div>
   );
 };
 
-const Views: React.FC = () => {
-  const { viewList, doFetch } = useViewList();
+const Components: React.FC = () => {
+  const { list: ComponentList, doFetch } = useComponentList();
 
   const { openCreateViewModel, contextHolder } = useCreateView();
 
@@ -23,9 +23,9 @@ const Views: React.FC = () => {
     doFetch();
   }, []);
 
-  const CreateViewRender = (
+  const CreateComponentRender = (
     <div
-      className="view-item create-button"
+      className="component-item create-button"
       onClick={() => {
         openCreateViewModel().then(() => {
           doFetch();
@@ -43,11 +43,11 @@ const Views: React.FC = () => {
         <IconBgColors />
         您的页面
       </div>
-      <div className="views-container">
-        {viewList.map(item => (
-          <ViewItem item={item} key={item.id} />
+      <div className="components-container">
+        {ComponentList.map(item => (
+          <ComponentItem item={item} key={item.id} />
         ))}
-        {CreateViewRender}
+        {CreateComponentRender}
       </div>
     </ViewContainer>
   );
@@ -61,13 +61,13 @@ const ViewContainer = styled.div`
       margin-right: 10px;
     }
   }
-  .views-container {
+  .components-container {
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
     grid-column-gap: 15px;
     grid-row-gap: 15px;
-    .view-item {
+    .component-item {
       position: relative;
       width: 23.5%;
       height: 80px;
@@ -92,7 +92,7 @@ const ViewContainer = styled.div`
         }
       }
     }
-    .view-content {
+    .component-content {
       position: absolute;
       margin: 10px;
       z-index: 2;
@@ -107,4 +107,4 @@ const ViewContainer = styled.div`
     }
   }
 `;
-export default Views;
+export default Components;

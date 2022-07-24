@@ -1,13 +1,14 @@
-import MaterialItem from "./MaterialItem";
-import { Spin } from "@arco-design/web-react";
-import { TypeMaterial } from "packages/x-core/dist/types/material.d";
-import { useState } from "react";
-import getMaterialData from "../../../../mock/materialList";
 import styled from "styled-components";
+import { useState } from "react";
+import { Spin } from "@arco-design/web-react";
+import { MaterialData } from "packages/x-core/dist/types/manager";
+import MaterialItem from "./MaterialItem";
+import getMaterialData from "../../../../mock/materialList";
+
 const Installed: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  const [list, setList] = useState<TypeMaterial[]>([]);
+  const [list, setList] = useState<MaterialData[]>([]);
 
   getMaterialData().then(res => {
     setList(res);
@@ -17,9 +18,12 @@ const Installed: React.FC = () => {
   return (
     <>
       <InstallContainer className="installed-container">
-        {list.map(item => (
-          <MaterialItem data={item} key={item.url} />
-        ))}
+        {list.map(item => {
+          if (item.schema.type === "component") {
+            return <MaterialItem data={item} key={item.schema.src} />;
+          }
+          return null;
+        })}
       </InstallContainer>
       {loading ? <Spin tip="正在加载"></Spin> : null}
     </>

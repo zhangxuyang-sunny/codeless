@@ -31,15 +31,15 @@ const component: ComponentSchema = {
     onClick: {
       type: "JSFunction",
       value: `async function (e) {
-              console.log("this", this)
-              console.log("context", context)
-              console.log("e", e)
-              context.datasets.dataset_1.tableLoading = !context.datasets.dataset_1.tableLoading;
-              context.datasets.dataset_1.style.margin = "0 100px";
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-              context.datasets.dataset_1.tableLoading = false;
-              context.datasets.dataset_1.style.margin = "0";
-            }`,
+                console.log("this", this)
+                console.log("context", context)
+                console.log("e", e)
+                context.datasets.dataset_1.tableLoading = !context.datasets.dataset_1.tableLoading;
+                context.datasets.dataset_1.style.margin = "0 100px";
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                context.datasets.dataset_1.tableLoading = false;
+                context.datasets.dataset_1.style.margin = "0";
+              }`,
       useStrict: false
     }
   },
@@ -78,29 +78,34 @@ const dataset1: DatasetSchema = {
 
 const applicationConfig: ApplicationConfig = {
   id: "app_1",
-  router: {
-    base: "/",
-    mode: "history"
+  config: {
+    router: {
+      base: "/",
+      mode: "history",
+      meta: {}
+    },
+    pages: [
+      {
+        id: "page_1",
+        name: "home",
+        path: "/home",
+        title: "页面1",
+        component: {
+          id: "component_1",
+          version: "0.0.1"
+        }
+      }
+    ],
+    datasets: [
+      {
+        dataset: {
+          id: "dataset_1",
+          version: "0.0.1"
+        },
+        name: "dataset_1"
+      }
+    ]
   },
-  pages: [
-    {
-      component: {
-        id: "component_1",
-        version: "0.0.1"
-      },
-      name: "home",
-      path: "/home"
-    }
-  ],
-  datasets: [
-    {
-      dataset: {
-        id: "dataset_1",
-        version: "0.0.1"
-      },
-      name: "dataset_1"
-    }
-  ],
   resource: {
     datasets: [dataset1],
     components: [component]
@@ -109,7 +114,7 @@ const applicationConfig: ApplicationConfig = {
 
 const applicationSchema: ApplicationSchema = {
   id: "app_1",
-  router: applicationConfig.router,
+  router: applicationConfig.config.router,
   pages: [
     {
       name: "home",

@@ -8,7 +8,7 @@ import { MaterialPropOptions } from "./setters";
 /**
  * 组件物料：组件是现代前端构成界面的主要单元，组件也是一种物料
  */
-export interface ComponentMaterial {
+export interface ComponentMaterialSchema {
   type: "component";
   /**
    * 组件物料
@@ -73,7 +73,7 @@ export interface ComponentMaterial {
 /**
  * 低代码组件物料
  */
-export interface LowcodeComponentMaterial {
+export interface LowcodeComponentMaterialSchema {
   type: "lowcode-component";
   target: string;
 }
@@ -82,7 +82,7 @@ export interface LowcodeComponentMaterial {
  * 静态资源物料
  * @TODO 待方案实现
  */
-export interface AssetsMaterial {
+export interface AssetsMaterialSchema {
   type: "assets";
   title: string;
   description: string;
@@ -91,7 +91,7 @@ export interface AssetsMaterial {
   src: string;
 }
 
-export type Material =
-  | ComponentMaterial
-  | LowcodeComponentMaterial
-  | AssetsMaterial;
+export type MaterialSchema =
+  | ComponentMaterialSchema
+  | LowcodeComponentMaterialSchema
+  | AssetsMaterialSchema;

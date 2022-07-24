@@ -11,7 +11,7 @@ const database = Object.freeze({
 
   db_resource: "resource", // 资源库
   table_projects: "projects", // 项目表
-  table_views: "views", // 页面表
+  table_components: "components", // 组件表
   table_datasets: "datasets", // 数据集表
 
   db_material: "material", // 物料库

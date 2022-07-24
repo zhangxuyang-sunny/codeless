@@ -1,62 +1,83 @@
-import { TypeMaterial } from "packages/x-core/dist/types/material.d";
+import { MaterialData } from "packages/x-core/dist/types/manager";
 
-const list: TypeMaterial[] = [
+const list: MaterialData[] = [
   {
     id: "id_1",
-    url: "xxx",
-    type: 1,
-    options: {
-      props: [],
-      slots: [],
-      emits: [],
-      listeners: []
-    },
-
+    version: "0.0.0",
+    createdAt: "",
+    updatedAt: "",
+    createdUser: "",
+    updatedUser: "",
     collection: false,
-    title: "按钮",
-    image: require("../image/button.png"),
+    type: 1,
     category: "基础组件",
-    name: "",
-    description: "xxxx"
+    schema: {
+      type: "component",
+      src: "xxx",
+      setterOptions: {
+        props: [],
+        slots: [],
+        emits: [],
+        listeners: []
+      },
+
+      title: "按钮",
+      description: "xxxx",
+      snapshots: [require("../image/button.png")]
+    }
   },
   {
     id: "id_2",
-    url: "xxxxx",
-    type: 1,
+    version: "0.0.0",
+    createdAt: "",
+    updatedAt: "",
+    createdUser: "",
+    updatedUser: "",
     collection: false,
-    options: {
-      props: [],
-      slots: [],
-      emits: [],
-      listeners: []
-    },
-    title: "Input组建",
-    image: require("../image/input.png"),
+    type: 1,
     category: "基础组件",
-    name: "",
-    description: "xxxx"
+    schema: {
+      type: "component",
+      src: "xxx",
+      setterOptions: {
+        props: [],
+        slots: [],
+        emits: [],
+        listeners: []
+      },
+      title: "Input组件",
+      description: "xxxx",
+      snapshots: [require("../image/input.png")]
+    }
   },
   {
     id: "id_3",
-    url: "xxxxxxxx",
-    type: 1,
+    version: "0.0.0",
+    createdAt: "",
+    updatedAt: "",
+    createdUser: "",
+    updatedUser: "",
     collection: false,
-    options: {
-      props: [],
-      slots: [],
-      emits: [],
-      listeners: []
-    },
-    title: "Layout",
-    image: require("../image/layout.png"),
-    category: "布局组建",
-    name: "",
-    description: "xxxx"
+    type: 1,
+    category: "布局组件",
+    schema: {
+      type: "component",
+      src: "xxx",
+      setterOptions: {
+        props: [],
+        slots: [],
+        emits: [],
+        listeners: []
+      },
+      title: "Layout",
+      description: "xxxx",
+      snapshots: [require("../image/layout.png")]
+    }
   }
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (): Promise<TypeMaterial[]> => {
+export default (): Promise<MaterialData[]> => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(list);

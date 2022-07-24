@@ -6,21 +6,21 @@ import { UserModule } from "../user/user.module";
 import { ProjectController } from "./project/project.controller";
 import { ProjectModel } from "./project/project.schema";
 import { ProjectService } from "./project/project.service";
-import { ViewController } from "./view/view.controller";
-import { ViewModel } from "./view/view.schema";
-import { ViewService } from "./view/view.service";
+import { ComponentController } from "./view/component.controller";
+import { ComponentModel } from "./view/component.schema";
+import { ComponentService } from "./view/component.service";
 import { DatasetsService } from "./datasets/datasets.service";
 import { ResourceService } from "./resource.service";
 import { ResourceController } from "./resource.controller";
 
 @Module({
   imports: [
-    MongooseModule.forFeature([ProjectModel, ViewModel], database.db_resource),
+    MongooseModule.forFeature([ProjectModel, ComponentModel], database.db_resource),
     forwardRef(() => UserModule),
     FileModule
   ],
-  controllers: [ResourceController, ProjectController, ViewController],
-  providers: [ResourceService, ProjectService, ViewService, DatasetsService],
+  controllers: [ResourceController, ProjectController, ComponentController],
+  providers: [ResourceService, ProjectService, ComponentService, DatasetsService],
   exports: [ProjectService]
 })
 export class ResourceModule {}

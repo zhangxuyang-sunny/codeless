@@ -24,7 +24,7 @@ export class ApplicationConfigTransformer {
   private componentMap: Map<string, ComponentSchema> = new Map();
 
   schema(): ApplicationSchema {
-    const pages = this.config.pages.flatMap((page) => {
+    const pages = this.config.config.pages.flatMap((page) => {
       const component = this.componentMap.get(page.component.id);
       if (!component) return [];
       return {
@@ -32,13 +32,14 @@ export class ApplicationConfigTransformer {
         component
       };
     });
-    const datasets = this.config.datasets.flatMap((datasetOpt) => {
+    const datasets = this.config.config.datasets.flatMap((datasetOpt) => {
       const dataset = this.datasetMap.get(datasetOpt.dataset.id);
       if (!dataset) return [];
       return dataset;
     });
     return {
-      ...this.config,
+      id: this.config.id,
+      ...this.config.config,
       datasets,
       pages
     };

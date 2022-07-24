@@ -4,13 +4,11 @@ import { Simulator } from "./Simulator";
 import HoverNode from "./behavior/HoverNode";
 import SelectNode from "./behavior/SelectNode";
 import DragMultiSelectNode from "./behavior/DragMultiSelectNode";
-import { project } from "../../../../mock/project";
-import { useViewState } from "src/stores/viewState";
 
 const SimulatorRender: React.FC = () => {
   const simulatorRef = useRef<HTMLDivElement>(null);
 
-  const { viewState } = useViewState();
+  // const { viewState } = useViewState();
 
   return (
     <SimulatorContainer ref={simulatorRef}>
@@ -23,8 +21,8 @@ const SimulatorRender: React.FC = () => {
           ref.onload = () => {
             const rendererApi = (ref?.contentWindow as any)?.__X_RENDERER_API__;
 
-            rendererApi.updateProject(project);
-            rendererApi.updateViews([viewState]);
+            // rendererApi.updateProject(project);
+            // rendererApi.updateViews([viewState]);
 
             ref.contentDocument?.head.insertAdjacentHTML(
               "beforeend",

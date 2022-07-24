@@ -1,4 +1,4 @@
-import { ComponentMaterial } from "../schemas/material";
+import { ComponentMaterialSchema } from "../schemas/material";
 
 // 创建组件物料参数
 export interface CreateComponentMaterialParams {
@@ -17,7 +17,7 @@ export interface UpdateComponentMaterialParams {
   description?: string;
   previews?: string[];
   zipFile?: File;
-  setterOptions: ComponentMaterial["setterOptions"];
+  setterOptions: ComponentMaterialSchema["setterOptions"];
 }
 
 // 查询组件物料参数

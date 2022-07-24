@@ -2,18 +2,21 @@ import shortUUID from "short-uuid";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
-import database from "config/database";
+import { database } from "config/database";
+import { ProjectStatus } from "packages/x-core/src/enums";
 import {
-  IProjectWithResource,
   ICreateProjectParams,
   IFindProjectsParams,
-  IProject,
-  IUpdateProjectParams,
-  IViewOption
-} from "packages/x-core/src/types/project";
-import { ProjectStatus } from "packages/x-core/src/enums";
+  IUpdateProjectParams
+} from "packages/x-core/src/types/dto/project";
 import { ProjectDocument, ProjectPO } from "./project.schema";
-import { ViewService } from "../view/view.service";
+import { ComponentService } from "../view/component.service";
+import {
+  ApplicationConfigData,
+  ApplicationData,
+  PageConfig,
+  ProjectConfigData
+} from "packages/x-core/src/types/manager";
 
 @Injectable()
 export class ProjectService {
@@ -21,7 +24,7 @@ export class ProjectService {
   constructor(
     @InjectModel(ProjectPO.name, database.db_resource)
     public readonly projectModel: Model<ProjectDocument>,
-    private readonly viewService: ViewService
+    private readonly componentService: ComponentService
   ) {}
 
   async isIdExists(id: string) {
@@ -107,10 +110,10 @@ export class ProjectService {
   }
 
   // 更新路由和页面关联信息
-  async updateViewOptions(id: string, viewOptions: IViewOption[]) {
+  async updatePages(id: string, pageSchemas: PageConfig[]) {
     const data = await this.projectModel.findOne({ id });
-    if (data?.router.views) {
-      data.router.views = viewOptions;
+    if (data?.config.pages) {
+      data.config.pages = pageSchemas;
       data.save();
       return data;
     } else {
@@ -128,7 +131,7 @@ export class ProjectService {
    * @param query
    * @returns
    */
-  async findProjects(query: IFindProjectsParams): Promise<IProject[]> {
+  async findProjects(query: IFindProjectsParams): Promise<ProjectConfigData[]> {
     // return this.tbUserService.findUserResources(uid);
     // const userPlatform = await this.userService.findUserPlatformById(uid);
     // if (!userPlatform) return [];
@@ -139,27 +142,30 @@ export class ProjectService {
     return await this.projectModel.find(query);
   }
 
-  async findProject(query: IFindProjectsParams): Promise<IProject | null> {
+  async findProject(query: IFindProjectsParams): Promise<ProjectConfigData | null> {
     return this.projectModel.findOne(query);
   }
 
-  async findProjectsByIds(ids: string[]): Promise<IProject[]> {
+  async findProjectsByIds(ids: string[]): Promise<ProjectConfigData[]> {
     return this.projectModel.find({ id: { $in: ids } });
   }
 
-  async findForApplication(id: string): Promise<IProjectWithResource> {
-    const project = await this.findProject({ id });
-    if (!project) {
-      throw new HttpException(`project "${id}" 不存在`, HttpStatus.BAD_REQUEST);
-    }
-    const viewIds = project.router.views.map(_ => _.viewId);
-    const views = await this.viewService.findViewsByIds(viewIds);
-    return {
-      project,
-      views,
-      datasets: []
-    };
-  }
+  // async findForApplication(id: string): Promise<ApplicationConfigData> {
+  //   const project = await this.findProject({ id });
+  //   if (!project) {
+  //     throw new HttpException(`project "${id}" 不存在`, HttpStatus.BAD_REQUEST);
+  //   }
+  //   const ids = project.config.pages.map(_ => _.component.id);
+  //   const components = await this.componentService.findComponentsByIds(ids);
+  //   return {
+  //     id,
+  //     config: project.config,
+  //     resource: {
+  //       components,
+  //       datasets: []
+  //     }
+  //   };
+  // }
 
   // 通过状态获取项目列表
   private async findProjectsByStatus(status: ProjectStatus) {

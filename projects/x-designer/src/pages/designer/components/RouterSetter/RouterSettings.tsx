@@ -1,10 +1,10 @@
 /* eslint-disable security/detect-object-injection */
 /* eslint-disable security/detect-non-literal-fs-filename */
-import { Button, Divider, Form, Input, Radio } from "@arco-design/web-react";
 import styled from "styled-components";
-import HelpIcon from "src/components/HelpIcon";
 import { useEffect, useRef, useState } from "react";
-import { IRouterOption, IViewOption } from "packages/x-core/dist/types/project";
+import { Button, Divider, Form, Input, Radio } from "@arco-design/web-react";
+import HelpIcon from "src/components/HelpIcon";
+import { RouterConfig } from "packages/x-core/dist/types/manager";
 
 const urls = Object.freeze({
   "hash": "https://router.vuejs.org/zh/api/#createwebhashhistory",
@@ -13,26 +13,26 @@ const urls = Object.freeze({
   "vue-router": "https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html"
 });
 
-type RouterMode = IRouterOption["mode"];
+type RouterMode = RouterConfig["mode"];
 
 // 路由配置器
 const RouterSettings: React.FC<{
   defaultMode?: RouterMode;
   readonly?: boolean; // 只读模式
   mode?: RouterMode; // 受控
-  views: IViewOption[];
+  // views: IViewOption[];
   onUpdateMode?: (mode: RouterMode) => void;
   onAddRoute?: () => void;
   onDeleteRoute?: (id: string) => void;
 }> = props => {
   const pageListRef = useRef<HTMLDivElement>(null);
   // 删除二次确认标识
-  const [confirmFlags, setConfirmFlags] = useState<boolean[]>([]);
+  // const [confirmFlags, setConfirmFlags] = useState<boolean[]>([]);
 
-  // routes 改变，二次确认标识重置
-  useEffect(() => {
-    setConfirmFlags(new Array(props.views.length).fill(false));
-  }, [props.views]);
+  // // routes 改变，二次确认标识重置
+  // useEffect(() => {
+  //   setConfirmFlags(new Array(props.views.length).fill(false));
+  // }, [props.views]);
 
   const addRoute = () => {
     props.onAddRoute?.();
@@ -41,13 +41,13 @@ const RouterSettings: React.FC<{
     });
   };
 
-  const delRoute = (id: string, index: number) => {
-    if (confirmFlags[index]) {
-      props.onDeleteRoute?.(id);
-    } else {
-      setConfirmFlags(confirmFlags.map((_, i) => i === index));
-    }
-  };
+  // const delRoute = (id: string, index: number) => {
+  //   if (confirmFlags[index]) {
+  //     props.onDeleteRoute?.(id);
+  //   } else {
+  //     setConfirmFlags(confirmFlags.map((_, i) => i === index));
+  //   }
+  // };
 
   return (
     <StyleRouterSettings>
@@ -120,7 +120,7 @@ const RouterSettings: React.FC<{
             </div>
           }
         >
-          <div ref={pageListRef} className="page-list">
+          {/* <div ref={pageListRef} className="page-list">
             {props.views.map((view, index) => (
               <div className="page-item" key={view.viewId}>
                 <Form.Item field={`pages.${index}.id`}>
@@ -157,7 +157,7 @@ const RouterSettings: React.FC<{
                 </Button>
               </div>
             ))}
-          </div>
+          </div> */}
         </Form.Item>
       </Form>
       <Button className="add-button" size="small" onClick={addRoute}>

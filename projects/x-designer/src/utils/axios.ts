@@ -1,6 +1,5 @@
 import { Message } from "@arco-design/web-react";
-import axios from "axios";
-import type { AxiosRequestConfig } from "axios";
+import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 
 interface ResponseWrap<T> {
   data: T;
@@ -55,7 +54,7 @@ const getErrorMsg = (status: number) => {
   return `${message}，请检查网络或联系管理员！`;
 };
 
-const _service = axios.create({
+const http = axios.create({
   baseURL: "http://localhost:3333",
   // 是否跨站点访问控制请求
   withCredentials: false,
@@ -64,11 +63,9 @@ const _service = axios.create({
 });
 
 // 请求拦截器
-_service.interceptors.request.use(
-  config => {
-    return config;
-  },
-  err => {
+http.interceptors.request.use(
+  (config: AxiosRequestConfig) => config,
+  (err: Error) => {
     err.message = "服务器异常，请联系管理员！";
     // 错误抛到业务代码
     return Promise.reject(err);
@@ -76,8 +73,8 @@ _service.interceptors.request.use(
 );
 
 // 响应拦截器
-_service.interceptors.response.use(
-  response => {
+http.interceptors.response.use(
+  (response: AxiosResponse) => {
     const status = response.status;
     if (status < 200 || (status >= 300 && status !== 401 && status !== 500)) {
       const msg = getErrorMsg(status);
@@ -87,7 +84,7 @@ _service.interceptors.response.use(
       return response.data;
     }
   },
-  err => {
+  (err: Error) => {
     err.message = "请求超时或服务器异常，请检查网络或联系管理员！";
     return Promise.reject(err);
   }
@@ -95,7 +92,7 @@ _service.interceptors.response.use(
 
 // 返回的数据类型通过泛型传递
 async function service<T, R = Promise<ResponseWrap<T>>>(config: AxiosRequestConfig) {
-  return _service(config) as unknown as R;
+  return http(config) as unknown as R;
 }
 
 export default service;

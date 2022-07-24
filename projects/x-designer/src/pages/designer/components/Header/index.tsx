@@ -2,21 +2,21 @@ import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { Button, Divider, Select, Space } from "@arco-design/web-react";
 import { IconEye, IconHistory, IconLeft, IconSave, IconSend } from "@arco-design/web-react/icon";
-import { routerState } from "src/stores/routerState";
-import { viewState } from "src/stores/viewState";
+// import { routerState } from "src/stores/routerState";
+// import { viewState } from "src/stores/viewState";
 import RouterSetter from "../RouterSetter";
-import ViewDropDown from "../ViewDropDown";
+// import ViewDropDown from "../ViewDropDown";
 
 // 工作区顶栏
 const WorkbenchHeader: React.FC = () => {
-  const routerSchema = useRecoilValue(routerState);
-  const view = useRecoilValue(viewState);
+  // const routerSchema = useRecoilValue(routerState);
+  // const view = useRecoilValue(viewState);
   return (
     <StyleWorkbench>
       <div className="left">
         <Button className="back-button" icon={<IconLeft />} type="text" shape="circle" />
         <Divider type="vertical" />
-        <ViewDropDown />
+        {/* <ViewDropDown /> */}
         <RouterSetter />
       </div>
       <div className="right">

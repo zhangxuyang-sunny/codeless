@@ -1,14 +1,17 @@
-import { ICreateViewParams, IFindViewsParams } from "packages/x-core/dist/types/view";
-import { ICreateProjectParams } from "packages/x-core/dist/types/project";
 import axios from "src/utils/axios";
-import { IViewSchema } from "packages/x-core/dist/types/view";
+import { ComponentData, ProjectConfigData } from "packages/x-core/dist/types/manager";
+import { ICreateProjectParams } from "packages/x-core/dist/types/dto/project";
+import {
+  ICreateComponentParams,
+  IFindComponentParams
+} from "packages/x-core/dist/types/dto/component";
 
 /**
- * 创建view
+ * 创建组件
  */
-export async function createView(data: ICreateViewParams) {
-  return axios<IViewSchema[]>({
-    url: "/api/v1/view/create",
+export async function createComponent(data: ICreateComponentParams) {
+  return axios<ComponentData>({
+    url: "/api/v1/component/create",
     method: "post",
     data
   });
@@ -18,7 +21,7 @@ export async function createView(data: ICreateViewParams) {
  * 创建项目
  */
 export async function createProject(data: ICreateProjectParams) {
-  return axios<IViewSchema[]>({
+  return axios<ProjectConfigData>({
     url: "/api/v1/project/create",
     method: "post",
     data
@@ -26,11 +29,11 @@ export async function createProject(data: ICreateProjectParams) {
 }
 
 /**
- * 获取view列表
+ * 获取 component 列表
  */
-export async function getViewList(data: Partial<IFindViewsParams>) {
-  return axios<IViewSchema[]>({
-    url: "/api/v1/view/list",
+export async function getComponentList(data: Partial<IFindComponentParams>) {
+  return axios<ComponentData[]>({
+    url: "/api/v1/component/list",
     method: "get",
     data
   });
