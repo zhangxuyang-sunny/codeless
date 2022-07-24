@@ -3,7 +3,7 @@ import { IMaterialOptionSchema } from "packages/x-core/dist/types/material.d";
 import { IView } from "packages/x-core/dist/types/page";
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 
-const schema: IMaterialOptionSchema = {
+const material: IMaterialOptionSchema = {
   id: "view_1",
   src: `http://${host}/static/components/arco/Button.js`,
   // src: `http://${host}/static/components/common/EmptyContainer.js`,
@@ -65,7 +65,7 @@ const schema: IMaterialOptionSchema = {
 };
 
 export const view1: IView = {
-  id: "view_1",
+  id: "page_1",
   version: "0.0.1",
   title: "页面1",
   description: "我的第一个页面",
@@ -73,5 +73,5 @@ export const view1: IView = {
   updatedUser: "sunny",
   createdAt: "",
   updatedAt: "",
-  schema
+  material
 };

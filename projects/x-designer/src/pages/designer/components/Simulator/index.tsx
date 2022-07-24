@@ -1,65 +1,60 @@
-// import { page1 } from "../../page1";
-// import project from "../../project";
-import { useEffect, useRef } from "react";
-
+import { useRef } from "react";
 import styled from "styled-components";
-
 import { Simulator } from "./Simulator";
 import HoverNode from "./behavior/HoverNode";
 import SelectNode from "./behavior/SelectNode";
 import DragMultiSelectNode from "./behavior/DragMultiSelectNode";
+import { project } from "../../../../mock/project";
+import { useViewState } from "src/stores/viewState";
 
 const SimulatorRender: React.FC = () => {
   const simulatorRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const simulator = new Simulator({
-      key: "data-remote-id",
-      container: simulatorRef.current as HTMLElement,
-      modes: {
-        default: [SelectNode, HoverNode],
-        dragSelect: [DragMultiSelectNode]
-      }
-    });
-    return () => {
-      simulator.destroy();
-    };
-  }, []);
+  const { viewState } = useViewState();
 
   return (
     <SimulatorContainer ref={simulatorRef}>
-      <div className="header" data-remote-id="1">
-        头部
-      </div>
-      <div className="container" data-remote-id="6">
-        <div className="sidebar" data-remote-id="4">
-          sidebar
-        </div>
-        <div className="main" data-remote-id="5">
-          main
-          <p>323</p>
-        </div>
-      </div>
-    </SimulatorContainer>
-    // <iframe
-    //   title="renderer"
-    //   className="iframe"
-    //   src="/renderer/vue/simulator.html"
-    //   ref={ref => {
-    //     if (!ref) return;
-    //     ref.onload = () => {
-    //       const rendererApi = (ref?.contentWindow as any)?.__X_RENDERER_API__;
+      <iframe
+        title="renderer"
+        className="iframe"
+        src="/renderer/vue/simulator.html"
+        ref={ref => {
+          if (!ref) return;
+          ref.onload = () => {
+            const rendererApi = (ref?.contentWindow as any)?.__X_RENDERER_API__;
 
-    //       rendererApi.updateProjectSchema(project);
-    //       rendererApi.updatePageSchemaList([page1]);
-    //       // let f = false;
-    //       // setInterval(() => {
-    //       //   rendererApi.updatePageSchemaList(f ? [page1] : [page2]);
-    //       //   f = !f;
-    //       // }, 1000);
-    //     };
-    //   }}
-    // />
+            rendererApi.updateProject(project);
+            rendererApi.updateViews([viewState]);
+
+            ref.contentDocument?.head.insertAdjacentHTML(
+              "beforeend",
+              `<style>
+            .simulator-enter {
+              outline: 1px dashed #3e5bff!important;
+              outline-offset: -1px;
+              background-color: rgba(229, 235, 242, .5);
+            }
+            
+            </style>`
+            );
+            setTimeout(() => {
+              if (ref.contentDocument) {
+                new Simulator({
+                  key: "data-remote-id",
+                  document: ref.contentDocument,
+                  container: ref.contentDocument?.body as HTMLElement,
+                  popoverContainer: simulatorRef.current as HTMLElement,
+                  modes: {
+                    default: [SelectNode, HoverNode],
+                    dragSelect: [DragMultiSelectNode]
+                  }
+                });
+              }
+            });
+          };
+        }}
+      />
+    </SimulatorContainer>
   );
 };
 
@@ -67,7 +62,11 @@ const SimulatorContainer = styled.div`
   margin: 10px;
   display: flex;
   flex-direction: column;
-  user-select: none;
+  position: relative;
+  height: 100%;
+  .iframe {
+    height: 100%;
+  }
   .container {
     flex: 1;
     display: flex;

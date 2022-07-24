@@ -1,40 +1,30 @@
-import { Button, Space } from "@arco-design/web-react";
-import { Link } from "react-router-dom";
+// import { Button, Space } from "@arco-design/web-react";
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
-
-const Index: React.FC = () => {
+import Header from "./components/Header";
+import HomeMain from "./components/HomeMain";
+import HomeSidebar from "./components/HomeSidebar";
+const Index: React.FC = props => {
   return (
     <StyledIndex className="home">
-      <h1 className="title">Welcome!</h1>
-      <Space>
-        <Button
-          type="primary"
-          onClick={() => {
-            // router.push("/designer");
-          }}
-        >
-          <Link to="/designer">编辑器</Link>
-        </Button>
-        <Button
-          onClick={() => {
-            // router.push("/designer/preview");
-          }}
-        >
-          <Link to="/designer/preview">渲染器</Link>
-        </Button>
-      </Space>
+      <Header />
+      <div className="container">
+        <HomeSidebar />
+        <HomeMain />
+      </div>
     </StyledIndex>
   );
 };
 
 const StyledIndex = styled.div`
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
-  .title {
-    font-size: 50px;
+  display: flex;
+  .container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
   }
 `;
 

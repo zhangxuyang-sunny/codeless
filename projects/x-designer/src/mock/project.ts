@@ -101,9 +101,11 @@ const project: IProject = {
         type: NodeTypes.Function,
         code: `function defineDataset() {
                   return {
-                    state: {
-                      loading: true
-                    },
+                    state() {
+                      return {
+                        loading: true
+                      }
+                    } ,
                     actions: {
                       setLoading(status) {
                         this.loading = status

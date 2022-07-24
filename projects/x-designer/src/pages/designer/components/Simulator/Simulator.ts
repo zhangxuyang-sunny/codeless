@@ -1,4 +1,5 @@
 /* eslint-disable no-debugger */
+import { IMaterialOptionSchema } from "packages/x-core/src/types/material";
 import Shortcuts from "./behavior/Shortcuts";
 import OperationDom, { OperationDomOptions } from "./classes/OperationDom";
 import { Behavior } from "./interface";
@@ -11,13 +12,15 @@ import {
 
 interface SimulatorOptions extends OperationDomOptions {
   modes?: Record<string, Array<new (...arg: Array<any>) => Behavior>>;
+  document: Document;
 }
 
 export class Simulator extends OperationDom {
   constructor(private config: SimulatorOptions) {
     super({
       key: config.key,
-      container: config.container
+      container: config.container,
+      popoverContainer: config.popoverContainer
     });
     this.enableKeyboard();
 
@@ -44,6 +47,9 @@ export class Simulator extends OperationDom {
     return this.config.modes || {};
   }
 
+  get document() {
+    return this.config.document;
+  }
   /**
    * 处理事件的注册与卸载
    */
@@ -70,9 +76,9 @@ export class Simulator extends OperationDom {
             });
           } else if (isDocumentEventName(k)) {
             if (isUnbinding) {
-              document.removeEventListener(getRealEventName(k), events[k]);
+              this.document.removeEventListener(getRealEventName(k), events[k]);
             } else {
-              document.addEventListener(getRealEventName(k), events[k]);
+              this.document.addEventListener(getRealEventName(k), events[k]);
             }
           }
         }
@@ -123,5 +129,25 @@ export class Simulator extends OperationDom {
 
   destroy() {
     this.unBindEvent();
+  }
+
+  getTarget(target: Element | null) {
+    return target && target.closest(`[${this.key}]`);
+  }
+
+  getNodeId(target: EventTarget | null) {
+    const _t = this.getTarget(target as Element);
+    if (_t) {
+      return _t.getAttribute(this.key);
+    }
+  }
+
+  /**
+   *
+   * @param id material添加到哪个id的后面
+   * @param material
+   */
+  addBeforeend(id: string, material: IMaterialOptionSchema) {
+    console.log(id);
   }
 }

@@ -1,11 +1,13 @@
 import React, { useMemo, useState } from "react";
+import styled from "styled-components";
+
 import { Tooltip } from "@arco-design/web-react";
 import Api from "../Api/Index";
 import History from "../History/Index";
 import Material from "../Material/Index";
 import Outline from "../Outline/Index";
-import styled from "styled-components";
-
+import DataSet from "../DataSet";
+import Json from "../Json";
 export default function Sidebar() {
   type TypePlugin = {
     Content: React.FC;
@@ -30,13 +32,23 @@ export default function Sidebar() {
       Content: Api
     },
     {
+      desc: "dataset",
+      icon: "dataset",
+      Content: DataSet
+    },
+    {
       desc: "历史版本",
       icon: "History",
       Content: History
+    },
+    {
+      desc: "全局Schema",
+      icon: "schema",
+      Content: Json
     }
   ];
 
-  const [selectIndex, setSelectIndex] = useState(1);
+  const [selectIndex, setSelectIndex] = useState(5);
 
   /**
    * @todo 寻找包警告的错误

@@ -1,11 +1,10 @@
-import "@arco-design/web-react/dist/css/arco.css";
+import "./style/index.less";
 import ReactDOM from "react-dom/client";
 import { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, useRoutes } from "react-router-dom";
 import { RecoilRoot, useRecoilSnapshot } from "recoil";
 import reportWebVitals from "./reportWebVitals";
-import Home from "./pages/home/index";
-import Designer from "./pages/designer";
+import routes from "./routes";
 
 function DebugObserver() {
   const snapshot = useRecoilSnapshot();
@@ -18,16 +17,17 @@ function DebugObserver() {
   return null;
 }
 
+function App() {
+  return useRoutes(routes);
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   // <React.StrictMode>
   <BrowserRouter basename="/">
     <RecoilRoot>
       <DebugObserver />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/designer" element={<Designer />} />
-      </Routes>
+      <App />
     </RecoilRoot>
   </BrowserRouter>
   // </React.StrictMode>

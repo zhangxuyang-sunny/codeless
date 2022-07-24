@@ -81,7 +81,7 @@ export default class MultiSelectNode implements Behavior {
 
     Object.assign(this.startCoordinates, { x, y });
 
-    document.body.appendChild(this.coordinatesNode);
+    this.ctx.document.body.appendChild(this.coordinatesNode);
   };
 
   mousemove = (event: MouseEvent) => {

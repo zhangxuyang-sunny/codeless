@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Popover } from "@arco-design/web-react";
 import { TypeMaterial } from "packages/x-core/dist/types/material.d";
 import styled from "styled-components";
@@ -7,27 +7,23 @@ export interface IMaterialItem {
   data: TypeMaterial;
 }
 const MaterialItem: React.FC<IMaterialItem> = ({ data }) => {
-  const [popupVisible, setPopupVisible] = useState(false);
   const materialItemEle = useRef<HTMLDivElement>(null);
   return (
     <MaterialItemContainer>
       <Popover
-        popupVisible={popupVisible}
         className="material-preview-popover"
         getPopupContainer={() => {
           return materialItemEle.current?.parentElement?.parentElement || document.body;
         }}
         arrow-class="material-arrow-popover"
+        triggerProps={{
+          showArrow: false
+        }}
         position="right"
         trigger="hover"
         content={<img style={{ width: "300px" }} src={data.image} alt="" />}
       >
-        <div
-          className="material-item"
-          ref={materialItemEle}
-          onMouseEnter={() => setPopupVisible(true)}
-          onMouseLeave={() => setPopupVisible(false)}
-        >
+        <div className="material-item" ref={materialItemEle}>
           <img className="material-image" draggable={false} src={data.image} alt="" />
           <div className="title">{data.title}</div>
         </div>
@@ -67,11 +63,11 @@ const MaterialItemContainer = styled.div`
       }
     }
   }
-  .material-preview-popover {
+  & ~ div > .material-preview-popover {
     pointer-events: none;
     left: unset !important;
     top: unset !important;
-    transform: translateX(320px);
+    margin-left: 320px;
     .material-arrow-popover {
       display: none;
     }

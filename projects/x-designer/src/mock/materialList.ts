@@ -5,13 +5,13 @@ const list: TypeMaterial[] = [
     id: "id_1",
     url: "xxx",
     type: 1,
-    // version: "0.0.0",
     options: {
       props: [],
       slots: [],
       emits: [],
       listeners: []
     },
+
     collection: false,
     title: "按钮",
     image: require("../image/button.png"),
@@ -23,7 +23,6 @@ const list: TypeMaterial[] = [
     id: "id_2",
     url: "xxxxx",
     type: 1,
-    // version: "0.0.0",
     collection: false,
     options: {
       props: [],
@@ -40,7 +39,6 @@ const list: TypeMaterial[] = [
   {
     id: "id_3",
     url: "xxxxxxxx",
-    // version: "0.0.0",
     type: 1,
     collection: false,
     options: {

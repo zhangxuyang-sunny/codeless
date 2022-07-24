@@ -8,7 +8,6 @@ const {
   removeModuleScopePlugin,
   addLessLoader,
   adjustStyleLoaders
-  // addWebpackModuleRule
 } = require("customize-cra");
 
 function resolve(dir) {
@@ -30,7 +29,7 @@ module.exports = override(
     libraryName: ArcoDesign,
     libraryDirectory: "es",
     camel2DashComponentName: false,
-    style: "css"
+    style: true
   }),
   // arc-design 图标按需加载
   fixBabelImports(ArcoDesignIcon, {
@@ -53,19 +52,20 @@ module.exports = override(
       transpileTemplateLiterals: false
     }
   ]),
+
   addLessLoader({
     lessOptions: {
       javascriptEnabled: true,
-      localIdentName: "[local]--[hash:base64:5]"
+      localIdentName: "[local]--[hash:base64:5]",
+      modifyVars: {
+        // 在less-loader@6 modifyVars 配置被移到 lessOptions 中
+        "arcoblue-6": "#ee7934",
+        "primary-6": "#ee7934"
+      }
     }
   }),
   adjustStyleLoaders(({ use: [, , postcss] }) => {
     const postcssOptions = postcss.options;
     postcss.options = { postcssOptions };
   })
-
-  // addWebpackModuleRule({
-  //   test: /\.less$/,
-  //   use: ["style-loader", "css-loader", "less-loader"]
-  // })
 );

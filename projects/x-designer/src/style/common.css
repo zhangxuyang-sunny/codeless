@@ -1,0 +1,14 @@
+:root {
+  --primary-color: #ee7934
+}
+.hover-bg {
+  cursor: pointer;
+}
+.hover-bg:hover {
+  background-color: rgba(9, 30, 66, 0.08);
+}
+.select-bg {
+  background-color: #E4F0F6;
+  color: var(--primary-color)
+}
+

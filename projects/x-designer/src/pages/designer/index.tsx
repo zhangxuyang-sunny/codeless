@@ -15,26 +15,6 @@ const Designer: React.FC = () => {
         </div>
         <div className="center">
           <Simulator />
-          {/* <iframe
-            title="renderer"
-            className="iframe"
-            src="/renderer/vue/simulator.html"
-            ref={ref => {
-              if (!ref) return;
-              ref.onload = () => {
-                const rendererApi = (ref?.contentWindow as any)?.__X_RENDERER_API__;
-                console.log(rendererApi);
-
-                rendererApi.updateProject(project);
-                rendererApi.updateViews([view1]);
-                // let f = false;
-                // setInterval(() => {
-                //   rendererApi.updatePageSchemaList(f ? [page1] : [page2]);
-                //   f = !f;
-                // }, 1000);
-              };
-            }}
-          /> */}
         </div>
       </div>
     </StyleDesigner>
@@ -49,13 +29,13 @@ const StyleDesigner = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  user-select: none;
   .main {
     display: flex;
     flex-grow: 1;
     overflow: hidden;
     .left {
       display: flex;
-      overflow: hidden;
       grid-column-gap: 6px;
     }
     .center {
