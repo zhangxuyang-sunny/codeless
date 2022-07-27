@@ -2,7 +2,7 @@ import { Injectable, Logger } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { ProjectStatus } from "packages/x-core/src/enums";
 import { ProjectConfigData } from "packages/x-core/src/types/manager";
-import { ProjectService } from "src/modules/resource/project/project.service";
+import { ProjectService } from "src/modules/resource/projects/project.service";
 
 @Injectable()
 export class TasksService {

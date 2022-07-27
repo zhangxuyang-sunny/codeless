@@ -2,6 +2,7 @@ import path from "path";
 import { NestFactory } from "@nestjs/core";
 import { VersioningType, ValidationPipe } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
+import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { serverPort } from "config/constant";
 import { AppModule } from "./app.module";
 import { AllExceptionsFilter } from "./exception-filters/AllExceptionsFilter";
@@ -11,6 +12,15 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: ["debug", "error", "log", "verbose", "warn"]
   });
+  // swagger
+  const options = new DocumentBuilder()
+    .setTitle("xCoder 低代码引擎")
+    .setDescription("xCoder 低代码引擎API文档")
+    .setVersion("0.0.0")
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup("swagger", app, document);
+
   // 允许跨域
   app.enableCors();
   // 静态资源
@@ -29,6 +39,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
   // 统一的返回结构
   app.useGlobalInterceptors(new TransformResponse());
+
   await app.listen(serverPort);
   console.log(`Project is running on: ${await app.getUrl()}`);
 }

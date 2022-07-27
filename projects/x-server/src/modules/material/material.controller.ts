@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Query, UploadedFiles, UseInterceptors } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { IUploadMaterialParams, MaterialService } from "./material.service";
 
@@ -14,6 +15,7 @@ interface IGetDetailByIdQuery {
   sourceCode: boolean;
 }
 
+@ApiTags("Materials")
 @Controller("material")
 export class MaterialController {
   constructor(private readonly service: MaterialService) {}

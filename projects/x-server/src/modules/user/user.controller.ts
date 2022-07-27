@@ -1,10 +1,12 @@
 import type { Response } from "express";
 import { Body, Controller, Get, Headers, Post, Res, UseGuards } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
 import { UserService } from "./user.service";
 import { AuthService } from "../auth/auth.service";
 import { RegisterUserDTO } from "./user.modal";
 
+@ApiTags("Users")
 @Controller("user")
 export class UserController {
   constructor(

@@ -38,11 +38,11 @@ const { database } = configuration();
     // 注册定时任务
     ScheduleModule.forRoot(),
     // 静态资源
-    ServeStaticModule.forRoot({
-      rootPath: path.resolve("public"),
-      // 排除 main.ts 中的 static
-      exclude: ["static"]
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: path.resolve("public"),
+    //   // 排除 main.ts 中的 static
+    //   exclude: ["static", "swagger"]
+    // }),
     MongooseModule.forRoot(`${database.host}:${database.port}/${database.db_user}`, {
       connectionName: database.db_user
     }),

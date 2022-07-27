@@ -9,9 +9,11 @@ import {
   Post,
   Query
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { CreateComponentDTO, FindComponentsDTO, UpdateComponentDTO } from "./component.modal";
 import { ComponentService } from "./component.service";
 
+@ApiTags("Components")
 @Controller("component")
 export class ComponentController {
   constructor(private readonly service: ComponentService) {}

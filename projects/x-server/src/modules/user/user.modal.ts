@@ -1,9 +1,16 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsNotEmpty } from "class-validator";
 
 // 注册用户传输数据
 export class RegisterUserDTO {
+  @ApiProperty({
+    description: "用户名"
+  })
   @IsNotEmpty()
   username: string;
+  @ApiProperty({
+    description: "密码"
+  })
   @IsNotEmpty()
   password: string;
 }

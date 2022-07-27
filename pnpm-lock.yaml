@@ -516,6 +516,7 @@ importers:
       '@nestjs/schedule': ^2.0.1
       '@nestjs/schematics': ^8.0.11
       '@nestjs/serve-static': ^2.2.2
+      '@nestjs/swagger': ^6.0.4
       '@nestjs/testing': ^8.4.5
       '@types/cookie-parser': ^1.4.3
       '@types/express': ^4.17.13
@@ -553,6 +554,7 @@ importers:
       short-uuid: ^4.2.0
       source-map-support: ^0.5.21
       supertest: ^6.2.3
+      swagger-ui-express: ^4.5.0
       ts-jest: 28.0.3
       ts-loader: ^9.3.0
       ts-node: ^10.8.0
@@ -570,6 +572,7 @@ importers:
       '@nestjs/platform-express': 8.4.7_7tsmhnugyerf5okgqzer2mfqme
       '@nestjs/schedule': 2.0.1_zysgbzrbqurgi5bpxpfkrj3lie
       '@nestjs/serve-static': 2.2.2_7tsmhnugyerf5okgqzer2mfqme
+      '@nestjs/swagger': 6.0.4_jgos3tknxr3npmt3x2cmlilqyq
       '@types/multer': 1.4.7
       '@types/uuid': 8.3.4
       bcrypt: 5.0.1
@@ -588,6 +591,7 @@ importers:
       rimraf: 3.0.2
       rxjs: 7.5.5
       short-uuid: 4.2.0
+      swagger-ui-express: 4.5.0_express@4.18.1
       uuid: 8.3.2
     devDependencies:
       '@nestjs/cli': 8.2.6
@@ -617,6 +621,136 @@ importers:
       tsconfig-paths: 4.0.0
       tslib: 2.4.0
       typescript: 4.7.4
+
+  projects/x-server/static/materials/85001334-1210-4bc8-91c7-060e5d836634:
+    specifiers:
+      '@babel/core': ^7.18.2
+      '@babel/plugin-syntax-jsx': 7.16.7
+      '@babel/plugin-transform-runtime': ^7.18.2
+      '@babel/preset-env': ^7.18.2
+      '@babel/preset-typescript': ^7.17.12
+      '@babel/runtime': ^7.17.9
+      '@rollup/plugin-babel': ^5.3.1
+      '@rollup/plugin-commonjs': ^22.0.0
+      '@rollup/plugin-json': ^4.1.0
+      '@rollup/plugin-node-resolve': ^13.3.0
+      '@vue/babel-plugin-jsx': ^1.1.1
+      '@vue/babel-preset-jsx': ^1.2.4
+      '@vue/compiler-sfc': ^3.2.36
+      rollup: ^2.75.4
+      rollup-plugin-terser: ^7.0.2
+      rollup-plugin-typescript2: ^0.31.2
+      rollup-plugin-vue: ^6.0.0
+      typescript: ^4.7.2
+      vue: 3.2.36
+    dependencies:
+      '@babel/core': 7.18.5
+      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.5
+      '@babel/plugin-transform-runtime': 7.18.5_@babel+core@7.18.5
+      '@babel/preset-env': 7.18.2_@babel+core@7.18.5
+      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.5
+      '@babel/runtime': 7.18.3
+      '@rollup/plugin-babel': 5.3.1_zlefvkjd3mp2eij3mw2gs4aqfm
+      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.6
+      '@rollup/plugin-json': 4.1.0_rollup@2.75.6
+      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.6
+      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.5
+      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.5
+      '@vue/compiler-sfc': 3.2.37
+      rollup: 2.75.6
+      rollup-plugin-terser: 7.0.2_rollup@2.75.6
+      rollup-plugin-typescript2: 0.31.2_63sirsnfvviu2qxghjzgkmnlpm
+      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.37
+      typescript: 4.7.4
+      vue: 3.2.36
+
+  projects/x-server/static/materials/92c9cf69-d75e-4ae8-bdbc-a1d97deb17fe:
+    specifiers:
+      '@arco-design/web-vue': ^2.29.1
+      '@babel/core': ^7.18.2
+      '@babel/plugin-syntax-jsx': 7.16.7
+      '@babel/plugin-transform-runtime': ^7.18.2
+      '@babel/preset-env': ^7.18.2
+      '@babel/preset-typescript': ^7.17.12
+      '@babel/runtime': ^7.17.9
+      '@rollup/plugin-babel': ^5.3.1
+      '@rollup/plugin-commonjs': ^22.0.0
+      '@rollup/plugin-json': ^4.1.0
+      '@rollup/plugin-node-resolve': ^13.3.0
+      '@vue/babel-plugin-jsx': ^1.1.1
+      '@vue/babel-preset-jsx': ^1.2.4
+      '@vue/compiler-sfc': ^3.2.36
+      rollup: ^2.75.4
+      rollup-plugin-terser: ^7.0.2
+      rollup-plugin-typescript2: ^0.31.2
+      rollup-plugin-vue: ^6.0.0
+      typescript: ^4.7.2
+      vue: 3.2.36
+    dependencies:
+      '@arco-design/web-vue': 2.33.0_vue@3.2.36
+      '@babel/core': 7.18.5
+      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.5
+      '@babel/plugin-transform-runtime': 7.18.5_@babel+core@7.18.5
+      '@babel/preset-env': 7.18.2_@babel+core@7.18.5
+      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.5
+      '@babel/runtime': 7.18.3
+      '@rollup/plugin-babel': 5.3.1_zlefvkjd3mp2eij3mw2gs4aqfm
+      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.6
+      '@rollup/plugin-json': 4.1.0_rollup@2.75.6
+      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.6
+      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.5
+      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.5
+      '@vue/compiler-sfc': 3.2.37
+      rollup: 2.75.6
+      rollup-plugin-terser: 7.0.2_rollup@2.75.6
+      rollup-plugin-typescript2: 0.31.2_63sirsnfvviu2qxghjzgkmnlpm
+      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.37
+      typescript: 4.7.4
+      vue: 3.2.36
+
+  projects/x-server/static/materials/9cce60c8-80b1-487c-b221-8767092267e1:
+    specifiers:
+      '@arco-design/web-vue': ^2.29.1
+      '@babel/core': ^7.18.2
+      '@babel/plugin-syntax-jsx': 7.16.7
+      '@babel/plugin-transform-runtime': ^7.18.2
+      '@babel/preset-env': ^7.18.2
+      '@babel/preset-typescript': ^7.17.12
+      '@babel/runtime': ^7.17.9
+      '@rollup/plugin-babel': ^5.3.1
+      '@rollup/plugin-commonjs': ^22.0.0
+      '@rollup/plugin-json': ^4.1.0
+      '@rollup/plugin-node-resolve': ^13.3.0
+      '@vue/babel-plugin-jsx': ^1.1.1
+      '@vue/babel-preset-jsx': ^1.2.4
+      '@vue/compiler-sfc': ^3.2.36
+      rollup: ^2.75.4
+      rollup-plugin-terser: ^7.0.2
+      rollup-plugin-typescript2: ^0.31.2
+      rollup-plugin-vue: ^6.0.0
+      typescript: ^4.7.2
+      vue: 3.2.36
+    dependencies:
+      '@arco-design/web-vue': 2.33.0_vue@3.2.36
+      '@babel/core': 7.18.5
+      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.18.5
+      '@babel/plugin-transform-runtime': 7.18.5_@babel+core@7.18.5
+      '@babel/preset-env': 7.18.2_@babel+core@7.18.5
+      '@babel/preset-typescript': 7.17.12_@babel+core@7.18.5
+      '@babel/runtime': 7.18.3
+      '@rollup/plugin-babel': 5.3.1_zlefvkjd3mp2eij3mw2gs4aqfm
+      '@rollup/plugin-commonjs': 22.0.0_rollup@2.75.6
+      '@rollup/plugin-json': 4.1.0_rollup@2.75.6
+      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.6
+      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.5
+      '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.18.5
+      '@vue/compiler-sfc': 3.2.37
+      rollup: 2.75.6
+      rollup-plugin-terser: 7.0.2_rollup@2.75.6
+      rollup-plugin-typescript2: 0.31.2_63sirsnfvviu2qxghjzgkmnlpm
+      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.37
+      typescript: 4.7.4
+      vue: 3.2.36
 
 packages:
 
@@ -817,6 +951,22 @@ packages:
       resize-observer-polyfill: 1.5.1
       scroll-into-view-if-needed: 2.2.29
       vue: 3.2.37
+    dev: false
+
+  /@arco-design/web-vue/2.33.0_vue@3.2.36:
+    resolution: {integrity: sha512-TEaiGZMZxoTX7qpuy5PEBOMvKh3yFfBpsw2Fjg65ZhZJn1aUmmeLn0ioS7EhEel2/VKBCyEHLN8D0THhMwe9vw==}
+    peerDependencies:
+      vue: ^3.1.0
+    dependencies:
+      '@arco-design/color': 0.4.0
+      b-tween: 0.3.3
+      b-validate: 1.4.0
+      compute-scroll-into-view: 1.0.17
+      dayjs: 1.11.3
+      number-precision: 1.5.2
+      resize-observer-polyfill: 1.5.1
+      scroll-into-view-if-needed: 2.2.29
+      vue: 3.2.36
     dev: false
 
   /@arco-design/web-vue/2.33.0_vue@3.2.37:
@@ -4032,6 +4182,25 @@ packages:
       reflect-metadata: 0.1.13
     dev: false
 
+  /@nestjs/mapped-types/1.1.0_7zw7e46jhcfuw5vwuwho2brjki:
+    resolution: {integrity: sha512-+2kSly4P1QI+9eGt+/uGyPdEG1hVz7nbpqPHWZVYgoqz8eOHljpXPag+UCVRw9zo2XCu4sgNUIGe8Uk0+OvUQg==}
+    peerDependencies:
+      '@nestjs/common': ^7.0.8 || ^8.0.0 || ^9.0.0
+      class-transformer: ^0.2.0 || ^0.3.0 || ^0.4.0 || ^0.5.0
+      class-validator: ^0.11.1 || ^0.12.0 || ^0.13.0
+      reflect-metadata: ^0.1.12
+    peerDependenciesMeta:
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+    dependencies:
+      '@nestjs/common': 8.4.7_kgmvgmqc4iohdboj3f7yqhrie4
+      class-transformer: 0.5.1
+      class-validator: 0.13.2
+      reflect-metadata: 0.1.13
+    dev: false
+
   /@nestjs/mongoose/9.1.1_u44lwhuj6fyhmzfbvakgirkzjq:
     resolution: {integrity: sha512-sKZKI+walquKbCu3wSgO9X6a8MAkfsOlUTdPGv6IFo9NtTSp4sdrfiWFk2rQVc1N05J4Jdt94fnPKWJf+7U8uQ==}
     peerDependencies:
@@ -4127,6 +4296,30 @@ packages:
       '@nestjs/common': 8.4.7_kgmvgmqc4iohdboj3f7yqhrie4
       '@nestjs/core': 8.4.7_fkqgj3xrohk2pflugljc4sz7ea
       path-to-regexp: 0.1.7
+    dev: false
+
+  /@nestjs/swagger/6.0.4_jgos3tknxr3npmt3x2cmlilqyq:
+    resolution: {integrity: sha512-YKf9RvCYHAgqkMvUG3xRr0zAcnuN8JsWPfvi7h0hzEXLRhNxByj2FT8Rzj+0fPAe6VZioWXBDpLzshO2PjE48Q==}
+    peerDependencies:
+      '@fastify/static': ^6.0.0
+      '@nestjs/common': ^9.0.0
+      '@nestjs/core': ^9.0.0
+      reflect-metadata: ^0.1.12
+    peerDependenciesMeta:
+      '@fastify/static':
+        optional: true
+    dependencies:
+      '@nestjs/common': 8.4.7_kgmvgmqc4iohdboj3f7yqhrie4
+      '@nestjs/core': 8.4.7_fkqgj3xrohk2pflugljc4sz7ea
+      '@nestjs/mapped-types': 1.1.0_7zw7e46jhcfuw5vwuwho2brjki
+      js-yaml: 4.1.0
+      lodash: 4.17.21
+      path-to-regexp: 3.2.0
+      reflect-metadata: 0.1.13
+      swagger-ui-dist: 4.12.0
+    transitivePeerDependencies:
+      - class-transformer
+      - class-validator
     dev: false
 
   /@nestjs/testing/8.4.7_yg656aic4dli3q2c2sx4xyqza4:
@@ -5511,7 +5704,7 @@ packages:
     dependencies:
       '@babel/core': 7.18.5
       '@vue/babel-preset-app': 5.0.6_vue@3.2.37
-      '@vue/cli-service': 5.0.6_rn5mywyeknvwouybzwndby5zou
+      '@vue/cli-service': 5.0.6_hiqisopplttnm37wdnaqruzjym
       '@vue/cli-shared-utils': 5.0.6
       babel-loader: 8.2.5_te6ollfzjcco6mbxjl755ucqke
       thread-loader: 3.0.4_webpack@5.73.0
@@ -5532,7 +5725,7 @@ packages:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
       eslint: '>=7.5.0'
     dependencies:
-      '@vue/cli-service': 5.0.6_rn5mywyeknvwouybzwndby5zou
+      '@vue/cli-service': 5.0.6_hiqisopplttnm37wdnaqruzjym
       '@vue/cli-shared-utils': 5.0.6
       eslint: 8.18.0
       eslint-webpack-plugin: 3.1.1_mkwqxzk3byw3tt5etnkhd5uru4
@@ -5552,7 +5745,7 @@ packages:
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
-      '@vue/cli-service': 5.0.6_rn5mywyeknvwouybzwndby5zou
+      '@vue/cli-service': 5.0.6_hiqisopplttnm37wdnaqruzjym
       '@vue/cli-shared-utils': 5.0.6
       html-webpack-plugin: 5.5.0_webpack@5.73.0
       webpack: 5.73.0
@@ -5572,7 +5765,7 @@ packages:
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
-      '@vue/cli-service': 5.0.6_rn5mywyeknvwouybzwndby5zou
+      '@vue/cli-service': 5.0.6_hiqisopplttnm37wdnaqruzjym
       '@vue/cli-shared-utils': 5.0.6
     transitivePeerDependencies:
       - encoding
@@ -5594,7 +5787,7 @@ packages:
     dependencies:
       '@babel/core': 7.18.5
       '@types/webpack-env': 1.17.0
-      '@vue/cli-service': 5.0.6_rn5mywyeknvwouybzwndby5zou
+      '@vue/cli-service': 5.0.6_hiqisopplttnm37wdnaqruzjym
       '@vue/cli-shared-utils': 5.0.6
       babel-loader: 8.2.5_te6ollfzjcco6mbxjl755ucqke
       fork-ts-checker-webpack-plugin: 6.5.2_qntny3ommile77lwck7z6m4tfm
@@ -8021,7 +8214,7 @@ packages:
       lodash: ^4.17.20
       marko: ^3.14.4
       mote: ^0.2.0
-      mustache: ^3.0.0
+      mustache: ^4.0.1
       nunjucks: ^3.2.2
       plates: ~0.4.11
       pug: ^3.0.0
@@ -8189,7 +8382,7 @@ packages:
       lodash: ^4.17.20
       marko: ^3.14.4
       mote: ^0.2.0
-      mustache: ^3.0.0
+      mustache: ^4.0.1
       nunjucks: ^3.2.2
       plates: ~0.4.11
       pug: ^3.0.0
@@ -10533,7 +10726,7 @@ packages:
       semver: 7.3.7
       tapable: 2.2.1
       typescript: 4.6.4
-      webpack: 5.72.1_webpack-cli@4.9.2
+      webpack: 5.72.1
     dev: true
 
   /form-data/3.0.1:
@@ -17290,6 +17483,24 @@ packages:
       stable: 0.1.8
     dev: true
 
+  /swagger-ui-dist/4.12.0:
+    resolution: {integrity: sha512-B0Iy2ueXtbByE6OOyHTi3lFQkpPi/L7kFOKFeKTr44za7dJIELa9kzaca6GkndCgpK1QTjArnoXG+aUy0XQp1w==}
+    dev: false
+
+  /swagger-ui-dist/4.13.0:
+    resolution: {integrity: sha512-5yqhkUU9uV5oT/MTMBeSgDGI0Vx6eCOU43AszQBs88poI8OB1v+FoXEFHv+NaBbEfTkXCMWlAJrH6iWyDzLETQ==}
+    dev: false
+
+  /swagger-ui-express/4.5.0_express@4.18.1:
+    resolution: {integrity: sha512-DHk3zFvsxrkcnurGvQlAcLuTDacAVN1JHKDgcba/gr2NFRE4HGwP1YeHIXMiGznkWR4AeS7X5vEblNn4QljuNA==}
+    engines: {node: '>= v0.10.32'}
+    peerDependencies:
+      express: '>=4.0.0'
+    dependencies:
+      express: 4.18.1
+      swagger-ui-dist: 4.13.0
+    dev: false
+
   /symbol-observable/4.0.0:
     resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
     engines: {node: '>=0.10'}
@@ -17408,7 +17619,7 @@ packages:
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       terser: 5.14.1
-      webpack: 5.72.1_webpack-cli@4.9.2
+      webpack: 5.72.1
     dev: true
 
   /terser-webpack-plugin/5.3.3_webpack@5.73.0:

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ResourceData } from "packages/x-core/src/types/manager";
-import { ProjectService } from "./project/project.service";
-import { ComponentService } from "./view/component.service";
+import { ProjectService } from "./projects/project.service";
+import { ComponentService } from "./components/component.service";
 
 @Injectable()
 export class ResourceService {

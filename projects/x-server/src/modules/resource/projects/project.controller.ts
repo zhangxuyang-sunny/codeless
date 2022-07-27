@@ -11,10 +11,12 @@ import {
   Query,
   UseGuards
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { ProjectExistsGuard } from "./project.guard";
 import { CreateProjectDTO, FindProjectDTO, UpdateProjectDTO } from "./project.modal";
 import { ProjectService } from "./project.service";
 
+@ApiTags("Projects")
 @Controller("project")
 export class ProjectController {
   private readonly logger = new Logger(ProjectController.name);

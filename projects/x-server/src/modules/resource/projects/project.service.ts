@@ -10,7 +10,7 @@ import {
   IUpdateProjectParams
 } from "packages/x-core/src/types/dto/project";
 import { ProjectDocument, ProjectPO } from "./project.schema";
-import { ComponentService } from "../view/component.service";
+import { ComponentService } from "../components/component.service";
 import {
   ApplicationConfigData,
   ApplicationData,
