@@ -3,7 +3,7 @@ import {
   IFindComponentParams,
   IUpdateComponentParams
 } from "packages/x-core/src/types/dto/component";
-import { ComponentSchema } from "packages/x-core/src/types/schemas/application";
+import { ComponentSchema } from "packages/x-core/src/types/schemas/project";
 
 export class CreateComponentDTO implements ICreateComponentParams {
   applicationId: string;

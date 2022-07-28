@@ -1,5 +1,5 @@
 import { ProjectStatus } from "../../enums";
-import { ApplicationConfig } from "../manager";
+import { ApplicationConfig, ProjectConfig } from "../manager";
 
 // 创建应用的请求参数
 export interface ICreateProjectParams {
@@ -11,8 +11,10 @@ export interface ICreateProjectParams {
 export interface IUpdateProjectParams {
   id: string;
   version?: string;
+  title?: string;
+  description?: string;
   status?: ProjectStatus;
-  schema?: ApplicationConfig;
+  config?: ProjectConfig;
 }
 
 // 查找应用的请求参数

@@ -3,6 +3,7 @@
  * 静态资源物料包括图片、声音、文件等，使用 mimeType 进行区分
  */
 
+import { MimeType } from "file-type";
 import { MaterialPropOptions } from "./setters";
 
 /**
@@ -87,7 +88,7 @@ export interface AssetsMaterialSchema {
   title: string;
   description: string;
   // TODO 待补充
-  mimeType: "application/image" | "application/json";
+  mimeType: MimeType;
   src: string;
 }
 

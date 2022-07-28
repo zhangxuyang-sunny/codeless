@@ -12,8 +12,8 @@ import {
   UseGuards
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { CreateProjectDTO, UpdateProjectDTO, FindProjectDTO, UpdatePagesDTO } from "./dto/crud.dto";
 import { ProjectExistsGuard } from "./project.guard";
-import { CreateProjectDTO, FindProjectDTO, UpdateProjectDTO } from "./project.modal";
 import { ProjectService } from "./project.service";
 
 @ApiTags("Projects")
@@ -53,5 +53,11 @@ export class ProjectController {
   @Patch("revert")
   revertProject(@Query("id") id: string) {
     return this.service.handleRevert(id);
+  }
+
+  @Patch("update-pages")
+  updatePages(@Body() updatePagesDto: UpdatePagesDTO) {
+    const { id, pages } = updatePagesDto;
+    return this.service.updatePages(id, pages);
   }
 }

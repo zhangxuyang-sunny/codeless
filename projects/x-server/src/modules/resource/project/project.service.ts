@@ -1,7 +1,7 @@
 import shortUUID from "short-uuid";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { database } from "config/database";
 import { ProjectStatus } from "packages/x-core/src/enums";
 import {
@@ -9,20 +9,15 @@ import {
   IFindProjectsParams,
   IUpdateProjectParams
 } from "packages/x-core/src/types/dto/project";
-import { ProjectDocument, ProjectPO } from "./project.schema";
-import { ComponentService } from "../components/component.service";
-import {
-  ApplicationConfigData,
-  ApplicationData,
-  PageConfig,
-  ProjectConfigData
-} from "packages/x-core/src/types/manager";
+import { ProjectDocument, ProjectModelSchema } from "./project.model";
+import { ComponentService } from "../component/component.service";
+import { PageConfig, ProjectConfigData } from "packages/x-core/src/types/manager";
 
 @Injectable()
 export class ProjectService {
   private readonly logger = new Logger();
   constructor(
-    @InjectModel(ProjectPO.name, database.db_resource)
+    @InjectModel(ProjectModelSchema.name, database.db_resource)
     public readonly projectModel: Model<ProjectDocument>,
     private readonly componentService: ComponentService
   ) {}
@@ -43,7 +38,7 @@ export class ProjectService {
   // 检查是否存在
   async checkProjectExists(id: string) {
     if (!(await this.isIdExists(id))) {
-      throw new HttpException(`'${id}' 不存在`, HttpStatus.BAD_REQUEST);
+      throw new NotFoundException(`'${id}' 不存在`);
     }
   }
 
@@ -65,8 +60,11 @@ export class ProjectService {
       title: project.title,
       description: project.description,
       status: ProjectStatus.normal,
-      router: { base: "", mode: "hash", views: [] },
-      datasets: []
+      config: {
+        router: { base: "", mode: "hash", meta: {} },
+        pages: [],
+        datasets: []
+      }
     });
     // 用户关联应用
     // this.tbUserService.addProjectId(uid, id);
@@ -77,7 +75,7 @@ export class ProjectService {
   async updateProject(project: IUpdateProjectParams) {
     const { id, ...data } = project;
     await this.checkProjectExists(id);
-    const result = await this.projectModel.findOneAndUpdate({ id }, data);
+    const result = await this.projectModel.findOneAndUpdate({ id }, data, { new: true });
     if (!result) {
       throw new HttpException("update fail", HttpStatus.BAD_REQUEST);
     }
@@ -91,29 +89,46 @@ export class ProjectService {
 
   // 删除，将 status 标记为 ProjectStatus.delete 状态，可作为回收站
   async deleteProject(id: string) {
-    return this.projectModel.findOneAndUpdate({ id }, { status: ProjectStatus.delete });
+    return this.projectModel.findOneAndUpdate(
+      { id },
+      { status: ProjectStatus.delete },
+      { new: true }
+    );
   }
 
   // 软删除，将 status 标记为 ProjectStatus.unlink 状态
   async unlinkProject(id: string) {
-    return this.projectModel.findOneAndUpdate({ id }, { status: ProjectStatus.unlink });
+    return this.projectModel.findOneAndUpdate(
+      { id },
+      { status: ProjectStatus.unlink },
+      { new: true }
+    );
   }
 
   // 恢复，将 status 标记为 ProjectStatus.normal 状态
   async revertProject(id: string) {
-    return this.projectModel.findOneAndUpdate({ id }, { status: ProjectStatus.delete });
+    return this.projectModel.findOneAndUpdate(
+      { id },
+      { status: ProjectStatus.normal },
+      { new: true }
+    );
   }
 
   // 关联页面
-  async linkPageToProject(projectId: string, viewId: string) {
-    return this.projectModel.findOneAndUpdate({ id: projectId }, { $addToSet: { views: viewId } });
+  async linkPageToProject(pid: string, pageConfig: PageConfig) {
+    return this.projectModel.findOneAndUpdate(
+      { id: pid },
+      { $addToSet: { pages: pageConfig } },
+      { new: true }
+    );
   }
 
   // 更新路由和页面关联信息
-  async updatePages(id: string, pageSchemas: PageConfig[]) {
+  async updatePages(id: string, pageConfigs: PageConfig[]) {
     const data = await this.projectModel.findOne({ id });
+    console.log(data);
     if (data?.config.pages) {
-      data.config.pages = pageSchemas;
+      data.config.pages = pageConfigs;
       data.save();
       return data;
     } else {

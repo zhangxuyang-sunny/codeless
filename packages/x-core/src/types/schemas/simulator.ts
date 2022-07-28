@@ -1,4 +1,4 @@
-import { ComponentSchema } from "./application";
+import { ComponentSchema } from "./project";
 
 /**
  * 模拟器组件节点协议

@@ -1,8 +1,8 @@
 import { Document } from "mongoose";
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { database } from "config/database";
 import { ProjectStatus } from "packages/x-core/src/enums";
 import { ProjectConfig, ProjectConfigData } from "packages/x-core/src/types/manager";
+import { database } from "config/database";
 
 export type ProjectDocument = ProjectConfigData & Document;
 
@@ -12,13 +12,7 @@ export type ProjectDocument = ProjectConfigData & Document;
   timestamps: true,
   minimize: false
 })
-export class ProjectPO implements Omit<ProjectConfigData, "createdAt" | "updatedAt"> {
-  @Prop({ select: false })
-  _id?: string;
-
-  @Prop({ select: false })
-  __v?: string;
-
+export class ProjectModelSchema implements Omit<ProjectConfigData, "createdAt" | "updatedAt"> {
   @Prop({ required: true, immutable: true })
   id: string;
 
@@ -31,9 +25,6 @@ export class ProjectPO implements Omit<ProjectConfigData, "createdAt" | "updated
   @Prop({ type: String, required: true })
   description: string;
 
-  @Prop({ type: String, required: true })
-  name: string;
-
   @Prop({ type: Number, required: true })
   status: ProjectStatus;
 
@@ -43,13 +34,13 @@ export class ProjectPO implements Omit<ProjectConfigData, "createdAt" | "updated
   @Prop({ required: true, immutable: true })
   createdUser: string;
 
-  @Prop({ required: true })
+  @Prop()
   updatedUser: string;
 }
 
 // 用于 module.imports 注入数据库特征
 export const ProjectModel: ModelDefinition = {
-  name: ProjectPO.name,
-  schema: SchemaFactory.createForClass(ProjectPO),
+  name: ProjectModelSchema.name,
+  schema: SchemaFactory.createForClass(ProjectModelSchema),
   collection: database.table_projects
 };

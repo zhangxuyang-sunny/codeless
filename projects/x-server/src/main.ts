@@ -12,14 +12,6 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: ["debug", "error", "log", "verbose", "warn"]
   });
-  // swagger
-  const options = new DocumentBuilder()
-    .setTitle("xCoder 低代码引擎")
-    .setDescription("xCoder 低代码引擎API文档")
-    .setVersion("0.0.0")
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup("swagger", app, document);
 
   // 允许跨域
   app.enableCors();
@@ -39,6 +31,15 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
   // 统一的返回结构
   app.useGlobalInterceptors(new TransformResponse());
+
+  // swagger
+  const options = new DocumentBuilder()
+    .setTitle("xCoder 低代码引擎")
+    .setDescription("xCoder 低代码引擎API文档")
+    .setVersion("1.0")
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup("swagger", app, document);
 
   await app.listen(serverPort);
   console.log(`Project is running on: ${await app.getUrl()}`);

@@ -3,7 +3,7 @@ import {
   ApplicationSchema,
   ComponentSchema,
   DatasetSchema
-} from "./schemas/application";
+} from "./schemas/project";
 import { MaterialSchema } from "./schemas/material";
 
 // 资源管理

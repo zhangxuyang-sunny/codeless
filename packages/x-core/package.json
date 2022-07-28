@@ -11,7 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mime": "^2.0.3",
+    "@types/mime-db": "^1.43.1",
+    "@types/mime-types": "^2.1.1",
+    "file-type": "^17.1.4",
     "lodash": "^4.17.21",
+    "mime": "^3.0.0",
+    "mime-db": "^1.52.0",
+    "mime-types": "^2.1.35",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

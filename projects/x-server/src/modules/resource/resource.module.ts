@@ -3,13 +3,13 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { database } from "config/database";
 import { FileModule } from "../file/file.module";
 import { UserModule } from "../user/user.module";
-import { ProjectController } from "./projects/project.controller";
-import { ProjectModel } from "./projects/project.schema";
-import { ProjectService } from "./projects/project.service";
-import { ComponentController } from "./components/component.controller";
-import { ComponentModel } from "./components/component.schema";
-import { ComponentService } from "./components/component.service";
-import { DatasetsService } from "./datasets/datasets.service";
+import { ProjectController } from "./project/project.controller";
+import { ProjectModel } from "./project/project.model";
+import { ProjectService } from "./project/project.service";
+import { ComponentController } from "./component/component.controller";
+import { ComponentModel } from "./component/component.schema";
+import { ComponentService } from "./component/component.service";
+import { DatasetService } from "./dataset/dataset.service";
 import { ResourceService } from "./resource.service";
 import { ResourceController } from "./resource.controller";
 
@@ -20,7 +20,7 @@ import { ResourceController } from "./resource.controller";
     FileModule
   ],
   controllers: [ResourceController, ProjectController, ComponentController],
-  providers: [ResourceService, ProjectService, ComponentService, DatasetsService],
+  providers: [ResourceService, ProjectService, ComponentService, DatasetService],
   exports: [ProjectService]
 })
 export class ResourceModule {}

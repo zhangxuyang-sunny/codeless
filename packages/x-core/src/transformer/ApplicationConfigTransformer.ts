@@ -3,7 +3,7 @@ import {
   ApplicationSchema,
   ComponentSchema,
   DatasetSchema
-} from "../types/schemas/application";
+} from "../types/schemas/project";
 
 /**
  * ApplicationConfig 转换器

@@ -1,4 +1,4 @@
-import { ComponentSchema } from "../schemas/application";
+import { ComponentSchema } from "../schemas/project";
 
 export interface ICreateComponentParams {
   applicationId: string;
