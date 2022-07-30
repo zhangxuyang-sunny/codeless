@@ -8,7 +8,7 @@ import {
   IFindComponentParams,
   IUpdateComponentParams
 } from "packages/x-core/src/types/dto/component";
-import { ComponentData } from "packages/x-core/src/types/manager";
+import { IComponentData } from "packages/x-core/src/types/manager";
 import { ComponentStatus } from "packages/x-core/src/enums";
 import { ComponentDocument, ComponentPO } from "./component.schema";
 
@@ -44,15 +44,15 @@ export class ComponentService {
     return this.model.insertMany(view);
   }
 
-  async findComponent(query: IFindComponentParams): Promise<ComponentData | null> {
+  async findComponent(query: IFindComponentParams): Promise<IComponentData | null> {
     return this.model.findOne(query);
   }
 
-  async findComponents(query: IFindComponentParams): Promise<ComponentData[]> {
+  async findComponents(query: IFindComponentParams): Promise<IComponentData[]> {
     return this.model.find(query);
   }
 
-  async findComponentsByIds(ids: string[]): Promise<ComponentData[]> {
+  async findComponentsByIds(ids: string[]): Promise<IComponentData[]> {
     return this.model.find({ id: { $in: ids } });
   }
 

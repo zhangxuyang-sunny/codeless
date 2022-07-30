@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ResourceData } from "packages/x-core/src/types/manager";
+import { IResourceData } from "packages/x-core/src/types/manager";
 import { ProjectService } from "./project/project.service";
 import { ComponentService } from "./component/component.service";
 
@@ -10,7 +10,7 @@ export class ResourceService {
     private readonly componentService: ComponentService
   ) {}
 
-  async getResource(): Promise<ResourceData> {
+  async getResource(): Promise<IResourceData> {
     const projects = await this.projectService.findProjects({});
     const components = await this.componentService.findComponents({});
     // const datasets =

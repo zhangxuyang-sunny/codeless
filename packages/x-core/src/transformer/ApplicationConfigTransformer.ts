@@ -1,8 +1,8 @@
-import { ApplicationConfig } from "../types/manager";
+import { IApplicationConfig } from "../types/manager";
 import {
-  ApplicationSchema,
-  ComponentSchema,
-  DatasetSchema
+  IApplicationSchema,
+  IComponentSchema,
+  IDatasetSchema
 } from "../types/schemas/project";
 
 /**
@@ -10,7 +10,7 @@ import {
  * ApplicationConfig -> ApplicationSchema
  */
 export class ApplicationConfigTransformer {
-  constructor(private config: ApplicationConfig) {
+  constructor(private config: IApplicationConfig) {
     if (!config) return this;
     config.resource.datasets.forEach((dataset) => {
       this.datasetMap.set(dataset.id, dataset);
@@ -20,10 +20,10 @@ export class ApplicationConfigTransformer {
     });
   }
 
-  private datasetMap: Map<string, DatasetSchema> = new Map();
-  private componentMap: Map<string, ComponentSchema> = new Map();
+  private datasetMap: Map<string, IDatasetSchema> = new Map();
+  private componentMap: Map<string, IComponentSchema> = new Map();
 
-  schema(): ApplicationSchema {
+  schema(): IApplicationSchema {
     const pages = this.config.config.pages.flatMap((page) => {
       const component = this.componentMap.get(page.component.id);
       if (!component) return [];

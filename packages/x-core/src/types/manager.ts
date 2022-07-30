@@ -1,10 +1,10 @@
 import { ComponentStatus, ProjectStatus } from "../enums";
 import {
-  ApplicationSchema,
-  ComponentSchema,
-  DatasetSchema
+  IApplicationSchema,
+  IComponentSchema,
+  IDatasetSchema
 } from "./schemas/project";
-import { MaterialSchema } from "./schemas/material";
+import { IMaterialSchema } from "./schemas/material";
 
 // 资源管理
 // 注意：这里是业务数据
@@ -12,7 +12,7 @@ import { MaterialSchema } from "./schemas/material";
 // 注意：这里是业务数据
 
 // 资源的业务 meta 信息
-export interface MetaData {
+export interface IMetaData {
   // 当前语言下的标题
   title: string;
   // 当前语言下的描述
@@ -38,7 +38,7 @@ export interface MetaData {
  * 通过 id 关联名下或团队下的页面、数据集等，最终通过 Transformer 处理转换得到应用 Application
  */
 // 应用配置
-export interface ApplicationConfig {
+export interface IApplicationConfig {
   id: string;
   config: {
     router: {
@@ -76,36 +76,37 @@ export interface ApplicationConfig {
   };
   resource: {
     // 组件列表
-    components: ComponentSchema[];
+    components: IComponentSchema[];
     // 数据集列表
-    datasets: DatasetSchema[];
+    datasets: IDatasetSchema[];
   };
 }
 
-export type ProjectConfig = ApplicationConfig["config"];
+export type TypeProjectConfig = IApplicationConfig["config"];
 
-export type PageConfig = ApplicationConfig["config"]["pages"][number];
+export type TypePageConfig = IApplicationConfig["config"]["pages"][number];
 
-export type RouterConfig = ApplicationConfig["config"]["router"];
+export type TypeRouterConfig = IApplicationConfig["config"]["router"];
 
-export type DatasetConfig = ApplicationConfig["config"]["datasets"][number];
+export type TypeDatasetConfig =
+  IApplicationConfig["config"]["datasets"][number];
 
-export interface ProjectConfigData
-  extends Omit<ApplicationConfig, "resource">,
-    MetaData {}
+export interface IProjectConfigData
+  extends Omit<IApplicationConfig, "resource">,
+    IMetaData {}
 
 /**
  * 应用配置数据
  * 通过 ProjectTransformer 处理生成 ApplicationData
  */
-export interface ApplicationConfigData
-  extends Omit<ApplicationConfig, "resource">,
-    MetaData {
+export interface IApplicationConfigData
+  extends Omit<IApplicationConfig, "resource">,
+    IMetaData {
   resource: {
     // 组件列表
-    components: ComponentData[];
+    components: IComponentData[];
     // 数据集列表
-    datasets: DatasetData[];
+    datasets: IDatasetData[];
   };
 }
 
@@ -113,33 +114,33 @@ export interface ApplicationConfigData
  * 应用数据
  * 由 ProjectTransformer 解析 ProjectData 生成
  */
-export interface ApplicationData extends MetaData {
+export interface IApplicationData extends IMetaData {
   id: string;
-  schema: ApplicationSchema & {
+  schema: IApplicationSchema & {
     // 重写页面列表
     pages: Array<
       // 重写页面组件
-      Omit<PageConfig, "component"> & {
-        component: ComponentData;
+      Omit<TypePageConfig, "component"> & {
+        component: IComponentData;
       }
     >;
     // 重写数据集配置
-    datasets: DatasetData[];
+    datasets: IDatasetData[];
   };
 }
 
 /**
  * 组件物料配置数据
- * 在业务中，组件数据可以进行关联，通过 ComponentBind 进行和实体绑定
+ * @TODO 在业务中，组件数据可以进行关联，通过 ComponentBind 进行和实体绑定
  * 因此 Component 被重写为： ComponentEntity | ComponentBind
  */
-export interface ComponentData extends MetaData {
+export interface IComponentData extends IMetaData {
   id: string;
-  schema: ComponentSchema & {
+  schema: IComponentSchema & {
     // 重写 slots
     slots: Partial<{
-      default: ComponentData[];
-      [slotName: string]: ComponentData[];
+      default: IComponentSchema[];
+      [slotName: string]: IComponentSchema[];
     }>;
   };
 }
@@ -161,13 +162,13 @@ export interface ComponentData extends MetaData {
 /**
  * 基础组件数据
  */
-export type BaseComponentData = ComponentData;
+export type IBaseComponentData = IComponentData;
 
 /**
  * 低代码组件数据
  * @TODO 定义低代码组件
  */
-export interface LowCodeComponentData extends MetaData {
+export interface ILowCodeComponentData extends IMetaData {
   id: string;
   target: string;
 }
@@ -175,16 +176,16 @@ export interface LowCodeComponentData extends MetaData {
 /**
  * 数据集数据
  */
-export interface DatasetData extends MetaData {
+export interface IDatasetData extends IMetaData {
   id: string;
-  schema: DatasetSchema;
+  schema: IDatasetSchema;
 }
 
 // 所有资源数据
-export interface ResourceData {
-  projects: ProjectConfigData[];
-  components: ComponentData[];
-  datasets: DatasetData[];
+export interface IResourceData {
+  projects: IProjectConfigData[];
+  datasets: IDatasetData[];
+  components: IComponentData[];
 }
 
 /**
@@ -203,5 +204,5 @@ export interface MaterialData {
   collection: boolean;
   type: 1;
   category: string;
-  schema: MaterialSchema;
+  schema: IMaterialSchema;
 }

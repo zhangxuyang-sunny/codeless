@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { ProjectStatus } from "packages/x-core/src/enums";
-import { ProjectConfigData } from "packages/x-core/src/types/manager";
+import { IProjectConfigData } from "packages/x-core/src/types/manager";
 import { ProjectService } from "src/modules/resource/project/project.service";
 
 @Injectable()
@@ -16,7 +16,7 @@ export class TasksService {
   async clearDeletedProjects() {
     const willDeleteProjects = await this.projectService //
       .findProjects({ status: ProjectStatus.delete });
-    const logList: ProjectConfigData[] = [];
+    const logList: IProjectConfigData[] = [];
     // 构建清除队列，将大于给定时间被标记为 delete 的工程从数据库中删除
     const TIMEOUT = 1000 * 10;
     const queue = willDeleteProjects.flatMap(item => {

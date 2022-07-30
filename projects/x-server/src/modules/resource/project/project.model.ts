@@ -1,10 +1,10 @@
 import { Document } from "mongoose";
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ProjectStatus } from "packages/x-core/src/enums";
-import { ProjectConfig, ProjectConfigData } from "packages/x-core/src/types/manager";
+import { TypeProjectConfig, IProjectConfigData } from "packages/x-core/src/types/manager";
 import { database } from "config/database";
 
-export type ProjectDocument = ProjectConfigData & Document;
+export type ProjectDocument = IProjectConfigData & Document;
 
 @Schema({
   _id: false,
@@ -12,7 +12,7 @@ export type ProjectDocument = ProjectConfigData & Document;
   timestamps: true,
   minimize: false
 })
-export class ProjectModelSchema implements Omit<ProjectConfigData, "createdAt" | "updatedAt"> {
+export class ProjectModelSchema implements Omit<IProjectConfigData, "createdAt" | "updatedAt"> {
   @Prop({ required: true, immutable: true })
   id: string;
 
@@ -29,7 +29,7 @@ export class ProjectModelSchema implements Omit<ProjectConfigData, "createdAt" |
   status: ProjectStatus;
 
   @Prop({ type: Object, required: true })
-  config: ProjectConfig;
+  config: TypeProjectConfig;
 
   @Prop({ required: true, immutable: true })
   createdUser: string;

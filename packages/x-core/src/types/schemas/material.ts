@@ -4,12 +4,12 @@
  */
 
 import { MimeType } from "file-type";
-import { MaterialPropOptions } from "./setters";
+import { TypeMaterialPropOptions } from "./setters";
 
 /**
  * 组件物料：组件是现代前端构成界面的主要单元，组件也是一种物料
  */
-export interface ComponentMaterialSchema {
+export interface IComponentMaterialSchema {
   type: "component";
   /**
    * 组件物料
@@ -34,7 +34,7 @@ export interface ComponentMaterialSchema {
     /**
      * 属性设置器配置列表
      */
-    props: Array<MaterialPropOptions>;
+    props: Array<TypeMaterialPropOptions>;
     /**
      * 事件监听列表
      */
@@ -74,7 +74,7 @@ export interface ComponentMaterialSchema {
 /**
  * 低代码组件物料
  */
-export interface LowcodeComponentMaterialSchema {
+export interface ILowcodeComponentMaterialSchema {
   type: "lowcode-component";
   target: string;
 }
@@ -83,7 +83,7 @@ export interface LowcodeComponentMaterialSchema {
  * 静态资源物料
  * @TODO 待方案实现
  */
-export interface AssetsMaterialSchema {
+export interface IAssetsMaterialSchema {
   type: "assets";
   title: string;
   description: string;
@@ -92,7 +92,7 @@ export interface AssetsMaterialSchema {
   src: string;
 }
 
-export type MaterialSchema =
-  | ComponentMaterialSchema
-  | LowcodeComponentMaterialSchema
-  | AssetsMaterialSchema;
+export type IMaterialSchema =
+  | IComponentMaterialSchema
+  | ILowcodeComponentMaterialSchema
+  | IAssetsMaterialSchema;

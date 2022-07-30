@@ -1,10 +1,10 @@
-import { ComponentSchema } from "../schemas/project";
+import { IComponentSchema } from "../schemas/project";
 
 export interface ICreateComponentParams {
   applicationId: string;
   title: string;
   description: string;
-  schema: ComponentSchema;
+  schema: IComponentSchema;
 }
 
 export interface IFindComponentParams {
@@ -20,5 +20,5 @@ export interface IUpdateComponentParams {
   id: string;
   title?: string;
   description?: string;
-  schema?: ComponentSchema;
+  schema?: IComponentSchema;
 }

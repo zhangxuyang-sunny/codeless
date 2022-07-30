@@ -11,7 +11,7 @@ import {
 } from "packages/x-core/src/types/dto/project";
 import { ProjectDocument, ProjectModelSchema } from "./project.model";
 import { ComponentService } from "../component/component.service";
-import { PageConfig, ProjectConfigData } from "packages/x-core/src/types/manager";
+import { TypePageConfig, IProjectConfigData } from "packages/x-core/src/types/manager";
 
 @Injectable()
 export class ProjectService {
@@ -115,7 +115,7 @@ export class ProjectService {
   }
 
   // 关联页面
-  async linkPageToProject(pid: string, pageConfig: PageConfig) {
+  async linkPageToProject(pid: string, pageConfig: TypePageConfig) {
     return this.projectModel.findOneAndUpdate(
       { id: pid },
       { $addToSet: { pages: pageConfig } },
@@ -124,7 +124,7 @@ export class ProjectService {
   }
 
   // 更新路由和页面关联信息
-  async updatePages(id: string, pageConfigs: PageConfig[]) {
+  async updatePages(id: string, pageConfigs: TypePageConfig[]) {
     const data = await this.projectModel.findOne({ id });
     console.log(data);
     if (data?.config.pages) {
@@ -146,7 +146,7 @@ export class ProjectService {
    * @param query
    * @returns
    */
-  async findProjects(query: IFindProjectsParams): Promise<ProjectConfigData[]> {
+  async findProjects(query: IFindProjectsParams): Promise<IProjectConfigData[]> {
     // return this.tbUserService.findUserResources(uid);
     // const userPlatform = await this.userService.findUserPlatformById(uid);
     // if (!userPlatform) return [];
@@ -157,11 +157,11 @@ export class ProjectService {
     return await this.projectModel.find(query);
   }
 
-  async findProject(query: IFindProjectsParams): Promise<ProjectConfigData | null> {
+  async findProject(query: IFindProjectsParams): Promise<IProjectConfigData | null> {
     return this.projectModel.findOne(query);
   }
 
-  async findProjectsByIds(ids: string[]): Promise<ProjectConfigData[]> {
+  async findProjectsByIds(ids: string[]): Promise<IProjectConfigData[]> {
     return this.projectModel.find({ id: { $in: ids } });
   }
 
@@ -207,7 +207,8 @@ export class ProjectService {
   async handleUnlink(id: string) {
     await this.checkProjectExists(id);
     this.logger.log(id, "unlink project");
-    return this.unlinkProject(id);
+    await this.unlinkProject(id);
+    return true;
   }
 
   // 硬删除
@@ -215,13 +216,15 @@ export class ProjectService {
   async handleDelete(id: string) {
     await this.checkProjectExists(id);
     this.logger.log(id, "delete project");
-    return this.unlinkProject(id);
+    await this.unlinkProject(id);
+    return true;
   }
 
   // 恢复工程
   async handleRevert(id: string) {
     await this.checkProjectExists(id);
     this.logger.log(id, "revert project");
-    return this.revertProject(id);
+    await this.revertProject(id);
+    return true;
   }
 }

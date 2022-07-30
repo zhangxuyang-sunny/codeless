@@ -1,10 +1,10 @@
 import { Document } from "mongoose";
 import { ModelDefinition, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { database } from "config/database";
-import { ComponentData } from "packages/x-core/src/types/manager";
+import { IComponentData } from "packages/x-core/src/types/manager";
 import { ComponentStatus } from "packages/x-core/src/enums";
 
-export type ComponentDocument = ComponentData & Document;
+export type ComponentDocument = IComponentData & Document;
 
 @Schema({
   _id: false,
@@ -12,7 +12,7 @@ export type ComponentDocument = ComponentData & Document;
   timestamps: true,
   minimize: false
 })
-export class ComponentPO implements Omit<ComponentData, "createdAt" | "updatedAt" | "schema"> {
+export class ComponentPO implements Omit<IComponentData, "createdAt" | "updatedAt" | "schema"> {
   @Prop({ select: false })
   _id?: string;
 

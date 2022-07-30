@@ -4,7 +4,7 @@ import { JSExpression, JSFunction } from "./js-value";
 /**
  * 应用协议：描述一个应用
  */
-export interface ApplicationSchema {
+export interface IApplicationSchema {
   id: string;
   // /**
   //  * 储存平台上下文实例
@@ -49,24 +49,24 @@ export interface ApplicationSchema {
     /**
      * 页面渲染的组件
      */
-    component: ComponentSchema;
+    component: IComponentSchema;
   }>;
   /**
    * 数据集列表
    */
-  datasets: DatasetSchema[];
+  datasets: IDatasetSchema[];
 }
 
-export type RouterSchema = ApplicationSchema["router"];
+export type TypeRouterSchema = IApplicationSchema["router"];
 
-export type PageSchema = ApplicationSchema["pages"][number];
+export type TypePageSchema = IApplicationSchema["pages"][number];
 
 /**
  * 物料组件协议：描述如何使用一个物料组件
  * 包括使用什么物料组件、以及传入对应的属性、样式、事件等配置
  * 组件和组件物料的关系是：组件由组件物料组合而成
  */
-export interface ComponentSchema {
+export interface IComponentSchema {
   id: string;
   /**
    * 组件物料地址
@@ -131,18 +131,18 @@ export interface ComponentSchema {
     /**
      * vue 默认插槽，对应 react 为 props.children
      */
-    default: ComponentSchema[];
+    default: IComponentSchema[];
     /**
      * vue 具名插槽，对应 react 为 props.{name} hoc
      */
-    [slotName: string]: ComponentSchema[];
+    [slotName: string]: IComponentSchema[];
   }>;
 }
 
 /**
  * 数据集协议：描述一个原子数据集
  */
-export interface DatasetSchema {
+export interface IDatasetSchema {
   id: string;
   /**
    * 支持多种状态库，目前只实现了 pinia

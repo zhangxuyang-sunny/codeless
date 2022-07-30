@@ -36,7 +36,7 @@ export type UseInputNumber = {
 };
 
 export type UseMulti = {
-  oneOf: MaterialPropOptions[];
+  oneOf: TypeMaterialPropOptions[];
 };
 
 export type PropReadonly = {
@@ -64,7 +64,7 @@ export type PropMulti = CommonAttrs & {
   type: "multi";
 } & UseMulti;
 
-export type MaterialPropOptions =
+export type TypeMaterialPropOptions =
   | PropString
   | PropNumber
   | PropBoolean
