@@ -1,10 +1,10 @@
 <script lang="tsx">
 import { defineComponent, ref, shallowRef, watch } from "vue";
-import { ApplicationSchema } from "packages/x-core/src/types/schemas/application";
+import { IApplicationSchema } from "packages/x-core/src/types/schemas/project";
 import { loadRemotePackages } from "../utils/common";
 import { ApplicationRuntime } from "../core/schema";
 import { defineApplication } from "../core/defineApplication";
-import { ApplicationTransformer } from "@/core/Transformer";
+import { ApplicationTransformer } from "@/core/transformer";
 
 const Application = defineApplication({
   vue: await System.import("vue"),
@@ -19,11 +19,11 @@ export default defineComponent({
     const { id } = Object.fromEntries(new URLSearchParams(window.location.search));
     const initialized = ref(false);
     const routeName = ref("");
-    const schema = shallowRef<ApplicationSchema>();
+    const schema = shallowRef<IApplicationSchema>();
     const application = shallowRef<ApplicationRuntime>();
 
     window.fetch(`http://localhost:3333/api/v1/project?id=${id}`).then(async response => {
-      const data: { data: ApplicationSchema } = await response.json();
+      const data: { data: IApplicationSchema } = await response.json();
       schema.value = data.data;
     });
 

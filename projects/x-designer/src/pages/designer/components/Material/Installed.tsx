@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { Spin } from "@arco-design/web-react";
-import { MaterialData } from "packages/x-core/dist/types/manager";
+import { IMaterialData } from "packages/x-core/dist/types/manager";
 import MaterialItem from "./MaterialItem";
 import getMaterialData from "../../../../mock/materialList";
 
 const Installed: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  const [list, setList] = useState<MaterialData[]>([]);
+  const [list, setList] = useState<IMaterialData[]>([]);
 
   getMaterialData().then(res => {
     setList(res);

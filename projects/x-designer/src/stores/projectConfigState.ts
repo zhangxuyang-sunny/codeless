@@ -1,8 +1,12 @@
 import { v4 as uuid } from "uuid";
 import { atom, useRecoilState } from "recoil";
-import { PageConfig, ProjectConfig, RouterConfig } from "packages/x-core/dist/types/manager";
+import {
+  TypePageConfig,
+  TypeProjectConfig,
+  TypeRouterConfig
+} from "packages/x-core/dist/types/manager";
 
-export const projectState = atom<ProjectConfig>({
+export const projectState = atom<TypeProjectConfig>({
   key: "project",
   default: {
     router: {
@@ -19,7 +23,7 @@ export function useProjectConfig() {
   const [projectConfig, setProjectConfig] = useRecoilState(projectState);
 
   // 设置路由模式
-  const setRouterMode = (mode: RouterConfig["mode"]) => {
+  const setRouterMode = (mode: TypeRouterConfig["mode"]) => {
     setProjectConfig({
       ...projectConfig,
       router: {
@@ -30,7 +34,7 @@ export function useProjectConfig() {
   };
 
   // 添加一个路由页面
-  const addPage = (page: PageConfig) => {
+  const addPage = (page: TypePageConfig) => {
     setProjectConfig({
       ...projectConfig,
       pages: [...projectConfig.pages, page]

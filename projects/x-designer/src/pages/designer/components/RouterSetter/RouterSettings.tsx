@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import { Button, Divider, Form, Input, Radio } from "@arco-design/web-react";
 import HelpIcon from "src/components/HelpIcon";
-import { RouterConfig } from "packages/x-core/dist/types/manager";
+import { TypeRouterConfig } from "packages/x-core/dist/types/manager";
 
 const urls = Object.freeze({
   "hash": "https://router.vuejs.org/zh/api/#createwebhashhistory",
@@ -13,7 +13,7 @@ const urls = Object.freeze({
   "vue-router": "https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html"
 });
 
-type RouterMode = RouterConfig["mode"];
+type RouterMode = TypeRouterConfig["mode"];
 
 // 路由配置器
 const RouterSettings: React.FC<{

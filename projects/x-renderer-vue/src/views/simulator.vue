@@ -3,9 +3,9 @@ import { defineComponent, ref, shallowRef, watch } from "vue";
 import { ApplicationRuntime } from "../core/schema";
 import { loadRemotePackages } from "../utils/common";
 import { defineApplication } from "../core/defineApplication";
-import { applicationSchema } from "../draft/application";
-import { ApplicationSchema } from "packages/x-core/src/types/schemas/application";
-import { ApplicationTransformer } from "@/core/Transformer";
+import { IApplicationSchema } from "packages/x-core/src/types/schemas/project";
+import { ApplicationTransformer } from "@/core/transformer";
+// import { applicationSchema } from "../draft/application";
 // import Renderer from "../components/Renderer.vue";
 
 const Application = defineApplication({
@@ -19,7 +19,7 @@ export default defineComponent({
   setup() {
     const initialized = ref(false);
     const routeName = ref("");
-    const schema = shallowRef<ApplicationSchema>();
+    const schema = shallowRef<IApplicationSchema>();
     const application = shallowRef<ApplicationRuntime>();
 
     loadRemotePackages().then(result => {
@@ -45,12 +45,12 @@ export default defineComponent({
       }
     });
 
-    /**
-     * mock 数据
-     */
-    schema.value = applicationSchema;
+    // /**
+    //  * mock 数据
+    //  */
+    // schema.value = applicationSchema;
 
-    /** */
+    // /** */
 
     return () => {
       if (!initialized.value) {

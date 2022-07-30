@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { IconBgColors } from "@arco-design/web-react/icon";
 import useCreateProject from "src/hooks/useCreateProject";
 import useComponentList from "src/stores/componentListState";
-import { ComponentData } from "packages/x-core/dist/types/manager";
+import { IComponentData } from "packages/x-core/dist/types/manager";
 
-const ComponentItem: React.FC<{ item: ComponentData }> = props => {
+const ComponentItem: React.FC<{ item: IComponentData }> = props => {
   const { item } = props;
   return (
     <div className="component-item">

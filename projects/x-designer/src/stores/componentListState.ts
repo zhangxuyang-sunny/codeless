@@ -1,9 +1,9 @@
 import { useDebugValue } from "react";
 import { atom, useRecoilState } from "recoil";
 import { getComponentList } from "src/api";
-import { ComponentData } from "packages/x-core/dist/types/manager";
+import { IComponentData } from "packages/x-core/dist/types/manager";
 
-const componentList = atom<ComponentData[]>({
+const componentList = atom<IComponentData[]>({
   key: "component-list",
   default: []
 });

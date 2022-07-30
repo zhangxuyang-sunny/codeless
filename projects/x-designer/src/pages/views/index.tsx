@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
 import { IconBgColors } from "@arco-design/web-react/icon";
-import { ComponentData } from "packages/x-core/dist/types/manager";
+import { IComponentData } from "packages/x-core/dist/types/manager";
 import useCreateView from "src/hooks/useCreateView";
 import useComponentList from "src/stores/componentListState";
 
-const ComponentItem: React.FC<{ item: ComponentData }> = props => {
+const ComponentItem: React.FC<{ item: IComponentData }> = props => {
   const { item } = props;
   return (
     <div className="component-item">

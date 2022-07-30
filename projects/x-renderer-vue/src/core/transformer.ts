@@ -1,8 +1,8 @@
 import {
-  ApplicationSchema,
-  ComponentSchema,
-  DatasetSchema
-} from "packages/x-core/src/types/schemas/application";
+  IApplicationSchema,
+  IComponentSchema,
+  IDatasetSchema
+} from "packages/x-core/src/types/schemas/project";
 import {
   isJSExpression,
   isJSFunction,
@@ -11,7 +11,7 @@ import {
 } from "packages/x-core/src/types/schemas/js-value";
 import { ApplicationRuntime, ComponentRuntime, DatasetRuntime } from "./schema";
 
-type PageSchema = ApplicationSchema["pages"][number];
+type PageSchema = IApplicationSchema["pages"][number];
 type PropsRuntime = ComponentRuntime["props"];
 type ClassNameRuntime = ComponentRuntime["className"];
 type StyleRuntime = ComponentRuntime["style"];
@@ -20,15 +20,15 @@ type SlotsRuntime = ComponentRuntime["slots"];
 type Context = ApplicationRuntime["context"];
 
 /**
- * ApplicationSchema 转换器
+ * IApplicationSchema 转换器
  *
- * ApplicationSchema -> ApplicationRuntime
+ * IApplicationSchema -> ApplicationRuntime
  *
  * @JSExpression 响应式表达式使用 window.vue.computed 实现
  * @datasets 响应式使用 pinia 实现
  */
 export class ApplicationTransformer {
-  constructor(private readonly schema: ApplicationSchema) {}
+  constructor(private readonly schema: IApplicationSchema) {}
 
   readonly context: Context = {
     datasets: {}
@@ -47,11 +47,11 @@ export class ApplicationTransformer {
   }
 
   /**
-   * DatasetSchema 转换
+   * IDatasetSchema 转换
    *
-   * DatasetSchema -> DatasetRuntime
+   * IDatasetSchema -> DatasetRuntime
    */
-  private transformDataset(dataset: DatasetSchema): DatasetRuntime {
+  private transformDataset(dataset: IDatasetSchema): DatasetRuntime {
     return {
       ...dataset,
       define: isJSFunction(dataset.define)
@@ -65,11 +65,11 @@ export class ApplicationTransformer {
   }
 
   /**
-   * ComponentSchema 转换
+   * IComponentSchema 转换
    *
-   * ComponentSchema -> ComponentRuntime
+   * IComponentSchema -> ComponentRuntime
    */
-  private transformComponent(component: ComponentSchema): ComponentRuntime {
+  private transformComponent(component: IComponentSchema): ComponentRuntime {
     // 转换 props
     const props: PropsRuntime = Object.entries(component.props).reduce((prev, [key, prop]) => {
       if (isJSExpression(prop)) {

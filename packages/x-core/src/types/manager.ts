@@ -191,7 +191,7 @@ export interface IResourceData {
 /**
  * 物料数据
  */
-export interface MaterialData {
+export interface IMaterialData {
   id: string;
   version: string;
   createdAt: string;

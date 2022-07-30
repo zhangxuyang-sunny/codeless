@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar/Index";
-import Simulator from "./components/Simulator";
-// import { page1 } from "./page1";
-// import { page2 } from "./page2";
-// import project from "./project";
+import Simulator from "./components/Simulator/Index";
+
 const Designer: React.FC = () => {
   return (
     <StyleDesigner>
@@ -40,6 +38,7 @@ const StyleDesigner = styled.div`
     }
     .center {
       flex-grow: 1;
+      margin: 10px;
       /* background-color: var(--color-bg-1); */
       .iframe {
         width: 100%;

@@ -1,5 +1,5 @@
 import axios from "src/utils/axios";
-import { ComponentData, ProjectConfigData } from "packages/x-core/dist/types/manager";
+import { IComponentData, IProjectConfigData } from "packages/x-core/dist/types/manager";
 import { ICreateProjectParams } from "packages/x-core/dist/types/dto/project";
 import {
   ICreateComponentParams,
@@ -10,7 +10,7 @@ import {
  * 创建组件
  */
 export async function createComponent(data: ICreateComponentParams) {
-  return axios<ComponentData>({
+  return axios<IComponentData>({
     url: "/api/v1/component/create",
     method: "post",
     data
@@ -21,7 +21,7 @@ export async function createComponent(data: ICreateComponentParams) {
  * 创建项目
  */
 export async function createProject(data: ICreateProjectParams) {
-  return axios<ProjectConfigData>({
+  return axios<IProjectConfigData>({
     url: "/api/v1/project/create",
     method: "post",
     data
@@ -32,7 +32,7 @@ export async function createProject(data: ICreateProjectParams) {
  * 获取 component 列表
  */
 export async function getComponentList(data: Partial<IFindComponentParams>) {
-  return axios<ComponentData[]>({
+  return axios<IComponentData[]>({
     url: "/api/v1/component/list",
     method: "get",
     data

@@ -1,6 +1,6 @@
-import { MaterialData } from "packages/x-core/dist/types/manager";
+import { IMaterialData } from "packages/x-core/dist/types/manager";
 
-const list: MaterialData[] = [
+const list: IMaterialData[] = [
   {
     id: "id_1",
     version: "0.0.0",
@@ -77,7 +77,7 @@ const list: MaterialData[] = [
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (): Promise<MaterialData[]> => {
+export default (): Promise<IMaterialData[]> => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(list);
