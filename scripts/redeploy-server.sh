@@ -1,4 +1,4 @@
-pnpm --filter @low/server redeploy
+pnpm --filter @lowcode/server redeploy
 
 curl -X POST -H "Content-Type: application/json" \
 	-d '{"msg_type":"text","content":{"text":"x-server 成功重新部署"}}' \

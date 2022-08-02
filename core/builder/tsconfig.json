@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "outDir": "dist",
+    "baseUrl": "./",
+    "jsx": "preserve",
+    "sourceMap": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipDefaultLibCheck": false,
+    "skipLibCheck": true,
+    "importHelpers": true,
+    "lib": ["esnext"]
+  },
+  "exclude": ["node_modules/**/*"],
+  "include": ["src/**/*", "start.ts"],
+  "extends": "../tsconfig.json"
+}

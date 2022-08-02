@@ -1,20 +1,17 @@
 {
-  "dependencies": {
-    "@nestjs/mapped-types": "*"
-  },
-  "name": "@low/system",
+  "name": "@lowcode/system",
   "version": "1.0.0",
   "description": "",
-  "scripts": {
-    "designer:start": "pnpm build:core && pnpm --filter @low/designer start",
-    "server:start:dev": "pnpm build:core && pnpm --filter @low/server start:dev",
-    "renderer/vue:start": "pnpm build:core && pnpm --filter @low/renderer-vue serve",
-    "develop:start": "pnpm --filter @low/develop serve",
-    "build:core": "pnpm --filter @low/core build",
-    "deploy": "sh scripts/deploy-server.sh",
-    "redeploy": "sh scripts/redeploy-server.sh"
-  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "scripts": {
+    "designer:start": "pnpm build:core && pnpm --filter @lowcode/designer start",
+    "server:start:dev": "pnpm build:core && pnpm --filter @lowcode/server start:dev",
+    "renderer-vue:start": "pnpm build:core && pnpm --filter @lowcode/renderer-vue serve",
+    "develop:start": "pnpm --filter @lowcode/develop serve",
+    "build:core": "pnpm --filter @lowcode/types build && pnpm --filter @lowcode/schema build",
+    "service:deploy": "sh scripts/deploy-server.sh",
+    "service:redeploy": "sh scripts/redeploy-server.sh"
+  }
 }

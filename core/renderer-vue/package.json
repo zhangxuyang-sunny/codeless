@@ -1,0 +1,52 @@
+{
+  "name": "@lowcode/renderer-vue",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "debug": "node --inspect-brk=9229 ./node_modules/@vue/cli-service/bin/vue-cli-service.js serve"
+  },
+  "dependencies": {
+    "@arco-design/web-vue": "^2.33.0",
+    "@lowcode/schema": "workspace:^0.0.1",
+    "@lowcode/types": "workspace:^0.0.1",
+    "@types/webpack-env": "^1.17.0",
+    "core-js": "^3.23.4",
+    "mitt": "^3.0.0",
+    "pinia": "^2.0.14",
+    "systemjs": "^6.12.1",
+    "tippy.js": "^6.3.7",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.0",
+    "@lowcode/shared": "workspace:^0.0.1",
+    "@types/node": "^18.0.0",
+    "@types/systemjs": "^6.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "@vue/cli-plugin-babel": "~5.0.4",
+    "@vue/cli-plugin-eslint": "~5.0.4",
+    "@vue/cli-plugin-pwa": "~5.0.4",
+    "@vue/cli-plugin-router": "~5.0.4",
+    "@vue/cli-plugin-typescript": "~5.0.4",
+    "@vue/cli-plugin-vuex": "~5.0.4",
+    "@vue/cli-service": "~5.0.4",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.1",
+    "less": "^4.1.2",
+    "less-loader": "7.3.0",
+    "lint-staged": "^12.4.2",
+    "prettier": "^2.6.2",
+    "typescript": "~4.6.4"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  }
+}
