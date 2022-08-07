@@ -2,8 +2,6 @@
 .cache
 node_modules
 dist
-db
-lib
 
 
 # local env files

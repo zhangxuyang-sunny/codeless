@@ -1,0 +1,27 @@
+{
+  "name": "@lowcode/shared",
+  "version": "0.0.1",
+  "description": "platform shared",
+  "keywords": [],
+  "author": "zhangxuyang",
+  "license": "ISC",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "rimraf dist && rollup --config rollup.config.ts --configPlugin typescript",
+    "watch": "pnpm run dev --watch"
+  },
+  "dependencies": {
+    "systemjs": "^6.12.1"
+  },
+  "devDependencies": {
+    "@types/systemjs": "^6.1.1",
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.4",
+    "rollup": "^2.75.4",
+    "typescript": "^4.7.4"
+  }
+}

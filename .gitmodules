@@ -1,0 +1,9 @@
+[submodule "packages/lowcode-schema"]
+	path = packages/lowcode-schema
+	url = git@gitee.com:x-lowcode/lowcode-schema.git
+[submodule "packages/lowcode-types"]
+	path = packages/lowcode-types
+	url = git@gitee.com:x-lowcode/lowcode-types.git
+[submodule "packages/lowcode-develop"]
+	path = packages/lowcode-develop
+	url = git@gitee.com:x-lowcode/lowcode-develop.git
