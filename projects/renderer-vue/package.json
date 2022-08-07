@@ -1,5 +1,5 @@
 {
-  "name": "@lowcode/renderer-vue",
+  "name": "lowcode-renderer-vue",
   "version": "0.0.1",
   "private": true,
   "scripts": {

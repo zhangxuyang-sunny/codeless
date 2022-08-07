@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-width: 1080px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--color-border-1);
+}

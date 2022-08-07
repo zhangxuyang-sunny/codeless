@@ -6,8 +6,8 @@ const {
   addBabelPlugin,
   fixBabelImports,
   removeModuleScopePlugin,
-  addLessLoader,
-  adjustStyleLoaders
+  adjustStyleLoaders,
+  babelInclude
 } = require("customize-cra");
 
 function resolve(dir) {
@@ -19,8 +19,15 @@ const ArcoDesignIcon = "@arco-design/web-react/icon";
 
 module.exports = override(
   removeModuleScopePlugin(), // 取消模块作用域检查
+  // cra 默认只编译 src 目录，重写此配置增加 monorepo 路径
+  babelInclude([
+    path.resolve("src"), //
+    path.resolve("../../packages"),
+    path.resolve("../../projects")
+  ]),
   addWebpackAlias({
     src: resolve("src"),
+    core: resolve("../../core"),
     packages: resolve("../../packages"),
     projects: resolve("../../projects")
   }),
@@ -44,26 +51,18 @@ module.exports = override(
     {
       displayName: true,
       fileName: true,
+      // 死代码消除
       ssr: false,
       minify: true,
       pure: true,
-      // namespace: "x",
+      namespace: "x",
+      // 哪些文件名是没有意义的
       meaninglessFileNames: ["index", "styles"],
+      // 转译标记为模板文字，将有价值的字节保留在您的包中
       transpileTemplateLiterals: false
     }
   ]),
 
-  addLessLoader({
-    lessOptions: {
-      javascriptEnabled: true,
-      localIdentName: "[local]--[hash:base64:5]",
-      modifyVars: {
-        // 在less-loader@6 modifyVars 配置被移到 lessOptions 中
-        "arcoblue-6": "#ee7934",
-        "primary-6": "#ee7934"
-      }
-    }
-  }),
   adjustStyleLoaders(({ use: [, , postcss] }) => {
     const postcssOptions = postcss.options;
     postcss.options = { postcssOptions };

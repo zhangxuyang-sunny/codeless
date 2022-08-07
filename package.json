@@ -11,8 +11,9 @@
     "watch-schema": "pnpm --filter=./packages/lowcode-schema run watch",
     "watch-types": "pnpm --filter=./packages/lowcode-types run watch",
     "build-packages": "run-s build-schema build-types",
-    "designer:start": "pnpm run build-packages && pnpm --filter @lowcode/designer start",
-    "renderer-vue:start": "pnpm run build-packages && pnpm --filter @lowcode/renderer-vue serve"
+    "designer:start": "pnpm run build-packages && pnpm --filter lowcode-designer start",
+    "renderer-vue:start": "pnpm run build-packages && pnpm --filter lowcode-renderer-vue serve",
+    "workbench:start": "pnpm run build-packages && pnpm --filter lowcode-workbench start"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5",

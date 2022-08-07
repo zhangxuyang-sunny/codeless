@@ -23,12 +23,11 @@ module.exports = override(
   // cra 默认只编译 src 目录，重写此配置增加 monorepo 路径
   babelInclude([
     path.resolve("src"), //
-    path.resolve("../../core"),
-    path.resolve("../../packages")
+    path.resolve("../../packages"),
+    path.resolve("../../projects")
   ]),
   addWebpackAlias({
     src: resolve("src"),
-    core: resolve("../../core"),
     packages: resolve("../../packages"),
     projects: resolve("../../projects")
   }),
