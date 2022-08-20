@@ -5,7 +5,7 @@ import {
   CreateProjectParams,
   ICreateComponentParams,
   IFindComponentParams
-} from "@lowcode/types";
+} from "@economizer/types";
 
 /**
  * 创建组件

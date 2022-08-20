@@ -1,5 +1,5 @@
-import { ApplicationConfig } from "@lowcode/types";
-import { ApplicationSchema, ComponentSchema, DatasetSchema } from "@lowcode/schema";
+import { ApplicationConfig } from "@economizer/types";
+import { Application, ComponentSchema, DatastoreSchema } from "@economizer/schema";
 
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 
@@ -99,8 +99,7 @@ const container: ComponentSchema = {
   listeners: []
 };
 
-const dataset1: DatasetSchema = {
-  id: "dataset_1",
+const dataset1: DatastoreSchema = {
   type: "pinia",
   name: "dataset_1",
   define: {
@@ -127,8 +126,7 @@ const dataset1: DatasetSchema = {
   }
 };
 
-const dataset2: DatasetSchema = {
-  id: "dataset_2",
+const dataset2: DatastoreSchema = {
   type: "pinia",
   name: "dataset_2",
   define: {
@@ -155,55 +153,16 @@ const dataset2: DatasetSchema = {
   }
 };
 
-const applicationConfig: ApplicationConfig = {
+const applicationSchema: Application = {
   id: "app_1",
-  config: {
-    router: {
-      base: "/",
-      mode: "history",
-      meta: {}
-    },
-    pages: [
-      {
-        id: "page_1",
-        name: "home",
-        path: "/home",
-        title: "页面1",
-        component: {
-          id: "container",
-          version: "0.0.1"
-        }
-      }
-    ],
-    datasets: [
-      {
-        dataset: {
-          id: "dataset_1",
-          version: "0.0.1"
-        },
-        name: "dataset_1"
-      },
-      {
-        dataset: {
-          id: "dataset_2",
-          version: "0.0.1"
-        },
-        name: "dataset_2"
-      }
-    ]
+  version: "0.0.1",
+  router: {
+    base: "/",
+    mode: "history",
+    meta: {}
   },
-  resource: {
-    datasets: [dataset1],
-    components: [component_1]
-  }
-};
-
-const applicationSchema: ApplicationSchema = {
-  id: "app_1",
-  router: applicationConfig.config.router,
   pages: [
     {
-      name: "home",
       path: "/",
       component: container
     }
@@ -211,9 +170,8 @@ const applicationSchema: ApplicationSchema = {
   datasets: [dataset1, dataset2]
 };
 
-export { applicationConfig, applicationSchema };
+export { applicationSchema };
 
 console.log({
-  applicationConfig,
   applicationSchema
 });

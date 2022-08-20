@@ -1,4 +1,4 @@
-import { ProjectConfigData, ProjectStatus } from "@lowcode/types";
+import { ProjectConfigData, ProjectStatus } from "@economizer/types";
 import { useCallback, useEffect, useState } from "react";
 
 import { apiGetProjectList } from "../core/api";

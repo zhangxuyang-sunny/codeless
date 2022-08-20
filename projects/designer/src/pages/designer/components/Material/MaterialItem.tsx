@@ -2,13 +2,13 @@ import React, { useRef } from "react";
 import { Popover } from "@arco-design/web-react";
 import styled from "styled-components";
 
-export interface IMaterialItem {
+export interface IModuleItem {
   data: any;
 }
-const MaterialItem: React.FC<IMaterialItem> = ({ data }) => {
+const ModuleItem: React.FC<IModuleItem> = ({ data }) => {
   const materialItemEle = useRef<HTMLDivElement>(null);
   return (
-    <MaterialItemContainer>
+    <ModuleItemContainer>
       <Popover
         className="material-preview-popover"
         getPopupContainer={() => {
@@ -27,11 +27,11 @@ const MaterialItem: React.FC<IMaterialItem> = ({ data }) => {
           <div className="title">{data.title}</div>
         </div>
       </Popover>
-    </MaterialItemContainer>
+    </ModuleItemContainer>
   );
 };
 
-const MaterialItemContainer = styled.div`
+const ModuleItemContainer = styled.div`
   .material-item {
     display: flex;
     flex-direction: column;
@@ -73,4 +73,4 @@ const MaterialItemContainer = styled.div`
   }
 `;
 
-export default MaterialItem;
+export default ModuleItem;

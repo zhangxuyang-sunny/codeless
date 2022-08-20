@@ -1,6 +1,6 @@
-import { MaterialData } from "@lowcode/types";
+import { ModuleData } from "@economizer/types";
 
-const list: MaterialData[] = [
+const list: ModuleData[] = [
   {
     id: "id_1",
     version: "0.0.0",
@@ -14,7 +14,7 @@ const list: MaterialData[] = [
     schema: {
       type: "component",
       src: "xxx",
-      setterOptions: {
+      options: {
         props: [],
         slots: [],
         emits: [],
@@ -39,7 +39,7 @@ const list: MaterialData[] = [
     schema: {
       type: "component",
       src: "xxx",
-      setterOptions: {
+      options: {
         props: [],
         slots: [],
         emits: [],
@@ -63,7 +63,7 @@ const list: MaterialData[] = [
     schema: {
       type: "component",
       src: "xxx",
-      setterOptions: {
+      options: {
         props: [],
         slots: [],
         emits: [],
@@ -77,7 +77,7 @@ const list: MaterialData[] = [
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (): Promise<MaterialData[]> => {
+export default (): Promise<ModuleData[]> => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(list);

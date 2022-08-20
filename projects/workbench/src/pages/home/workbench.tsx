@@ -38,8 +38,7 @@ const Workbench: React.FC<{ baseurl: string }> = props => {
         defaultOpenKeys={MENU_OPTIONS.map(({ key }) => key)}
         defaultSelectedKeys={[pathname]}
         onClickMenuItem={value => {
-          console.log({ value });
-          navigate(value);
+          navigate(value, { replace: true });
         }}
       >
         {MENU_OPTIONS.map(menuItem => {

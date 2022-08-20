@@ -4,9 +4,9 @@ import "systemjs/dist/extras/use-default.min.js";
 import "systemjs/dist/extras/named-register.min.js";
 import "systemjs/dist/extras/dynamic-import-maps.min.js";
 import "tippy.js/dist/tippy.css";
-import "@lowcode/types/src/renderer-api";
+import "@economizer/types/src/renderer-api";
 
-import { importMap, addToImportMapImports } from "packages/lowcode-shared/src";
+import { importMap, addToImportMapImports } from "packages/shared/src";
 
 window.__X_RENDERER_API__ = {
   document,

@@ -86,7 +86,7 @@ export class Simulator {
   /**
    * 标记节点 id 属性
    */
-  private nodeIdFlag: `data-${string}` = "data-remote-id";
+  private nodeIdFlag: `data-${string}` = "data-component-id";
 
   /**
    * 修改 node 节点标识

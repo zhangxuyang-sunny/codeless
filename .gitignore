@@ -3,6 +3,7 @@
 node_modules
 dist
 
+release*
 
 # local env files
 .env.local

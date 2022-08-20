@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-// import { IMaterialOptionSchema } from "packages/x-core/dist/types/material";
+// import { IModuleOptionSchema } from "packages/x-core/dist/types/material";
 import Shortcuts from "./behavior/Shortcuts";
 import OperationDom, { OperationDomOptions } from "./classes/OperationDom";
 import { Behavior } from "./interface";
@@ -149,7 +149,7 @@ export class Simulator extends OperationDom {
    */
   addBeforeend(
     id: string
-    // material: IMaterialOptionSchema
+    // material: IModuleOptionSchema
   ) {
     console.log(id);
   }

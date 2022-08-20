@@ -44,12 +44,12 @@ export function addToImportMapImports(imports: Record<string, string>) {
 // 删除 imports 中的一条数据
 // export function deleteFromImportMapImports(key: string) {}
 
-export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:3333" : "119.91.65.70:3333";
+export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:7890";
 export const importMap = {
-  "vue": `//${host}/static/packages/vue/3.2.31/index.js`,
-  "pinia": `//${host}/static/packages/pinia/2.0.14/index.js`,
-  "vue-router": `//${host}/static/packages/vue-router/4.0.13/index.js`,
-  "@arco-design/web-vue": `//${host}/static/packages/@arco-design/web-vue/2.27.1/index.js`,
+  "vue": `//${host}/static/packages/vue/index.js`,
+  "pinia": `//${host}/static/packages/pinia.js`,
+  "vue-router": `//${host}/static/packages/vue-router.js`,
+  "@arco-design/web-vue": `//${host}/static/packages/@arco-design/web-vue.js`,
   "RendererEntry": `//${host}/static/components/common/RendererEntry.js`
   // "sortablejs": "http://localhost:8080/x-generator-render/sortablejs.js"
 };

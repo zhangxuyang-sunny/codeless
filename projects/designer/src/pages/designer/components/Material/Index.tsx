@@ -5,7 +5,7 @@ import Collection from "./Collection";
 import Own from "./Own";
 import { useState } from "react";
 const RadioGroup = Radio.Group;
-export default function Material() {
+export default function Module() {
   const [selectComp, setSelectComp] = useState<"installed" | "own" | "collection">("installed");
 
   const ContentMap = {
@@ -14,7 +14,7 @@ export default function Material() {
     collection: () => <Collection />
   };
   return (
-    <MaterialContainer>
+    <ModuleContainer>
       <header>
         <div className="title">组件库</div>
         {/* <Search /> */}
@@ -36,11 +36,11 @@ export default function Material() {
       <div className="footer">
         <span>安装更多组件</span>
       </div>
-    </MaterialContainer>
+    </ModuleContainer>
   );
 }
 
-const MaterialContainer = styled.div`
+const ModuleContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;

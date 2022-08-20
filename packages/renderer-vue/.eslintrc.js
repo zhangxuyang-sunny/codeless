@@ -11,7 +11,7 @@ module.exports = {
     "plugin:import/warnings",
     "plugin:import/typescript"
   ],
-  plugins: ["import"],
+  plugins: ["simple-import-sort", "import"],
   parserOptions: {
     ecmaVersion: 2020
   },

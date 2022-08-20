@@ -1,5 +1,5 @@
 {
-  "name": "lowcode-workbench",
+  "name": "economizer-workbench",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@arco-design/web-react": "^2.35.1",
-    "@lowcode/schema": "workspace:^0.0.1",
-    "@lowcode/types": "workspace:*",
+    "@economizer/schema": "workspace:^0.0.1",
+    "@economizer/types": "workspace:*",
     "@popperjs/core": "^2.11.5",
     "@tippyjs/react": "^4.2.6",
     "@types/lodash": "^4.14.182",
@@ -45,7 +45,6 @@
     "@babel/core": "^7.18.5",
     "@babel/plugin-syntax-flow": "^7.17.12",
     "@babel/plugin-transform-react-jsx": "^7.17.12",
-    "@types/node": "^18.0.0",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
     "@types/styled-components": "^5.1.25",

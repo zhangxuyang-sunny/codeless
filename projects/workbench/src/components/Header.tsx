@@ -11,7 +11,7 @@ const Header: React.FC = () => {
         <Menu mode="horizontal" defaultSelectedKeys={["0"]}>
           <Menu.Item key="0">工作台</Menu.Item>
           <Menu.Item key="2">资源中心</Menu.Item>
-          <Menu.Item key="3">物料中心</Menu.Item>
+          <Menu.Item key="3">模块中心</Menu.Item>
           <Menu.Item key="4">模板中心</Menu.Item>
         </Menu>
       </div>

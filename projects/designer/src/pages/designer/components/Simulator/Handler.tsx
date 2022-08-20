@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useEffect, useRef, useState } from "react";
 import NodeSelector from "./NodeSelector";
 
-const NODE_ID_ATTR = "data-remote-id";
+const NODE_ID_ATTR = "data-component-id";
 
 const Simulator: React.FC<{
   // 注意：需要保证是加载完成后的 iframeElement，否则内部监听会失效

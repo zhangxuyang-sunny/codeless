@@ -38,7 +38,7 @@ const SimulatorRender: React.FC = () => {
             setTimeout(() => {
               if (ref.contentDocument) {
                 new Simulator({
-                  key: "data-remote-id",
+                  key: "data-component-id",
                   document: ref.contentDocument,
                   container: ref.contentDocument?.body as HTMLElement,
                   popoverContainer: simulatorRef.current as HTMLElement,

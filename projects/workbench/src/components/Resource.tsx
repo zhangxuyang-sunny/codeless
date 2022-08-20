@@ -1,5 +1,5 @@
 import { Input, Select } from "@arco-design/web-react";
-import { ProjectStatus } from "@lowcode/types/src/enums";
+import { ProjectStatus } from "@economizer/types/src/enums";
 import { useProjectList } from "src/hooks/useResourceList";
 import styled from "styled-components";
 
@@ -17,7 +17,7 @@ const Resource: React.FC<{ type: string; name: string }> = props => {
 
   return (
     <StyleResourceManager>
-      <div className="application-header">
+      <div className="resource-header">
         <Input.Search
           className="search-input"
           placeholder={`请输入"${props.name}"名称以搜索资源`}
@@ -69,9 +69,8 @@ const Resource: React.FC<{ type: string; name: string }> = props => {
 const StyleResourceManager = styled.div`
   flex-grow: 1;
   background-color: var(--color-bg-1);
-  overflow: auto;
   box-sizing: border-box;
-  .application-header {
+  .resource-header {
     display: flex;
     justify-content: space-between;
     position: sticky;

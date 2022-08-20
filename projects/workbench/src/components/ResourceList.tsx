@@ -1,6 +1,6 @@
 import { Avatar, Button, Select, Tag } from "@arco-design/web-react";
-import { ProjectConfigData, ProjectStatus } from "packages/lowcode-types/dist";
-import { ProjectStatusName } from "packages/lowcode-types/src/enums";
+import { ProjectConfigData, ProjectStatus } from "packages/types/dist";
+import { ProjectStatusName } from "packages/types/src/enums";
 import styled from "styled-components";
 
 const ResourceList: React.FC<{ list: ProjectConfigData[] }> = props => {

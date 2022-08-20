@@ -1,4 +1,4 @@
-// import "@lowcode/types";
+// import "@economizer/types";
 import React, { useRef, useState } from "react";
 import { applicationSchema } from "./application";
 import Handler from "./Handler";

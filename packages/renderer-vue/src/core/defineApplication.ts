@@ -1,4 +1,4 @@
-import mitt from "mitt";
+import EventEmitter2 from "eventemitter2";
 import {
   App,
   Plugin,
@@ -9,37 +9,58 @@ import {
   watch,
   onUnmounted,
   toRefs,
-  createElementVNode
+  createElementVNode,
+  onMounted
 } from "vue";
 import { Router, RouteRecordRaw } from "vue-router";
 import { StateTree, Store } from "pinia";
-import { TypeGlobalProperties } from "../types";
-import { ApplicationRuntime } from "./schema";
-import RendererEntry from "../components/RendererEntry.vue";
+import type { GlobalProperties } from "@economizer/develop-vue";
+import { ApplicationRuntime } from "./runtime-schema";
+import AsyncComponent from "../components/AsyncComponent.vue";
 
-// 依赖
-type Dependencies = {
-  vue: typeof import("vue");
-  vueRouter: typeof import("vue-router");
-  pinia: typeof import("pinia");
-};
+const [vue, vueRouter, pinia] = await Promise.all([
+  System.import<typeof import("vue")>("vue"),
+  System.import<typeof import("vue-router")>("vue-router"),
+  System.import<typeof import("pinia")>("pinia")
+]);
 
 // 渲染节点 id
 const RENDERER_ID = "__renderer_vue__";
+// 低代码组件节点 dom id 属性名
+const COMPONENT_ID_ATTR = "data-component-id";
 
-export const defineApplication = (dependencies: Dependencies) => {
-  const { vue, vueRouter, pinia } = dependencies;
-
+export const defineApplication = () => {
   // 平台 vue 插件
-  const createPlatformPlugin = () => {
+  const createPlatformPlugin = (schema: ApplicationRuntime) => {
+    const emitter = new EventEmitter2(schema.eventsOptions);
+    schema.listeners.forEach(listener => {
+      const { event, target, invoke, once } = listener;
+      (once ? emitter.once : emitter.on).call(emitter, event, (...args: unknown[]) => {
+        // invoke 比 target 优先调用
+        if (typeof invoke === "function") {
+          invoke(...args);
+        }
+        // 依次触发目标事件
+        target.forEach(t => {
+          if (typeof t.params === "function") {
+            // 处理 params 函数参数转换器
+            const params = t.params(...args);
+            emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
+          } else {
+            emitter.emit(t.event, ...args);
+          }
+        });
+      });
+    });
     // 全局属性提供标准统一的数据资料
-    const globalProperties: TypeGlobalProperties = {
-      $events: mitt<Record<string, unknown>>(),
+    const globalProperties: GlobalProperties = {
+      $events: emitter,
       $refs: new Map(),
       $utils: {
-        getKey() {
+        getComponentId() {
           const instance = vue.getCurrentInstance();
-          return String(instance?.vnode.key) || "";
+          const k = instance?.attrs[COMPONENT_ID_ATTR];
+          return typeof k === "string" ? k : null;
         },
         getInstance() {
           return vue.getCurrentInstance();
@@ -54,14 +75,38 @@ export const defineApplication = (dependencies: Dependencies) => {
       install(vue) {
         Object.assign(vue.config.globalProperties, globalProperties);
         vue.provide("globalProperties", globalProperties);
+        // 低代码组件注册引用至 globalProperties.$refs
         vue.mixin({
           created() {
-            globalProperties.$refs.set(`${this.$.type.name}_${this.$.vnode.key}`, this.$);
+            const id = this.$.attrs[COMPONENT_ID_ATTR] as string;
+            if (id) globalProperties.$refs.set(id, this.$);
           },
           unmounted() {
-            globalProperties.$refs.delete(this.$.type.name);
+            const id = this.$.attrs[COMPONENT_ID_ATTR] as string;
+            if (id) globalProperties.$refs.delete(id);
           }
         });
+        // 注入低代码组件生命周期事件
+        vue.mixin(
+          [
+            "beforeCreate",
+            "created",
+            "beforeMount",
+            "mounted",
+            "beforeUpdated",
+            "activated",
+            "deactivated",
+            "beforeUnmount",
+            "unmounted"
+          ].reduce((result, cycle) => {
+            result[cycle] = function () {
+              const id = this.$.attrs[COMPONENT_ID_ATTR] as string;
+              if (id) globalProperties.$events.emit(`${id}:${cycle}`, this.$);
+            };
+            return result;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          }, {} as Record<string, any>)
+        );
       }
     };
 
@@ -106,7 +151,6 @@ export const defineApplication = (dependencies: Dependencies) => {
       watch(
         [schema, elRef],
         () => {
-          console.log({ runtime: schema.value });
           if (!elRef.value) return;
           app?.unmount();
           app = createApp();
@@ -118,6 +162,21 @@ export const defineApplication = (dependencies: Dependencies) => {
         },
         { immediate: true }
       );
+
+      const loadApp = () => {
+        if (!elRef.value) return;
+        app?.unmount();
+        app = createApp();
+        if (elRef.value instanceof HTMLDivElement) {
+          app.mount(elRef.value);
+        } else {
+          app.mount(`#${RENDERER_ID}`);
+        }
+      };
+
+      onMounted(() => {
+        loadApp();
+      });
 
       const createRouter = () => {
         const { router, pages } = schema.value;
@@ -133,10 +192,11 @@ export const defineApplication = (dependencies: Dependencies) => {
             return {
               ...page,
               component: defineComponent({
-                name: `RouteView-${page.name}`,
+                name: `RouteView-${page.path}`,
                 render() {
-                  return vue.h(RendererEntry, {
-                    schema: page.component
+                  return vue.h(AsyncComponent, {
+                    schema: page.component,
+                    domFlag: COMPONENT_ID_ATTR
                   });
                 }
               })
@@ -161,7 +221,7 @@ export const defineApplication = (dependencies: Dependencies) => {
         const app = vue //
           .createApp(HostComponent)
           .use(router)
-          .use(createPlatformPlugin());
+          .use(createPlatformPlugin(schema.value));
         // 创建 pinia
         if (schema.value?.datasets.length) {
           app.use(pinia.createPinia());

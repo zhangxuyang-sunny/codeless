@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { atom, useRecoilState } from "recoil";
-import { TypePageConfig, TypeProjectConfig, TypeRouterConfig } from "@lowcode/types";
+import { TypePageConfig, TypeProjectConfig, TypeRouterConfig } from "@economizer/types";
 
 export const projectState = atom<TypeProjectConfig>({
   key: "project",

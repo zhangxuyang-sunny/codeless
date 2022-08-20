@@ -1,9 +1,9 @@
-[submodule "packages/lowcode-schema"]
-	path = packages/lowcode-schema
-	url = git@gitee.com:x-lowcode/lowcode-schema.git
-[submodule "packages/lowcode-types"]
-	path = packages/lowcode-types
-	url = git@gitee.com:x-lowcode/lowcode-types.git
-[submodule "packages/lowcode-develop"]
-	path = packages/lowcode-develop
-	url = git@gitee.com:x-lowcode/lowcode-develop.git
+[submodule "packages/types"]
+	path = packages/types
+	url = git@gitee.com:economizer/types.git
+[submodule "packages/schema"]
+	path = packages/schema
+	url = git@gitee.com:economizer/schema.git
+[submodule "packages/develop-vue"]
+	path = packages/develop-vue
+	url = git@gitee.com:economizer/develop-vue.git

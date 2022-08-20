@@ -1,5 +1,5 @@
-const MaterialCenter: React.FC = () => {
-  return <div>物料中心</div>;
+const ModuleCenter: React.FC = () => {
+  return <div>模块中心</div>;
 };
 
-export default MaterialCenter;
+export default ModuleCenter;

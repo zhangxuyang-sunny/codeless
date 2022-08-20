@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { Spin } from "@arco-design/web-react";
-import { MaterialData } from "@lowcode/types";
-import getMaterialData from "src/mock/materialList";
-import MaterialItem from "./MaterialItem";
+import { ModuleData } from "@economizer/types";
+import getModuleData from "src/mock/materialList";
+import ModuleItem from "./ModuleItem";
 
 const Installed: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  const [list, setList] = useState<MaterialData[]>([]);
+  const [list, setList] = useState<ModuleData[]>([]);
 
-  getMaterialData().then(res => {
+  getModuleData().then(res => {
     setList(res);
     setLoading(false);
   });
@@ -20,7 +20,7 @@ const Installed: React.FC = () => {
       <InstallContainer className="installed-container">
         {list.map(item => {
           if (item.schema.type === "component") {
-            return <MaterialItem data={item} key={item.schema.src} />;
+            return <ModuleItem data={item} key={item.schema.src} />;
           }
           return null;
         })}

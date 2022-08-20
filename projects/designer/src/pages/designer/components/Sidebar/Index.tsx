@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Tooltip } from "@arco-design/web-react";
 import Api from "../Api/Index";
 import History from "../History/Index";
-import Material from "../Material/Index";
+import Module from "../Module/Index";
 import Outline from "../Outline/Index";
 import DataSet from "../DataSet";
 import Json from "../Json";
@@ -24,7 +24,7 @@ export default function Sidebar() {
     {
       desc: "组件",
       icon: "Components",
-      Content: Material
+      Content: Module
     },
     {
       desc: "接口",
