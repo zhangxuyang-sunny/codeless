@@ -4,6 +4,3 @@
 [submodule "packages/schema"]
 	path = packages/schema
 	url = git@gitee.com:economizer/schema.git
-[submodule "packages/develop-vue"]
-	path = packages/develop-vue
-	url = git@gitee.com:economizer/develop-vue.git

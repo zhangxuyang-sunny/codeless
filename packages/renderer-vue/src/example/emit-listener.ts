@@ -64,6 +64,7 @@ const emitListenerSchema: Application = SchemaBuilder.Application.set("router", 
     path: "/",
     component: container
   })
+  // 全局监听【按钮1】的 toggle_loading 事件，去触发【按钮3】的 toggle_loading 事件
   .addListener({
     event: "button_loading_1:toggle_loading",
     target: [
