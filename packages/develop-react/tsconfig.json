@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipDefaultLibCheck": false,
+    "importHelpers": true,
+    "lib": ["esnext", "dom"],
+    "plugins": [{
+      "name": "typescript-plugin-css-modules",
+      "options": {
+        "customMatcher": "\\.(c|le||lle|sa|sc)ss$"
+      }
+    }]
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "exclude": ["node_modules/**/*"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+}

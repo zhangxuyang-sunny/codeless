@@ -1,11 +1,11 @@
 module.exports = {
   overrides: [
     {
-      files: ['*.vue', '*.ts', '*.js', '*.yml'],
+      files: ["*.vue", "*.ts", "*.js", "*.yml"],
       options: {
         printWidth: 80, // 将确保你的单行代码不会超过 80 个字符。
         singleQuote: false, // 会将所有双引号转换为单引号
-        trailingComma: 'none', // 将确保在最后一个对象属性的末尾会有一个逗号
+        trailingComma: "none", // 将确保在最后一个对象属性的末尾会有一个逗号
         bracketSpacing: true, // 在对象字面量之间打印空格
         jsxBracketSameLine: true, // 将在多行 JSX 元素的最后一行放置>
         tabWidth: 2, // 指定单个缩进的空格数
