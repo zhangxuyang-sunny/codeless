@@ -21,7 +21,11 @@
     "isolatedModules": true,
     "importHelpers": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "@economizer/*": ["../../packages/*"],
+      "packages/*": ["../../packages/*"],
+    }
   },
   "ts-node": {
     "compilerOptions": {

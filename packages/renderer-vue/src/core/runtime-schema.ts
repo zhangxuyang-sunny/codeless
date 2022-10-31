@@ -109,12 +109,6 @@ export interface TargetEventRuntime
 /**
  * @TODO 是否需要实现多种状态管理
  */
-export interface DatasetRuntime
-  extends Omit<
-    Dataset,
-    | "type" //
-    | "define"
-  > {
-  type: "pinia";
+export interface DatasetRuntime extends Omit<Dataset, "define"> {
   define: () => DefineStoreOptions<string, StateTree, unknown, unknown>;
 }

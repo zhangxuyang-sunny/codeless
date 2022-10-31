@@ -95,7 +95,7 @@ export class ApplicationTransformer {
         : isJSExpression(dataset.define)
         ? this.transformJSExpression(dataset.define)
         : (() => {
-            console.warn("The dataset's field 'define' is not a JSFunction node.");
+            console.warn("The dataset's field 'define' is not a valid node.");
           })()
     };
   }
@@ -201,9 +201,8 @@ export class ApplicationTransformer {
 export function transformJSExpression(schema: JSExpression, context: IContext) {
   return new Function(
     "context",
-    schema.static //
-      ? `return ${schema.value}`
-      : `return vue.computed(() => (${schema.value}))`
+    // TODO: 是否能优化 static 模式
+    `return vue.computed(() => (${schema.value}))`
   )(context);
 }
 
@@ -213,5 +212,10 @@ export function transformJSExpression(schema: JSExpression, context: IContext) {
  * @param context 上下文数据
  */
 export function transformJSFunction(schema: JSFunction, context: IContext) {
-  return new Function("context", `return ${schema.value}`)(context);
+  return new Function(
+    "context",
+    schema.useStrict //
+      ? `useStrict;\n return ${schema.value}`
+      : `return ${schema.value}`
+  )(context);
 }

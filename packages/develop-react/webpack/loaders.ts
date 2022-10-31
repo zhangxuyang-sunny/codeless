@@ -37,15 +37,6 @@ export const threadLoader: RuleSetUseItem = {
   }
 };
 
-// SSR 有用
-export const vueStyleLoader: RuleSetUseItem = {
-  loader: "vue-style-loader",
-  options: {
-    sourceMap: false,
-    shadowMode: false
-  }
-};
-
 export const styleLoader: RuleSetUseItem = {
   loader: "style-loader"
 };

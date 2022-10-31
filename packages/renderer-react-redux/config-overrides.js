@@ -7,7 +7,7 @@ const {
   fixBabelImports,
   removeModuleScopePlugin,
   adjustStyleLoaders,
-  babelInclude,
+  babelInclude
 } = require("customize-cra");
 
 function resolve(dir) {
@@ -18,6 +18,13 @@ const ArcoDesign = "@arco-design/web-react";
 const ArcoDesignIcon = "@arco-design/web-react/icon";
 
 module.exports = override(
+  config => {
+    if (!config?.experiments) {
+      config.experiments = {};
+    }
+    config.experiments.topLevelAwait = true;
+    return config;
+  },
   removeModuleScopePlugin(), // 取消模块作用域检查
   // cra 默认只编译 src 目录，重写此配置增加 monorepo 路径
   babelInclude([

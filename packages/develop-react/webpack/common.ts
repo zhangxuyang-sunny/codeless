@@ -40,11 +40,13 @@ const config: Configuration = {
     "packages/react/index": "./node_modules/react/index.js",
     "packages/react-dom/index": "./node_modules/react-dom/index.js",
     "packages/react-dom/client": "./node_modules/react-dom/client.js",
+    "packages/@reduxjs/toolkit": "./node_modules/@reduxjs/toolkit/dist/index.js",
     "packages/@arco-design/web-react": "./node_modules/@arco-design/web-react/lib/index.js",
     "packages/@arco-design/web-react/icon": "./node_modules/@arco-design/web-react/icon/index.js",
     "components/common/VerticalLayout": "./src/components/common/VerticalLayout/index.tsx",
-    ...getEntryByDir("components/arco"),
-    ...getEntryByDir("components/common")
+    "components/common/HorizontalLayout": "./src/components/common/HorizontalLayout/index.tsx",
+    "components/common/Container": "./src/components/common/Container/index.tsx",
+    ...getEntryByDir("components/arco")
     // ...getEntryByDir("components/test")
   },
   // https://webpack.docschina.org/configuration/output/
@@ -72,7 +74,7 @@ const config: Configuration = {
     alias: {
       "@": path.resolve("./src")
     },
-    extensions: [".tsx", ".ts", ".mjs", ".js", ".jsx", ".vue", ".json", ".wasm"],
+    extensions: [".tsx", ".ts", ".mjs", ".js", ".jsx", ".json", ".wasm"],
     modules: ["node_modules"]
   },
   // https://webpack.js.org/configuration/experiments/#experimentsoutputmodule
@@ -96,8 +98,7 @@ const config: Configuration = {
           {
             loader: "ts-loader",
             options: {
-              transpileOnly: true,
-              appendTsSuffixTo: ["\\.vue$"]
+              transpileOnly: true
             }
           }
         ]
@@ -109,8 +110,7 @@ const config: Configuration = {
           {
             loader: "ts-loader",
             options: {
-              transpileOnly: true,
-              appendTsxSuffixTo: ["\\.vue$"]
+              transpileOnly: true
             }
           }
         ]
@@ -151,10 +151,6 @@ const config: Configuration = {
             use: [styleLoader, cssLoader, postcssLoader]
           },
           {
-            resourceQuery: /\?vue/,
-            use: [styleLoader, cssLoader, postcssLoader]
-          },
-          {
             test: /\.module\.\w+$/,
             use: [styleLoader, cssLoader, postcssLoader]
           },
@@ -166,10 +162,6 @@ const config: Configuration = {
         oneOf: [
           {
             resourceQuery: /module/,
-            use: [styleLoader, cssLoader, postcssLoader, lessLoader]
-          },
-          {
-            resourceQuery: /\?vue/,
             use: [styleLoader, cssLoader, postcssLoader, lessLoader]
           },
           {
@@ -186,10 +178,6 @@ const config: Configuration = {
         oneOf: [
           {
             resourceQuery: /module/,
-            use: [styleLoader, cssLoader, postcssLoader, sassLoader]
-          },
-          {
-            resourceQuery: /\?vue/,
             use: [styleLoader, cssLoader, postcssLoader, sassLoader]
           },
           {
@@ -220,10 +208,10 @@ const config: Configuration = {
     ]
   },
   plugins: [
-    new DllReferencePlugin({
-      context: process.cwd(),
-      manifest: path.join(__dirname, "../release.dll/packages.manifest.json")
-    })
+    // new DllReferencePlugin({
+    //   context: process.cwd(),
+    //   manifest: path.join(__dirname, "../release.dll/packages.manifest.json")
+    // })
     // new ProgressPlugin((progress, msg, ...args) => {
     //   console.log(`${Math.ceil(progress * 100)}%`, msg, args);
     // })
@@ -239,7 +227,6 @@ const config: Configuration = {
     //   // should the console be cleared between each compilation?
     //   // default is true
     //   clearConsole: true,
-
     //   // add formatters and transformers (see below)
     //   additionalFormatters: [],
     //   additionalTransformers: []
@@ -275,6 +262,6 @@ const config: Configuration = {
     //   }
     // }),
   ],
-  externals: ["vue", "pinia", "vue-router", "@arco-design/web-vue", "ant-design-vue"]
+  externals: ["react", "react-dom"]
 };
 export default config;

@@ -1,11 +1,10 @@
-// eslint-disable-next-line no-undef
 module.exports = {
   overrides: [
     {
       files: ["*.tsx", "*.ts", "*.js", "*.yml"],
       options: {
         // 一行最多 100 字符
-        printWidth: 100,
+        printWidth: 80,
         // 使用空格缩进
         tabWidth: 2,
         // 不使用缩进符，而使用空格

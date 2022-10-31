@@ -44,15 +44,6 @@ export function addToImportMapImports(imports: Record<string, string>) {
 // 删除 imports 中的一条数据
 // export function deleteFromImportMapImports(key: string) {}
 
-export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:7890";
-export const importMap = {
-  "vue": `//${host}/static/packages/vue/index.js`,
-  "pinia": `//${host}/static/packages/pinia.js`,
-  "vue-router": `//${host}/static/packages/vue-router.js`,
-  "@arco-design/web-vue": `//${host}/static/packages/@arco-design/web-vue.js`,
-  "RendererEntry": `//${host}/static/components/common/RendererEntry.js`
-  // "sortablejs": "http://localhost:8080/x-generator-render/sortablejs.js"
-};
 
 // if (process.env.NODE_ENV === "development") {
 //   const vue = await import("vue");
@@ -69,16 +60,16 @@ export const importMap = {
 //   Object.assign(importMap, { vue: "http://127.0.0.1:7890/dist/lib/vue.js" });
 // }
 
-export default class ImportMap {
-  static get<T extends System.Module>(key: keyof typeof importMap): T {
-    const map = Object.entries(importMap) //
-      .reduce<Record<string, string>>((prev, [key, url]) => {
-        prev[key] = url;
-        prev[url] = url;
-        return prev;
-      }, {});
-    const result = System.get<T>(key) || System.get<T>(map[key]);
-    if (!result) throw new Error(`[System.get] cannot find '${key}'`);
-    return result;
-  }
-}
+// export default class ImportMap {
+//   static get<T extends System.Module>(key: keyof typeof importMap): T {
+//     const map = Object.entries(importMap) //
+//       .reduce<Record<string, string>>((prev, [key, url]) => {
+//         prev[key] = url;
+//         prev[url] = url;
+//         return prev;
+//       }, {});
+//     const result = System.get<T>(key) || System.get<T>(map[key]);
+//     if (!result) throw new Error(`[System.get] cannot find '${key}'`);
+//     return result;
+//   }
+// }
