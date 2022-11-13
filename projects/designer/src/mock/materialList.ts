@@ -1,4 +1,4 @@
-import { ModuleData } from "@economizer/types";
+import { ModuleData } from "@codeless/types";
 
 const list: ModuleData[] = [
   {

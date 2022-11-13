@@ -277,8 +277,8 @@ importers:
       '@babel/core': 7.19.3
       '@babel/plugin-syntax-flow': 7.18.6
       '@babel/plugin-transform-react-jsx': 7.19.0
-      '@economizer/schema': workspace:^0.0.1
-      '@economizer/types': workspace:^0.0.1
+      '@codeless/schema': workspace:^0.0.1
+      '@codeless/types': workspace:^0.0.1
       '@reduxjs/toolkit': ^1.8.6
       '@types/customize-cra': ^1.0.3
       '@types/node': ^16.11.59
@@ -305,8 +305,8 @@ importers:
       typescript: ^4.8.4
       web-vitals: ^2.1.4
     dependencies:
-      '@economizer/schema': link:../schema
-      '@economizer/types': link:../types
+      '@codeless/schema': link:../schema
+      '@codeless/types': link:../types
       '@reduxjs/toolkit': 1.8.6_react@18.2.0
       '@types/node': 16.11.64
       '@types/react': 18.0.21
@@ -341,9 +341,9 @@ importers:
     specifiers:
       '@arco-design/web-vue': ^2.33.0
       '@babel/core': ^7.18.0
-      '@economizer/schema': workspace:^0.0.1
-      '@economizer/shared': workspace:*
-      '@economizer/types': workspace:*
+      '@codeless/schema': workspace:^0.0.1
+      '@codeless/shared': workspace:*
+      '@codeless/types': workspace:*
       '@sinclair/typebox': ^0.24.28
       '@types/deep-diff': ^1.0.1
       '@types/events': ^3.0.0
@@ -381,9 +381,9 @@ importers:
       vue-router: ^4.1.1
     dependencies:
       '@arco-design/web-vue': 2.34.0_vue@3.2.37
-      '@economizer/schema': link:../schema
-      '@economizer/shared': link:../shared
-      '@economizer/types': link:../types
+      '@codeless/schema': link:../schema
+      '@codeless/shared': link:../shared
+      '@codeless/types': link:../types
       '@sinclair/typebox': 0.24.28
       core-js: 3.24.1
       deep-diff: 1.0.2
@@ -486,7 +486,7 @@ importers:
 
   packages/types:
     specifiers:
-      '@economizer/schema': workspace:^0.0.1
+      '@codeless/schema': workspace:^0.0.1
       '@rollup/plugin-commonjs': ^22.0.1
       '@rollup/plugin-json': ^4.1.0
       '@rollup/plugin-node-resolve': ^13.3.0
@@ -505,7 +505,7 @@ importers:
       typescript: ^4.7.4
       unbuild: ^0.7.6
     dependencies:
-      '@economizer/schema': link:../schema
+      '@codeless/schema': link:../schema
       file-type: 17.1.6
     devDependencies:
       '@rollup/plugin-commonjs': 22.0.1_rollup@2.77.2
@@ -531,8 +531,8 @@ importers:
       '@babel/core': ^7.18.5
       '@babel/plugin-syntax-flow': ^7.17.12
       '@babel/plugin-transform-react-jsx': ^7.17.12
-      '@economizer/schema': workspace:^0.0.1
-      '@economizer/types': workspace:^0.0.1
+      '@codeless/schema': workspace:^0.0.1
+      '@codeless/types': workspace:^0.0.1
       '@popperjs/core': ^2.11.5
       '@tippyjs/react': ^4.2.6
       '@types/lodash': ^4.14.182
@@ -597,8 +597,8 @@ importers:
       '@babel/core': 7.18.10
       '@babel/plugin-syntax-flow': 7.18.6_@babel+core@7.18.10
       '@babel/plugin-transform-react-jsx': 7.18.10_@babel+core@7.18.10
-      '@economizer/schema': link:../../packages/schema
-      '@economizer/types': link:../../packages/types
+      '@codeless/schema': link:../../packages/schema
+      '@codeless/types': link:../../packages/types
       '@types/react': 18.0.15
       '@types/react-dom': 18.0.6
       '@types/styled-components': 5.1.25
@@ -632,8 +632,8 @@ importers:
       '@babel/core': ^7.18.5
       '@babel/plugin-syntax-flow': ^7.17.12
       '@babel/plugin-transform-react-jsx': ^7.17.12
-      '@economizer/schema': workspace:^0.0.1
-      '@economizer/types': workspace:*
+      '@codeless/schema': workspace:^0.0.1
+      '@codeless/types': workspace:*
       '@popperjs/core': ^2.11.5
       '@tippyjs/react': ^4.2.6
       '@types/lodash': ^4.14.182
@@ -685,8 +685,8 @@ importers:
       web-vitals: ^2.1.4
     dependencies:
       '@arco-design/web-react': 2.38.0_bb2bxwco6ptpubzwpazr52qf6i
-      '@economizer/schema': link:../../packages/schema
-      '@economizer/types': link:../../packages/types
+      '@codeless/schema': link:../../packages/schema
+      '@codeless/types': link:../../packages/types
       '@popperjs/core': 2.11.5
       '@tippyjs/react': 4.2.6_biqbaboplfbrettd7655fr4n2y
       '@types/lodash': 4.14.182

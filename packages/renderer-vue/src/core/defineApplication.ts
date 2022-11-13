@@ -14,7 +14,7 @@ import {
 } from "vue";
 import { Router, RouteRecordRaw } from "vue-router";
 import { StateTree, Store } from "pinia";
-import type { GlobalProperties } from "@economizer/develop-vue";
+import type { GlobalProperties } from "@codeless/develop-vue";
 import { ApplicationRuntime } from "./runtime-schema";
 import AsyncComponent from "../components/AsyncComponent.vue";
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { IconBgColors } from "@arco-design/web-react/icon";
-import { ComponentData } from "@economizer/types";
+import { ComponentData } from "@codeless/types";
 import useCreateProject from "src/hooks/useCreateProject";
 import useComponentList from "src/stores/componentListState";
 

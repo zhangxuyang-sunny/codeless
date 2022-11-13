@@ -1,5 +1,5 @@
 {
-  "name": "economizer-workbench",
+  "name": "codeless-workbench",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@arco-design/web-react": "^2.35.1",
-    "@economizer/schema": "workspace:^0.0.1",
-    "@economizer/types": "workspace:*",
+    "@codeless/schema": "workspace:^0.0.1",
+    "@codeless/types": "workspace:*",
     "@popperjs/core": "^2.11.5",
     "@tippyjs/react": "^4.2.6",
     "@types/lodash": "^4.14.182",

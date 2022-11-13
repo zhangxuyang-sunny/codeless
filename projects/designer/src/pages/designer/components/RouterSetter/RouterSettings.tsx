@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import { Button, Divider, Form, Input, Radio } from "@arco-design/web-react";
 import HelpIcon from "src/components/HelpIcon";
-import { TypeRouterConfig } from "@economizer/types";
+import { TypeRouterConfig } from "@codeless/types";
 
 const urls = Object.freeze({
   "hash": "https://router.vuejs.org/zh/api/#createwebhashhistory",

@@ -9,7 +9,7 @@ import {
   JSFunction,
   TargetEvent,
   ApplicationListener
-} from "@economizer/schema";
+} from "@codeless/schema";
 import {
   ApplicationRuntime,
   ComponentRuntime,

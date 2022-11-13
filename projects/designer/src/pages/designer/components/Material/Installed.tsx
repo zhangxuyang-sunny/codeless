@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { Spin } from "@arco-design/web-react";
-import { ModuleData } from "@economizer/types";
+import { ModuleData } from "@codeless/types";
 import getModuleData from "src/mock/materialList";
 import ModuleItem from "./ModuleItem";
 

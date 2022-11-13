@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { defineComponent, ref, shallowRef, watch } from "vue";
-import { ApplicationData } from "@economizer/types";
+import { ApplicationData } from "@codeless/types";
 import { loadRemotePackages } from "../utils/common";
 import { ApplicationRuntime } from "../core/runtime-schema";
 import { defineApplication } from "../core/defineApplication";

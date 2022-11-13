@@ -1,7 +1,7 @@
 <script lang="tsx">
-import "@economizer/types/src/renderer-api";
+import "@codeless/types/src/renderer-api";
 import { defineComponent, ref, shallowRef, watch } from "vue";
-import { Application } from "@economizer/schema";
+import { Application } from "@codeless/schema";
 import { ApplicationRuntime } from "../core/runtime-schema";
 import { loadRemotePackages } from "../utils/common";
 import { defineApplication } from "../core/defineApplication";

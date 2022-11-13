@@ -3,7 +3,7 @@ import "systemjs/dist/extras/amd.min.js";
 import "systemjs/dist/extras/use-default.min.js";
 import "systemjs/dist/extras/named-register.min.js";
 import "systemjs/dist/extras/dynamic-import-maps.min.js";
-import "@economizer/types/src/renderer-api";
+import "@codeless/types/src/renderer-api";
 
 import { addToImportMapImports } from "packages/shared/src";
 

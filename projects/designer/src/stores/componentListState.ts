@@ -1,7 +1,7 @@
 import { useDebugValue } from "react";
 import { atom, useRecoilState } from "recoil";
 import { getComponentList } from "src/api";
-import { ComponentData } from "@economizer/types";
+import { ComponentData } from "@codeless/types";
 
 const componentList = atom<ComponentData[]>({
   key: "component-list",

@@ -1,5 +1,5 @@
 import { Input, Select } from "@arco-design/web-react";
-import { ProjectStatus } from "@economizer/types/src/enums";
+import { ProjectStatus } from "@codeless/types/src/enums";
 import { useProjectList } from "src/hooks/useResourceList";
 import styled from "styled-components";
 

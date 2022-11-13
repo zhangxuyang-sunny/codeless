@@ -1,5 +1,5 @@
-import { ApplicationConfig } from "@economizer/types";
-import { Application, ComponentSchema, DatastoreSchema } from "@economizer/schema";
+import { ApplicationConfig } from "@codeless/types";
+import { Application, ComponentSchema, DatastoreSchema } from "@codeless/schema";
 
 export const host = process.env.NODE_ENV !== "production" ? "127.0.0.1:7890" : "119.91.65.70:3000";
 

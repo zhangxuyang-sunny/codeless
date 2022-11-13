@@ -5,7 +5,7 @@ import {
   CreateProjectParams,
   ICreateComponentParams,
   IFindComponentParams
-} from "@economizer/types";
+} from "@codeless/types";
 
 /**
  * 创建组件

@@ -6,7 +6,7 @@ import {
   Dataset,
   Page,
   TargetEvent
-} from "@economizer/schema";
+} from "@codeless/schema";
 import { DefineStoreOptions, StateTree } from "pinia";
 
 /**

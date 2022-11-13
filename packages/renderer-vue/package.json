@@ -1,5 +1,5 @@
 {
-  "name": "@economizer/renderer-vue",
+  "name": "@codeless/renderer-vue",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.33.0",
-    "@economizer/schema": "workspace:^0.0.1",
-    "@economizer/shared": "workspace:*",
-    "@economizer/types": "workspace:*",
+    "@codeless/schema": "workspace:^0.0.1",
+    "@codeless/shared": "workspace:*",
+    "@codeless/types": "workspace:*",
     "@sinclair/typebox": "^0.24.28",
     "core-js": "^3.23.4",
     "deep-diff": "^1.0.2",

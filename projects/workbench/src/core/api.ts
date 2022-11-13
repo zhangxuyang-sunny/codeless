@@ -1,4 +1,4 @@
-import { FindProjectsParams, ProjectConfigData } from "@economizer/types";
+import { FindProjectsParams, ProjectConfigData } from "@codeless/types";
 import { AxiosResponse } from "axios";
 
 import { httpV1 } from "./http";
