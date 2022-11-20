@@ -8,17 +8,14 @@ const button_loading_1: Component = SchemaBuilder.Component.set("id", "button_lo
     target: [
       {
         event: "button_loading_2:toggle_loading",
-        params: null,
-        once: false
+        params: null
       },
       {
         event: "button_loading_3:toggle_loading",
-        params: null,
-        once: false
+        params: null
       }
     ],
-    invoke: null,
-    once: false
+    invoke: null
   })
   .end();
 
@@ -30,16 +27,14 @@ const button_loading_2: Component = SchemaBuilder.Component.set("id", "button_lo
       {
         event: "button_loading_1:toggle_loading",
         params: SchemaBuilder.JsFunction.setValue(
-          `function () { 
-              console.log('context', context);
-              return [...context.current, '第n个参数'] 
-            }`
-        ).end(),
-        once: false
+          `function (...args) {
+              console.log('this', this);
+              return [...args, '第n个参数'];
+          }`
+        ).end()
       }
     ],
-    invoke: null,
-    once: false
+    invoke: null
   })
   .end();
 
@@ -55,7 +50,7 @@ const container: Component = SchemaBuilder.Component.set("id", "container")
   })
   .end();
 
-const emitListenerSchema: Application = SchemaBuilder.Application.set("router", {
+const emitListenerSchema: Application<false> = SchemaBuilder.Application.set("router", {
   base: "/",
   mode: "history",
   meta: {}
@@ -72,12 +67,11 @@ const emitListenerSchema: Application = SchemaBuilder.Application.set("router", 
         event: "button_loading_3:toggle_loading",
         params: SchemaBuilder.JsFunction.setValue(
           `function (...args) {
-              console.log({args})
-              console.log("button_loading_3 监听到 button_loading_1:toggle_loading", context)
-              return args
+              console.log('this', this);
+              console.log("button_loading_3 监听到 button_loading_1:toggle_loading", { args });
+              return args;
             }`
-        ).end(),
-        once: false
+        ).end()
       }
     ],
     invoke: null,

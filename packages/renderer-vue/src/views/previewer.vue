@@ -2,9 +2,8 @@
 import { defineComponent, ref, shallowRef, watch } from "vue";
 import { ApplicationData } from "@codeless/types";
 import { loadRemotePackages } from "../utils/common";
-import { ApplicationRuntime } from "../core/runtime-schema";
 import { defineApplication } from "../core/defineApplication";
-import { ApplicationTransformer } from "../core/transformer";
+import { Application, SchemaParser } from "@codeless/schema";
 
 // 预览器数据自行获取，通过 url 传递 id
 export default defineComponent({
@@ -14,7 +13,7 @@ export default defineComponent({
     const initialized = ref(false);
     const routeName = ref("");
     const schema = shallowRef<ApplicationData>();
-    const application = shallowRef<ApplicationRuntime>();
+    const application = shallowRef<Application<true>>();
 
     window.fetch(`http://localhost:3333/api/v1/project?id=${id}`).then(async response => {
       const data: { data: ApplicationData } = await response.json();
@@ -26,12 +25,11 @@ export default defineComponent({
       window.vueRouter = result.vueRouter;
       window.pinia = result.pinia;
       initialized.value = true;
-      console.log(123);
     });
 
-    watch([initialized, schema], () => {
+    watch([initialized, schema], async () => {
       if (initialized.value && schema.value) {
-        application.value = new ApplicationTransformer(schema.value).runtime();
+        application.value = await SchemaParser(schema.value);
       }
     });
 

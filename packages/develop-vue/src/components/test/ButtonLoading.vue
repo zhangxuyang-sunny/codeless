@@ -3,6 +3,7 @@ import { Button } from "@arco-design/web-vue";
 import "@arco-design/web-vue/es/button/style";
 import { defineComponent, ref, watchEffect } from "vue";
 import { useEvents } from "../../core/hooks/useEvents";
+import useGlobalProperties from "../../core/hooks/useGlobalProperties";
 
 export default defineComponent({
   props: {
@@ -20,6 +21,7 @@ export default defineComponent({
     });
 
     const event = useEvents();
+    const globalProperties = useGlobalProperties();
     event.onSelf("change_loading", (status) => {
       if (typeof status === "boolean") {
         loading.value = status;
@@ -34,17 +36,20 @@ export default defineComponent({
       loading.value = false;
     });
     event.onSelf("toggle_loading", (...args) => {
-      console.log(args);
+      console.log("on_toggle_loading", args);
       loading.value = !loading.value;
+    });
+    event.onSelf("self", (...args) => {
+      console.log("event.onSelf", ...args);
     });
 
     return () => (
       <Button
         loading={loading.value}
         onClick={(e) => {
-          console.log(1, e);
-          event.emitSelf("click", e, 2, 3);
-          ctx.emit("click", e, 2, 3);
+          console.log("e", e);
+          event.emitSelf("self", e, 2, 3, "event.emitSelf");
+          ctx.emit("click", e, 2, 3, "ctx.emit");
         }}>
         {props.name}
       </Button>

@@ -42,9 +42,9 @@ export default function useEvents(): EventEmitter2 & ExtendsMethods {
     if (!key) {
       console.warn("[useEvents]: Component id is empty.", $utils.getInstance());
     } else {
-      const [event, ...surplusArgs] = args;
+      const [event, ...surplus] = args;
       const e = handleEvents(event);
-      if (e) return handler(e, ...surplusArgs);
+      if (e) return handler(e, ...surplus);
     }
     return $events;
   };
@@ -52,9 +52,13 @@ export default function useEvents(): EventEmitter2 & ExtendsMethods {
     {},
     $events,
     {
+      // 监听发给自身的事件，而无需获取自身 id
+      // 例如其他组件发送：component_id:loading，当前组件只需要监听 loading 事件即可
       onSelf: (...args: Parameters<EventEmitter2["on"]>) => {
         return eventHandler($events.on.bind($events), ...args);
       },
+      // onSelf 的补充，让组件自身可以调用自身事件，以便于复用自身事件的监听而无需重构代码
+      // 例如自身监听了一个 loading 事件，执行逻辑在当前监听的回调函数中，使用 emitSelf 即可无需抽离逻辑代码
       emitSelf: (...args: Parameters<EventEmitter2["emit"]>) => {
         return eventHandler($events.emit.bind($events), ...args);
       }

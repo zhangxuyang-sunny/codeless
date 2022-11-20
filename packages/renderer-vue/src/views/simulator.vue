@@ -1,11 +1,9 @@
 <script lang="tsx">
 import "@codeless/types/src/renderer-api";
 import { defineComponent, ref, shallowRef, watch } from "vue";
-import { Application } from "@codeless/schema";
-import { ApplicationRuntime } from "../core/runtime-schema";
+import { Application, SchemaParser } from "@codeless/schema";
 import { loadRemotePackages } from "../utils/common";
 import { defineApplication } from "../core/defineApplication";
-import { ApplicationTransformer } from "../core/transformer";
 import { emitListenerSchema } from "../example/emit-listener";
 
 export default defineComponent({
@@ -13,8 +11,8 @@ export default defineComponent({
   setup() {
     const initialized = ref(false);
     const routeName = ref("");
-    const schema = shallowRef<Application>();
-    const application = shallowRef<ApplicationRuntime>();
+    const schema = shallowRef<Application<false>>();
+    const application = shallowRef<Application<true>>();
 
     loadRemotePackages().then(result => {
       window.vue = result.vue;
@@ -33,9 +31,9 @@ export default defineComponent({
       console.log("update application:", data);
     };
 
-    watch([initialized, schema], () => {
+    watch([initialized, schema], async () => {
       if (initialized.value && schema.value) {
-        application.value = new ApplicationTransformer(schema.value).runtime();
+        application.value = await SchemaParser(schema.value);
         console.log({ runtime: application.value });
       }
     });

@@ -14,15 +14,13 @@ import {
 } from "vue";
 import { Router, RouteRecordRaw } from "vue-router";
 import { StateTree, Store } from "pinia";
+import { Application } from "@codeless/schema";
 import type { GlobalProperties } from "@codeless/develop-vue";
-import { ApplicationRuntime } from "./runtime-schema";
 import AsyncComponent from "../components/AsyncComponent.vue";
+import { loadRemotePackages } from "../utils/common";
+import { context } from "./Context";
 
-const [vue, vueRouter, pinia] = await Promise.all([
-  System.import<typeof import("vue")>("vue"),
-  System.import<typeof import("vue-router")>("vue-router"),
-  System.import<typeof import("pinia")>("pinia")
-]);
+const { vue, vueRouter, pinia } = await loadRemotePackages();
 
 // 渲染节点 id
 const RENDERER_ID = "__renderer_vue__";
@@ -31,20 +29,20 @@ const COMPONENT_ID_ATTR = "data-component-id";
 
 export const defineApplication = () => {
   // 平台 vue 插件
-  const createPlatformPlugin = (schema: ApplicationRuntime) => {
+  const createPlatformPlugin = (schema: Application<true>) => {
     const emitter = new EventEmitter2(schema.eventsOptions);
     schema.listeners.forEach(listener => {
       const { event, target, invoke, once } = listener;
       (once ? emitter.once : emitter.on).call(emitter, event, (...args: unknown[]) => {
         // invoke 比 target 优先调用
-        if (typeof invoke === "function") {
-          invoke(...args);
+        if (typeof invoke?.runtime === "function") {
+          invoke.runtime.apply(context, args);
         }
         // 依次触发目标事件
         target.forEach(t => {
-          if (typeof t.params === "function") {
+          if (typeof t.params?.runtime === "function") {
             // 处理 params 函数参数转换器
-            const params = t.params(...args);
+            const params = t.params.runtime.apply(context, args);
             emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
           } else {
             emitter.emit(t.event, ...args);
@@ -123,7 +121,7 @@ export const defineApplication = () => {
       routeName: String,
       // 受控的工程配置
       schema: {
-        type: Object as PropType<ApplicationRuntime>,
+        type: Object as PropType<Application<true>>,
         required: true
       }
     },
@@ -226,8 +224,9 @@ export const defineApplication = () => {
         if (schema.value?.datasets.length) {
           app.use(pinia.createPinia());
           const piniaMap = schema.value.datasets.reduce((map, dataset) => {
-            const store = pinia.defineStore(dataset.name, dataset.define)(); // 注意这里调用一下生成 pinia
-            schema.value.context.datasets[dataset.name] = store;
+            const store = pinia.defineStore(dataset.name, dataset.define.runtime)(); // 注意这里调用一下生成 pinia
+            // schema.value.context.datasets[dataset.name] = store;
+            context.setDataset(dataset.name, store);
             return map.set(dataset.name, store);
           }, new Map<string, Store<string, StateTree>>());
           console.log({ piniaMap });

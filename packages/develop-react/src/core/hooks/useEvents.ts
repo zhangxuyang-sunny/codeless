@@ -1,8 +1,4 @@
-import type {
-  EventEmitter2,
-  event as Event,
-  eventNS as EventNS
-} from "eventemitter2";
+import type { EventEmitter2, event as Event, eventNS as EventNS } from "eventemitter2";
 import { ExtendsMethods, useGlobalProperties } from "./useGlobalProperties";
 
 type Events = Event | EventNS;
@@ -20,7 +16,7 @@ export default function useEvents(): EventEmitter2 & ExtendsMethods {
   const key = $utils.getComponentId();
   const handleEvents = (events: Events): Events | null => {
     if (Array.isArray(events)) {
-      return events.flatMap((event) => handleEvents(event) || []);
+      return events.flatMap(event => handleEvents(event) || []);
     }
     switch (typeof events) {
       case "string": {
@@ -48,18 +44,14 @@ export default function useEvents(): EventEmitter2 & ExtendsMethods {
     }
     return $events;
   };
-  return Object.assign<Record<string, never>, EventEmitter2, ExtendsMethods>(
-    {},
-    $events,
-    {
-      onSelf: (...args: Parameters<EventEmitter2["on"]>) => {
-        return eventHandler($events.on.bind($events), ...args);
-      },
-      emitSelf: (...args: Parameters<EventEmitter2["emit"]>) => {
-        return eventHandler($events.emit.bind($events), ...args);
-      }
+  return Object.assign<Record<string, never>, EventEmitter2, ExtendsMethods>({}, $events, {
+    onSelf: (...args: Parameters<EventEmitter2["on"]>) => {
+      return eventHandler($events.on.bind($events), ...args);
+    },
+    emitSelf: (...args: Parameters<EventEmitter2["emit"]>) => {
+      return eventHandler($events.emit.bind($events), ...args);
     }
-  );
+  });
 }
 
 export { useEvents };
