@@ -5,8 +5,14 @@ export const sidebarZh: SidebarConfig = {
     {
       text: "指南",
       children: [
-        "/guide/README.md"
+        "/guide/index.md"
       ]
+    }
+  ],
+  "/reference/": [
+    {
+      text: "参考",
+      children: []
     }
   ]
 }

@@ -4,11 +4,13 @@ export const navbarZh: NavbarConfig = [
   {
     text: "指南",
     children: [
-      "/guide/README.md"
+      "/guide/index.md"
     ]
   },
   {
     text: "参考",
-    children: []
+    children: [
+      "/reference/index.md"
+    ]
   }
 ]

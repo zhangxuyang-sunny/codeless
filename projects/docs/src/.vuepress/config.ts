@@ -1,4 +1,6 @@
+import path from "path";
 import { defaultTheme, defineUserConfig } from 'vuepress'
+import { registerComponentsPlugin } from '@vuepress/plugin-register-components';
 import { navbarZh } from './configs/navbar/zh'
 import { sidebarZh } from './configs/sidebar/zh'
 
@@ -13,11 +15,6 @@ export default defineUserConfig({
       title: 'Codeless',
       description: 'Codeless 生态',
     },
-    '/en/': {
-      lang: 'en-US',
-      title: 'Codeless',
-      description: 'Codeless ecosystem',
-    },
   },
   theme: defaultTheme({
     locales: {
@@ -25,6 +22,13 @@ export default defineUserConfig({
         navbar: navbarZh,
         sidebar: sidebarZh
       }
-    }
+    },
+    contributors: false,
+    lastUpdated: false
   }),
+  plugins: [
+    registerComponentsPlugin({
+      componentsDir: path.resolve(__dirname, "./components")
+    })
+  ]
 })
