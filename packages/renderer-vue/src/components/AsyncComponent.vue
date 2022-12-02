@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { DefineComponent, PropType } from "vue";
+import type { DefineComponent, PropType } from "vue";
 import { Component, isJSExpression } from "@codeless/schema";
 import { getRandomStr } from "packages/shared/src";
 import { GlobalProperties } from "../../../develop-vue/src";
@@ -23,7 +23,7 @@ const AsyncComponent = defineComponent({
   name: "AsyncComponent",
   props: {
     schema: {
-      type: Object as PropType<Component<true>>,
+      type: Object as PropType<Component>,
       required: true
     },
     domFlag: {
@@ -54,32 +54,33 @@ const AsyncComponent = defineComponent({
         const name = `on${first.toUpperCase() + surplus.join("")}` as `on${Uppercase<string>}`;
         eventMapper[name] = (...args: unknown[]) => {
           const { invoke, target } = eventItem;
-          if (typeof invoke?.runtime === "function") {
-            invoke.runtime.apply(context, args);
-          }
-          // 依次触发目标事件
-          target.forEach(t => {
-            if (typeof t.params?.runtime === "function") {
-              // 处理 params 函数参数转换器
-              const params = t.params.runtime.apply(context, args);
-              emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
-            } else {
-              emitter.emit(t.event, ...args);
-            }
-          });
+          // if (typeof invoke?.runtime === "function") {
+          //   invoke.runtime.apply(context, args);
+          // }
+          // // 依次触发目标事件
+          // target.forEach(t => {
+          //   if (typeof t.params?.runtime === "function") {
+          //     // 处理 params 函数参数转换器
+          //     const params = t.params.runtime.apply(context, args);
+          //     emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
+          //   } else {
+          //     emitter.emit(t.event, ...args);
+          //   }
+          // });
         };
         return eventMapper;
       },
       {} as Record<`on${Uppercase<string>}`, (...args: unknown[]) => void>
     );
     const style = window.vue.computed(() =>
-      isJSExpression(props.schema.style, true) ? props.schema.style.runtime.call(context) : {}
+      // isJSExpression(props.schema.style, true) ? props.schema.style.runtime.call(context) : {}
+      window.vue.ref()
     );
     const _props = window.vue.computed(() => {
       const p: Record<string, unknown> = {};
       for (const k in props.schema.props) {
         const item = props.schema.props[k];
-        p[k] = item.runtime.call(context);
+        // p[k] = item.runtime.call(context);
       }
       return p;
     });

@@ -1,9 +1,8 @@
 <script lang="tsx">
-import { defineComponent, ref, shallowRef, watch } from "vue";
+import { defineComponent, ref, shallowRef } from "vue";
 import { ApplicationData } from "@codeless/types";
 import { loadRemotePackages } from "../utils/common";
 import { defineApplication } from "../core/defineApplication";
-import { Application, SchemaParser } from "@codeless/schema";
 
 // 预览器数据自行获取，通过 url 传递 id
 export default defineComponent({
@@ -13,7 +12,6 @@ export default defineComponent({
     const initialized = ref(false);
     const routeName = ref("");
     const schema = shallowRef<ApplicationData>();
-    const application = shallowRef<Application<true>>();
 
     window.fetch(`http://localhost:3333/api/v1/project?id=${id}`).then(async response => {
       const data: { data: ApplicationData } = await response.json();
@@ -27,25 +25,19 @@ export default defineComponent({
       initialized.value = true;
     });
 
-    watch([initialized, schema], async () => {
-      if (initialized.value && schema.value) {
-        application.value = await SchemaParser(schema.value);
-      }
-    });
-
     const App = defineApplication();
     return () => {
       if (!initialized.value) {
         return <div class="loading">loading...</div>;
       }
-      if (!application.value) {
+      if (!schema.value) {
         return <div class="loading">Application is not initialized</div>;
       }
       return (
         <App //
           baseUrl="/renderer/vue"
           routeName={routeName.value}
-          schema={application.value}
+          schema={schema.value}
         />
       );
     };

@@ -1,13 +1,13 @@
-import { Configuration, DefinePlugin } from 'webpack';
+import { Configuration, DefinePlugin } from "webpack";
 
 const config: Configuration = {
-  mode: 'production',
+  mode: "production",
   plugins: [
     new DefinePlugin({
-      __VUE_PROD_DEVTOOLS__: 'false'
+      __VUE_PROD_DEVTOOLS__: "false"
     }),
     new DefinePlugin({
-      'process.env': {
+      "process.env": {
         NODE_ENV: '"production"',
         BASE_URL: '"/"'
       }

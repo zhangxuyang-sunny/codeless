@@ -8,7 +8,8 @@ const config: Configuration = {
     packages: [
       "react",
       "react-dom",
-      "redux",
+      // "redux",
+      // "react-redux",
       "@arco-design/web-react/icon",
       "@arco-design/web-react"
     ]

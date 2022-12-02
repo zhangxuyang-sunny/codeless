@@ -1,31 +1,30 @@
-import type { Configuration } from 'webpack';
-import path from 'path';
-import { DllPlugin } from 'webpack';
+import type { Configuration } from "webpack";
+import path from "path";
+import { DllPlugin } from "webpack";
 
 const config: Configuration = {
-  mode: 'development',
+  mode: "development",
   entry: {
     packages: [
-      'vue',
-      'vue-router',
-      'pinia',
+      "vue",
+      "vue-router",
+      "pinia",
       // '@arco-design/web-vue/icon',
-      '@arco-design/web-vue',
-      'lodash'
+      "@arco-design/web-vue"
     ]
   },
   output: {
     // clean: true,
-    filename: '[name].dll.js',
-    path: path.resolve(__dirname, '../release.dll'),
-    library: '[name]', // dll的全局变量名
+    filename: "[name].dll.js",
+    path: path.resolve(__dirname, "../release.dll"),
+    library: "[name]", // dll的全局变量名
     libraryTarget: "system"
   },
   plugins: [
     new DllPlugin({
       context: path.dirname(process.cwd()),
-      name: '[name]', // dll的全局变量名
-      path: path.join(__dirname, '../release.dll', '[name].manifest.json') // 描述生成的manifest文件
+      name: "[name]", // dll的全局变量名
+      path: path.join(__dirname, "../release.dll", "[name].manifest.json") // 描述生成的manifest文件
     })
   ]
 };

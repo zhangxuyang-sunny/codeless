@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@arco-design/web-vue": "*",
+    "@codeless/schema": "workspace:^0.0.1",
     "ant-design-vue": "*",
     "eventemitter2": "^6.4.9",
     "pinia": "*",

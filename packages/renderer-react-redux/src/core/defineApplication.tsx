@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { ReducersMapObject } from "@reduxjs/toolkit";
 import { Application } from "packages/schema";
 import { Dependencies } from "./runtime-schema";
-import { parseDataset } from "./SchemaParser";
 import { context, IContext } from "./Context";
 import RemoteComponent from "../components/RemoteComponent";
 
@@ -30,8 +29,18 @@ export default function defineApplication(): React.FC<{ schema: Application }> {
       const storeInstance = rReduxToolkit.configureStore({
         devTools: true,
         reducer: props.schema.datasets.reduce((result, dataset) => {
-          const { define } = parseDataset(dataset);
-          const { reducer, actions } = rReduxToolkit.createSlice(define);
+          const { define } = dataset;
+          const { reducer, actions } = rReduxToolkit.createSlice({
+            name: "",
+            initialState: {
+              a: 1
+            },
+            reducers: {
+              b: () => {
+                //
+              }
+            }
+          });
           Object.assign(storeContext, {
             [dataset.name]: {
               get state() {
@@ -44,12 +53,12 @@ export default function defineApplication(): React.FC<{ schema: Application }> {
               methods: new Proxy(actions, {
                 get: function (obj, prop) {
                   return (payload: unknown) => {
-                    if (typeof prop === "string") {
-                      const action = obj[prop];
-                      storeInstance.dispatch(action(payload));
-                    } else {
-                      console.warn(`Prop: ${String(prop)} is not a string.`);
-                    }
+                    // if (typeof prop === "string") {
+                    //   const action = obj[prop];
+                    //   storeInstance.dispatch(action(payload));
+                    // } else {
+                    //   console.warn(`Prop: ${String(prop)} is not a string.`);
+                    // }
                   };
                 }
               })

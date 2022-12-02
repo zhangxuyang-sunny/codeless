@@ -152,6 +152,7 @@ importers:
       '@babel/preset-react': 7.16.7
       '@babel/preset-typescript': 7.16.7
       '@babel/runtime': ^7.17.9
+      '@codeless/schema': workspace:^0.0.1
       '@types/node': 17.0.31
       '@types/systemjs': 6.1.1
       '@types/uuid': 8.3.4
@@ -208,6 +209,7 @@ importers:
       webpack-merge: 5.8.0
     dependencies:
       '@arco-design/web-vue': 2.34.0_vue@3.2.37
+      '@codeless/schema': link:../schema
       ant-design-vue: 3.2.2_vue@3.2.37
       eventemitter2: 6.4.9
       pinia: 2.0.17_3wx4hvlpf33h4r5e7sgliqloou

@@ -57,7 +57,8 @@ const config: Configuration = {
     // ...getEntryByDir("components/antd"),
     ...getEntryByDir("components/arco"),
     ...getEntryByDir("components/common"),
-    ...getEntryByDir("components/test")
+    ...getEntryByDir("components/test"),
+    ...getEntryByDir("cloud-function")
     // ...getEntryByDir('configs'),
     // ...getEntryByDir("material")
     // 'lib/utils': './src/common/utils/index.ts',

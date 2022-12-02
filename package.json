@@ -18,7 +18,8 @@
     "renderer-react-redux:start": "pnpm --filter=./packages/renderer-react-redux start",
     "develop-react:start": "pnpm --filter=./packages/develop-react serve",
     "workbench:start": "pnpm --filter=./projects/workbench start",
-    "docs:start": "pnpm --filter=./projects/docs docs:dev"
+    "docs:start": "pnpm --filter=./projects/docs docs:dev",
+    "webpack:dll": "pnpm --filter=./packages/develop-vue webpack:dll && pnpm --filter=./packages/develop-react webpack:dll"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5",

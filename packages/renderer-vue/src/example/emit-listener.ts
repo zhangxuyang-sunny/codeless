@@ -1,4 +1,10 @@
-import { Application, Component, SchemaBuilder } from "packages/schema/src/index";
+import {
+  Application,
+  Component,
+  SchemaBuilder,
+  CallExpressionBuilder,
+  StringExpressionBuilder
+} from "packages/schema/src/index";
 
 const button_loading_1: Component = SchemaBuilder.Component.set("id", "button_loading_1")
   .set("src", `components/test/ButtonLoading.js`)
@@ -26,12 +32,14 @@ const button_loading_2: Component = SchemaBuilder.Component.set("id", "button_lo
     target: [
       {
         event: "button_loading_1:toggle_loading",
-        params: SchemaBuilder.JsFunction.setValue(
-          `function (...args) {
-              console.log('this', this);
-              return [...args, '第n个参数'];
-          }`
-        ).end()
+        params: [
+          new CallExpressionBuilder()
+            .setTarget("console")
+            .appendArgument(new StringExpressionBuilder().setValue("log").end())
+            .appendArgument(new CallExpressionBuilder().setTarget("getCurrentArguments").end())
+            .appendArgument(new StringExpressionBuilder().setValue("第n个参数").end())
+            .end()
+        ]
       }
     ],
     invoke: null
@@ -50,7 +58,7 @@ const container: Component = SchemaBuilder.Component.set("id", "container")
   })
   .end();
 
-const emitListenerSchema: Application<false> = SchemaBuilder.Application.set("router", {
+const emitListenerSchema: Application = SchemaBuilder.Application.set("router", {
   base: "/",
   mode: "history",
   meta: {}
@@ -65,13 +73,30 @@ const emitListenerSchema: Application<false> = SchemaBuilder.Application.set("ro
     target: [
       {
         event: "button_loading_3:toggle_loading",
-        params: SchemaBuilder.JsFunction.setValue(
-          `function (...args) {
-              console.log('this', this);
-              console.log("button_loading_3 监听到 button_loading_1:toggle_loading", { args });
-              return args;
-            }`
-        ).end()
+        params: [
+          new CallExpressionBuilder()
+            .setTarget("console")
+            .appendArgument(new StringExpressionBuilder().setValue("log").end())
+            .appendArgument(new CallExpressionBuilder().setTarget("getCurrentThis").end())
+            .appendArgument(new StringExpressionBuilder().setValue("this").end())
+            .end(),
+          new CallExpressionBuilder()
+            .setTarget("console")
+            .appendArgument(
+              new StringExpressionBuilder()
+                .setValue("button_loading_3 监听到 button_loading_1:toggle_loading")
+                .end()
+            )
+            .appendArgument(new CallExpressionBuilder().setTarget("getCurrentArguments").end())
+            .end()
+        ]
+        // params: SchemaBuilder.JsFunction.setValue(
+        //   `function (...args) {
+        //       console.log('this', this);
+        //       console.log("button_loading_3 监听到 button_loading_1:toggle_loading", { args });
+        //       return args;
+        //     }`
+        // ).end()
       }
     ],
     invoke: null,
