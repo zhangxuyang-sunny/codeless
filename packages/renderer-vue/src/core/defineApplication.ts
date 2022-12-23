@@ -10,15 +10,17 @@ import {
   onUnmounted,
   toRefs,
   createElementVNode,
-  onMounted
+  onMounted,
+  nextTick
 } from "vue";
-import { Router, RouteRecordRaw } from "vue-router";
-import { StateTree, Store } from "pinia";
-import { Application } from "@codeless/schema";
+import type { Router, RouteRecordRaw } from "vue-router";
+import type { StateTree, Store } from "pinia";
+import type { Application } from "@codeless/schema";
 import type { GlobalProperties } from "@codeless/develop-vue";
 import AsyncComponent from "../components/AsyncComponent.vue";
 import { loadRemotePackages } from "../utils/common";
 import { context } from "./Context";
+import useSchema from "../store/useSchema";
 
 const { vue, vueRouter, pinia } = await loadRemotePackages();
 
@@ -30,24 +32,31 @@ const COMPONENT_ID_ATTR = "data-component-id";
 export const defineApplication = () => {
   // 平台 vue 插件
   const createPlatformPlugin = (schema: Application) => {
+    const appSchema = useSchema();
     const emitter = new EventEmitter2(schema.eventsOptions);
     schema.listeners.forEach(listener => {
       const { event, target, invoke, once } = listener;
-      (once ? emitter.once : emitter.on).call(emitter, event, (...args: unknown[]) => {
+      (once ? emitter.once : emitter.on).call(emitter, event, async (...args: unknown[]) => {
         // invoke 比 target 优先调用
-        // if (typeof invoke?.runtime === "function") {
-        //   invoke.runtime.apply(context, args);
-        // }
-        // // 依次触发目标事件
-        // target.forEach(t => {
-        //   if (typeof t.params?.runtime === "function") {
-        //     // 处理 params 函数参数转换器
-        //     const params = t.params.runtime.apply(context, args);
-        //     emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
-        //   } else {
-        //     emitter.emit(t.event, ...args);
-        //   }
-        // });
+        if (invoke) {
+          await appSchema.resolveExpression(invoke, {
+            currentThis: null,
+            currentArguments: args
+          });
+        }
+        // 依次触发目标事件
+        for (const t of target) {
+          // 处理 params 函数参数函数
+          if (t.params) {
+            const params = await appSchema.resolveExpression(t.params, {
+              currentThis: null,
+              currentArguments: args
+            });
+            emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
+          } else {
+            emitter.emit(t.event, ...args);
+          }
+        }
       });
     });
     // 全局属性提供标准统一的数据资料
@@ -92,10 +101,11 @@ export const defineApplication = () => {
             "beforeMount",
             "mounted",
             "beforeUpdated",
-            "activated",
-            "deactivated",
+            "updated",
             "beforeUnmount",
-            "unmounted"
+            "unmounted",
+            "activated",
+            "deactivated"
           ].reduce((result, cycle) => {
             result[cycle] = function () {
               const id = this.$.attrs[COMPONENT_ID_ATTR] as string;
@@ -145,32 +155,29 @@ export const defineApplication = () => {
         });
       });
 
-      // 重建路由，重载页面
-      watch(
-        [schema, elRef],
-        () => {
-          if (!elRef.value) return;
-          app?.unmount();
-          app = createApp();
-          if (elRef.value instanceof HTMLDivElement) {
-            app.mount(elRef.value);
-          } else {
-            app.mount(`#${RENDERER_ID}`);
-          }
-        },
-        { immediate: true }
-      );
-
-      const loadApp = () => {
+      const loadApp = async () => {
         if (!elRef.value) return;
         app?.unmount();
-        app = createApp();
+        await nextTick();
+        app = await createApp();
         if (elRef.value instanceof HTMLDivElement) {
           app.mount(elRef.value);
         } else {
           app.mount(`#${RENDERER_ID}`);
         }
       };
+
+      const appSchema = useSchema();
+      watch(
+        schema,
+        () => {
+          appSchema.setSchema(schema.value);
+        },
+        { immediate: true }
+      );
+
+      // 重建路由，重载页面
+      watch(schema, loadApp);
 
       onMounted(() => {
         loadApp();
@@ -204,33 +211,47 @@ export const defineApplication = () => {
       };
 
       // 初始化 vue
-      const createApp = () => {
+      const createApp = async () => {
+        router = createRouter();
         const HostComponent: VueComponent = {
           name: "Application",
           setup() {
-            return () => null;
+            return () => vue.h(vueRouter.RouterView);
           }
-        };
-
-        router = createRouter();
-        HostComponent.setup = function setup() {
-          return () => vue.h(vueRouter.RouterView);
         };
         const app = vue //
           .createApp(HostComponent)
           .use(router)
           .use(createPlatformPlugin(schema.value));
         // 创建 pinia
-        if (schema.value?.datasets.length) {
+        if (schema.value?.stores.length) {
           app.use(pinia.createPinia());
-          const piniaMap = schema.value.datasets.reduce((map, dataset) => {
-            // dataset.define
-            const store = pinia.defineStore(dataset.name, {})(); // 注意这里调用一下生成 pinia
-            // schema.value.context.datasets[dataset.name] = store;
-            context.setDataset(dataset.name, store);
-            return map.set(dataset.name, store);
-          }, new Map<string, Store<string, StateTree>>());
-          console.log({ piniaMap });
+          const piniaMap = new Map<string, Store<string, StateTree>>();
+          const appSchema = useSchema();
+          for (const dataset of schema.value.stores) {
+            const state = await appSchema.resolveExpression(dataset.define.state, {
+              currentThis: null,
+              currentArguments: []
+            });
+            const actions: Record<string, (...args: unknown[]) => unknown> = {};
+            for (const action of dataset.define.actions) {
+              actions[action.name] = async (...args: unknown[]) => {
+                return await appSchema.resolveExpression(action.expression, {
+                  currentThis: null,
+                  currentArguments: args // TODO actions 的参数应该怎么传递给函数
+                });
+              };
+            }
+            const store = pinia.defineStore({
+              id: dataset.name,
+              state: () => ({ state })
+            })(); // 注意这里调用一下生成 pinia
+            context.setStore(dataset.name, {
+              state: store.$state,
+              actions
+            });
+            piniaMap.set(dataset.name, store);
+          }
         }
         return app;
       };

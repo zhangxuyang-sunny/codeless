@@ -1,10 +1,12 @@
 <script lang="tsx">
 import "@codeless/types/src/renderer-api";
-import { defineComponent, ref, shallowRef, watch } from "vue";
+import { defineComponent, ref, shallowRef } from "vue";
 import { Application } from "@codeless/schema";
 import { loadRemotePackages } from "../utils/common";
 import { defineApplication } from "../core/defineApplication";
 import { emitListenerSchema } from "../example/emit-listener";
+
+import { test } from "../example/test";
 
 export default defineComponent({
   name: "Simulator",
@@ -33,6 +35,7 @@ export default defineComponent({
     /**
      * mock 数据
      */
+    // schema.value = emitListenerSchema;
     schema.value = emitListenerSchema;
 
     // setTimeout(() => {

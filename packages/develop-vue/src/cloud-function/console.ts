@@ -9,7 +9,5 @@ export default function (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...args: any[]
 ) {
-  if (type in console) {
-    console[type].call(console, ...args);
-  }
+  console[type].call(console, ...args);
 }

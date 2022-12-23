@@ -6,7 +6,6 @@ import "systemjs/dist/extras/dynamic-import-maps.min.js";
 import "@codeless/types/src/renderer-api";
 
 import { addToImportMapImports } from "packages/shared/src";
-import { start } from "./test";
 
 window.__X_RENDERER_API__ = {
   document,
@@ -38,4 +37,4 @@ const importMap = {
 
 addToImportMapImports(importMap);
 
-start();
+// start();
