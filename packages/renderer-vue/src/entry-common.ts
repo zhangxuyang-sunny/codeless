@@ -31,6 +31,7 @@ const importMap = {
   "pinia": `//${host}/static/packages/pinia.js`,
   "vue-router": `//${host}/static/packages/vue-router.js`,
   "@arco-design/web-vue": `//${host}/static/packages/@arco-design/web-vue.js`,
+  "@vueuse/core": `//${host}/static/packages/@vueuse/core.js`,
   "RendererEntry": `//${host}/static/components/common/RendererEntry.js`
   // "sortablejs": "http://localhost:8080/x-generator-render/sortablejs.js"
 };

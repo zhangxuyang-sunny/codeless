@@ -4,9 +4,9 @@ import { defineComponent, ref, shallowRef } from "vue";
 import { Application } from "@codeless/schema";
 import { loadRemotePackages } from "../utils/common";
 import { defineApplication } from "../core/defineApplication";
-import { emitListenerSchema } from "../example/emit-listener";
-
-import { test } from "../example/test";
+// import { emitListenerSchema } from "../example/emit-listener";
+// import { test } from "../example/test";
+import { piniaPropsReactive } from "../example/pinia-props-reactive";
 
 export default defineComponent({
   name: "Simulator",
@@ -35,8 +35,7 @@ export default defineComponent({
     /**
      * mock 数据
      */
-    // schema.value = emitListenerSchema;
-    schema.value = emitListenerSchema;
+    schema.value = piniaPropsReactive;
 
     // setTimeout(() => {
     //   schema.value = applicationSchema2;

@@ -229,10 +229,10 @@ export const defineApplication = () => {
           const piniaMap = new Map<string, Store<string, StateTree>>();
           const appSchema = useSchema();
           for (const dataset of schema.value.stores) {
-            const state = await appSchema.resolveExpression(dataset.define.state, {
+            const state = (await appSchema.resolveExpression(dataset.define.state, {
               currentThis: null,
               currentArguments: []
-            });
+            })) as StateTree;
             const actions: Record<string, (...args: unknown[]) => unknown> = {};
             for (const action of dataset.define.actions) {
               actions[action.name] = async (...args: unknown[]) => {
@@ -244,10 +244,14 @@ export const defineApplication = () => {
             }
             const store = pinia.defineStore({
               id: dataset.name,
-              state: () => ({ state })
+              state: () => state
             })(); // 注意这里调用一下生成 pinia
+            console.log({ store });
+            // setInterval(() => {
+            //   store.count++;
+            // }, 1000);
             context.setStore(dataset.name, {
-              state: store.$state,
+              state: store,
               actions
             });
             piniaMap.set(dataset.name, store);

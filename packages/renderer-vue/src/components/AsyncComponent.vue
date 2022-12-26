@@ -1,17 +1,23 @@
 <script lang="tsx">
+import { get } from "lodash";
 import type { DefineComponent, PropType } from "vue";
 import type { Component } from "@codeless/schema";
 import { getRandomStr } from "packages/shared/src";
 import { GlobalProperties } from "../../../develop-vue/src";
 import useSchema from "../store/useSchema";
+import { context } from "../core/Context";
 
 const {
   defineAsyncComponent, //
   defineComponent,
   reactive,
   unref,
-  inject
+  inject,
+  computed,
+  watchEffect,
+  watch
 } = await System.import<typeof import("vue")>("vue");
+const { asyncComputed } = await System.import<typeof import("@vueuse/core")>("@vueuse/core");
 
 const staticRoot = "//127.0.0.1:7890/static/";
 
@@ -87,15 +93,25 @@ const AsyncComponent = defineComponent({
         return;
       }
       style.value = (await appSchema.resolveExpression(props.schema.style, {
-        currentArguments: [],
-        currentThis: null
+        currentThis: null,
+        currentArguments: []
       })) as StyleObject;
     });
 
     // props
     type PropsObject = Record<string, unknown>;
-    const cProps = window.vue.ref<PropsObject>({});
-    window.vue.watchEffect(async () => {
+    // const cProps = window.vue.reactive<PropsObject>({});
+    // window.vue.watchEffect(async () => {
+    //   for (const k in props.schema.props) {
+    //     const item = props.schema.props[k];
+    //     cProps[k] = await appSchema.resolveExpression(item, {
+    //       currentThis: null,
+    //       currentArguments: []
+    //     });
+    //   }
+    // });
+
+    const _props = asyncComputed(async () => {
       const p: PropsObject = {};
       for (const k in props.schema.props) {
         const item = props.schema.props[k];
@@ -103,8 +119,15 @@ const AsyncComponent = defineComponent({
           currentThis: null,
           currentArguments: []
         });
+        if (item.type === "BindExpression") {
+          p[k] = computed(() => get(context.store, item.path));
+        }
       }
-      cProps.value = p;
+      return p;
+    }, {});
+
+    watchEffect(() => {
+      console.log({ _props: _props.value });
     });
 
     return () => (
@@ -112,7 +135,7 @@ const AsyncComponent = defineComponent({
         style={reactive(unref(style))}
         v-slots={slots}
         // props 可覆盖上面的数据
-        {...reactive(unref(cProps))}
+        {...reactive(unref(_props))}
         {...events}
         // props 中的关键字
         {...{ [props.domFlag]: props.schema.id }}

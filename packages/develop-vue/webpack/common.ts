@@ -52,6 +52,7 @@ const config: Configuration = {
       "./node_modules/@arco-design/web-vue/lib/index.js",
     "packages/@arco-design/web-vue/icon":
       "./node_modules/@arco-design/web-vue/lib/icon/index.js",
+    "packages/@vueuse/core": "./node_modules/@vueuse/core/index.mjs",
     "components/common/VerticalLayout":
       "./src/components/common/VerticalLayout/Index.vue",
     // ...getEntryByDir("components/antd"),
