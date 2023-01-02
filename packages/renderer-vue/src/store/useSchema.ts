@@ -1,7 +1,6 @@
 import {
   type Application,
   type Expression,
-  type BindExpression,
   type PlatformThis,
   resolveExpression,
   ApplicationSchemaBuilder
@@ -23,9 +22,7 @@ export default defineStore({
     // 包装一下 resolveExpression
     async resolveExpression(
       expression: Expression,
-      options: Pick<PlatformThis, "currentArguments" | "currentThis"> & {
-        bindExpression?: (e: BindExpression) => unknown;
-      }
+      options: Pick<PlatformThis, "currentArguments" | "currentThis">
     ) {
       return await resolveExpression({
         expression,
@@ -34,8 +31,7 @@ export default defineStore({
         platformThis: context.getContext({
           currentArguments: options.currentArguments,
           currentThis: options.currentThis
-        }),
-        bindExpression: options.bindExpression
+        })
       });
     }
   }

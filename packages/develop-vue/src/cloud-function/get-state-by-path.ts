@@ -8,5 +8,5 @@ declare global {
 
 export default function (this: PlatformThis, path: string, def?: unknown) {
   console.log(this, path);
-  return get(this.store, path, def);
+  return get(this.stores, path, def);
 }

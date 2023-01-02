@@ -4,7 +4,6 @@ export default function (
   operation: "+" | "-" | "*" | "/",
   right: any
 ) {
-  console.log({ left, operation, right });
   switch (operation) {
     case "+": {
       return left + right;

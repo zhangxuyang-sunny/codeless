@@ -2,9 +2,7 @@
 import type { DefineComponent, PropType } from "vue";
 import type { Component } from "@codeless/schema";
 import type { GlobalProperties } from "packages/develop-vue/src";
-import { get } from "lodash";
 import { getRandomStr } from "packages/shared/src";
-import { context } from "../core/Context";
 import { staticRoot } from "../utils/common";
 import useSchema from "../store/useSchema";
 
@@ -15,7 +13,6 @@ const {
   inject,
   watch,
   reactive,
-  computed,
   defineComponent,
   defineAsyncComponent
 } = await System.import<typeof import("vue")>("vue");
@@ -95,10 +92,7 @@ const AsyncComponent = defineComponent({
         }
         style.value = (await appSchema.resolveExpression(props.schema.style, {
           currentThis: null,
-          currentArguments: [],
-          bindExpression(expression) {
-            return computed(() => get(context.store, expression.path));
-          }
+          currentArguments: []
         })) as StyleObject;
       },
       { immediate: true }
@@ -115,10 +109,7 @@ const AsyncComponent = defineComponent({
           console.log({ item });
           $props[k] = await appSchema.resolveExpression(item, {
             currentThis: null,
-            currentArguments: [],
-            bindExpression(expression) {
-              return computed(() => get(context.store, expression.path));
-            }
+            currentArguments: []
           });
         }
       },
