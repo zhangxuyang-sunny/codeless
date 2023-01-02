@@ -51,13 +51,13 @@ const button_loading_2: Component = SchemaBuilder.Component.set("id", "button_lo
         event: "button_loading_1:toggle_loading",
         params: {
           type: "ArrayExpression",
-          expressions: [
+          values: [
             {
               type: "CallCloudFunctionExpression",
               target: "console",
               arguments: {
                 type: "ArrayExpression",
-                expressions: [
+                values: [
                   {
                     type: "StringExpression",
                     value: "log"
@@ -71,7 +71,7 @@ const button_loading_2: Component = SchemaBuilder.Component.set("id", "button_lo
                     target: "get-current-arguments",
                     arguments: {
                       type: "ArrayExpression",
-                      expressions: []
+                      values: []
                     },
                     bind: {
                       type: "UndefinedExpression"
@@ -89,7 +89,7 @@ const button_loading_2: Component = SchemaBuilder.Component.set("id", "button_lo
               target: "get-current-arguments",
               arguments: {
                 type: "ArrayExpression",
-                expressions: []
+                values: []
               },
               bind: {
                 type: "UndefinedExpression"
@@ -146,7 +146,7 @@ const emitListenerSchema: Application = SchemaBuilder.Application.set("router", 
         event: "button_loading_3:toggle_loading",
         params: {
           type: "ArrayExpression",
-          expressions: [
+          values: [
             new CallExpressionBuilder()
               .setTarget("console")
               .appendArgument(new StringExpressionBuilder().setValue("log").end())

@@ -1,12 +1,14 @@
-import { defineStore } from "pinia";
-import { context } from "../core/Context";
 import {
   type Application,
   type Expression,
+  type BindExpression,
+  type PlatformThis,
   resolveExpression,
-  ApplicationSchemaBuilder,
-  PlatformThis
+  ApplicationSchemaBuilder
 } from "../../../schema/src";
+
+import { defineStore } from "pinia";
+import { context } from "../core/Context";
 
 export default defineStore({
   id: "Application",
@@ -17,21 +19,23 @@ export default defineStore({
     setSchema(schema: Application) {
       this.schema = new ApplicationSchemaBuilder(schema).end();
     },
+
+    // 包装一下 resolveExpression
     async resolveExpression(
       expression: Expression,
-      opt: Pick<PlatformThis, "currentArguments" | "currentThis">
+      options: Pick<PlatformThis, "currentArguments" | "currentThis"> & {
+        bindExpression?: (e: BindExpression) => unknown;
+      }
     ) {
-      context.currentArguments = opt.currentArguments;
-      context.currentThis = opt.currentThis;
       return await resolveExpression({
         expression,
         expressionPool: this.schema.expressionPool,
         cloudFunctionPool: this.schema.cloudFunctionPool,
-        platformThis: {
-          currentArguments: opt.currentArguments,
-          currentThis: opt.currentThis,
-          store: context.store
-        }
+        platformThis: context.getContext({
+          currentArguments: options.currentArguments,
+          currentThis: options.currentThis
+        }),
+        bindExpression: options.bindExpression
       });
     }
   }

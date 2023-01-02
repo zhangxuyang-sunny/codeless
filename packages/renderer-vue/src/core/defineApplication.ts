@@ -1,4 +1,7 @@
-import EventEmitter2 from "eventemitter2";
+import type { StateTree } from "pinia";
+import type { Router, RouteRecordRaw } from "vue-router";
+import type { Application } from "@codeless/schema";
+import type { GlobalProperties } from "@codeless/develop-vue";
 import {
   App,
   Plugin,
@@ -13,17 +16,14 @@ import {
   onMounted,
   nextTick
 } from "vue";
-import type { Router, RouteRecordRaw } from "vue-router";
-import type { StateTree, Store } from "pinia";
-import type { Application } from "@codeless/schema";
-import type { GlobalProperties } from "@codeless/develop-vue";
-import AsyncComponent from "../components/AsyncComponent.vue";
-import { loadRemotePackages } from "../utils/common";
+import EventEmitter2 from "eventemitter2";
 import { context } from "./Context";
+import { loadRemotePackages } from "../utils/common";
 import useSchema from "../store/useSchema";
+import AsyncComponent from "../components/AsyncComponent.vue";
 
 const { vue, vueRouter, pinia } = await loadRemotePackages();
-
+context.setPackage(vue);
 // 渲染节点 id
 const RENDERER_ID = "__renderer_vue__";
 // 低代码组件节点 dom id 属性名
@@ -226,7 +226,7 @@ export const defineApplication = () => {
         // 创建 pinia
         if (schema.value?.stores.length) {
           app.use(pinia.createPinia());
-          const piniaMap = new Map<string, Store<string, StateTree>>();
+          // const piniaMap = new Map<string, Store<string, StateTree>>();
           const appSchema = useSchema();
           for (const dataset of schema.value.stores) {
             const state = (await appSchema.resolveExpression(dataset.define.state, {
@@ -246,15 +246,11 @@ export const defineApplication = () => {
               id: dataset.name,
               state: () => state
             })(); // 注意这里调用一下生成 pinia
-            console.log({ store });
-            // setInterval(() => {
-            //   store.count++;
-            // }, 1000);
             context.setStore(dataset.name, {
-              state: store,
+              store,
               actions
             });
-            piniaMap.set(dataset.name, store);
+            // piniaMap.set(dataset.name, store);
           }
         }
         return app;

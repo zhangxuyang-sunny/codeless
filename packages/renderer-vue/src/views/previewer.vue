@@ -18,10 +18,7 @@ export default defineComponent({
       schema.value = data.data;
     });
 
-    loadRemotePackages().then(result => {
-      window.vue = result.vue;
-      window.vueRouter = result.vueRouter;
-      window.pinia = result.pinia;
+    loadRemotePackages().then(() => {
       initialized.value = true;
     });
 

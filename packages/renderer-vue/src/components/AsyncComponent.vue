@@ -1,25 +1,24 @@
 <script lang="tsx">
-import { get } from "lodash";
 import type { DefineComponent, PropType } from "vue";
 import type { Component } from "@codeless/schema";
+import type { GlobalProperties } from "packages/develop-vue/src";
+import { get } from "lodash";
 import { getRandomStr } from "packages/shared/src";
-import { GlobalProperties } from "../../../develop-vue/src";
-import useSchema from "../store/useSchema";
 import { context } from "../core/Context";
+import { staticRoot } from "../utils/common";
+import useSchema from "../store/useSchema";
 
+// 使用云函数 vue
 const {
-  defineAsyncComponent, //
-  defineComponent,
-  reactive,
+  ref, //
   unref,
   inject,
+  watch,
+  reactive,
   computed,
-  watchEffect,
-  watch
+  defineComponent,
+  defineAsyncComponent
 } = await System.import<typeof import("vue")>("vue");
-const { asyncComputed } = await System.import<typeof import("@vueuse/core")>("@vueuse/core");
-
-const staticRoot = "//127.0.0.1:7890/static/";
 
 function loadRemoteComponent<T>(url: string): DefineComponent<T> {
   return defineAsyncComponent(async () => (await System.import(url)).default);
@@ -87,55 +86,59 @@ const AsyncComponent = defineComponent({
 
     // style
     type StyleObject = Partial<Record<keyof CSSStyleDeclaration, string>>;
-    const style = window.vue.ref<StyleObject>({});
-    window.vue.watchEffect(async () => {
-      if (!props.schema.style) {
-        return;
-      }
-      style.value = (await appSchema.resolveExpression(props.schema.style, {
-        currentThis: null,
-        currentArguments: []
-      })) as StyleObject;
-    });
+    const style = ref<StyleObject>({});
+    watch(
+      () => props.schema.style,
+      async () => {
+        if (!props.schema.style) {
+          return;
+        }
+        style.value = (await appSchema.resolveExpression(props.schema.style, {
+          currentThis: null,
+          currentArguments: [],
+          bindExpression(expression) {
+            return computed(() => get(context.store, expression.path));
+          }
+        })) as StyleObject;
+      },
+      { immediate: true }
+    );
 
     // props
     type PropsObject = Record<string, unknown>;
-    // const cProps = window.vue.reactive<PropsObject>({});
-    // window.vue.watchEffect(async () => {
-    //   for (const k in props.schema.props) {
-    //     const item = props.schema.props[k];
-    //     cProps[k] = await appSchema.resolveExpression(item, {
-    //       currentThis: null,
-    //       currentArguments: []
-    //     });
-    //   }
-    // });
-
-    const _props = asyncComputed(async () => {
-      const p: PropsObject = {};
-      for (const k in props.schema.props) {
-        const item = props.schema.props[k];
-        p[k] = await appSchema.resolveExpression(item, {
-          currentThis: null,
-          currentArguments: []
-        });
-        if (item.type === "BindExpression") {
-          p[k] = computed(() => get(context.store, item.path));
+    const $props = reactive<PropsObject>({});
+    watch(
+      () => props.schema.props,
+      async () => {
+        for (const k in props.schema.props) {
+          const item = props.schema.props[k];
+          console.log({ item });
+          $props[k] = await appSchema.resolveExpression(item, {
+            currentThis: null,
+            currentArguments: [],
+            bindExpression(expression) {
+              return computed(() => get(context.store, expression.path));
+            }
+          });
         }
-      }
-      return p;
-    }, {});
+      },
+      { immediate: true }
+    );
 
-    watchEffect(() => {
-      console.log({ _props: _props.value });
-    });
+    watch(
+      $props,
+      () => {
+        console.log({ $props });
+      },
+      { deep: true }
+    );
 
     return () => (
       <Component
         style={reactive(unref(style))}
         v-slots={slots}
         // props 可覆盖上面的数据
-        {...reactive(unref(_props))}
+        {...reactive(unref($props))}
         {...events}
         // props 中的关键字
         {...{ [props.domFlag]: props.schema.id }}

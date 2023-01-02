@@ -1,4 +1,4 @@
-import { Application } from "@codeless/schema";
+import type { Application } from "@codeless/schema";
 
 export const piniaPropsReactive: Application = {
   framework: "vue",
@@ -10,8 +10,8 @@ export const piniaPropsReactive: Application = {
           type: "ObjectExpression",
           value: {
             count: {
-              type: "NumberExpression",
-              value: 0
+              type: "StringExpression",
+              value: "1"
             }
           }
         },
@@ -23,13 +23,13 @@ export const piniaPropsReactive: Application = {
               target: "lodash-set",
               arguments: {
                 type: "ArrayExpression",
-                expressions: [
+                values: [
                   {
                     type: "CallCloudFunctionExpression",
                     target: "get-store",
                     arguments: {
                       type: "ArrayExpression",
-                      expressions: []
+                      values: []
                     },
                     bind: {
                       type: "UndefinedExpression"
@@ -37,23 +37,23 @@ export const piniaPropsReactive: Application = {
                   },
                   {
                     type: "StringExpression",
-                    value: "state1.state.count"
+                    value: "state1.store.count"
                   },
                   {
                     type: "CallCloudFunctionExpression",
                     target: "binary-expression",
                     arguments: {
                       type: "ArrayExpression",
-                      expressions: [
+                      values: [
                         {
                           type: "CallCloudFunctionExpression",
                           target: "get-state-by-path",
                           arguments: {
                             type: "ParallelExpression",
-                            expressions: [
+                            values: [
                               {
                                 type: "StringExpression",
-                                value: "state1.state.count"
+                                value: "state1.store.count"
                               }
                             ]
                           },
@@ -66,8 +66,8 @@ export const piniaPropsReactive: Application = {
                           value: "+"
                         },
                         {
-                          type: "NumberExpression",
-                          value: 1
+                          type: "StringExpression",
+                          value: "2"
                         }
                       ]
                     },
@@ -98,16 +98,32 @@ export const piniaPropsReactive: Application = {
         id: "ButtonLoading",
         src: "components/test/ButtonLoading.js",
         props: {
+          // name: {
+          //   type: "BindExpression",
+          //   path: "state1.store.count"
+          // },
           name: {
-            type: "BindExpression",
-            path: "state1.state.count"
+            type: "CallCloudFunctionExpression",
+            target: "vue-bind",
+            arguments: {
+              type: "ArrayExpression",
+              values: [
+                {
+                  type: "StringExpression",
+                  value: "state1.store.count"
+                }
+              ]
+            },
+            bind: {
+              type: "UndefinedExpression"
+            }
           },
           onClick: {
             type: "CallCloudFunctionExpression",
             target: "get-state-by-path",
             arguments: {
               type: "ParallelExpression",
-              expressions: [
+              values: [
                 {
                   type: "StringExpression",
                   value: "state1.actions.addCount"
@@ -136,7 +152,8 @@ export const piniaPropsReactive: Application = {
     "lodash-set": "http://127.0.0.1:7890/static/cloud-function/lodash-set.js",
     "get-store": "http://127.0.0.1:7890/static/cloud-function/get-store.js",
     "string-builder": "http://127.0.0.1:7890/static/cloud-function/string-builder.js",
-    "binary-expression": "http://127.0.0.1:7890/static/cloud-function/binary-expression.js"
+    "binary-expression": "http://127.0.0.1:7890/static/cloud-function/binary-expression.js",
+    "vue-bind": "http://127.0.0.1:7890/static/cloud-function/vue-bind.js"
   },
   expressionPool: {}
 };

@@ -54,19 +54,19 @@ const test: Application = SchemaBuilder.Application.set("router", {
           name: "setAState",
           expression: {
             type: "ArrayExpression",
-            expressions: [
+            values: [
               {
                 type: "CallCloudFunctionExpression",
                 target: "lodash-set",
                 arguments: {
                   type: "ParallelExpression",
-                  expressions: [
+                  values: [
                     {
                       type: "CallCloudFunctionExpression",
                       target: "get-state",
                       arguments: {
                         type: "ParallelExpression",
-                        expressions: []
+                        values: []
                       },
                       bind: {
                         type: "UndefinedExpression"

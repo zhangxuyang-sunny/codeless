@@ -1,7 +1,7 @@
 <script lang="tsx">
 import "@codeless/types/src/renderer-api";
+import type { Application } from "@codeless/schema";
 import { defineComponent, ref, shallowRef } from "vue";
-import { Application } from "@codeless/schema";
 import { loadRemotePackages } from "../utils/common";
 import { defineApplication } from "../core/defineApplication";
 // import { emitListenerSchema } from "../example/emit-listener";
@@ -15,10 +15,7 @@ export default defineComponent({
     const routeName = ref("");
     const schema = shallowRef<Application>();
 
-    loadRemotePackages().then(result => {
-      window.vue = result.vue;
-      window.vueRouter = result.vueRouter;
-      window.pinia = result.pinia;
+    loadRemotePackages().then(() => {
       initialized.value = true;
     });
 

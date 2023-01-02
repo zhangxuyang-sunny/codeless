@@ -1,19 +1,34 @@
 import { PlatformThis } from "@codeless/schema";
 
-// 重写函数 this 指向为 context 对象
-export class Context implements PlatformThis {
-  currentThis: unknown = null;
-  currentArguments: unknown[] = [];
+type Package = typeof import("vue") | null;
+
+/**
+ * 平台上下文对象
+ * 用于绑定云函数的 this 指向
+ */
+export class Context {
+  package: Package = null;
   store: PlatformThis["store"] = {};
 
-  setCurrentThis(current: typeof this.currentThis) {
-    this.currentThis = current;
+  setPackage(vue: typeof import("vue")) {
+    this.package = vue;
     return this;
   }
 
   setStore(name: string, store: PlatformThis["store"][string]) {
     this.store[name] = store;
     return this;
+  }
+
+  getContext(
+    resetCurrentOptions: Pick<PlatformThis, "currentArguments" | "currentThis">
+  ): PlatformThis<Package> {
+    return {
+      framework: "vue",
+      package: this.package,
+      store: this.store,
+      ...resetCurrentOptions
+    };
   }
 }
 
