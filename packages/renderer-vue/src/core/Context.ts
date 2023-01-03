@@ -9,15 +9,23 @@ type Stores = PlatformThis["stores"];
  */
 export class Context {
   package: Package = null;
-  stores: Stores = {};
+  stores: Stores = {
+    states: {},
+    actions: {}
+  };
 
   setPackage(vue: typeof import("vue")) {
     this.package = vue;
     return this;
   }
 
-  setStore(name: string, store: Stores[string]) {
-    this.stores[name] = store;
+  setState(name: string, state: Stores["states"][string]) {
+    this.stores.states[name] = state;
+    return this;
+  }
+
+  setAction(name: string, action: Stores["actions"][string]) {
+    this.stores.actions[name] = action;
     return this;
   }
 

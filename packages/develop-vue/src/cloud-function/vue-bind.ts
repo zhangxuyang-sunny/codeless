@@ -6,6 +6,6 @@ export default function (this: PlatformThis, path: string) {
     throw new Error("Current framework is not 'vue'");
   }
   return (this.package as typeof import("vue")).computed(() =>
-    get(this.stores, path)
+    get(this.stores.states, path)
   );
 }

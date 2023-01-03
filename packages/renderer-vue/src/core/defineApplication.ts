@@ -246,10 +246,8 @@ export const defineApplication = () => {
               id: dataset.name,
               state: () => state
             })(); // 注意这里调用一下生成 pinia
-            context.setStore(dataset.name, {
-              store,
-              actions
-            });
+            context.setState(dataset.name, store.$state);
+            context.setAction(dataset.name, actions);
             // piniaMap.set(dataset.name, store);
           }
         }

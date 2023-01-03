@@ -26,10 +26,15 @@ export const piniaPropsReactive: Application = {
                 values: [
                   {
                     type: "CallCloudFunctionExpression",
-                    target: "get-store",
+                    target: "get-states-by-name",
                     arguments: {
                       type: "ArrayExpression",
-                      values: []
+                      values: [
+                        {
+                          type: "StringExpression",
+                          value: "state1"
+                        }
+                      ]
                     },
                     bind: {
                       type: "UndefinedExpression"
@@ -37,7 +42,7 @@ export const piniaPropsReactive: Application = {
                   },
                   {
                     type: "StringExpression",
-                    value: "state1.store.count"
+                    value: "count"
                   },
                   {
                     type: "CallCloudFunctionExpression",
@@ -47,13 +52,17 @@ export const piniaPropsReactive: Application = {
                       values: [
                         {
                           type: "CallCloudFunctionExpression",
-                          target: "get-state-by-path",
+                          target: "get-state",
                           arguments: {
                             type: "ParallelExpression",
                             values: [
                               {
                                 type: "StringExpression",
-                                value: "state1.store.count"
+                                value: "state1"
+                              },
+                              {
+                                type: "StringExpression",
+                                value: "count"
                               }
                             ]
                           },
@@ -98,10 +107,6 @@ export const piniaPropsReactive: Application = {
         id: "ButtonLoading",
         src: "components/test/ButtonLoading.js",
         props: {
-          // name: {
-          //   type: "BindExpression",
-          //   path: "state1.store.count"
-          // },
           name: {
             type: "CallCloudFunctionExpression",
             target: "vue-bind",
@@ -110,7 +115,7 @@ export const piniaPropsReactive: Application = {
               values: [
                 {
                   type: "StringExpression",
-                  value: "state1.store.count"
+                  value: "state1.count"
                 }
               ]
             },
@@ -120,13 +125,17 @@ export const piniaPropsReactive: Application = {
           },
           onClick: {
             type: "CallCloudFunctionExpression",
-            target: "get-state-by-path",
+            target: "get-action",
             arguments: {
               type: "ParallelExpression",
               values: [
                 {
                   type: "StringExpression",
-                  value: "state1.actions.addCount"
+                  value: "state1"
+                },
+                {
+                  type: "StringExpression",
+                  value: "addCount"
                 }
               ]
             },
@@ -148,9 +157,10 @@ export const piniaPropsReactive: Application = {
     maxListeners: Infinity
   },
   cloudFunctionPool: {
-    "get-state-by-path": "http://127.0.0.1:7890/static/cloud-function/get-state-by-path.js",
     "lodash-set": "http://127.0.0.1:7890/static/cloud-function/lodash-set.js",
-    "get-store": "http://127.0.0.1:7890/static/cloud-function/get-store.js",
+    "get-state": "http://127.0.0.1:7890/static/cloud-function/get-state.js",
+    "get-states-by-name": "http://127.0.0.1:7890/static/cloud-function/get-states-by-name.js",
+    "get-action": "http://127.0.0.1:7890/static/cloud-function/get-action.js",
     "string-builder": "http://127.0.0.1:7890/static/cloud-function/string-builder.js",
     "binary-expression": "http://127.0.0.1:7890/static/cloud-function/binary-expression.js",
     "vue-bind": "http://127.0.0.1:7890/static/cloud-function/vue-bind.js"
