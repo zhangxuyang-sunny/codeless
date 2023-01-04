@@ -3,7 +3,7 @@ import "@codeless/types/src/renderer-api";
 import type { Application } from "@codeless/schema";
 import { defineComponent, ref, shallowRef } from "vue";
 import { loadRemotePackages } from "../utils/common";
-import { defineApplication } from "../core/defineApplication";
+import { createApp } from "../core/createApp";
 // import { emitListenerSchema } from "../example/emit-listener";
 // import { test } from "../example/test";
 import { piniaPropsReactive } from "../example/pinia-props-reactive";
@@ -39,7 +39,7 @@ export default defineComponent({
     // }, 1000);
 
     /** */
-    const App = defineApplication();
+    const App = createApp();
 
     return () => {
       if (!initialized.value) {

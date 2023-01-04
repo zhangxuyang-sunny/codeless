@@ -2,7 +2,7 @@
 import { defineComponent, ref, shallowRef } from "vue";
 import { ApplicationData } from "@codeless/types";
 import { loadRemotePackages } from "../utils/common";
-import { defineApplication } from "../core/defineApplication";
+import { createApp } from "../core/createApp";
 
 // 预览器数据自行获取，通过 url 传递 id
 export default defineComponent({
@@ -22,7 +22,7 @@ export default defineComponent({
       initialized.value = true;
     });
 
-    const App = defineApplication();
+    const App = createApp();
     return () => {
       if (!initialized.value) {
         return <div class="loading">loading...</div>;

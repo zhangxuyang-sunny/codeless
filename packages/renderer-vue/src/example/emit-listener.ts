@@ -129,12 +129,12 @@ const emitListenerSchema: Application = SchemaBuilder.Application.set("router", 
     path: "/",
     component: container
   })
-  .setCloudFunction("console", "http://127.0.0.1:7890/static/cloud-function/console.js")
-  .setCloudFunction(
+  .addCloudFunction("console", "http://127.0.0.1:7890/static/cloud-function/console.js")
+  .addCloudFunction(
     "get-current-this",
     "http://127.0.0.1:7890/static/cloud-function/get-current-this.js"
   )
-  .setCloudFunction(
+  .addCloudFunction(
     "get-current-arguments",
     "http://127.0.0.1:7890/static/cloud-function/get-current-arguments.js"
   )

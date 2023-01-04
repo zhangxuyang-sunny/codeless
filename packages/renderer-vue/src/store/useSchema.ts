@@ -26,8 +26,8 @@ export default defineStore({
     ) {
       return await resolveExpression({
         expression,
-        expressionPool: this.schema.expressionPool,
-        cloudFunctionPool: this.schema.cloudFunctionPool,
+        expressionRefs: this.schema.expressions,
+        functionRefs: this.schema.functions,
         platformThis: context.getContext({
           currentArguments: options.currentArguments,
           currentThis: options.currentThis

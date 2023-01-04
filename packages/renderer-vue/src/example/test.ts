@@ -31,8 +31,8 @@ const test: Application = SchemaBuilder.Application.set("router", {
     path: "/",
     component: button_loading_3
   })
-  .setCloudFunction("call-action-by-path", "/static/common/cloud-function/call-action-by-path.js")
-  .setCloudFunction("lodash-set", "/static/common/cloud-function/lodash-set.js")
+  .addCloudFunction("call-action-by-path", "/static/common/cloud-function/call-action-by-path.js")
+  .addCloudFunction("lodash-set", "/static/common/cloud-function/lodash-set.js")
   .addStore({
     name: "test",
     define: {

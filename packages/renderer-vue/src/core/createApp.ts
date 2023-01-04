@@ -23,13 +23,14 @@ import useSchema from "../store/useSchema";
 import AsyncComponent from "../components/AsyncComponent.vue";
 
 const { vue, vueRouter, pinia } = await loadRemotePackages();
+// 给到平台上下文使用，不能少
 context.setPackage(vue);
 // 渲染节点 id
 const RENDERER_ID = "__renderer_vue__";
 // 低代码组件节点 dom id 属性名
 const COMPONENT_ID_ATTR = "data-component-id";
 
-export const defineApplication = () => {
+export const createApp = () => {
   // 平台 vue 插件
   const createPlatformPlugin = (schema: Application) => {
     const appSchema = useSchema();
@@ -59,7 +60,8 @@ export const defineApplication = () => {
         }
       });
     });
-    // 全局属性提供标准统一的数据资料
+
+    // 全局属性提供标准数据
     const globalProperties: GlobalProperties = {
       $events: emitter,
       $refs: new Map(),
@@ -75,9 +77,6 @@ export const defineApplication = () => {
       }
     };
 
-    // 1. 注入平台标准数据
-    // 2. 提取组件核心信息
-    // 3. 注入资料库管理
     const plugin: Plugin = {
       install(vue) {
         Object.assign(vue.config.globalProperties, globalProperties);
@@ -122,6 +121,7 @@ export const defineApplication = () => {
   };
 
   return defineComponent({
+    name: "Root",
     props: {
       baseUrl: {
         type: String,
