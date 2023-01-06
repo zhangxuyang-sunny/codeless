@@ -1,29 +1,31 @@
 <script lang="tsx">
-import { DefineComponent, PropType } from "vue";
-import { Component, isJSExpression } from "@codeless/schema";
+import type { DefineComponent, PropType } from "vue";
+import type { Component } from "@codeless/schema";
+import type { GlobalProperties } from "packages/develop-vue/src";
 import { getRandomStr } from "packages/shared/src";
-import { GlobalProperties } from "../../../develop-vue/src";
-import { context } from "../core/Context";
+import { staticRoot } from "../utils/common";
+import useSchema from "../store/useSchema";
 
+// 使用云函数 vue
 const {
-  defineAsyncComponent, //
-  defineComponent,
-  reactive,
+  ref, //
   unref,
-  inject
+  inject,
+  watch,
+  reactive,
+  defineComponent,
+  defineAsyncComponent
 } = await System.import<typeof import("vue")>("vue");
 
-const staticRoot = "//127.0.0.1:7890/static/";
-
 function loadRemoteComponent<T>(url: string): DefineComponent<T> {
-  return defineAsyncComponent(() => System.import(url));
+  return defineAsyncComponent(async () => (await System.import(url)).default);
 }
 
 const AsyncComponent = defineComponent({
   name: "AsyncComponent",
   props: {
     schema: {
-      type: Object as PropType<Component<true>>,
+      type: Object as PropType<Component>,
       required: true
     },
     domFlag: {
@@ -38,6 +40,7 @@ const AsyncComponent = defineComponent({
     if (!globalProperties) {
       return () => null;
     }
+    const appSchema = useSchema();
     // 生成插槽
     const slots = Object.entries(props.schema.slots) //
       .reduce<Record<string, () => JSX.Element[]>>((slotMapper, [slotName, slot]) => {
@@ -47,48 +50,94 @@ const AsyncComponent = defineComponent({
         slotMapper[slotName] = () => Slots;
         return slotMapper;
       }, {});
+
+    // events
     const emitter = globalProperties.$events;
-    const events = Object.entries(props.schema.events).reduce(
-      (eventMapper, [eventName, eventItem]) => {
-        const [first, ...surplus] = eventName;
-        const name = `on${first.toUpperCase() + surplus.join("")}` as `on${Uppercase<string>}`;
-        eventMapper[name] = (...args: unknown[]) => {
-          const { invoke, target } = eventItem;
-          if (typeof invoke?.runtime === "function") {
-            invoke.runtime.apply(context, args);
-          }
-          // 依次触发目标事件
-          target.forEach(t => {
-            if (typeof t.params?.runtime === "function") {
-              // 处理 params 函数参数转换器
-              const params = t.params.runtime.apply(context, args);
-              emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
-            } else {
-              emitter.emit(t.event, ...args);
-            }
+    const events = props.schema.events.reduce((eventMapper, { name, invoke, target }) => {
+      const [first, ...surplus] = name;
+      const eventName = `on${first.toUpperCase() + surplus.join("")}` as `on${Uppercase<string>}`;
+      eventMapper[eventName] = async (...args: unknown[]) => {
+        // invoke 比 target 优先调用
+        if (invoke) {
+          await appSchema.resolveExpression(invoke, {
+            currentThis: null,
+            invokerThis: null,
+            invokerArguments: args
           });
-        };
-        return eventMapper;
+        }
+        // 依次触发目标事件
+        for (const t of target) {
+          // 处理 params 函数参数函数
+          if (t.params) {
+            const params = await appSchema.resolveExpression(t.params, {
+              currentThis: null,
+              invokerThis: null,
+              invokerArguments: args
+            });
+            emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
+          } else {
+            emitter.emit(t.event, ...args);
+          }
+        }
+      };
+      return eventMapper;
+    }, {} as Record<`on${Uppercase<string>}`, (...args: unknown[]) => void>);
+
+    // style
+    type StyleObject = Partial<Record<keyof CSSStyleDeclaration, string>>;
+    const style = ref<StyleObject>({});
+    watch(
+      () => props.schema.style,
+      async () => {
+        if (!props.schema.style) {
+          return;
+        }
+        style.value = Object.freeze(
+          await appSchema.resolveExpression(props.schema.style, {
+            currentThis: null,
+            invokerThis: null,
+            invokerArguments: []
+          })
+        ) as StyleObject;
       },
-      {} as Record<`on${Uppercase<string>}`, (...args: unknown[]) => void>
+      { immediate: true }
     );
-    const style = window.vue.computed(() =>
-      isJSExpression(props.schema.style, true) ? props.schema.style.runtime.call(context) : {}
+
+    // props
+    type PropsObject = Record<string, unknown>;
+    const $props = reactive<PropsObject>({});
+    /**
+     * @TODO 使用 watchHandler stop，并进行模拟器与渲染器的判断，减少监听
+     */
+    watch(
+      () => props.schema.props,
+      async () => {
+        for (const k in props.schema.props) {
+          const item = props.schema.props[k];
+          $props[k] = await appSchema.resolveExpression(item, {
+            currentThis: null,
+            invokerThis: null,
+            invokerArguments: []
+          });
+        }
+      },
+      { immediate: true }
     );
-    const _props = window.vue.computed(() => {
-      const p: Record<string, unknown> = {};
-      for (const k in props.schema.props) {
-        const item = props.schema.props[k];
-        p[k] = item.runtime.call(context);
-      }
-      return p;
-    });
+
+    watch(
+      $props,
+      () => {
+        console.log({ $props });
+      },
+      { deep: true }
+    );
+
     return () => (
       <Component
         style={reactive(unref(style))}
         v-slots={slots}
         // props 可覆盖上面的数据
-        {...reactive(unref(_props))}
+        {...$props}
         {...events}
         // props 中的关键字
         {...{ [props.domFlag]: props.schema.id }}

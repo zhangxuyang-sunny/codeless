@@ -52,12 +52,14 @@ const config: Configuration = {
       "./node_modules/@arco-design/web-vue/lib/index.js",
     "packages/@arco-design/web-vue/icon":
       "./node_modules/@arco-design/web-vue/lib/icon/index.js",
+    "packages/@vueuse/core": "./node_modules/@vueuse/core/index.mjs",
     "components/common/VerticalLayout":
       "./src/components/common/VerticalLayout/Index.vue",
     // ...getEntryByDir("components/antd"),
     ...getEntryByDir("components/arco"),
     ...getEntryByDir("components/common"),
-    ...getEntryByDir("components/test")
+    ...getEntryByDir("components/test"),
+    ...getEntryByDir("cloud-function")
     // ...getEntryByDir('configs'),
     // ...getEntryByDir("material")
     // 'lib/utils': './src/common/utils/index.ts',

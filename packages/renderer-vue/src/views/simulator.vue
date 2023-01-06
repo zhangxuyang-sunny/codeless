@@ -1,23 +1,21 @@
 <script lang="tsx">
 import "@codeless/types/src/renderer-api";
-import { defineComponent, ref, shallowRef, watch } from "vue";
-import { Application, SchemaParser } from "@codeless/schema";
+import type { Application } from "@codeless/schema";
+import { defineComponent, ref, shallowRef } from "vue";
 import { loadRemotePackages } from "../utils/common";
-import { defineApplication } from "../core/defineApplication";
-import { emitListenerSchema } from "../example/emit-listener";
+import { createApp } from "../core/createApp";
+// import { emitListenerSchema } from "../example/emit-listener";
+// import { test } from "../example/test";
+import { piniaPropsReactive } from "../example/pinia-props-reactive";
 
 export default defineComponent({
   name: "Simulator",
   setup() {
     const initialized = ref(false);
     const routeName = ref("");
-    const schema = shallowRef<Application<false>>();
-    const application = shallowRef<Application<true>>();
+    const schema = shallowRef<Application>();
 
-    loadRemotePackages().then(result => {
-      window.vue = result.vue;
-      window.vueRouter = result.vueRouter;
-      window.pinia = result.pinia;
+    loadRemotePackages().then(() => {
       initialized.value = true;
     });
 
@@ -31,24 +29,17 @@ export default defineComponent({
       console.log("update application:", data);
     };
 
-    watch([initialized, schema], async () => {
-      if (initialized.value && schema.value) {
-        application.value = await SchemaParser(schema.value);
-        console.log({ runtime: application.value });
-      }
-    });
-
     /**
      * mock 数据
      */
-    schema.value = emitListenerSchema;
+    schema.value = piniaPropsReactive;
 
     // setTimeout(() => {
     //   schema.value = applicationSchema2;
     // }, 1000);
 
     /** */
-    const App = defineApplication();
+    const App = createApp();
 
     return () => {
       if (!initialized.value) {
@@ -57,14 +48,14 @@ export default defineComponent({
       if (!schema.value) {
         return <div class="loading">No configuration</div>;
       }
-      if (!application.value) {
+      if (!schema.value) {
         return <div class="loading">Application is not initialized</div>;
       }
       return (
         <App //
           baseUrl="/renderer/vue/simulator.html"
           routeName={routeName.value}
-          schema={application.value}
+          schema={schema.value}
         />
       );
     };

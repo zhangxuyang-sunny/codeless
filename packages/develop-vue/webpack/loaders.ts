@@ -1,8 +1,8 @@
-import path from 'path';
-import { RuleSetUseItem } from 'webpack';
+import path from "path";
+import { RuleSetUseItem } from "webpack";
 
 export const threadLoader: RuleSetUseItem = {
-  loader: 'thread-loader',
+  loader: "thread-loader",
   // 有同样配置的 loader 会共享一个 worker 池
   options: {
     // 产生的 worker 的数量，默认是 (cpu 核心数 - 1)，或者，
@@ -14,7 +14,7 @@ export const threadLoader: RuleSetUseItem = {
     workerParallelJobs: 50,
 
     // 额外的 node.js 参数
-    workerNodeArgs: ['--max-old-space-size=1024'],
+    workerNodeArgs: ["--max-old-space-size=1024"],
 
     // 允许重新生成一个僵死的 work 池
     // 这个过程会降低整体编译速度
@@ -33,13 +33,13 @@ export const threadLoader: RuleSetUseItem = {
 
     // 池的名称
     // 可以修改名称来创建其余选项都一样的池
-    name: 'thread-pool'
+    name: "thread-pool"
   }
 };
 
 // SSR 有用
 export const vueStyleLoader: RuleSetUseItem = {
-  loader: 'vue-style-loader',
+  loader: "vue-style-loader",
   options: {
     sourceMap: false,
     shadowMode: false
@@ -47,23 +47,23 @@ export const vueStyleLoader: RuleSetUseItem = {
 };
 
 export const styleLoader: RuleSetUseItem = {
-  loader: 'style-loader'
+  loader: "style-loader"
 };
 
 export const cssLoader: RuleSetUseItem = {
-  loader: 'css-loader',
+  loader: "css-loader",
   options: {
     sourceMap: false,
     importLoaders: 2,
     modules: {
-      localIdentName: '[local]',
+      localIdentName: "[local]",
       auto: () => true
     }
   }
 };
 
 export const postcssLoader: RuleSetUseItem = {
-  loader: 'postcss-loader',
+  loader: "postcss-loader",
   options: {
     sourceMap: false,
     postcssOptions: {
@@ -77,30 +77,30 @@ export const postcssLoader: RuleSetUseItem = {
 };
 
 export const lessLoader: RuleSetUseItem = {
-  loader: 'less-loader',
+  loader: "less-loader",
   options: {
     sourceMap: true
   }
 };
 
 export const stylusLoader: RuleSetUseItem = {
-  loader: 'stylus-loader',
+  loader: "stylus-loader",
   options: {
     sourceMap: false
   }
 };
 
 export const babelLoader: RuleSetUseItem = {
-  loader: 'babel-loader',
+  loader: "babel-loader",
   options: {
     cacheCompression: false,
-    cacheDirectory: path.resolve('.cache/.babel-cache')
+    cacheDirectory: path.resolve(".cache/.babel-cache")
     // cacheIdentifier: ''
   }
 };
 
 export const tsLoader: RuleSetUseItem = {
-  loader: 'ts-loader',
+  loader: "ts-loader",
   options: {
     transpileOnly: true,
     happyPackMode: false
@@ -108,24 +108,24 @@ export const tsLoader: RuleSetUseItem = {
 };
 
 export const vueLoader: RuleSetUseItem = {
-  loader: 'vue-loader',
+  loader: "vue-loader",
   options: {
-    cacheDirectory: path.resolve('.cache/.vue-loader'),
+    cacheDirectory: path.resolve(".cache/.vue-loader"),
     // cacheIdentifier: '',
-    babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
+    babelParserPlugins: ["jsx", "classProperties", "decorators-legacy"]
   }
 };
 
 export const pugPlainLoader: RuleSetUseItem = {
-  loader: 'pug-plain-loader'
+  loader: "pug-plain-loader"
 };
 
 export const rawLoader: RuleSetUseItem = {
-  loader: 'raw-loader'
+  loader: "raw-loader"
 };
 
 export const sassLoader: RuleSetUseItem = {
-  loader: 'sass-loader',
+  loader: "sass-loader",
   options: {
     sourceMap: false
   }

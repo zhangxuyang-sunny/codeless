@@ -1,37 +1,102 @@
-import { Application, Component, SchemaBuilder } from "packages/schema/src/index";
+import {
+  Application,
+  Component,
+  SchemaBuilder,
+  CallExpressionBuilder,
+  StringExpressionBuilder
+} from "packages/schema/src/index";
 
 const button_loading_1: Component = SchemaBuilder.Component.set("id", "button_loading_1")
   .set("src", `components/test/ButtonLoading.js`)
-  .addJSStringProp("name", "点击触发 button_loading_2:toggle_loading 事件")
-  .addJSStringProp("type", "primary")
-  .addEvent("click", {
-    target: [
-      {
-        event: "button_loading_2:toggle_loading",
-        params: null
-      },
-      {
-        event: "button_loading_3:toggle_loading",
-        params: null
-      }
-    ],
-    invoke: null
+  .set("props", {
+    name: {
+      type: "StringExpression",
+      value: "点击触发 button_loading_2:toggle_loading 事件"
+    },
+    type: {
+      type: "StringExpression",
+      value: "primary"
+    }
   })
+  .set("events", [
+    {
+      name: "click",
+      target: [
+        {
+          event: "button_loading_2:toggle_loading",
+          params: null
+        },
+        {
+          event: "button_loading_3:toggle_loading",
+          params: null
+        }
+      ],
+      invoke: null
+    }
+  ])
   .end();
 
 const button_loading_2: Component = SchemaBuilder.Component.set("id", "button_loading_2")
   .set("src", `components/test/ButtonLoading.js`)
-  .addJSStringProp("name", "点击给组件 button_loading_1 发送 toggle_loading 事件")
-  .addEvent("click", {
+  .set("props", {
+    name: {
+      type: "StringExpression",
+      value: "点击给组件 button_loading_1 发送 toggle_loading 事件"
+    }
+  })
+  .addEvent({
+    name: "click",
     target: [
       {
         event: "button_loading_1:toggle_loading",
-        params: SchemaBuilder.JsFunction.setValue(
-          `function (...args) {
-              console.log('this', this);
-              return [...args, '第n个参数'];
-          }`
-        ).end()
+        params: {
+          type: "ArrayExpression",
+          values: [
+            {
+              type: "CallCloudFunctionExpression",
+              target: "console",
+              arguments: {
+                type: "ArrayExpression",
+                values: [
+                  {
+                    type: "StringExpression",
+                    value: "log"
+                  },
+                  {
+                    type: "StringExpression",
+                    value: "第n个参数"
+                  },
+                  {
+                    type: "CallCloudFunctionExpression",
+                    target: "get-current-arguments",
+                    arguments: {
+                      type: "ArrayExpression",
+                      values: []
+                    },
+                    bind: {
+                      type: "UndefinedExpression"
+                    }
+                  }
+                ]
+              },
+              bind: {
+                type: "UndefinedExpression"
+              }
+            },
+
+            {
+              type: "CallCloudFunctionExpression",
+              target: "get-current-arguments",
+              arguments: {
+                type: "ArrayExpression",
+                values: []
+              },
+              bind: {
+                type: "UndefinedExpression"
+              }
+            }
+          ]
+        }
       }
     ],
     invoke: null
@@ -40,7 +105,12 @@ const button_loading_2: Component = SchemaBuilder.Component.set("id", "button_lo
 
 const button_loading_3: Component = SchemaBuilder.Component.set("id", "button_loading_3")
   .set("src", `components/test/ButtonLoading.js`)
-  .addJSStringProp("name", "按钮3")
+  .set("props", {
+    name: {
+      type: "StringExpression",
+      value: "按钮3"
+    }
+  })
   .end();
 
 const container: Component = SchemaBuilder.Component.set("id", "container")
@@ -50,7 +120,7 @@ const container: Component = SchemaBuilder.Component.set("id", "container")
   })
   .end();
 
-const emitListenerSchema: Application<false> = SchemaBuilder.Application.set("router", {
+const emitListenerSchema: Application = SchemaBuilder.Application.set("router", {
   base: "/",
   mode: "history",
   meta: {}
@@ -59,19 +129,42 @@ const emitListenerSchema: Application<false> = SchemaBuilder.Application.set("ro
     path: "/",
     component: container
   })
+  .addCloudFunction("console", "http://127.0.0.1:7890/static/cloud-function/console.js")
+  .addCloudFunction(
+    "get-current-this",
+    "http://127.0.0.1:7890/static/cloud-function/get-current-this.js"
+  )
+  .addCloudFunction(
+    "get-current-arguments",
+    "http://127.0.0.1:7890/static/cloud-function/get-current-arguments.js"
+  )
   // 全局监听【按钮1】的 toggle_loading 事件，去触发【按钮3】的 toggle_loading 事件
   .addListener({
     event: "button_loading_1:toggle_loading",
     target: [
       {
         event: "button_loading_3:toggle_loading",
-        params: SchemaBuilder.JsFunction.setValue(
-          `function (...args) {
-              console.log('this', this);
-              console.log("button_loading_3 监听到 button_loading_1:toggle_loading", { args });
-              return args;
-            }`
-        ).end()
+        params: {
+          type: "ArrayExpression",
+          values: [
+            new CallExpressionBuilder()
+              .setTarget("console")
+              .appendArgument(new StringExpressionBuilder().setValue("log").end())
+              .appendArgument(new StringExpressionBuilder().setValue("this").end())
+              .appendArgument(new CallExpressionBuilder().setTarget("get-current-this").end())
+              .end(),
+            new CallExpressionBuilder()
+              .setTarget("console")
+              .appendArgument(new StringExpressionBuilder().setValue("log").end())
+              .appendArgument(
+                new StringExpressionBuilder()
+                  .setValue("button_loading_3 监听到 button_loading_1:toggle_loading")
+                  .end()
+              )
+              .appendArgument(new CallExpressionBuilder().setTarget("get-current-arguments").end())
+              .end()
+          ]
+        }
       }
     ],
     invoke: null,

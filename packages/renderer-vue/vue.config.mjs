@@ -22,6 +22,7 @@ export default defineConfig({
     config.devServer.headers({ "Access-Control-Allow-Origin": "*" });
   },
   configureWebpack: config => {
+    // config.devtool = "source-map";
     config.resolve.alias["packages"] = path.resolve("../");
     config.experiments = {
       topLevelAwait: true
