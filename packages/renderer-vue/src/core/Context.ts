@@ -3,11 +3,24 @@ import { PlatformThis } from "@codeless/schema";
 type Package = typeof import("vue") | null;
 type Stores = PlatformThis["stores"];
 
+// 单例模式
+function singleton<T extends new (...args: unknown[]) => unknown>(Class: T) {
+  const map = new Map();
+  return new Proxy(Class, {
+    construct(target, args) {
+      if (!map.has(Class)) {
+        map.set(Class, new target(...args));
+      }
+      return map.get(Class);
+    }
+  });
+}
+
 /**
  * 平台上下文对象
  * 用于绑定云函数的 this 指向
  */
-export class Context {
+class Context {
   package: Package = null;
   stores: Stores = {
     states: {},
@@ -30,7 +43,12 @@ export class Context {
   }
 
   getContext(
-    resetCurrentOptions: Pick<PlatformThis, "currentArguments" | "currentThis">
+    resetCurrentOptions: Pick<
+      PlatformThis,
+      | "currentThis" //
+      | "invokerThis"
+      | "invokerArguments"
+    >
   ): PlatformThis<Package> {
     return {
       framework: "vue",
@@ -41,4 +59,6 @@ export class Context {
   }
 }
 
-export const context = new Context();
+const SingletonContext = singleton(Context);
+
+export { SingletonContext as Context };

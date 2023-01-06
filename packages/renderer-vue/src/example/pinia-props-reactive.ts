@@ -44,7 +44,7 @@ export const piniaPropsReactive: Application = {
         className: null,
         css: null,
         slots: {
-          default: new Array(2).fill({
+          default: new Array(10).fill({
             id: "ButtonLoading",
             src: "components/test/ButtonLoading.js",
             props: {

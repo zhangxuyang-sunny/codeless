@@ -61,7 +61,8 @@ const AsyncComponent = defineComponent({
         if (invoke) {
           await appSchema.resolveExpression(invoke, {
             currentThis: null,
-            currentArguments: args
+            invokerThis: null,
+            invokerArguments: args
           });
         }
         // 依次触发目标事件
@@ -70,7 +71,8 @@ const AsyncComponent = defineComponent({
           if (t.params) {
             const params = await appSchema.resolveExpression(t.params, {
               currentThis: null,
-              currentArguments: args
+              invokerThis: null,
+              invokerArguments: args
             });
             emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
           } else {
@@ -90,10 +92,13 @@ const AsyncComponent = defineComponent({
         if (!props.schema.style) {
           return;
         }
-        style.value = (await appSchema.resolveExpression(props.schema.style, {
-          currentThis: null,
-          currentArguments: []
-        })) as StyleObject;
+        style.value = Object.freeze(
+          await appSchema.resolveExpression(props.schema.style, {
+            currentThis: null,
+            invokerThis: null,
+            invokerArguments: []
+          })
+        ) as StyleObject;
       },
       { immediate: true }
     );
@@ -101,15 +106,18 @@ const AsyncComponent = defineComponent({
     // props
     type PropsObject = Record<string, unknown>;
     const $props = reactive<PropsObject>({});
+    /**
+     * @TODO 使用 watchHandler stop，并进行模拟器与渲染器的判断，减少监听
+     */
     watch(
       () => props.schema.props,
       async () => {
         for (const k in props.schema.props) {
           const item = props.schema.props[k];
-          console.log({ item });
           $props[k] = await appSchema.resolveExpression(item, {
             currentThis: null,
-            currentArguments: []
+            invokerThis: null,
+            invokerArguments: []
           });
         }
       },
@@ -129,7 +137,7 @@ const AsyncComponent = defineComponent({
         style={reactive(unref(style))}
         v-slots={slots}
         // props 可覆盖上面的数据
-        {...reactive(unref($props))}
+        {...$props}
         {...events}
         // props 中的关键字
         {...{ [props.domFlag]: props.schema.id }}

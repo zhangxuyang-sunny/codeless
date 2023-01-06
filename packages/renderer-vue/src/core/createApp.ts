@@ -17,12 +17,13 @@ import {
   nextTick
 } from "vue";
 import EventEmitter2 from "eventemitter2";
-import { context } from "./Context";
+import { Context } from "./Context";
 import { loadRemotePackages } from "../utils/common";
 import useSchema from "../store/useSchema";
 import AsyncComponent from "../components/AsyncComponent.vue";
 
 const { vue, vueRouter, pinia } = await loadRemotePackages();
+const context = new Context();
 // 给到平台上下文使用，不能少
 context.setPackage(vue);
 // 渲染节点 id
@@ -42,7 +43,8 @@ export const createApp = () => {
         if (invoke) {
           await appSchema.resolveExpression(invoke, {
             currentThis: null,
-            currentArguments: args
+            invokerThis: null,
+            invokerArguments: args
           });
         }
         // 依次触发目标事件
@@ -51,7 +53,8 @@ export const createApp = () => {
           if (t.params) {
             const params = await appSchema.resolveExpression(t.params, {
               currentThis: null,
-              currentArguments: args
+              invokerThis: null,
+              invokerArguments: args
             });
             emitter.emit(t.event, ...(Array.isArray(params) ? params : [params]));
           } else {
@@ -231,14 +234,16 @@ export const createApp = () => {
           for (const dataset of schema.value.stores) {
             const state = (await appSchema.resolveExpression(dataset.define.state, {
               currentThis: null,
-              currentArguments: []
+              invokerThis: null,
+              invokerArguments: []
             })) as StateTree;
             const actions: Record<string, (...args: unknown[]) => unknown> = {};
             for (const action of dataset.define.actions) {
               actions[action.name] = async (...args: unknown[]) => {
                 return await appSchema.resolveExpression(action.expression, {
                   currentThis: null,
-                  currentArguments: args // TODO actions 的参数应该怎么传递给函数
+                  invokerThis: null,
+                  invokerArguments: args // TODO actions 的参数应该怎么传递给函数
                 });
               };
             }
