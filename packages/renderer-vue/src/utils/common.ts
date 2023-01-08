@@ -1,4 +1,4 @@
-export const staticRoot = "//127.0.0.1:7890/static/";
+export const host = "//127.0.0.1:7890";
 
 export const remotePackages = {
   vue: () => System.import<typeof import("vue")>("vue"),

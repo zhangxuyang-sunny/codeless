@@ -28,6 +28,9 @@ const test: Application = SchemaBuilder.Application.set("router", {
   meta: {}
 })
   .addPage({
+    meta: {
+      title: "未命名页面"
+    },
     path: "/",
     component: button_loading_3
   })

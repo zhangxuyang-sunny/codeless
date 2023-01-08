@@ -3,7 +3,7 @@ import {
   type Expression,
   type PlatformThis,
   resolveExpression,
-  ApplicationSchemaBuilder
+  ApplicationBuilder
 } from "../../../schema/src";
 
 import { defineStore } from "pinia";
@@ -14,11 +14,11 @@ const context = new Context();
 export default defineStore({
   id: "Application",
   state: () => ({
-    schema: new ApplicationSchemaBuilder().end()
+    schema: new ApplicationBuilder().end()
   }),
   actions: {
     setSchema(schema: Application) {
-      this.schema = new ApplicationSchemaBuilder(schema).end();
+      this.schema = new ApplicationBuilder(schema).end();
     },
 
     // 包装一下 resolveExpression

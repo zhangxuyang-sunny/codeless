@@ -1,4 +1,3 @@
-import "./style/index.less";
 import ReactDOM from "react-dom/client";
 import { useEffect } from "react";
 import { BrowserRouter, useRoutes } from "react-router-dom";

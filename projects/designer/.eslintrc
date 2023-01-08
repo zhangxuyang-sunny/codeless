@@ -2,7 +2,10 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    // "react",
+    "@typescript-eslint/eslint-plugin",
+    "simple-import-sort",
+    "import"
   ],
   "env": {
     "browser": true,
@@ -17,7 +20,7 @@
     }
   },
   "extends": [
-    "react-app",
+    // "react-app",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended", 
     "prettier", 
@@ -39,6 +42,14 @@
     "no-debugger" :"warn",
     "@typescript-eslint/no-empty-function": "warn",
     // https://github.com/SonarSource/eslint-plugin-sonarjs/blob/master/docs/rules/cognitive-complexity.md
-    "sonarjs/cognitive-complexity": ["error", 20]
+    "sonarjs/cognitive-complexity": ["error", 20],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    // "sort-imports": "error",
+    "import/exports-last": "error",
+    "import/order": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error"
   }
 }

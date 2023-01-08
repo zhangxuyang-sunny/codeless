@@ -3,7 +3,6 @@ import type { DefineComponent, PropType } from "vue";
 import type { Component } from "@codeless/schema";
 import type { GlobalProperties } from "packages/develop-vue/src";
 import { getRandomStr } from "packages/shared/src";
-import { staticRoot } from "../utils/common";
 import useSchema from "../store/useSchema";
 
 // 使用云函数 vue
@@ -35,7 +34,7 @@ const AsyncComponent = defineComponent({
   },
   setup(props) {
     if (!props.schema) return () => null;
-    const Component = loadRemoteComponent(staticRoot + props.schema.src);
+    const Component = loadRemoteComponent(props.schema.src);
     const globalProperties = inject<GlobalProperties>("globalProperties");
     if (!globalProperties) {
       return () => null;
@@ -92,13 +91,11 @@ const AsyncComponent = defineComponent({
         if (!props.schema.style) {
           return;
         }
-        style.value = Object.freeze(
-          await appSchema.resolveExpression(props.schema.style, {
-            currentThis: null,
-            invokerThis: null,
-            invokerArguments: []
-          })
-        ) as StyleObject;
+        style.value = (await appSchema.resolveExpression(props.schema.style, {
+          currentThis: null,
+          invokerThis: null,
+          invokerArguments: []
+        })) as StyleObject;
       },
       { immediate: true }
     );
@@ -122,14 +119,6 @@ const AsyncComponent = defineComponent({
         }
       },
       { immediate: true }
-    );
-
-    watch(
-      $props,
-      () => {
-        console.log({ $props });
-      },
-      { deep: true }
     );
 
     return () => (

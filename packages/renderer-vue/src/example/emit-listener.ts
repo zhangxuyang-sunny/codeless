@@ -126,6 +126,9 @@ const emitListenerSchema: Application = SchemaBuilder.Application.set("router", 
   meta: {}
 })
   .addPage({
+    meta: {
+      title: "未命名页面"
+    },
     path: "/",
     component: container
   })

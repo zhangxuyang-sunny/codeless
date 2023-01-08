@@ -1,9 +1,5 @@
 import type { RouteObject } from "react-router-dom";
-import Designer from "src/pages/designer";
-import Projects from "src/pages/projects";
-
-import Components from "src/pages/views";
-import Home from "../pages/home/index";
+import { Home } from "src/pages/Home";
 
 const routes: RouteObject[] = [
   {
@@ -12,18 +8,17 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "views",
-
-        element: <Components />
+        element: <div />
       },
       {
         path: "projects",
-        element: <Projects />
+        element: <div />
       }
     ]
   },
   {
     path: "designer",
-    element: <Designer />
+    element: <div />
   }
 ];
 

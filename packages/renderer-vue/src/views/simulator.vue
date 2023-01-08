@@ -2,11 +2,12 @@
 import "@codeless/types/src/renderer-api";
 import type { Application } from "@codeless/schema";
 import { defineComponent, ref, shallowRef } from "vue";
-import { loadRemotePackages } from "../utils/common";
+import { loadRemotePackages, host } from "../utils/common";
 import { createApp } from "../core/createApp";
 // import { emitListenerSchema } from "../example/emit-listener";
 // import { test } from "../example/test";
 import { piniaPropsReactive } from "../example/pinia-props-reactive";
+import { processSchema } from "../core/processSchema";
 
 export default defineComponent({
   name: "Simulator",
@@ -32,7 +33,7 @@ export default defineComponent({
     /**
      * mock 数据
      */
-    schema.value = piniaPropsReactive;
+    schema.value = processSchema(piniaPropsReactive, { host });
 
     // setTimeout(() => {
     //   schema.value = applicationSchema2;

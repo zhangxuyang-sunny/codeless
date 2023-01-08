@@ -1,7 +1,7 @@
 import type { Application } from "@codeless/schema";
-import { staticRoot } from "../utils/common";
 
 export const piniaPropsReactive: Application = {
+  version: "0",
   framework: "vue",
   stores: [
     {
@@ -35,10 +35,13 @@ export const piniaPropsReactive: Application = {
   },
   pages: [
     {
+      meta: {
+        title: "未命名页面"
+      },
       path: "/",
       component: {
         id: "ButtonLoading",
-        src: "components/common/EmptyContainer.js",
+        src: "/components/common/EmptyContainer.js",
         props: {},
         style: null,
         className: null,
@@ -46,7 +49,7 @@ export const piniaPropsReactive: Application = {
         slots: {
           default: new Array(10).fill({
             id: "ButtonLoading",
-            src: "components/test/ButtonLoading.js",
+            src: "/components/test/ButtonLoading.js",
             props: {
               name: {
                 type: "CallCloudFunctionExpression",
@@ -107,31 +110,31 @@ export const piniaPropsReactive: Application = {
   functions: [
     {
       key: "lodash-set",
-      src: `${staticRoot}/cloud-function/lodash-set.js`
+      src: `/cloud-function/lodash-set.js`
     },
     {
       key: "get-state",
-      src: `${staticRoot}/cloud-function/get-state.js`
+      src: `/cloud-function/get-state.js`
     },
     {
       key: "get-states-by-name",
-      src: `${staticRoot}/cloud-function/get-states-by-name.js`
+      src: `/cloud-function/get-states-by-name.js`
     },
     {
       key: "get-action",
-      src: `${staticRoot}/cloud-function/get-action.js`
+      src: `/cloud-function/get-action.js`
     },
     {
       key: "string-builder",
-      src: `${staticRoot}/cloud-function/string-builder.js`
+      src: `/cloud-function/string-builder.js`
     },
     {
       key: "binary-expression",
-      src: `${staticRoot}/cloud-function/binary-expression.js`
+      src: `/cloud-function/binary-expression.js`
     },
     {
       key: "vue-bind",
-      src: `${staticRoot}/cloud-function/vue-bind.js`
+      src: `/cloud-function/vue-bind.js`
     }
   ],
   expressions: [
