@@ -1,6 +1,0 @@
-[submodule "packages/types"]
-	path = packages/types
-	url = git@gitee.com:code-less/types.git
-[submodule "packages/schema"]
-	path = packages/schema
-	url = git@gitee.com:code-less/schema.git
